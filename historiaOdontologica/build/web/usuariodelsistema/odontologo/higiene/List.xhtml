@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundleHigiene.ListHigieneTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="HigieneListForm">
+                <p:panel header="#{bundleHigiene.ListHigieneTitle}">
+                    <p:dataTable id="datalist" value="#{higieneController.items}" var="item"
+                                 selectionMode="single" selection="#{higieneController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleHigiene.ListHigieneTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleHigiene.ListHigieneTitle_higuiene}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.higuiene}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleHigiene.ListHigieneTitle_frecuenciaCep}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.frecuenciaCep}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleHigiene.ListHigieneTitle_gradoRiesgo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gradoRiesgo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleHigiene.ListHigieneTitle_pigmentacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pigmentacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleHigiene.ListHigieneTitle_sedaDental}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sedaDental}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleHigiene.ListHigieneTitle_habitos}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.habitos}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleHigiene.ListHigieneTitle_idActualizacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idActualizacion}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundleHigiene.Create}" actionListener="#{higieneController.prepareCreate}" update=":HigieneCreateForm" oncomplete="PF('HigieneCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleHigiene.View}" update=":HigieneViewForm" oncomplete="PF('HigieneViewDialog').show()" disabled="#{empty higieneController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundleHigiene.Edit}" update=":HigieneEditForm" oncomplete="PF('HigieneEditDialog').show()" disabled="#{empty higieneController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleHigiene.Delete}" actionListener="#{higieneController.destroy}" update=":growl,datalist" disabled="#{empty higieneController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

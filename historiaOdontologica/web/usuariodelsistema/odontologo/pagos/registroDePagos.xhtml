@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <h:form id="botonRegistroUsuario">
+            <p:commandButton style="font-weight: bold; color: black" id="seleccionarServicioButton" icon="ui-icon-plus"   value="Seleccionar servicios" onclick="PF('listadoServicios').show()"/>
+        </h:form>
+        <h:form>
+
+            <p:dataTable id="datalist" value="#{pagosController.listaServicios}" var="item"
+                         paginator="true"
+
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         emptyMessage="No ha registrado servicios"
+                         >
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Código"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codigo}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Descripcion"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombre}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Valor Unitario"/>
+                    </f:facet>
+                    <h:outputText value="#{item.valor}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Cantidad"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cantidad}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Total"/>
+                    </f:facet>
+                    <h:outputText value="#{item.valor*item.cantidad}"/>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+        <p:dialog  modal="true" widgetVar="listadoServicios" width="600">
+            <p:dataTable id="datalist" value="#{serviciosOdoController.itemsAvailableSelectMany}" var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         emptyMessage="No ha registrado servicios"
+                         >
+
+                <p:column style="width: 50px;">
+                    <f:facet name="header">
+                        <h:outputText value="Código"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codigoPre}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Descripcion"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombre}"/>
+                </p:column>
+                <p:column style="width: 80px;">
+                    <f:facet name="header">
+                        <h:outputText value="Valor"/>
+                    </f:facet>
+                    <h:outputText value="$#{item.valorPre}"/>
+                </p:column>
+                <p:column style="width: 80px;" >
+                    <f:facet name="header">
+                        <h:outputText value="Seleccionar"/>
+                    </f:facet>
+                    
+                </p:column>
+            </p:dataTable>
+        </p:dialog>
+
+
+
+
+    </body>
+
+</html>

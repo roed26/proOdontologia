@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MotivoOdoViewDlg" widgetVar="MotivoOdoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleMotivoOdo.ViewMotivoOdoTitle}">
+            <h:form id="MotivoOdoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{motivoOdoController.selected != null}">
+                        <h:outputText value="#{bundleMotivoOdo.ViewMotivoOdoLabel_id}"/>
+                        <h:outputText value="#{motivoOdoController.selected.id}" title="#{bundleMotivoOdo.ViewMotivoOdoTitle_id}"/>
+                        <h:outputText value="#{bundleMotivoOdo.ViewMotivoOdoLabel_motivo}"/>
+                        <h:outputText value="#{motivoOdoController.selected.motivo}" title="#{bundleMotivoOdo.ViewMotivoOdoTitle_motivo}"/>
+                        <h:outputText value="#{bundleMotivoOdo.ViewMotivoOdoLabel_idActualizacion}"/>
+                        <h:outputText value="#{motivoOdoController.selected.idActualizacion}" title="#{bundleMotivoOdo.ViewMotivoOdoTitle_idActualizacion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundleMotivoOdo.Close}" onclick="MotivoOdoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

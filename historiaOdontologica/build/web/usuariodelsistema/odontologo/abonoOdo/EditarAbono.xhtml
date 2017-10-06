@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AbonoOdoEditDlg" widgetVar="AbonoOdoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleAbonos.EditAbonoOdoTitle}">
+            <h:form id="AbonoOdoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{abonoOdoController.selected != null}">
+                        <p:outputLabel value="#{bundleAbonos.EditAbonoOdoLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{abonoOdoController.selected.fecha}" title="#{bundleAbonos.EditAbonoOdoTitle_fecha}" required="true" requiredMessage="#{bundleAbonos.EditAbonoOdoRequiredMessage_fecha}" showOn="button"/>
+                        <p:outputLabel value="#{bundleAbonos.EditAbonoOdoLabel_valor}" for="valor" />
+                        <p:inputText id="valor" value="#{abonoOdoController.selected.valor}" title="#{bundleAbonos.EditAbonoOdoTitle_valor}" required="true" requiredMessage="#{bundleAbonos.EditAbonoOdoRequiredMessage_valor}"/>
+                        <p:outputLabel value="#{bundleAbonos.EditAbonoOdoLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{abonoOdoController.selected.descripcion}" title="#{bundleAbonos.EditAbonoOdoTitle_descripcion}" required="true" requiredMessage="#{bundleAbonos.EditAbonoOdoRequiredMessage_descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{abonoOdoController.update}" value="#{bundleAbonos.Save}" update="display,:AbonoOdoListForm:datalist" oncomplete="PF('AbonoOdoEditDialog').hide()"/>
+                    <p:commandButton value="#{bundleAbonos.Cancel}" onclick="AbonoOdoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

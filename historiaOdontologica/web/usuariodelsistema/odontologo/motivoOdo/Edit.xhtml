@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MotivoOdoEditDlg" widgetVar="MotivoOdoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleMotivoOdo.EditMotivoOdoTitle}">
+            <h:form id="MotivoOdoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{motivoOdoController.selected != null}">
+                        <p:outputLabel value="#{bundleMotivoOdo.EditMotivoOdoLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{motivoOdoController.selected.id}" title="#{bundleMotivoOdo.EditMotivoOdoTitle_id}" required="true" requiredMessage="#{bundleMotivoOdo.EditMotivoOdoRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundleMotivoOdo.EditMotivoOdoLabel_motivo}" for="motivo" />
+                        <p:inputTextarea rows="4" cols="30" id="motivo" value="#{motivoOdoController.selected.motivo}" title="#{bundleMotivoOdo.EditMotivoOdoTitle_motivo}" />
+                        <p:outputLabel value="#{bundleMotivoOdo.EditMotivoOdoLabel_idActualizacion}" for="idActualizacion" />
+                        <p:selectOneMenu id="idActualizacion" value="#{motivoOdoController.selected.idActualizacion}" >
+                            <f:selectItem itemLabel="#{bundleMotivoOdo.SelectOneMessage}"/>
+                            <f:selectItems value="#{actualizacionOdoController.itemsAvailableSelectOne}"
+                                           var="idActualizacionItem"
+                                           itemValue="#{idActualizacionItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{motivoOdoController.update}" value="#{bundleMotivoOdo.Save}" update="display,:MotivoOdoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MotivoOdoEditDialog');"/>
+                    <p:commandButton value="#{bundleMotivoOdo.Cancel}" onclick="MotivoOdoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

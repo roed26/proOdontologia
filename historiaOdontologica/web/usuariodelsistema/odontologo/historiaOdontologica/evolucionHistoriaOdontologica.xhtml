@@ -1,0 +1,2054 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <h:form id="InformacionPaciente" >
+            <p:panelGrid styleClass="panelgrid">
+                <p:row>
+                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: black; background: #339cdf">
+                        <p:outputLabel value="Información de paciente"/>
+                    </p:column>
+                    <p:column rowspan="2">
+                        <p:commandButton onclick="PF('seleccionPacienteDialog').show()" value="Seleccionar paciente" />
+                    </p:column>   
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold; color: black;" value="Fecha de registro" />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{evolucionHOdontologicaController.fechaRegistro}" />
+                    </p:column>   
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold; color: black;" value="#{bundlePaciente.CreatePacienteLabel_identificacion}" />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{evolucionHOdontologicaController.paciente.identificacion}" />
+                    </p:column>    
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold;" value="Nombre: " />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{evolucionHOdontologicaController.paciente.nombre1} #{evolucionHOdontologicaController.paciente.nombre2}" />
+                        <p:outputLabel value=" #{evolucionHOdontologicaController.paciente.apellido1} #{evolucionHOdontologicaController.paciente.apellido2}" />
+                    </p:column> 
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold; color: black;" value="#{bundlePaciente.CreatePacienteLabel_ocupacion}" />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{evolucionHOdontologicaController.paciente.ocupacion}" />
+                    </p:column>   
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold; color: black;" value="#{bundlePaciente.CreatePacienteLabel_estado}" />
+                    </p:column>
+                    <p:column style="background: green;">
+                        <p:outputLabel rendered="#{evolucionHOdontologicaController.paciente.estado==1}" style="color: white;" value="Activo" />
+                    </p:column>   
+                </p:row>                
+            </p:panelGrid>
+        </h:form>
+        <p:separator style="height:3px; color: #000000"/>
+
+        <h:form id="evolucionHistoriaOdontologica" >
+
+
+            <p:wizard widgetVar="evolucionHistoriaWizard" showNavBar="true" nextLabel="Siguiente" backLabel="Anterior">
+                <p:tab title="Datos de acompañante">
+                    <p:panel header="Datos de acompañante">
+
+                        <p:panelGrid  id="panel" styleClass="panelgrid">
+                            <p:row>
+                                <p:column colspan="4">
+                                    <p:selectOneRadio  id="acompaniante" value="No"
+                                                       valueChangeListener="#{evolucionHOdontologicaController.respuestaAcompanante}"
+                                                       >
+                                        <f:selectItem itemLabel="Con acompañante" itemValue="Si" />
+                                        <f:selectItem itemLabel="Sin acompañante" itemValue="No" />    
+                                        <f:ajax   execute="acompaniante" render="panel" /> 
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{evolucionHOdontologicaController.conAcompaniante}">
+                                <p:column >
+                                    <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_acompanante}" 
+                                                   for="acompanante" />
+                                </p:column>
+                                <p:column >
+                                    <p:inputText id="acompanante" 
+                                                 value="#{evolucionHOdontologicaController.actualizacionOdo.acompanante}" 
+                                                 title="#{bundleActualizacionOdo.CreateActualizacionOdoTitle_acompanante}" />
+                                </p:column>
+
+                                <p:column >
+                                    <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_parentesco}" for="parentesco" />
+
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="parentesco" value="#{evolucionHOdontologicaController.actualizacionOdo.parentesco}" >
+                                        <f:selectItems value="#{parentescoController.itemsAvailableSelectOne}"
+                                                       var="idParentescoItem"
+                                                       itemValue="#{idParentescoItem.id}"
+                                                       itemLabel="#{idParentescoItem.nombre}"/>
+                                    </p:selectOneMenu>
+
+                                </p:column>
+
+                            </p:row>
+
+                            <p:row rendered="#{evolucionHOdontologicaController.conAcompaniante}">
+                                <p:column >
+                                    <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_telefono}" for="telefono" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="telefono" value="#{evolucionHOdontologicaController.actualizacionOdo.telefono}" title="#{bundleActualizacionOdo.CreateActualizacionOdoTitle_telefono}" />
+                                </p:column>
+                                <p:column >
+                                    <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_celular}" for="celular" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="celular" value="#{evolucionHOdontologicaController.actualizacionOdo.celular}" title="#{bundleActualizacionOdo.CreateActualizacionOdoTitle_celular}" />
+                                </p:column>
+
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab title="Odontograma">
+                    <p:panelGrid id="panelDiagnostico" style="text-align: center;">
+                         <p:row>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteNormal}">
+                                <p:commandLink  >
+                                    <p:graphicImage library="img/imgodonto" name="normal.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('normal')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteNormal}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="normal.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('normal')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteCaries}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="caries.png"  />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('caries')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteCaries}">
+                                <p:commandLink  >
+                                    <p:graphicImage library="img/imgodonto" name="caries.png"  />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('caries')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteAmalgama}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="amalgama.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('amalgama')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteAmalgama}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="amalgama.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('amalgama')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteObstPlastica}">
+                                <p:commandLink>
+                                    <p:graphicImage library="img/imgodonto" name="obst_plastica.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('obst_plastica')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteObstPlastica}" >
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="obst_plastica.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('obst_plastica')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column style="background: #339cdf"  rendered="#{evolucionHOdontologicaController.seleccionDienteObstTemporal}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="obst_temporal.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('obst_temporal')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteObstTemporal}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="obst_temporal.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('obst_temporal')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteConSellante}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="sellante.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('sellante')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteConSellante}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="sellante.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('sellante')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteSinSellante}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="sinsellante.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('sinsellante')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteSinSellante}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="sinsellante.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('sinsellante')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteFaltante}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="faltante.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('faltante')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteFaltante}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="faltante.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('faltante')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteFaltanteExt}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="faltante_ext.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('faltante_ext')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteFaltanteExt}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="faltante_ext.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('faltante_ext')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteExodoncia}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="exodoncia.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('exodoncia')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteExodoncia}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="exodoncia.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('exodoncia')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteProtesis}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="protesis.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('protesis')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteProtesis}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="protesis.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('protesis')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteProtesisTotal}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="protesistotal.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('protesistotal')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteProtesisTotal}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="protesistotal.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('protesistotal')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteNecendodoncia}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="necendodoncia.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('necendodoncia')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteNecendodoncia}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="necendodoncia.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('necendodoncia')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteTtoEndodoncia}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="ttoendodoncia.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('ttoendodoncia')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteTtoEndodoncia}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="ttoendodoncia.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('ttoendodoncia')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteBolsaPer}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="bolsa_per.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('bolsa_per')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteBolsaPer}">
+                                <p:commandLink >
+                                    <p:graphicImage library="img/imgodonto" name="bolsa_per.png" />
+                                    <p:ajax listener="#{evolucionHOdontologicaController.cambiarSeleccionDiagnosticoDent('bolsa_per')}" update="panelDiagnostico" />
+                                </p:commandLink>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteNormal}">
+                                <p:outputLabel value="Normal"/>    
+                            </p:column>
+                            <p:column  rendered="#{!evolucionHOdontologicaController.seleccionDienteNormal}">
+                                <p:outputLabel value="Normal"/>    
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteCaries}">
+                                <p:outputLabel value="Caries"/>    
+                            </p:column>
+                            <p:column  rendered="#{!evolucionHOdontologicaController.seleccionDienteCaries}">
+                                <p:outputLabel value="Caries"/>    
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteAmalgama}">
+                                <p:outputLabel value="Amalgama"/>    
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteAmalgama}">
+                                <p:outputLabel value="Amalgama"/>    
+                            </p:column>
+
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteObstPlastica}">
+                                <p:outputLabel value="Obturacion Plástica"/> 
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteObstPlastica}">
+                                <p:outputLabel value="Obturacion Plástica"/>  
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteObstTemporal}">
+                                <p:outputLabel value="Obturacion Temporal"/> 
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteObstTemporal}">
+                                <p:outputLabel value="Obturacion Temporal"/> 
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteConSellante}">
+                                <p:outputLabel value="Con sellante"/> 
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteConSellante}">
+                                <p:outputLabel value="Con sellante"/> 
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteSinSellante}">
+                                <p:outputLabel value="Sin sellante"/>                           
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteSinSellante}">
+                                <p:outputLabel value="Sin sellante"/>  
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteFaltante}">
+                                <p:outputLabel value="Diente Faltante"/>  
+                            </p:column>
+                            <p:column  rendered="#{!evolucionHOdontologicaController.seleccionDienteFaltante}">
+                                <p:outputLabel value="Diente Faltante"/> 
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteFaltanteExt}">
+                                <p:outputLabel value="Diente Extraido"/>  
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteFaltanteExt}">
+                                <p:outputLabel value="Diente Extraido"/>
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteExodoncia}">
+                                <p:outputLabel value="Exodoncia Indicada"/> 
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteExodoncia}">
+                                <p:outputLabel value="Exodoncia Indicada"/>    
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteProtesis}">
+                                <p:outputLabel value="Protesis fija y nucleos"/>    
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteProtesis}">
+                                <p:outputLabel value="Protesis fija y nucleos"/>   
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteProtesisTotal}">
+                                <p:outputLabel value="Protesis Total"/>   
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteProtesisTotal}">
+                                <p:outputLabel value="Protesis Total"/>  
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteNecendodoncia}">
+                                <p:outputLabel value="Necesita Endodoncia"/>    
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteNecendodoncia}">
+                                <p:outputLabel value="Necesita Endodoncia"/>    
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteTtoEndodoncia}">
+                                <p:outputLabel value="Con Tto. Endodoncia"/>    
+                            </p:column>
+                            <p:column rendered="#{!evolucionHOdontologicaController.seleccionDienteTtoEndodoncia}">
+                                <p:outputLabel value="Con Tto. Endodoncia"/>    
+                            </p:column>
+                            <p:column style="background: #339cdf" rendered="#{evolucionHOdontologicaController.seleccionDienteBolsaPer}">
+                                <p:outputLabel value="Bolsa Periodental"/>    
+                            </p:column>
+                            <p:column  rendered="#{!evolucionHOdontologicaController.seleccionDienteBolsaPer}">
+                                <p:outputLabel value="Bolsa Periodental"/>    
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>  
+                    <br/>
+                    <br/>
+                    <p:panelGrid id="panelOdontograma" style="text-align: center; font-weight: bold;" styleClass="panelgrid">
+                        <p:row>
+                            <p:column>
+                                <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente18.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente17.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente16.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente15.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente14.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente13.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente12.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente11.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente21.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente22.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente23.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente24.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente25.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente26.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente27.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente28.png" />
+                            </p:column>                            
+
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="18"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="17"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="16"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="15"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="14"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="13"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="12"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="11"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="21"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="22"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="23"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="24"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="25"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="26"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="27"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="28"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA18" library="img/imgodonto" 
+                                                        style="position: absolute;"
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(0)}"                                                   
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',0)}" update="dienteA18" />
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI18"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(0)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',0)}" update="dienteI18" />
+
+
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC18"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(0)}"
+                                                        style="position: relative; top:-11px;"
+                                                        />
+
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',0)}" update="dienteC18"/>
+
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD18"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(0)}"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',0)}" update="dienteD18"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb18"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(0)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',0)}" update="dienteAb18"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA17" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(1)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',1)}" update="dienteA17"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI17"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(1)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',1)}" update="dienteI17"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC17"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(1)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',1)}" update="dienteC17"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD17"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(1)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',1)}" update="dienteD17"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb17"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(1)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',1)}" update="dienteAb17"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA16" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(2)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',2)}" update="dienteA16"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI16"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(2)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',2)}" update="dienteI16"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC16"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(2)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',2)}" update="dienteC16"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD16"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(2)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',2)}" update="dienteD16"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb16"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(2)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',2)}" update="dienteAb16"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA15" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(3)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',3)}" update="dienteA15"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI15"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(3)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',3)}" update="dienteI15"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC15"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(3)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',3)}" update="dienteC15"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD15"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(3)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',3)}" update="dienteD15"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb15"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(3)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',3)}" update="dienteAb15"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA14" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(4)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',4)}" update="dienteA14"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI14"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(4)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',4)}" update="dienteI14"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC14"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(4)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',4)}" update="dienteC14"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD14"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(4)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',4)}" update="dienteD14"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb14"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(4)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',4)}" update="dienteAb14"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA13" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(5)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',5)}" update="dienteA13"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI13"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(5)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',5)}" update="dienteI13"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC13"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(5)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',5)}" update="dienteC13"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD13"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(5)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',5)}" update="dienteD13"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb13"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(5)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',5)}" update="dienteAb13"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA12" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(6)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',6)}" update="dienteA12"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI12"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(6)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',6)}" update="dienteI12"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC12"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(6)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',6)}" update="dienteC12"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD12"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(6)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',6)}" update="dienteD12"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb12"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(6)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',6)}" update="dienteAb12"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA11" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(7)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',7)}" update="dienteA11"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI11"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(7)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',7)}" update="dienteI11"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC11"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(7)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',7)}" update="dienteC11"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD11"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(7)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',7)}" update="dienteD11"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb11"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(7)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',7)}" update="dienteAb11"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA21" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(8)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',8)}" update="dienteA21"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI21"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(8)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',8)}" update="dienteI21"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC21"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(8)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',8)}" update="dienteC21"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD21"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(8)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',8)}" update="dienteD21"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb21"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(8)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',8)}" update="dienteAb21"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA22" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(9)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',9)}" update="dienteA22"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI22"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(9)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',9)}" update="dienteI22"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC22"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(9)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',9)}" update="dienteC22"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD22"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(9)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',9)}" update="dienteD22"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb22"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(9)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',9)}" update="dienteAb22"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA23" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(10)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',10)}" update="dienteA23"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI23"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(10)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',10)}" update="dienteI23"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC23"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(10)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',10)}" update="dienteC23"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD23"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(10)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',10)}" update="dienteD23"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb23"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(10)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',10)}" update="dienteAb23"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA24" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(11)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',11)}" update="dienteA24"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI24"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(11)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',11)}" update="dienteI24"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC24"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(11)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',11)}" update="dienteC24"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD24"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(11)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',11)}" update="dienteD24"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb24"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(11)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',11)}" update="dienteAb24"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA25" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(12)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',12)}" update="dienteA25"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI25"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(12)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',12)}" update="dienteI25"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC25"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(12)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',12)}" update="dienteC25"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD25"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(12)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',12)}" update="dienteD25"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb25"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(12)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',12)}" update="dienteAb25"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA26" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(13)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',13)}" update="dienteA26"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI26"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(13)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',13)}" update="dienteI26"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC26"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(13)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',13)}" update="dienteC26"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD26"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(13)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',13)}" update="dienteD26"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb26"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(13)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',13)}" update="dienteAb26"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA27" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(14)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',14)}" update="dienteA27"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI27"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(14)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',14)}" update="dienteI27"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC27"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(14)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',14)}" update="dienteC27"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD27"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(14)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',14)}" update="dienteD27"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb27"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(14)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',14)}" update="dienteAb27"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA28" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(15)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',15)}" update="dienteA28"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI28"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(15)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',15)}" update="dienteI28"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC28"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(15)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',15)}" update="dienteC28"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD28"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(15)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',15)}" update="dienteD28"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb28"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(15)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',15)}" update="dienteAb28"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column  colspan="16">
+                                <p:separator/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+
+                    <p:panelGrid style="text-align: center; font-weight: bold;" styleClass="panelgrid">
+                        <p:row>
+
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA48" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(16)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',16)}" update="dienteA48"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI48"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(16)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',16)}" update="dienteI48"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC48"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(16)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',16)}" update="dienteC48"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD48"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(16)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',16)}" update="dienteD48"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb48"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(16)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',16)}" update="dienteAb48"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA47" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(17)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',17)}" update="dienteA47"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI47"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(17)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',17)}" update="dienteI47"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC47"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(17)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',17)}" update="dienteC47"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD47"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(17)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',17)}" update="dienteD47"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb47"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(17)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',17)}" update="dienteAb47"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA46" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(18)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',18)}" update="dienteA46"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI46"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(18)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',18)}" update="dienteI46"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC46"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(18)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',18)}" update="dienteC46"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD46"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(18)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',18)}" update="dienteD46"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb46"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(18)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',18)}" update="dienteAb46"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA45" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(19)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',19)}" update="dienteA45"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI45"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(19)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',19)}" update="dienteI45"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC45"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(19)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',19)}" update="dienteC45"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD45"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(19)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',19)}" update="dienteD45"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb45"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(19)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',19)}" update="dienteAb45"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA44" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(20)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',20)}" update="dienteA44"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI44"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(20)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',20)}" update="dienteI44"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC44"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(20)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',20)}" update="dienteC44"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD44"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(20)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',20)}" update="dienteD44"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb44"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(20)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',20)}" update="dienteAb44"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA43" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(21)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',21)}" update="dienteA43"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI43"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(21)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',21)}" update="dienteI43"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC43"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(21)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',21)}" update="dienteC43"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD43"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(21)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',21)}" update="dienteD43"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb43"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(21)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',21)}" update="dienteAb43"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA42" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(22)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',22)}" update="dienteA42"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI42"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(22)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',22)}" update="dienteI42"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC42"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(22)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',22)}" update="dienteC42"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD42"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(22)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',22)}" update="dienteD42"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb42"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(22)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',22)}" update="dienteAb42"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA41" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(23)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',23)}" update="dienteA41"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI41"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(23)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',23)}" update="dienteI41"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC41"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(23)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',23)}" update="dienteC41"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD41"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(23)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',23)}" update="dienteD41"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb41"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(23)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',23)}" update="dienteAb41"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA31" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(24)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',24)}" update="dienteA31"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI31"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(24)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',24)}" update="dienteI31"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC31"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(24)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',24)}" update="dienteC31"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD31"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(24)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',24)}" update="dienteD31"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb31"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(24)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',24)}" update="dienteAb31"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA32" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(25)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',25)}" update="dienteA32"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI32"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(25)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',25)}" update="dienteI32"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC32"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(25)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',25)}" update="dienteC32"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD32"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(25)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',25)}" update="dienteD32"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb32"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(25)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',25)}" update="dienteAb32"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA33" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(26)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',26)}" update="dienteA33"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI33"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(26)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',26)}" update="dienteI33"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC33"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(26)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',26)}" update="dienteC33"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD33"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(26)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',26)}" update="dienteD33"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb33"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(26)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',26)}" update="dienteAb33"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA34" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(27)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',27)}" update="dienteA34"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI34"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(27)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',27)}" update="dienteI34"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC34"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(27)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',27)}" update="dienteC34"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD34"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(27)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',27)}" update="dienteD34"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb34"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(27)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',27)}" update="dienteAb34"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA35" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(28)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',28)}" update="dienteA35"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI35"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(28)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',28)}" update="dienteI35"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC35"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(28)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',28)}" update="dienteC35"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD35"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(28)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',28)}" update="dienteD35"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb35"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(28)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',28)}" update="dienteAb35"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA36" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(29)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',29)}" update="dienteA36"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI36"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(29)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',29)}" update="dienteI36"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC36"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(29)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',29)}" update="dienteC36"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD36"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(29)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',29)}" update="dienteD36"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb36"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(29)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',29)}" update="dienteAb36"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA37" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(30)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',30)}" update="dienteA37"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI37"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(30)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',30)}" update="dienteI37"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC37"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(30)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',30)}" update="dienteC37"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD37"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(30)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',30)}" update="dienteD37"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb37"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(30)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',30)}" update="dienteAb37"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                            <p:column >
+                                <span >
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteA38" style="position:absolute;"
+                                                        library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaArriba.get(31)}"    
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('arriba',31)}" update="dienteA38"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteI38"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaIzquierda.get(31)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('izquierda',31)}" update="dienteI38"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteC38"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaCentro.get(31)}"
+                                                        style="position: relative; top:-11px;"
+
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('centro',31)}" update="dienteC38"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteD38"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaDerecha.get(31)}"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('derecha',31)}" update="dienteD38"/>
+                                    </h:commandLink>
+                                    <h:commandLink>
+                                        <p:graphicImage id="dienteAb38"  library="img/imgodonto" 
+                                                        name="#{evolucionHOdontologicaController.listaOdontogramaAbajo.get(31)}"
+                                                        style="position:relative; top:-13px;"
+                                                        />
+                                        <p:ajax listener="#{evolucionHOdontologicaController.cambiarImgOdontograma('abajo',31)}" update="dienteAb38"/>
+                                    </h:commandLink>
+                                </span>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="48"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="47"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="46"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="45"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="44"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="43"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="42"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="41"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="31"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="32"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="33"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="34"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="35"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="36"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="37"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="38"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente48.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente47.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente46.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente45.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente44.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente43.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente42.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente41.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente31.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente32.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente33.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente34.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente35.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente36.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente37.png" />
+                            </p:column>                            
+                            <p:column>
+                                <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente38.png" />
+                            </p:column>                            
+                        </p:row>
+
+                    </p:panelGrid>
+                </p:tab>
+                <p:tab title="Diagnostico">
+                    <p:panelGrid style="border-style: none !important">
+                        <p:row> 
+                            <p:column colspan="3" style=" width: 600px; text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf">
+                                <p:outputLabel value="Diagnosticos" />
+                            </p:column>
+                            <p:column  style=" text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf">
+                                <p:outputLabel value="Tipo de diagnostico principal" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column style="width: 70px;">
+                                <p:outputLabel value="DX principal" />
+                            </p:column>
+                            <p:column style="width: 70px;">
+                                <p:selectOneMenu filter="true" id="diagnosticoCie10Odo" 
+                                                 value="#{evolucionHOdontologicaController.diagnosticoPrincipal}"
+                                                 >
+                                    <f:selectItem itemValue="No"
+                                                   itemLabel="Seleccione..."/>
+                                    <f:selectItems value="#{diagnosticocie10OdoController.itemsAvailableSelectOne}"
+                                                   var="diagnosticoCie10"
+                                                   itemValue="#{diagnosticoCie10.nombre}"
+                                                   itemLabel="#{diagnosticoCie10.id}"
+                                                   />
+                                    <f:ajax execute="diagnosticoCie10Odo" render="nombreDiadnosticoP" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column style="width: 500px;">
+                                <p:outputLabel id="nombreDiadnosticoP" value="#{evolucionHOdontologicaController.diagnosticoPrincipal}" />
+                            </p:column>
+                            <p:column rowspan="4" style="vertical-align: central !important;">
+                                <p:selectOneMenu filter="true" id="diagnostico1" 
+                                                 value="#{evolucionHOdontologicaController.tipoDiagnostico.id}"
+                                                 required="true"
+                                                 >
+                                    <f:selectItem itemValue="No"
+                                                   itemLabel="Seleccione..."/>
+                                    <f:selectItems
+                                        value="#{tipodiagnosticoController.itemsAvailableSelectOne}"
+                                        var="tipoDiagnostico"
+                                        itemValue="#{tipoDiagnostico.id}"
+                                        itemLabel="#{tipoDiagnostico.nombre}"
+                                        />
+
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="DX1" />
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu filter="true" id="diagnosticoCie10DX1" 
+                                                 value="#{evolucionHOdontologicaController.diagnosticoDX1}"
+                                                 >
+                                    <f:selectItem itemValue="No"
+                                                   itemLabel="Seleccione..."/>
+                                    <f:selectItems value="#{diagnosticocie10OdoController.itemsAvailableSelectOne}"
+                                                   var="diagnosticoCie10"
+                                                   itemValue="#{diagnosticoCie10.nombre}"
+                                                   itemLabel="#{diagnosticoCie10.id}"
+                                                   />
+                                    <f:ajax execute="diagnosticoCie10DX1" render="nombreDiadnosticoDX1" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel id="nombreDiadnosticoDX1" value="#{evolucionHOdontologicaController.diagnosticoDX1}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="DX2" />
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu filter="true" id="diagnosticoCie10DX2" 
+                                                 value="#{evolucionHOdontologicaController.diagnosticoDX2}"
+                                                 >
+                                    <f:selectItem itemValue="No"
+                                                   itemLabel="Seleccione..."/>
+                                    <f:selectItems value="#{diagnosticocie10OdoController.itemsAvailableSelectOne}"
+                                                   var="diagnosticoCie10"
+                                                   itemValue="#{diagnosticoCie10.nombre}"
+                                                   itemLabel="#{diagnosticoCie10.id}"
+                                                   />
+                                    <f:ajax execute="diagnosticoCie10DX2" render="nombreDiadnosticoDX2" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel id="nombreDiadnosticoDX2" value="#{evolucionHOdontologicaController.diagnosticoDX2}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="DX3" />
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu filter="true" id="diagnosticoCie10DX3" 
+                                                 value="#{evolucionHOdontologicaController.diagnosticoDX3}"
+                                                 >
+                                    <f:selectItem itemValue="No"
+                                                   itemLabel="Seleccione..."/>
+                                    <f:selectItems value="#{diagnosticocie10OdoController.itemsAvailableSelectOne}"
+                                                   var="diagnosticoCie10"
+                                                   itemValue="#{diagnosticoCie10.nombre}"
+                                                   itemLabel="#{diagnosticoCie10.id}"
+                                                   />
+                                    <f:ajax execute="diagnosticoCie10DX3" render="nombreDiadnosticoDX3" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel id="nombreDiadnosticoDX3" value="#{evolucionHOdontologicaController.diagnosticoDX3}" />
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:tab>
+                <p:tab title="Evolución">
+
+                    <p:panel header="Evolución del paciente">
+                        <p:panelGrid columns="1" styleClass="panelgrid" >
+                            <p:inputTextarea placeholder="Descripción de la evolucion del paciente" 
+                                             rows="4" 
+                                             cols="100" 
+                                             id="descripcionEvolucion" 
+                                             value="#{evolucionHOdontologicaController.descripcionEvolucion}" 
+                                             title="Descripción evolución" />
+                        </p:panelGrid>
+                    </p:panel>
+                    <p:panelGrid>
+                        <p:row>
+                            <p:column>
+                                <p:commandButton value="Guardar evolucion" action="#{evolucionHOdontologicaController.guardarEvolucionHistoria()}"/>
+                            </p:column>
+
+                        </p:row>
+                    </p:panelGrid>
+                </p:tab>
+
+
+
+            </p:wizard>
+        </h:form>
+
+        <p:dialog visible="#{!evolucionHOdontologicaController.pacienteSeleccionado}" id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center"   header="Seleccionar paciente">
+            <h:form id="PacienteListForm">
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Buscar paciente:" />
+                    <p:inputText  placeholder="Digite los nombres, apellidos o identificación" style="width: 300px;"  value="#{pacienteController.busquedaPaciente}" >
+                        <p:ajax event="keyup" update="datalist" listener="#{pacienteController.buscarPaciente()}" />                                
+                    </p:inputText>                          
+                </h:panelGrid>
+
+                <p:dataTable id="datalist" value="#{pacienteController.listaPacientesActivos}" var="item"
+                             paginator="true"
+                             rowKey="#{item.id}"
+                             rows="10"
+
+                             >
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_identificacion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.identificacion}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_nombre1}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre1}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_nombre2}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre2}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_apellido1}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.apellido1}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_apellido2}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.apellido2}"/>
+                    </p:column>
+
+                    <p:column>
+                        <p:commandButton id="botonSeleccionarPaciente" value="Selecionar"  icon="ui-icon-plus"  action="#{evolucionHOdontologicaController.seleccionarPaciente(item)}" oncomplete="#{evolucionHOdontologicaController.cambiarEstadoBool()}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </p:dialog>    
+        <p:dialog   widgetVar="registroEvolucionExitosoDialog" closable="false" modal="true" position="center"   header="Mensaje">
+            <h:form id="mensajeForm">
+                <h:panelGrid columns="2" >
+                    <p:graphicImage width="50px" height="50px" library="img" name="exitoso.png" />
+                    <p:outputLabel value="La evolución del paciente se ha realizado con exito" />
+                    <p:commandButton value="Aceptar" onclick="PF('registroEvolucionExitosoDialog').hide()" ajax="r"/>
+                </h:panelGrid>
+
+            </h:form>
+        </p:dialog>
+    </body>
+
+</html>
+

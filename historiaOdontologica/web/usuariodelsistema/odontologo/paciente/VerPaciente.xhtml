@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <CENTER><body>
+            <br/><CENTER><h1> INFORMACIÓN PACIENTE  </h1><b/></CENTER>
+            <br/><h:form id="selecionarPaciente">
+                <p:commandButton style="left: 350px" value="Seleccionar un nuevo paciente" 
+                                 onclick="PF('seleccionPacienteDialog').show()" />
+            </h:form>
+            <h:form id="PacienteViewForm">
+                <h:panelGroup id="display">
+
+                    <p:panelGrid styleClass="panelgrid">
+                        <p:row >
+                            <p:column style="font-weight:bold; color: white; background: #339cdf" colspan="16">
+                                <p:outputLabel value="DATOS PERSONALES"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText style="font-weight: bold; color: black;" value="#{bundlePaciente.ViewPacienteLabel_tipoIdentificacion}"/>
+                            </p:column> 
+                            <p:column>
+                                <h:outputText style="font-weight: bold; color: black;" value="#{bundlePaciente.ViewPacienteLabel_identificacion}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText style="font-weight: bold; color: black;" value="#{bundlePaciente.ViewPacienteLabel_nombre1}"/>
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+
+                            <p:column>
+                                <h:outputText value="#{pacienteController.selected.tipoIdentificacion}" title="#{bundle.ViewPacienteTitle_tipoIdentificacion}"/>
+                            </p:column>
+
+
+                            <p:column>
+                                <h:outputText value="#{pacienteController.selected.identificacion}" title="#{bundle.ViewPacienteTitle_identificacion}"/>
+                            </p:column>
+
+
+                            <p:column >
+                                <h:outputText value="#{pacienteController.selected.nombres}" title="#{bundle.ViewPacienteTitle_nombre1}"/>
+                            </p:column>
+
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputText style="font-weight: bold; color: black;" value="#{bundlePaciente.ViewPacienteLabel_apellido1}"/>
+                            </p:column>
+
+                            <p:column>
+                                <h:outputText style="font-weight: bold; color: black;" value="#{bundlePaciente.ViewPacienteLabel_fechaNacimiento}"/>
+                            </p:column>
+
+                            <p:column>
+                                <h:outputText style="font-weight: bold; color: black;" value="#{bundlePaciente.ViewPacienteLabel_sexo}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+
+                            <p:column>
+                                <h:outputText value="#{pacienteController.selected.apellidos}" title="#{bundle.ViewPacienteTitle_apellido1}"/>
+                            </p:column>
+
+                            <p:column>
+                                <h:outputText value="#{pacienteController.selected.fechaNacimiento}" title="#{bundle.ViewPacienteTitle_fechaNacimiento}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:column>                                            
+
+                            <p:column>
+                                <h:outputText value="#{pacienteController.selected.sexo}" title="#{bundle.ViewPacienteTitle_sexo}"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputText style="font-weight: bold; color: black;" value="#{bundlePaciente.ViewPacienteLabel_estado}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText style="font-weight: bold; color: black;" value="#{bundlePaciente.ViewPacienteLabel_ocupacion}"/>
+                            </p:column>                    
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="#{pacienteController.selected.estado}" title="#{bundle.ViewPacienteTitle_estado}"/>
+                            </p:column>
+
+                            <p:column>
+                                <h:outputText value="#{pacienteController.selected.ocupacion}" title="#{bundle.ViewPacienteTitle_ocupacion}"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputText style="font-weight: bold; color: black;" value="#{bundlePaciente.ViewPacienteLabel_direccion}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText style="font-weight: bold; color: black;" value="#{bundlePaciente.ViewPacienteLabel_telefono}"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="#{pacienteController.selected.direccion}" title="#{bundle.ViewPacienteTitle_direccion}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{pacienteController.selected.telefono}" title="#{bundle.ViewPacienteTitle_telefono}"/>
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+
+                </h:panelGroup>
+            </h:form>
+
+            <p:dialog id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center"   header="Seleccionar paciente">
+                <h:form id="PacienteListForm">
+                    <h:panelGrid columns="2" >
+                        <p:outputLabel value="Buscar paciente:" />
+                        <p:inputText  placeholder="Digite los nombres, apellidos o identificación" style="width: 300px;"  value="#{pacienteController.busquedaPaciente}" >
+                            <p:ajax event="keyup" update="datalist" listener="#{pacienteController.buscarPaciente()}" />                                
+                        </p:inputText>                          
+                    </h:panelGrid>
+
+                    <p:dataTable id="datalist" value="#{pacienteController.listaPacientesActivos}" var="item"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundlePaciente.ListPacienteTitle_identificacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.identificacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundlePaciente.ListPacienteTitle_nombre1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombres}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundlePaciente.ListPacienteTitle_apellido1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apellidos}"/>
+                        </p:column>
+                        
+
+                        <p:column>
+                            <p:commandButton id="botonSeleccionarPaciente" value="Selecionar"   
+                                             icon="ui-icon-plus"  update=":PacienteViewForm" 
+                                             action="#{pacienteController.seleccionarVer(item)}" 
+                                             oncomplete="#{pacienteController.iniciarPacienteVer()}"
+                                    />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </p:dialog>    
+
+        </body></CENTER>
+</html>

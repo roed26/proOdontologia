@@ -1,0 +1,2018 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <h:form id="InformacionPaciente" >
+            <p:panelGrid styleClass="panelgrid">
+                <p:row>
+                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf">
+                        <p:outputLabel value="Información de paciente"/>
+                    </p:column>
+                    <p:column rowspan="2">
+                        <p:commandButton onclick="PF('seleccionPacienteDialog').show()" value="Seleccionar paciente" />
+                    </p:column>   
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold; color: black;" value="Fecha de registro" />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{gestionHOdontologicaController.fechaRegistro}" />
+                    </p:column>   
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold; color: black;" value="#{bundlePaciente.CreatePacienteLabel_identificacion}" />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{gestionHOdontologicaController.paciente.identificacion}" />
+                    </p:column>    
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold;" value="Nombre: " />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{gestionHOdontologicaController.paciente.nombre1} #{gestionHOdontologicaController.paciente.nombre2}" />
+                        <p:outputLabel value=" #{gestionHOdontologicaController.paciente.apellido1} #{gestionHOdontologicaController.paciente.apellido2}" />
+                    </p:column> 
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold; color: black;" value="#{bundlePaciente.CreatePacienteLabel_ocupacion}" />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{gestionHOdontologicaController.paciente.ocupacion}" />
+                    </p:column>   
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold; color: black;" value="#{bundlePaciente.CreatePacienteLabel_estado}" />
+                    </p:column>
+                    <p:column style="background: green;">
+                        <p:outputLabel rendered="#{gestionHOdontologicaController.paciente.estado==1}" style="color: white;" value="Activo" />
+                    </p:column>   
+                </p:row>                
+            </p:panelGrid>
+        </h:form>
+        <p:separator style="height:3px; color: #000000"/>
+
+        <h:form id="listaHistoriaOdontologica" >
+            <p:panelGrid >
+                <p:row>
+                    <p:column style="font-weight: bold; text-align: center ">
+                        
+                        <p:commandButton id="botonImprimirHistoria" value="imprimir historia"  action="#{gestionHOdontologicaController.seleccionarPaciente(item)}" oncomplete="#{gestionHOdontologicaController.cambiarEstadoBool()}">
+
+                            <p:printer target="historial" />
+                        </p:commandButton>
+                        <p:separator/>
+                        <p:dataGrid value="#{gestionHOdontologicaController.listaActualizaciones}" 
+                                    var="actualizacion" columns="1" >
+                            <h:panelGrid columns="3" styleClass="panelgrid">
+                                <h:outputText value="#{gestionHOdontologicaController.formatoFecha.format(actualizacion.fecha)}" style="font-weight: bold"/>
+                                <h:outputText value="#{actualizacion.tipo}" style="font-weight: bold"/>
+                                
+                            </h:panelGrid>
+                            <p:separator/>
+                        </p:dataGrid>
+
+                    </p:column>
+                    <p:column >
+                        <p:dataScroller id="historial" value="#{gestionHOdontologicaController.listaActualizaciones}" 
+                                        var="actualizacion" chunkSize="10">
+                            <f:facet name="header">
+                                Historia odontologica
+                            </f:facet>
+                            <p:panelGrid styleClass="panelgrid">
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText value="Fecha de atención: " style="font-weight: bold"/>
+                                    </p:column>
+                                    <p:column colspan="2">
+                                        <h:outputText value="#{gestionHOdontologicaController.formatoFecha.format(actualizacion.fecha)}" />
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value=" Tipo: " style="font-weight: bold"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.tipo}" />
+                                    </p:column>
+                                    <p:column >
+                                        <h:outputText value=" Atendido por: " style="font-weight: bold"/>
+                                    </p:column>
+                                    <p:column colspan="4">
+                                        <h:outputText value="#{actualizacion.idUsuario.nombres} #{actualizacion.idUsuario.apellidos}" />
+                                    </p:column>
+                                </p:row>
+                                <p:row rendered="#{!actualizacion.acompanante.equalsIgnoreCase('Sin acompañante')}">
+                                    <p:column rendered="#{!actualizacion.acompanante.equalsIgnoreCase('Sin acompañante')}">
+                                        <h:outputText value="Nombre de acompañante:" />
+                                    </p:column>
+                                    <p:column rendered="#{!actualizacion.acompanante.equalsIgnoreCase('Sin acompañante')}">
+                                        <h:outputText value="#{actulizacion.acompanante}" style="font-weight: bold"/>
+                                    </p:column>
+                                    <p:column rendered="#{!actualizacion.acompanante.equalsIgnoreCase('Sin acompañante')}">
+                                        <h:outputText value="Celular:" />
+                                    </p:column>
+                                    <p:column rendered="#{!actualizacion.acompanante.equalsIgnoreCase('Sin acompañante')}">
+                                        <h:outputText value="#{actulizacion.celular}" style="font-weight: bold"/>
+                                    </p:column>
+                                    <p:column rendered="#{!actualizacion.acompanante.equalsIgnoreCase('Sin acompañante')}">
+                                        <h:outputText value="Telefono:" />
+                                    </p:column>
+                                    <p:column rendered="#{!actualizacion.acompanante.equalsIgnoreCase('Sin acompañante')}">
+                                        <h:outputText value="#{actulizacion.telefono}" style="font-weight: bold"/>
+                                    </p:column>
+                                    <p:column rendered="#{actualizacion.acompanante.equalsIgnoreCase('Sin acompañante')}">
+                                        <h:outputText value="Paciente sin acompañante" style="font-weight: bold"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="Motivo de consulta: " />      
+                                    </p:column>
+                                    <p:column colspan="9">
+                                        <h:outputText value="#{actualizacion.motivoOdoCollection.toArray()[0].motivo}" style="font-weight: bold"/>      
+                                    </p:column>
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf" >
+                                        <h:outputText value="Antecedentes familiares "/>      
+                                    </p:column>
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[0].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[0].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[1].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[1].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[2].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[2].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[3].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[3].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[4].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[4].resultado}" />      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[5].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[5].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[6].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[6].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[7].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[7].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[8].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[8].resultado}" />      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="9">
+                                        <h:outputText value="Observación: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.obsAntOdoCollection.toArray()[0].obs}" />      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf">
+                                        <h:outputText value="Antecedentes personales " />      
+                                    </p:column>
+                                </p:row>
+
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[9].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[9].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[10].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[10].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[11].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[11].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[12].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[12].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[13].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[13].resultado}" />      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[14].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[14].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[15].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[15].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[16].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[16].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[17].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[17].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[18].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[18].resultado}" />      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[19].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[19].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[20].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[20].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[21].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[21].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[22].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[22].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[23].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[23].resultado}" />      
+                                    </p:column>
+
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[24].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[24].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[25].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[25].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[26].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[26].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[27].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[27].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[28].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[28].resultado}" />      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10">
+                                        <h:outputText value="Observación: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.obsAntOdoCollection.toArray()[1].obs}" />      
+                                    </p:column>
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf">
+                                        <h:outputText value="Examen estomatologico " style="font-weight: bold"/>      
+                                    </p:column>
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[0].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[0].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[1].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[1].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[2].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[2].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[3].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[3].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[4].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[4].resultado}" />      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[5].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[5].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[6].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[6].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[7].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[7].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[8].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[8].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[9].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[9].resultado}" />      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[10].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[10].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[11].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[11].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[12].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[12].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[13].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[13].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[14].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[14].resultado}" />      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[15].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[15].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[16].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[16].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[17].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[17].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[18].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaEstomatologicoCollection.toArray()[18].resultado}" />      
+                                    </p:column>
+
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf">
+                                        <h:outputText value="Examen oral - higiene oral " style="font-weight: bold"/>      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #C8CDD6">
+                                        <h:outputText value="Examen pulpar " style="font-weight: bold"/>      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[0].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[0].valor}: " />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[1].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[1].valor}: " />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[2].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[2].valor}: " />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[3].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[3].valor}: " />      
+                                    </p:column>
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10">
+                                        <h:outputText value="Observación: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.obsExaOralCollection.toArray()[0].obs}" />      
+                                    </p:column>
+                                </p:row>
+
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #C8CDD6">
+                                        <h:outputText value="Tejidos dentarios" style="font-weight: bold"/>      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[4].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[4].valor}: " />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[5].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[5].valor}: " />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[6].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[6].valor}: " />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[7].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[7].valor}: " />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[8].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[8].valor}: " />      
+                                    </p:column>
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="2">
+                                        <h:outputText value="Observación: " style="font-weight: bold"/>      
+                                    </p:column >
+                                    <p:column colspan="8">
+                                        <h:outputText value="#{actualizacion.obsExaOralCollection.toArray()[1].obs}" />      
+                                    </p:column>
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #C8CDD6">
+                                        <h:outputText value="Alteraciones periodontales" style="font-weight: bold"/>      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[9].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[9].valor}: " />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[10].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[10].valor}: " />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[11].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[11].valor}: " />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[12].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[12].valor}: " />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[13].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[13].valor}: " />      
+                                    </p:column>
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[14].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[14].valor}: " />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[15].campo}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[15].valor}: " />      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10">
+                                        <h:outputText value="Observación: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.obsExaOralCollection.toArray()[2].obs}" />      
+                                    </p:column>
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #C8CDD6">
+                                        <h:outputText value="Higiene oral" style="font-weight: bold"/>      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="Higiene: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.higieneCollection.toArray()[0].higuiene}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="Frecuencia de cepillado: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.higieneCollection.toArray()[0].frecuenciaCep}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="Uso de seda dental: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.higieneCollection.toArray()[0].sedaDental}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="Pigmentación: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.higieneCollection.toArray()[0].pigmentacion}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="Grado de riesgo: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.higieneCollection.toArray()[0].gradoRiesgo}" />      
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf">
+                                        <h:outputText value="Odontograma " style="font-weight: bold"/>      
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="10" width="90%">
+                                        <p:panelGrid columns="15" style="text-align: center;">
+                                            <p:graphicImage library="img/imgodonto" name="normal.png" />
+                                            <p:graphicImage library="img/imgodonto" name="caries.png"  />
+                                            <p:graphicImage library="img/imgodonto" name="amalgama.png" />
+                                            <p:graphicImage library="img/imgodonto" name="obst_plastica.png" />
+                                            <p:graphicImage library="img/imgodonto" name="obst_temporal.png" />
+                                            <p:graphicImage library="img/imgodonto" name="sellante.png" />
+                                            <p:graphicImage library="img/imgodonto" name="sinsellante.png" />
+                                            <p:graphicImage library="img/imgodonto" name="faltante.png" />
+                                            <p:graphicImage library="img/imgodonto" name="faltante_ext.png" />
+                                            <p:graphicImage library="img/imgodonto" name="exodoncia.png" />
+                                            <p:graphicImage library="img/imgodonto" name="protesis.png" />
+                                            <p:graphicImage library="img/imgodonto" name="protesistotal.png" />
+                                            <p:graphicImage library="img/imgodonto" name="necendodoncia.png" />
+                                            <p:graphicImage library="img/imgodonto" name="ttoendodoncia.png" />
+                                            <p:graphicImage library="img/imgodonto" name="bolsa_per.png" />
+                                            <p:outputLabel value="Normal"/>    
+                                            <p:outputLabel value="Caries"/>    
+                                            <p:outputLabel value="Amalgama"/>    
+                                            <p:outputLabel value="Obturacion Plástica"/>    
+                                            <p:outputLabel value="Obturacion Temporal"/> 
+                                            <p:outputLabel value="Con sellante"/> 
+                                            <p:outputLabel value="Sin sellante"/>                         
+                                            <p:outputLabel value="Diente Faltante"/>    
+                                            <p:outputLabel value="Diente Extraido"/>    
+                                            <p:outputLabel value="Exodoncia Indicada"/>    
+                                            <p:outputLabel value="Protesis fija y nucleos"/>    
+                                            <p:outputLabel value="Protesis Total"/>    
+                                            <p:outputLabel value="Necesita Endodoncia"/>    
+                                            <p:outputLabel value="Con Tto. Endodoncia"/>    
+                                            <p:outputLabel value="Bolsa Periodental"/>    
+                                        </p:panelGrid>  
+                                        <br/>
+                                        <br/>
+                                        <p:panelGrid id="panelOdontograma" style="text-align: center; font-weight: bold;" >
+                                            <p:row>
+                                                <p:column>
+                                                    <p:graphicImage width="30px" height="45px" library="img/dientes-odontograma" name="diente18.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente17.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente16.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente15.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente14.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente13.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente12.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente11.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente21.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente22.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente23.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente24.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente25.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente26.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente27.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente28.png" />
+                                                </p:column>                            
+
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="18"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="17"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="16"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="15"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="14"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="13"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="12"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="11"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="21"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="22"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="23"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="24"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="25"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="26"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="27"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="28"/>
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA18" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[0].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI18"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[0].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC18"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[0].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD18"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[0].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb18"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[0].imgAbajo}"
+                                                                        style="position:relative !important; top:-13px !important;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA17" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[1].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI17"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[1].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC17"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[1].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD17"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[1].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb17"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[1].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA16" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[2].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI16"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[2].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC16"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[2].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD16"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[2].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb16"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[2].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA15" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[3].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI15"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[3].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC15"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[3].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD15"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[3].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb15"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[3].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA14" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[4].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI14"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[4].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC14"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[4].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD14"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[4].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb14"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[4].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA13" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[5].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI13"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[5].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC13"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[5].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD13"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[5].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb13"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[5].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA12" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[6].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI12"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[6].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC12"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[6].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD12"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[6].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb12"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[6].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA11" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[7].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI11"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[7].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC11"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[7].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD11"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[7].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb11"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[7].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA21" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[8].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI21"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[8].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC21"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[8].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD21"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[8].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb21"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[8].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA22" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[9].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI22"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[9].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC22"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[9].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD22"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[9].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb22"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[9].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA23" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[10].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI123"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[10].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC23"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[10].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD23"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[10].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb23"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[10].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA24" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[11].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI24"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[11].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC24"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[11].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD24"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[11].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb24"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[11].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA25" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[12].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI25"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[12].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC25"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[12].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD25"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[12].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb25"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[12].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA26" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[13].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI26"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[13].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC26"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[13].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD26"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[13].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb26"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[13].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA27" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[14].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI27"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[14].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC27"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[14].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD27"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[14].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb27"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[14].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA28" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[15].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI28"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[15].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC28"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[15].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD28"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[15].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb28"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[15].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column  colspan="16">
+                                                    <p:separator/>
+                                                </p:column>
+                                            </p:row>
+                                        </p:panelGrid>
+
+                                        <p:panelGrid style="text-align: center; font-weight: bold;" styleClass="panelgrid">
+                                            <p:row>
+
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA48" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[16].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI48"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[16].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC48"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[16].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD48"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[16].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb48"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[16].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA47" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[17].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI47"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[17].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC47"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[17].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD47"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[17].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb47"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[17].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA46" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[18].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI46"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[18].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC46"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[18].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD46"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[18].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb46"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[18].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA45" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[19].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI45"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[19].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC45"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[19].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD45"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[19].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb45"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[19].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA44" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[20].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI44"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[20].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC44"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[20].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD44"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[20].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb44"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[20].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA43" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[21].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI43"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[21].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC43"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[21].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD43"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[21].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb43"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[21].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA42" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[22].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI42"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[22].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC42"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[22].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD42"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[22].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb42"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[22].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA41" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[23].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI41"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[23].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC41"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[23].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD41"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[23].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb41"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[23].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA31" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[24].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI31"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[24].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC31"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[24].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD31"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[24].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb31"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[24].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA32" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[25].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI32"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[25].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC32"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[25].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD32"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[25].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb32"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[25].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA33" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[26].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI33"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[26].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC33"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[26].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD33"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[26].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb33"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[26].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA34" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[27].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI34"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[27].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC34"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[27].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD34"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[27].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb34"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[27].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA35" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[28].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI35"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[28].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC35"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[28].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD35"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[28].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb35"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[28].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA36" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[29].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI36"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[29].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC36"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[29].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD36"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[29].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb36"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[29].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA37" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[30].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI37"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[30].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC37"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[30].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD37"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[30].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb37"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[30].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+                                                    <span >
+                                                        <p:graphicImage id="dienteA38" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[31].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI38"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[31].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC38"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[31].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD38"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[31].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb38"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[31].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:outputLabel value="48"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="47"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="46"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="45"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="44"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="43"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="42"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="41"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="31"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="32"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="33"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="34"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="35"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="36"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="37"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="38"/>
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <p:graphicImage width="30px" height="45px" library="img/dientes-odontograma" name="diente48.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente47.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente46.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente45.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente44.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente43.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente42.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente41.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente31.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente32.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente33.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente34.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente35.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente36.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente37.png" />
+                                                </p:column>                            
+                                                <p:column>
+                                                    <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente38.png" />
+                                                </p:column>                            
+                                            </p:row>
+
+                                        </p:panelGrid>
+                                    </p:column>
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf">
+                                        <h:outputText value="Observaciones del odontograma" style="font-weight: bold"/>      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10">
+                                        <p:panelGrid styleClass="panelgrid">
+                                            <p:row>
+                                                <p:column colspan="4">
+                                                    <p:outputLabel value="Oclusión : #{actualizacion.obsOdontogramaCollection.toArray()[0].oclusion}" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="Observación" />
+                                                </p:column>
+                                            </p:row>
+
+                                            <p:row>
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Indice COP" />
+                                                </p:column>
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Cariados"/>
+                                                </p:column >
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Obturados"/>
+                                                </p:column>
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Perdidos"/>
+                                                </p:column>
+                                                <p:column rowspan="9" >
+                                                    <p:inputTextarea placeholder="Observaciones del odontograma" 
+                                                                     rows="3" 
+                                                                     cols="80" 
+                                                                     disabled="true"
+                                                                     id="ObservacionOdontograma" 
+                                                                     value="#{actualizacion.obsOdontogramaCollection.toArray()[0].obs}" 
+                                                                     title="Observación" />                            
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Cantidad" />
+                                                </p:column>
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:inputText value="#{actualizacion.obsOdontogramaCollection.toArray()[0].caries}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:inputText value="#{actualizacion.obsOdontogramaCollection.toArray()[0].obturados}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:inputText value="#{actualizacion.obsOdontogramaCollection.toArray()[0].perdidos}" style="width: 50px"/>
+                                                </p:column>
+                                            </p:row>
+                                        </p:panelGrid>
+                                    </p:column>
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf">
+                                        <h:outputText value="Cuadro de sintesis" style="font-weight: bold"/>      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10">
+                                        <p:panelGrid>
+
+                                            <p:row>
+                                                <p:column rowspan="2" style="font-weight: bold;">
+                                                </p:column>  
+                                                <p:column  rowspan="2" style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Dientes presentes" />
+                                                </p:column>                            
+                                                <p:column rowspan="2" style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Dientes faltantes" />
+                                                </p:column>                            
+                                                <p:column rowspan="2" style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Dientes cariados" />
+                                                </p:column>                            
+                                                <p:column rowspan="2" style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Dientes obturados" />
+                                                </p:column>                            
+                                                <p:column rowspan="2" style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Extracc. indc." />
+                                                </p:column>                            
+                                                <p:column colspan="3" style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Protesis existentes" />
+                                                </p:column>                            
+                                                <p:column rowspan="2" style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Tto. conductos" />
+                                                </p:column>
+                                                <p:column colspan="3" style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Anomalias de" />
+                                                </p:column> 
+                                                <p:column rowspan="2" style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Enfermedad periodontal" />
+                                                </p:column>
+                                                <p:column rowspan="2" style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Nucleos" />
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Fija" />
+                                                </p:column>                            
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Remo" />
+                                                </p:column>                   
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Total" />
+                                                </p:column>                   
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:outputLabel value="No." />
+                                                </p:column>                            
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Forma" />
+                                                </p:column>                   
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Posición" />
+                                                </p:column> 
+                                            </p:row>
+                                            <p:row>
+                                                <p:column style="background: #C8CDD6;">
+                                                    <p:outputLabel value="Maxilar superior" />
+                                                </p:column>   
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].presentesSup}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].faltantesSup}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].cariadosSup}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].obturacionSup}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].extraIndSup}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].protesisFijaSup}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].protesisRemSup}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].protesisTotSup}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].tratamientoCondSup}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].anomaliasNSup}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].anomaliasForSup}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].anomaliasPosSup}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].enfermedadPeriodentalSup}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].nucleosSup}" style="width: 50px"/>
+                                                </p:column>                            
+                                            </p:row>
+                                            <p:row>
+                                                <p:column style="background: #C8CDD6; width: 30px">
+                                                    <p:outputLabel value="Maxilar inferior" />
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].presentesInf}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].faltantesInf}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].cariadosInf}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].obturacionInf}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].extraIndInf}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].protesisFijaInf}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].protesisRemInf}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].protesisTotInf}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].tratamientoCondInf}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].anomaliasNInf}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].anomaliasForInf}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].anomaliasPosInf}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].enfermedadPeriodentalInf}" style="width: 50px"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:inputText value="#{actualizacion.cuadroSintesisCollection.toArray()[0].nucleosInf}" style="width: 50px"/>
+                                                </p:column>
+                                            </p:row>
+                                        </p:panelGrid>
+                                    </p:column>
+
+                                </p:row>
+
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf">
+                                        <h:outputText value="Diagnostico(s)" style="font-weight: bold"/>      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="10">
+                                        <p:panelGrid>
+                                            <p:row>
+                                                <p:column>
+                                                    <h:outputText value="Diagnostico" style="font-weight: bold"/>                  
+                                                </p:column>
+                                                <p:column>
+                                                    <h:outputText value="Descripción" style="font-weight: bold"/>                  
+                                                </p:column>
+                                                <p:column>
+                                                    <h:outputText value="Tipo diagnostico DX" style="font-weight: bold"/>                  
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <h:outputText value="DX Principal" style="font-weight: bold"/>                  
+                                                </p:column>
+                                                <p:column>
+                                                    <h:outputText value="#{actualizacion.diagnosticoOdoCollection.toArray()[0].ndx}" style="font-weight: bold"/>                  
+                                                </p:column>
+                                                <p:column>
+                                                    <h:outputText value="#{actualizacion.diagnosticoOdoCollection.toArray()[0].tipodiagnostico.nombre}" style="font-weight: bold"/>                  
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <h:outputText value="DX Rel-1" style="font-weight: bold"/>                  
+                                                </p:column>
+                                                <p:column>
+                                                    <h:outputText value="#{actualizacion.diagnosticoOdoCollection.toArray()[0].ndx1}" style="font-weight: bold"/>                  
+                                                </p:column>
+
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <h:outputText value="DX Rel-2" style="font-weight: bold"/>                  
+                                                </p:column>
+                                                <p:column>
+                                                    <h:outputText value="#{actualizacion.diagnosticoOdoCollection.toArray()[0].ndx2}" style="font-weight: bold"/>                  
+                                                </p:column>
+
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+                                                    <h:outputText value="DX Rel-3" style="font-weight: bold"/>                  
+                                                </p:column>
+                                                <p:column>
+                                                    <h:outputText value="#{actualizacion.diagnosticoOdoCollection.toArray()[0].ndx3}" style="font-weight: bold"/>                  
+                                                </p:column>
+
+                                            </p:row>
+                                        </p:panelGrid>
+
+                                    </p:column>
+
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf">
+                                        <h:outputText value="Evolución " style="font-weight: bold"/>      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row>
+                                    <p:column >
+                                        <h:outputText value="Descripcion " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column colspan="9">
+                                        <h:outputText value="#{actualizacion.evolucionOdoCollection.toArray()[0].evolucion}" style="font-weight: bold"/>      
+                                    </p:column>
+
+                                </p:row>
+
+                            </p:panelGrid>
+                            <p:separator style="height:4px; color: #000000"/>
+                        </p:dataScroller>
+
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
+
+
+        </h:form>
+
+
+
+        <p:dialog visible="#{!gestionHOdontologicaController.pacienteSeleccionado}" id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center"   header="Seleccionar paciente">
+            <h:form id="PacienteListForm">
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Buscar paciente:" />
+                    <p:inputText  placeholder="Digite los nombres, apellidos o identificación" style="width: 300px;"  value="#{pacienteController.busquedaPaciente}" >
+                        <p:ajax event="keyup" update="datalist" listener="#{pacienteController.buscarPaciente()}" />                                
+                    </p:inputText>                          
+                </h:panelGrid>
+
+                <p:dataTable id="datalist" value="#{pacienteController.listaPacientesActivos}" var="item"
+                             paginator="true"
+                             rowKey="#{item.id}"
+                             rows="10"
+
+                             >
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_identificacion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.identificacion}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_nombre1}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre1}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_nombre2}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre2}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_apellido1}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.apellido1}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_apellido2}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.apellido2}"/>
+                    </p:column>
+
+                    <p:column>
+                        <p:commandButton id="botonSeleccionarPaciente" value="Selecionar"  icon="ui-icon-plus"  action="#{gestionHOdontologicaController.seleccionarPaciente(item)}" oncomplete="#{gestionHOdontologicaController.cambiarEstadoBool()}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </p:dialog>    
+    </body>
+</html>
+

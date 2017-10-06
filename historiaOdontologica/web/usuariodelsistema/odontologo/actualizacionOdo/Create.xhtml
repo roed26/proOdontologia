@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ActualizacionOdoCreateDlg" widgetVar="ActualizacionOdoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleActualizacionOdo.CreateActualizacionOdoTitle}">
+            <h:form id="ActualizacionOdoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{actualizacionOdoController.selected != null}">
+                        <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{actualizacionOdoController.selected.id}" title="#{bundleActualizacionOdo.CreateActualizacionOdoTitle_id}" required="true" requiredMessage="#{bundleActualizacionOdo.CreateActualizacionOdoRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_acompanante}" for="acompanante" />
+                        <p:inputText id="acompanante" value="#{actualizacionOdoController.selected.acompanante}" title="#{bundleActualizacionOdo.CreateActualizacionOdoTitle_acompanante}" />
+                        <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{actualizacionOdoController.selected.telefono}" title="#{bundleActualizacionOdo.CreateActualizacionOdoTitle_telefono}" />
+                        <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_celular}" for="celular" />
+                        <p:inputText id="celular" value="#{actualizacionOdoController.selected.celular}" title="#{bundleActualizacionOdo.CreateActualizacionOdoTitle_celular}" />
+                        <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_parentesco}" for="parentesco" />
+                        <p:inputText id="parentesco" value="#{actualizacionOdoController.selected.parentesco}" title="#{bundleActualizacionOdo.CreateActualizacionOdoTitle_parentesco}" />
+                        <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{actualizacionOdoController.selected.fecha}" title="#{bundleActualizacionOdo.EditActualizacionOdoTitle_fecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_hora}" for="hora" />
+                        <p:inputText id="hora" value="#{actualizacionOdoController.selected.hora}" title="#{bundleActualizacionOdo.CreateActualizacionOdoTitle_hora}" />
+                        <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_tipo}" for="tipo" />
+                        <p:inputText id="tipo" value="#{actualizacionOdoController.selected.tipo}" title="#{bundleActualizacionOdo.CreateActualizacionOdoTitle_tipo}" />
+                        <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_idPaciente}" for="idPaciente" />
+                        <p:selectOneMenu id="idPaciente" value="#{actualizacionOdoController.selected.idPaciente}" >
+                            <f:selectItems value="#{pacienteController.itemsAvailableSelectOne}"
+                                           var="idPacienteItem"
+                                           itemValue="#{idPacienteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{actualizacionOdoController.selected.idUsuario}" >
+                            <f:selectItems value="#{usuariosSistemaController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{actualizacionOdoController.create}" value="#{bundleActualizacionOdo.Save}" update="display,:ActualizacionOdoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ActualizacionOdoCreateDialog');"/>
+                    <p:commandButton value="#{bundleActualizacionOdo.Cancel}" onclick="ActualizacionOdoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

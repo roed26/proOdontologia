@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ListadoEstomatologicoEditDlg" widgetVar="ListadoEstomatologicoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleEstomatologico.EditListadoEstomatologicoTitle}">
+            <h:form id="ListadoEstomatologicoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{listadoEstomatologicoController.selected != null}">
+                        <p:outputLabel value="#{bundleEstomatologico.EditListadoEstomatologicoLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{listadoEstomatologicoController.selected.id}" title="#{bundleEstomatologico.EditListadoEstomatologicoTitle_id}" required="true" requiredMessage="#{bundleEstomatologico.EditListadoEstomatologicoRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundleEstomatologico.EditListadoEstomatologicoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{listadoEstomatologicoController.selected.nombre}" title="#{bundleEstomatologico.EditListadoEstomatologicoTitle_nombre}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{listadoEstomatologicoController.update}" value="#{bundleEstomatologico.Save}" update="display,:ListadoEstomatologicoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ListadoEstomatologicoEditDialog');"/>
+                    <p:commandButton value="#{bundleEstomatologico.Cancel}" onclick="ListadoEstomatologicoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

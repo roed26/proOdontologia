@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EgresoCreateDlg" widgetVar="EgresoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Registrar Nuevo Egreso">
+            <h:form id="EgresoCreateForm">
+                <h:panelGroup id="display" styleClass="panelgrid">
+                    <p:panelGrid rendered="#{egresoController.selected != null}">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel style="font-weight:bold" value="Fecha de egreso" />
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+                            <p:column>
+                                <p:calendar id="fechaEgreso" placeholder="yyyy-mm-dd" pattern="yyyy-mm-dd" value="#{egresoController.selected.fechaEgreso}" title="#{bundleEgresoIngreso.EditEgresoTitle_fechaEgreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditEgresoRequiredMessage_fechaEgreso}" showOn="button"/>
+                            </p:column>  
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel style="font-weight:bold" value="Valor del egreso" />
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="valorEgreso" value="#{egresoController.selected.valorEgreso}" title="#{bundleEgresoIngreso.CreateEgresoTitle_valorEgreso}" required="true" requiredMessage="#{bundleEgresoIngreso.CreateEgresoRequiredMessage_valorEgreso}"/>
+                            </p:column>  
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:outputLabel style="font-weight:bold" value="Descripción del egreso" />
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:inputTextarea cols="50" rows="4" id="descripcionEgreso" value="#{egresoController.selected.descripcionEgreso}" 
+                                                 title="#{bundleEgresoIngreso.CreateEgresoTitle_descripcionEgreso}" required="true" 
+                                                 requiredMessage="Campo obligatorio">
+                                    <p:ajax update="msgDescripcionEgresoError contador" event="keyup"/>
+                                    <f:validator validatorId="ValidarCampoMaximo100Caracteres"/>
+                                </p:inputTextarea>        
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel id="contador" value="#{egresoController.contarCaracteres()} de 100"/>
+                            </p:column>
+                            <p:column>
+                                <p:message id="msgDescripcionEgresoError" for="descripcionEgreso"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{egresoController.registrarEgresos()}" value="Guardar" 
+                                     update="display,:EgresoListForm:datalist" 
+                                     />
+                    <p:commandButton value="Cancelar" onclick="EgresoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

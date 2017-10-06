@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="UsuariosSistemaCreateDlg" widgetVar="UsuariosSistemaCreateDialog" modal="true" resizable="false" header="#{bundle.CreateUsuariosSistemaTitle}">
+        <h:form id="UsuariosSistemaCreateForm">
+
+            <p:panelGrid styleClass="panelgrid">
+                <p:row>
+                    <p:column style="text-align: left; font-size: 18px; font-weight:bold; color: black">  
+                        <p:outputLabel class="CampoLabel" value="Identificación " />
+                        <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                    </p:column>
+                    <p:column>                   
+                        <p:inputText style="font-size:15px"  id="identificacion" value="#{usuariosSistemaController.usuarioSistema.identificacion}" required="true" requiredMessage="Obligatorio.">
+                            <f:validator validatorId="ValidarCampoNumerico" />
+                            <f:validator validatorId="ValidarCampoNumeroIdentificacion"/>
+                            <f:validator validatorId="ValidarCampoNumericoPositivo"/>
+                            <f:validator validatorId="ValidarCampoObligatorio"/>
+                            <p:ajax update="msgIdentificacion" event="keyup"/>
+                        </p:inputText>
+                    </p:column>
+                    <p:column style="text-align: left; font-size: 18px; font-weight:bold; color: black"  >
+                        <p:outputLabel class="CampoLabel"  value="Nombres: " />
+                        <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                    </p:column>
+
+                    <p:column >                            
+                        <p:inputText  style="font-size:15px"  id="nombres" value="#{usuariosSistemaController.usuarioSistema.nombres}" required="true" requiredMessage="Obligatorio.">
+                            <f:validator validatorId="ValidarCampoSoloLetrasYespacio"/>
+                            <f:validator validatorId="ValidarCampoObligatorio"/>
+                            <f:validator validatorId="ValidarCampoMaximo60Caracteres"/>
+                            <p:ajax update="msgNombre" event="keyup"/>
+                        </p:inputText>
+                    </p:column>
+
+                </p:row>
+
+                <p:row>
+                    <p:column>  
+                    </p:column>
+                    <p:column>                   
+                        <p:message for="identificacion" id="msgIdentificacion"/>
+                    </p:column>
+
+                    <p:column>  
+                    </p:column>
+                    <p:column>                   
+                        <p:message for="nombres" id="msgNombre"/>
+                    </p:column>
+                </p:row>
+
+
+                <p:row>
+
+                    <p:column style="text-align: left; font-size: 18px; font-weight:bold; color: black">
+                        <p:outputLabel class="CampoLabel"  value="Apellidos: " />                        
+                        <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+
+                    </p:column>
+                    <p:column>                                
+                        <p:inputText style=" font-size:15px"  id="apellidos" value="#{usuariosSistemaController.usuarioSistema.apellidos}" required="true" requiredMessage="Obligatorio.">
+                            <f:validator validatorId="ValidarCampoSoloLetrasYespacio" />
+                            <f:validator validatorId="ValidarCampoObligatorio"/>
+                            <f:validator validatorId="ValidarCampoMaximo60Caracteres"/>
+                            <p:ajax update="msgApellidos" event="keyup"/>
+                        </p:inputText>      
+                    </p:column>
+
+                    <p:column style="text-align: left; font-size: 18px; font-weight:bold; color: black">                                
+                        <p:outputLabel class="CampoLabel"  value="Login: " />
+                        <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+
+                    </p:column>                                
+                    <p:column>              
+
+                        <p:inputText style="font-size:15px"  id="login" value="#{usuariosSistemaController.usuarioSistema.login}" required="true" requiredMessage="Obligatorio.">
+                            <f:validator validatorId="ValidarCampoNombreUsuario" />
+                            <p:ajax update="msgLogin" event="keyup"/>
+                        </p:inputText>
+                    </p:column> 
+
+
+                </p:row>
+
+
+                <p:row>
+                    <p:column>  
+                    </p:column>
+                    <p:column>                   
+                        <p:message for="apellidos" id="msgApellidos"/>
+                    </p:column>
+
+                    <p:column>  
+                    </p:column>
+                    <p:column>                   
+                        <p:message for="login" id="msgLogin"/>
+                    </p:column>
+                </p:row>
+
+
+
+                <p:row>                            
+
+
+                    <p:column style="text-align: left; font-size: 18px; font-weight:bold; color: black">
+                        <p:outputLabel class="CampoLabel"  value="Contraseña: " />
+                        <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                    </p:column> 
+
+                    <p:column >                                
+
+                        <p:password style="font-size:15px"  id="contrasena" value="#{usuariosSistemaController.usuarioSistema.contrasena}" required="true" requiredMessage="Obligatorio.">
+                            <f:validator validatorId="ValidarCampoMinimo6Caracteres"/>
+                            <p:ajax update="msgContrasena" event="keyup" />
+                        </p:password>
+
+                    </p:column>      
+
+                    <p:column style="text-align: left; font-size: 18px; font-weight:bold; color: black">                                
+                        <p:outputLabel value="#{bundle.CreateUsuariosSistemaLabel_registro}" for="registro" />
+                    </p:column>                                
+                    <p:column>                                
+                        <p:inputText id="registro" value="#{usuariosSistemaController.usuarioSistema.registro}" 
+                                     title="#{bundle.CreateUsuariosSistemaTitle_registro}" >
+                            <f:validator validatorId="ValidarCampoMaximo30Caracteres"/>
+                        </p:inputText>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>  
+                    </p:column>
+                    <p:column>                   
+                        <p:message for="contrasena" id="msgContrasena" display="icon" />
+                    </p:column>
+
+                    <p:column>  
+                    </p:column>
+                    <p:column>                   
+                        <p:message for="registro" id="msgRegistro"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>                            
+
+                    <p:column style="text-align: left; font-size: 18px; font-weight:bold; color: black">                                
+                        <p:outputLabel value="#{bundle.CreateUsuariosSistemaLabel_activo}" for="activo" />
+                    </p:column>     
+
+                    <p:column >
+                        <p:selectOneRadio  id="activo" value="#{usuariosSistemaController.usuarioSistema.activo}" 
+                                           >
+                            <f:selectItem itemLabel="activo" itemValue='1' />
+                            <f:selectItem itemLabel="inactivo" itemValue='0' />    
+
+                        </p:selectOneRadio>
+
+                    </p:column>
+
+                    <p:column style="text-align: left; font-size: 18px; font-weight:bold; color: black">      
+                        <p:outputLabel value="#{bundle.CreateUsuariosSistemaLabel_celular}"/>
+                    </p:column>                                
+                    <p:column>      
+                        <p:inputText id="celular" value="#{usuariosSistemaController.usuarioSistema.celular}" title="#{bundle.CreateUsuariosSistemaTitle_celular}">
+
+                            <f:validator validatorId="ValidarCampoNumerico" />
+                            <f:validator validatorId="ValidarCampoMaximo10Caracteres"/>
+                            <p:ajax update="msgCelular" event="keyup"/>
+                        </p:inputText>
+                    </p:column>                                
+                </p:row>
+                <p:row>
+                    <p:column>  
+                    </p:column>
+                    <p:column>                   
+                        <!--<p:message for="activo" id="msgActivo" display="icon" />-->
+                    </p:column>
+
+                    <p:column>  
+                    </p:column>
+                    <p:column>                   
+                        <p:message for="celular" id="msgCelular"/>
+                    </p:column>
+                </p:row>
+
+
+                <p:row>      
+                    <p:column style="text-align: left; font-size: 18px; font-weight:bold; color: black">     
+                        <p:outputLabel value="#{bundle.CreateUsuariosSistemaLabel_telefono}" />
+                    </p:column>                                
+                    <p:column>     
+                        <p:inputText id="telefono" value="#{usuariosSistemaController.usuarioSistema.telefono}" title="#{bundle.CreateUsuariosSistemaTitle_telefono}" >
+
+                            <f:validator validatorId="ValidarCampoNumerico" />
+                            <f:validator validatorId="ValidarCampoMaximo10Caracteres"/>
+                            <p:ajax update="msgTelefono" event="keyup"/>
+                        </p:inputText>
+
+                    </p:column>     
+
+                    <p:column style="text-align: left; font-size: 18px; font-weight:bold; color: black">     
+                        <p:outputLabel value="#{bundle.CreateUsuariosSistemaLabel_extension}"/>
+                    </p:column>                                
+                    <p:column>     
+                        <p:inputText id="extension" value="#{usuariosSistemaController.usuarioSistema.extension}" title="#{bundle.CreateUsuariosSistemaTitle_extension}" >
+                            <f:validator validatorId="ValidarCampoNumerico" />
+                            <f:validator validatorId="ValidarCampoMaximo10Caracteres"/>
+                            <p:ajax update="msgExtension" event="keyup"/>
+                        </p:inputText>
+
+                    </p:column>
+
+
+                </p:row>
+                <p:row>
+                    <p:column>  
+                    </p:column>
+                    <p:column>                   
+                        <p:message for="telefono" id="msgTelefono" />
+                    </p:column>
+
+                    <p:column>  
+                    </p:column>
+                    <p:column>                   
+                        <p:message for="extension" id="msgExtension"/>
+                    </p:column>
+                </p:row>
+
+
+
+                <p:row>                            
+                    <p:column style=" font-size: 18px; font-weight:bold; color: black">     
+
+                        <p:outputLabel class="CampoLabel"  value="Tipo Usuario " />
+                        <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+
+                    </p:column>                                
+
+                    <p:column>     
+
+
+
+
+
+                        <p:selectOneMenu filter="true" style=" font-size:15px" id="tipoUsuario" value="#{usuariosSistemaController.tipoUsuario}"  required="true" requiredMessage="Obligatorio.">
+                            <f:selectItems value="#{tipoUsuarioController.itemsAvailableSelectOne}"
+                                           var="tipoUsuarioItem"
+                                           itemValue="#{tipoUsuarioItem}"
+                                           itemLabel="#{tipoUsuarioItem.nombre}"
+                                           />
+                        </p:selectOneMenu>
+
+                    </p:column>                                
+                </p:row>
+            </p:panelGrid>
+                          
+            <br>
+                <p:commandButton style="font-weight: bold; color: black;" action="#{usuariosSistemaController.registrarUsuario}" 
+                             value="#{bundle.Save}"/>
+            
+                <p:commandButton style="font-weight: bold; color: black;" value="#{bundle.Cancel}" onclick="UsuariosSistemaCreateDialog.hide()"  />
+            </br>
+
+        </h:form>
+    </p:dialog>
+    <p:dialog header="Mensaje registro" modal="true" position="center" widgetVar="RegistroExitoso">
+            <h:form id="mensajeFormRegistrar">
+                <h:panelGrid columns="2" >
+                    <p:graphicImage width="50px" height="50px" library="img" name="exitoso.png" />
+                    <p:outputLabel value="La información del usuario se registro con exito" />
+                    <p:commandButton value="Aceptar" onclick="UsuariosSistemaCreateDialog.hide()" />
+                </h:panelGrid>
+
+            </h:form>
+    </p:dialog>
+
+</html>

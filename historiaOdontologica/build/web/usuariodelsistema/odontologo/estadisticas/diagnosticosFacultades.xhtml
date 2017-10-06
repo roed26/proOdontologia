@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <h:form>
+            <p:panelGrid styleClass="panelgrid" >
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="En este espacio podrá visualizar la información correspondiente a los diagnósticos "/>
+                    </p:column>
+                    <p:column rowspan="2">
+                        <p:commandButton value="Generar reporte" 
+                                         action="#{estadisticasController.generarEstadisticaFacultadDiagnostico()}" ajax="r"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                <p:column>
+                    <p:outputLabel value="realizados en las consultas odontologicas de la comunidad universitaria."/>
+                </p:column>
+
+                </p:row>
+
+
+
+            </p:panelGrid>
+            <p:panelGrid styleClass="panelgrid" rendered="#{estadisticasController.listaResultados.size()>0}">
+                <p:row >
+                    <p:column colspan="10" style="text-align: center">
+                        <h1><p:outputLabel value="Reporte general por diagnóstico" /></h1>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column style="background: #C8CDD6; font-weight: bold;">
+                        <p:outputLabel value="Diagnóstico" />
+                    </p:column>
+                    <p:column style="background: #C8CDD6; font-weight: bold;">
+                        <p:outputLabel value="Cantidad pacientes" />
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column style="background: #C8CDD6">
+                        <p:dataGrid styleClass="panelgrid" value="#{estadisticasController.diagnosticosSuma}" 
+                                    var="dato" columns="1" >
+                            <h:outputText value="#{dato.diagnostico}" style="font-weight: bold"/>
+                        </p:dataGrid>
+                    </p:column>
+                    <p:column style="background: #C8CDD6">
+                        <p:dataGrid value="#{estadisticasController.diagnosticosSuma}" 
+                                    var="dato" columns="1" >
+                            <h:outputText value="#{dato.cantidad}" style="font-weight: bold"/>
+                        </p:dataGrid>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="10">
+                        <p:separator/>
+                    </p:column>
+                </p:row>
+                <p:row >
+                    <p:column colspan="10" style="text-align: center">
+                        <h1><p:outputLabel value="Reporte por facultad - diagnóstico" /></h1>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+
+                    </p:column>
+                    <p:column style="background: #C8CDD6; font-weight: bold;">
+                        <p:outputLabel value="#{estadisticasController.listaFacultades.get(0).nombre}" />
+                    </p:column>
+                    <p:column style="background: #C8CDD6; font-weight: bold;">
+                        <p:outputLabel value="#{estadisticasController.listaFacultades.get(1).nombre}" />
+                    </p:column>
+                    <p:column style="background: #C8CDD6; font-weight: bold;">
+                        <p:outputLabel value="#{estadisticasController.listaFacultades.get(2).nombre}" />
+                    </p:column>
+                    <p:column style="background: #C8CDD6; font-weight: bold;">
+                        <p:outputLabel value="#{estadisticasController.listaFacultades.get(3).nombre}" />
+                    </p:column>
+                    <p:column style="background: #C8CDD6; font-weight: bold;">
+                        <p:outputLabel value="#{estadisticasController.listaFacultades.get(4).nombre}" />
+                    </p:column>
+                    <p:column style="background: #C8CDD6; font-weight: bold;">
+                        <p:outputLabel value="#{estadisticasController.listaFacultades.get(5).nombre}" />
+                    </p:column>
+                    <p:column style="background: #C8CDD6; font-weight: bold;">
+                        <p:outputLabel value="#{estadisticasController.listaFacultades.get(6).nombre}" />
+                    </p:column>
+                    <p:column style="background: #C8CDD6; font-weight: bold;">
+                        <p:outputLabel value="#{estadisticasController.listaFacultades.get(7).nombre}" />
+                    </p:column>
+                    <p:column style="background: #C8CDD6; font-weight: bold;">
+                        <p:outputLabel value="#{estadisticasController.listaFacultades.get(8).nombre}" />
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:dataGrid value="#{estadisticasController.diagnosticosSuma}" 
+                                    var="dato" columns="1" >
+                            <h:outputText value="#{dato.diagnostico}" style="font-weight: bold"/>
+                        </p:dataGrid>
+                    </p:column>
+                    <p:column>
+                        <p:dataGrid value="#{estadisticasController.listaResultados.get(0)}" 
+                                    var="dato" columns="1" >
+                            <h:outputText value="#{dato.cantidad}" style="font-weight: bold"/>
+                        </p:dataGrid>
+                    </p:column>
+                    <p:column>
+                        <p:dataGrid value="#{estadisticasController.listaResultados.get(1)}" 
+                                    var="dato" columns="1" >
+                            <h:outputText value="#{dato.cantidad}" style="font-weight: bold"/>
+                        </p:dataGrid>
+                    </p:column>
+                    <p:column>
+                        <p:dataGrid value="#{estadisticasController.listaResultados.get(2)}" 
+                                    var="dato" columns="1" >
+                            <h:outputText value="#{dato.cantidad}" style="font-weight: bold"/>
+                        </p:dataGrid>
+                    </p:column>
+                    <p:column>
+                        <p:dataGrid value="#{estadisticasController.listaResultados.get(3)}" 
+                                    var="dato" columns="1" >
+                            <h:outputText value="#{dato.cantidad}" style="font-weight: bold"/>
+                        </p:dataGrid>
+                    </p:column>
+                    <p:column>
+                        <p:dataGrid value="#{estadisticasController.listaResultados.get(4)}" 
+                                    var="dato" columns="1" >
+                            <h:outputText value="#{dato.cantidad}" style="font-weight: bold"/>
+                        </p:dataGrid>
+                    </p:column>
+                    <p:column>
+                        <p:dataGrid value="#{estadisticasController.listaResultados.get(5)}" 
+                                    var="dato" columns="1" >
+                            <h:outputText value="#{dato.cantidad}" style="font-weight: bold"/>
+                        </p:dataGrid>
+                    </p:column>
+                    <p:column>
+                        <p:dataGrid value="#{estadisticasController.listaResultados.get(6)}" 
+                                    var="dato" columns="1" >
+                            <h:outputText value="#{dato.cantidad}" style="font-weight: bold"/>
+                        </p:dataGrid>
+                    </p:column>
+                    <p:column>
+                        <p:dataGrid value="#{estadisticasController.listaResultados.get(7)}" 
+                                    var="dato" columns="1" >
+                            <h:outputText value="#{dato.cantidad}" style="font-weight: bold"/>
+                        </p:dataGrid>
+                    </p:column>
+                    <p:column>
+                        <p:dataGrid value="#{estadisticasController.listaResultados.get(8)}" 
+                                    var="dato" columns="1" >
+                            <h:outputText value="#{dato.cantidad}" style="font-weight: bold"/>
+                        </p:dataGrid>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+
+        </h:form>
+
+    </body>
+
+</html>

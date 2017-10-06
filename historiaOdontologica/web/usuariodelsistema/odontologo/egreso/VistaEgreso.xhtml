@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EgresoViewDlg" widgetVar="EgresoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleEgresoIngreso.ViewEgresoTitle}">
+            <h:form id="EgresoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{egresoController.selected != null}">
+                        <h:outputText value="#{bundleEgresoIngreso.ViewEgresoLabel_idEgreso}"/>
+                        <h:outputText value="#{egresoController.selected.idEgreso}" title="#{bundleEgresoIngreso.ViewEgresoTitle_idEgreso}"/>
+                        <h:outputText value="#{bundleEgresoIngreso.ViewEgresoLabel_fechaEgreso}"/>
+                        <h:outputText value="#{egresoController.selected.fechaEgreso}" title="#{bundleEgresoIngreso.ViewEgresoTitle_fechaEgreso}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundleEgresoIngreso.ViewEgresoLabel_descripcionEgreso}"/>
+                        <h:outputText value="#{egresoController.selected.descripcionEgreso}" title="#{bundleEgresoIngreso.ViewEgresoTitle_descripcionEgreso}"/>
+                        <h:outputText value="#{bundleEgresoIngreso.ViewEgresoLabel_valorEgreso}"/>
+                        <h:outputText value="#{egresoController.selected.valorEgreso}" title="#{bundleEgresoIngreso.ViewEgresoTitle_valorEgreso}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundleEgresoIngreso.Close}" onclick="EgresoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

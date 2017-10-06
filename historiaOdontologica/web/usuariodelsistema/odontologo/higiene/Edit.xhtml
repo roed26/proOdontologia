@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HigieneEditDlg" widgetVar="HigieneEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleHigiene.EditHigieneTitle}">
+            <h:form id="HigieneEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{higieneController.selected != null}">
+                        <p:outputLabel value="#{bundleHigiene.EditHigieneLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{higieneController.selected.id}" title="#{bundleHigiene.EditHigieneTitle_id}" required="true" requiredMessage="#{bundleHigiene.EditHigieneRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundleHigiene.EditHigieneLabel_higuiene}" for="higuiene" />
+                        <p:inputText id="higuiene" value="#{higieneController.selected.higuiene}" title="#{bundleHigiene.EditHigieneTitle_higuiene}" />
+                        <p:outputLabel value="#{bundleHigiene.EditHigieneLabel_frecuenciaCep}" for="frecuenciaCep" />
+                        <p:inputText id="frecuenciaCep" value="#{higieneController.selected.frecuenciaCep}" title="#{bundleHigiene.EditHigieneTitle_frecuenciaCep}" />
+                        <p:outputLabel value="#{bundleHigiene.EditHigieneLabel_gradoRiesgo}" for="gradoRiesgo" />
+                        <p:inputText id="gradoRiesgo" value="#{higieneController.selected.gradoRiesgo}" title="#{bundleHigiene.EditHigieneTitle_gradoRiesgo}" />
+                        <p:outputLabel value="#{bundleHigiene.EditHigieneLabel_pigmentacion}" for="pigmentacion" />
+                        <p:inputText id="pigmentacion" value="#{higieneController.selected.pigmentacion}" title="#{bundleHigiene.EditHigieneTitle_pigmentacion}" />
+                        <p:outputLabel value="#{bundleHigiene.EditHigieneLabel_sedaDental}" for="sedaDental" />
+                        <p:inputText id="sedaDental" value="#{higieneController.selected.sedaDental}" title="#{bundleHigiene.EditHigieneTitle_sedaDental}" />
+                        <p:outputLabel value="#{bundleHigiene.EditHigieneLabel_habitos}" for="habitos" />
+                        <p:inputText id="habitos" value="#{higieneController.selected.habitos}" title="#{bundleHigiene.EditHigieneTitle_habitos}" />
+                        <p:outputLabel value="#{bundleHigiene.EditHigieneLabel_idActualizacion}" for="idActualizacion" />
+                        <p:selectOneMenu id="idActualizacion" value="#{higieneController.selected.idActualizacion}" >
+                            <f:selectItem itemLabel="#{bundleHigiene.SelectOneMessage}"/>
+                            <f:selectItems value="#{actualizacionOdoController.itemsAvailableSelectOne}"
+                                           var="idActualizacionItem"
+                                           itemValue="#{idActualizacionItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{higieneController.update}" value="#{bundleHigiene.Save}" update="display,:HigieneListForm:datalist,:growl" oncomplete="handleSubmit(args, 'HigieneEditDialog');"/>
+                    <p:commandButton value="#{bundleHigiene.Cancel}" onclick="HigieneEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

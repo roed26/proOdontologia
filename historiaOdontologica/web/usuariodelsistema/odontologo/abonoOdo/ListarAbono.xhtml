@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <h:body>
+        <CENTER><h1> Abonos al Presupuesto  </h1></CENTER><br/>
+        <h:form>
+            <p:commandButton style="font-weight: bold; color: black" id="seleccionarServicioButton" icon="ui-icon-plus"   
+                             value="Seleccionar Paciente" onclick="PF('seleccionPacienteDialog').show()"/>
+        </h:form>
+        <h:form id="informacionPaciente">
+            <p:panelGrid id="panel" styleClass="panelgrid">
+                <p:row>
+                    <p:column style="width: 700px">
+                        <p:panelGrid rendered="#{abonoOdoController.pacienteSeleccionado}">
+                            <p:row >
+                                <p:column style="font-weight:bold; color: white; background: #339cdf" colspan="6">
+                                    <p:outputLabel value="Datos Personales"/>
+                                </p:column>
+                                <br/></p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Nombres "/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{abonoOdoController.selectedPaciente.nombres}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <p:outputLabel value="Apellidos "/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{abonoOdoController.selectedPaciente.apellidos}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <p:outputLabel value="Identificacion "/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{abonoOdoController.selectedPaciente.identificacion}"/>
+                                </p:column>
+                            </p:row>
+
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Dirección "/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{abonoOdoController.selectedPaciente.direccion}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <p:outputLabel value="Telefono "/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{abonoOdoController.selectedPaciente.telefono}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <p:outputLabel value="Ocupación "/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{abonoOdoController.selectedPaciente.ocupacion}"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:column>
+
+                    <p:column style="width: 700px">
+                        <p:panelGrid rendered="#{abonoOdoController.pacienteSeleccionado}">
+                            <p:row >
+                                <p:column style="font-weight:bold; color: white; background: #339cdf" colspan="6">
+                                    <p:outputLabel value="Estado de Pagos"/>
+                                </p:column>
+                                <br/></p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="Valor Presupuesto"/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{abonoOdoController.totalPresupuesto}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <p:outputLabel value="Total Abonado "/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{abonoOdoController.totalAbonado}"/>
+                                </p:column>
+
+                                <p:column>
+                                    <p:outputLabel value="Saldo "/>
+                                </p:column>
+                                <p:column>
+                                    <p:outputLabel value="#{abonoOdoController.saldoFinal}"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+        </h:form>
+
+        <br/><h:form id="PresupuestoListForm">    
+            <p:dataTable id="datalist" value="#{abonoOdoController.itemsDetalle}" var="detalle"
+                         >
+                 <f:facet name="header">
+                        <h:outputText value="Detalles del Servicio"/>
+                    </f:facet>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Tratamiento"/>
+                    </f:facet>
+                    <h:outputText value="#{detalle.idServiciosOdo.nombre}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Valor"/>
+                    </f:facet>
+                    <h:outputText value="$ #{detalle.idServiciosOdo.precio}"/>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Cantidad"/>
+                    </f:facet>
+                    <h:outputText style="width: 50px" value="#{detalle.cantidad}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Total"/>
+                    </f:facet>
+                    <h:outputText value="$ #{detalle.precio}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <br/><br/><h:form id="AbonoOdoListForm">
+            <p:dataTable id="datalist" rendered="#{abonoOdoController.pacienteSeleccionado}"
+                         value="#{abonoOdoController.items}" var="item"
+                         >
+                <f:facet name="header">
+                        <h:outputText value="Abonos al Presupuesto"/>
+                    </f:facet>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundleAbonos.ListAbonoOdoTitle_idAbono}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idAbono}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundleAbonos.ListAbonoOdoTitle_fecha}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fecha}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundleAbonos.ListAbonoOdoTitle_valor}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.valor}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundleAbonos.ListAbonoOdoTitle_descripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descripcion}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Acción"/>
+                    </f:facet>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Editar Abono"
+                                     actionListener="#{abonoOdoController.seleccionar_CargarAbono(item)}"
+                                     
+                                      />
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="Registrar Abono" onclick="PF('AbonoOdoCreateDialog').show()"/>
+                </f:facet>
+            </p:dataTable>
+
+            <p:dialog visible="#{!abonoOdoController.pacienteSeleccionado}" id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center"   header="Seleccionar Paciente">
+                <h:form id="PacienteListForm">
+                        <p:outputLabel value="Buscar Paciente: "  style="bold"/>
+
+                        <p:inputText   style="width: 300px" placeholder="Ingrese nombre,apellidos o identificación" value="#{pacienteController.busquedaPaciente}">
+                            <p:ajax update="datalist"  event="keyup" listener="#{pacienteController.buscarPaciente()}"/>
+                        </p:inputText>    
+                        <p:dataTable id="datalist" value="#{pacienteController.items}" var="item"
+                                     paginator="true"
+                                     rowKey="#{item.id}"
+                                     rows="10"
+                                     rowsPerPageTemplate="5,10"
+                                     >
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundlePaciente.ListPacienteTitle_identificacion}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.identificacion}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundlePaciente.ListPacienteTitle_nombre1}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombres}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundlePaciente.ListPacienteTitle_apellido1}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.apellidos}"/>
+                            </p:column>
+
+                            <p:column> 
+                                <p:commandButton id="botonSeleccionarPaciente" 
+                                                 value="Seleccionar"   
+                                                 icon="ui-icon-plus"  
+                                                 update=":AbonoOdoListForm" 
+                                                 action="#{abonoOdoController.seleccionarPaciente(item)}" 
+                                                 />
+                            </p:column>
+
+                        </p:dataTable>
+                </h:form>
+            </p:dialog>
+
+            <p:dialog>
+                <br/><CENTER> <h1> REGISTRAR PACIENTE </h1><b/> </CENTER>
+                <br/><br/><h:form id="PacienteCreateForm">
+                    <p:panelGrid id="panel" styleClass="panelgrid" >
+                        <p:row >
+                            <p:column style="font-weight:bold; color: white; background: #339cdf" colspan="6">
+                                <p:outputLabel value="DATOS PERSONALES"/>
+                            </p:column>
+                            <br/></p:row>
+                        <p:row>
+                            <p:column style=" font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="#{bundlePaciente.CreatePacienteLabel_tipoIdentificacion}"/>
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+                            <p:column style="font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="#{bundlePaciente.CreatePacienteLabel_identificacion}"/>
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+                            <p:column style="font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="#{bundlePaciente.CreatePacienteLabel_sexo}"/>
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:selectOneMenu filter="true" id="tipoIdentificacion" value="#{pacienteController.tipoIdentificacion}" required="true" requiredMessage="#{bundle.EditPacienteRequiredMessage_tipoIdentificacion}">
+                                    <f:selectItem itemLabel="Seleccione..." itemValue="0"/>
+                                    <f:selectItems value="#{tipoIdentificacionController.itemsAvailableSelectOne}"
+                                                   var="tipoIdentificacionItem"
+                                                   itemValue="#{tipoIdentificacionItem}"
+                                                   itemLabel="#{tipoIdentificacionItem.nombre}"
+                                                   />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="identificacion" value="#{pacienteController.selected.identificacion}"
+                                             title="#{bundle.CreatePacienteTitle_identificacion}" >
+                                    <f:validator validatorId="ValidarCampoNumeroIdentificacion"/>
+                                    <f:validator validatorId="ValidarCampoNumericoPositivo"/>
+                                    <f:validator validatorId="ValidarCampoObligatorio"/>
+                                    <p:ajax update="msgIdentificacion" event ="keyup" />
+                                </p:inputText>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneRadio  id="sexo" value="#{pacienteController.selected.sexo}" 
+                                                   >
+                                    <f:validator validatorId="ValidarCampoObligatorio"/>
+                                    <f:selectItem itemLabel="F" itemValue='F' />
+                                    <f:selectItem itemLabel="M" itemValue='M' />    
+
+                                </p:selectOneRadio>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+
+                            </p:column>
+                            <p:column>
+                                <p:message for="identificacion" id="msgIdentificacion"/>
+                            </p:column>
+                            <p:column>
+
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+                            <p:column style=" font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="Nombres"/>
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+
+                            <p:column style=" font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="Apellidos"/>
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+                            <p:column style=" font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="#{bundlePaciente.CreatePacienteLabel_ocupacion}"/>
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:inputText id="nombres"
+                                             value="#{pacienteController.selected.nombres}"
+                                             title="#{bundle.CreatePacienteTitle_nombres}" >
+                                    <f:validator validatorId="ValidarCampoSoloLetrasYespacio"/>
+                                    <f:validator validatorId="ValidarCampoObligatorio"/>
+                                    <f:validator validatorId="ValidarCampoMaximo20Caracteres"/>
+                                    <p:ajax update="msgNombres" event ="keyup" />
+                                </p:inputText> 
+
+                            </p:column>
+
+                            <p:column>
+                                <p:inputText id="apellidos" 
+                                             value="#{pacienteController.selected.apellidos}" 
+                                             title="#{bundle.CreatePacienteTitle_apellidos}" >
+                                    <f:validator validatorId="ValidarCampoSoloLetrasYespacio"/>
+                                    <f:validator validatorId="ValidarCampoObligatorio"/>
+                                    <f:validator validatorId="ValidarCampoMaximo30Caracteres"/>
+                                    <p:ajax update="msgApellidos" event ="keyup" />
+                                </p:inputText>
+                            </p:column>
+
+                            <p:column>   
+                                <p:inputText id="ocupacion" 
+                                             value="#{pacienteController.selected.ocupacion}" 
+                                             title="#{bundle.CreatePacienteTitle_ocupacion}" >
+                                    <f:validator validatorId="ValidarCampoSoloLetrasYespacio"/>
+                                    <f:validator validatorId="ValidarCampoObligatorio"/>
+                                    <f:validator validatorId="ValidarCampoMaximo30Caracteres"/>
+                                    <p:ajax update="msgOcupacion" event ="keyup" />
+                                </p:inputText>
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:message for="nombres" id="msgNombres"/>
+                            </p:column> 
+                            <p:column>
+                                <p:message for="apellidos" id="msgApellidos"/> 
+                            </p:column>
+                            <p:column>
+                                <p:message for="ocupacion" id="msgOcupacion"/>  
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column style="font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="#{bundlePaciente.CreatePacienteLabel_fechaNacimiento}" for="fechaNacimiento" />
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+                            <p:column style="font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="#{bundlePaciente.CreatePacienteLabel_direccion}"/>
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+                            <p:column style=" font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="#{bundlePaciente.CreatePacienteLabel_telefono}"/>
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:calendar placeholder="dd/mm/aaaa" id="fechaNacimiento" yearRange="c-80:c" navigator="true" pattern="MM-dd-yyyy" value="#{pacienteController.selected.fechaNacimiento}" title="#{bundle.EditPacienteTitle_fechaNacimiento}"  showOn="button">
+                                    <f:validator validatorId="ValidarCampoObligatorio"/>
+                                    <p:ajax update="msgFechaNacimiento" event ="keyup" />
+                                </p:calendar>
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="direccion" 
+                                             value="#{pacienteController.selected.direccion}" 
+                                             title="#{bundle.CreatePacienteTitle_direccion}" >
+                                    <f:validator validatorId="ValidarCampoObligatorio"/>
+                                    <p:ajax update="msgDireccionResidencia" event ="keyup" />
+                                </p:inputText>
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="telefono" 
+                                             value="#{pacienteController.selected.telefono}" 
+                                             title="#{bundle.CreatePacienteTitle_telefono}" >
+                                    <f:validator validatorId="ValidarCampoObligatorio"/>
+                                    <p:ajax update="msgDireccionResidencia" event ="keyup" />
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:message for="fechaNacimiento" id="msgFechaNacimiento"/> 
+                            </p:column>
+                            <p:column>
+                                <p:message for="direccion" id="msgDireccionResidencia"/> 
+                            </p:column>
+                            <p:column>
+                                <p:message for="telefono" id="msgTelefono"/> 
+                            </p:column>
+                        </p:row>                    
+                    </p:panelGrid><br/><br/>
+                    <p:commandButton action="#{pacienteController.registrarPaciente()}" value="Guardar paciente" ajax="true" update="panel"/>
+                </h:form>
+            </p:dialog>
+        </h:form>
+
+
+        <ui:include src="CrearAbono.xhtml"/>
+        <ui:include src="EditarAbono.xhtml"/>
+        <ui:include src="VerAbono.xhtml"/>
+    </h:body>
+</html>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <br/><CENTER><h1> EGRESOS DEL CONSULTORIO ODONTOLÓGICO </h1></CENTER><br/>
+        <br/><h:form id="EgresoListForm">
+            <p:dataTable id="datalist" value="#{egresoController.items}" var="item"
+                         selectionMode="single" selection="#{egresoController.selected}"
+                         paginator="true"
+                         rowKey="#{item.idEgreso}"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         >
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Identificador del Egreso"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idEgreso}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha del Egreso"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaEgreso}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Descripción Egreso"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descripcionEgreso}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Valor del Egreso"/>
+                    </f:facet>
+                    <h:outputText value="$ #{item.valorEgreso}"/>
+                </p:column>
+                <f:facet name="footer">
+                    <br/><p:commandButton id="createButton" icon="ui-icon-plus"   value="Agregar egresos" actionListener="#{egresoController.prepareCreate}" update=":EgresoCreateForm" oncomplete="PF('EgresoCreateDialog').show()"/>
+
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+
+        <ui:include src="CrearEgreso.xhtml"/>
+        <ui:include src="EditarEgreso.xhtml"/>
+        <ui:include src="VistaEgreso.xhtml"/>
+        <p:dialog header="Información" modal="true" position="center" widgetVar="mensajeRegistroExitoso" closable="false">
+            <p:messages  style="font-size: 15px;"  showDetail="true" autoUpdate="true"/>
+            <h:form>
+                <p:commandButton  value="Aceptar" style="font-weight: normal;"
+                                  onclick="PF('mensajeRegistroExitoso').hide()"/>
+            </h:form>
+        </p:dialog>
+    </h:body>
+
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ServiciosOdoEditDlg" widgetVar="ServiciosOdoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleServicios.EditServiciosOdoTitle}">
+            <h:form id="ServiciosOdoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid  rendered="#{serviciosOdoController.selected != null}">
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="#{bundleServicios.EditServiciosOdoLabel_nombre}" for="nombre" />
+                            </p:column>
+
+                            <p:column>
+                                <p:inputText id="nombre" 
+                                             value="#{serviciosOdoController.selected.nombre}" 
+                                             title="#{bundleServicios.EditServiciosOdoTitle_nombre}" >
+                                    <f:validator validatorId="ValidarCampoSoloLetrasYespacio"/>                               
+                                    <p:ajax update="msgNombreEdit" event="keyup"></p:ajax>
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+
+
+                        <p:column></p:column>
+                        <p:column> <p:message for="" id="msgNombreEdit"/> </p:column>
+
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="#{bundleServicios.EditServiciosOdoLabel_valor}" for="valor" />
+                            </p:column>
+
+                            <p:column>
+                                <p:inputText id="valor" 
+                                             value="#{serviciosOdoController.selected.precio}" 
+                                             title="#{bundleServicios.EditServiciosOdoTitle_valor}">
+                                    <f:validator validatorId="ValidarCampoNumerico"/>
+                                    <f:validator validatorId="ValidarCampoNumericoPositivo"/>
+                                    <p:ajax update="msgValoredit" event="keyup"></p:ajax>
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column></p:column>
+                            <p:column><p:message for="valor" id="msgValoredit"/></p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+
+                    <p:commandButton actionListener="#{serviciosOdoController.update}" 
+                                     value="#{bundleServicios.Save}" 
+                                     update="display,:ServiciosOdoListForm:datalist" 
+                                     oncomplete="PF('ServiciosOdoEditDialog').hide()"/>
+                    <p:commandButton value="#{bundleServicios.Cancel}" 
+                                     actionListener="#{serviciosOdoController.reiniciarServicio_Odo()}" 
+                                     onclick="ServiciosOdoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IngresoCreateDlg" widgetVar="IngresoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Registrar Nuevo Ingreso">
+            <h:form id="IngresoCreateForm">
+                <h:panelGroup id="display" styleClass="panelgrid">
+                    <p:panelGrid rendered="#{ingresoController.selected != null}">
+                       <p:row>
+                            <p:column>
+                                <p:outputLabel style="font-weight:bold" value="Fecha de ingreso" />
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+                            <p:column>
+                                <p:calendar id="fechaIngreso" placeholder="yyyy-mm-dd" pattern="yyyy-mm-dd" value="#{ingresoController.selected.fechaIngreso}" title="#{bundleEgresoIngreso.EditIngresoTitle_fechaIngreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditIngresoRequiredMessage_fechaIngreso}" showOn="button"/>
+                            </p:column>  
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel style="font-weight:bold" value="Valor del ingreso" />
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="valorIngreso" value="#{ingresoController.selected.valorIngreso}" title="#{bundleEgresoIngreso.CreateIngresoTitle_valorIngreso}" required="true" requiredMessage="#{bundleEgresoIngreso.CreateIngresoRequiredMessage_valorIngreso}"/>
+                            </p:column>  
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:outputLabel style="font-weight:bold" value="Descripción del ingreso" />
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">
+                                <p:inputTextarea cols="50" rows="4" id="descripcionIngreso" value="#{ingresoController.selected.descripcionIngreso}" 
+                                                 title="#{bundleEgresoIngreso.CreateIngresoTitle_descripcionIngreso}" required="true" 
+                                                 requiredMessage="Campo obligatorio">
+                                    <p:ajax update="msgDescripcionIngresoError contador" event="keyup"/>
+                                    <f:validator validatorId="ValidarCampoMaximo100Caracteres"/>
+                                </p:inputTextarea>
+                                
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel id="contador" value="#{ingresoController.contarCaracteres()} de 100"/>
+                            </p:column>
+                            <p:column>
+                                <p:message id="msgDescripcionIngresoError" for="descripcionIngreso"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ingresoController.registrarIngresos()}" 
+                                     value="Guardar" update="display,:IngresoListForm:datalist" 
+                                     />
+                    <p:commandButton value="Cancelar" onclick="IngresoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

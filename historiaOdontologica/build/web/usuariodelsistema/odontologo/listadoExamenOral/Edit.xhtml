@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundleExamenOral.EditListadoExamenOralTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundleExamenOral.EditListadoExamenOralLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{listadoExamenOralController.selected.id}" title="#{bundleExamenOral.EditListadoExamenOralTitle_id}" required="true" requiredMessage="#{bundleExamenOral.EditListadoExamenOralRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundleExamenOral.EditListadoExamenOralLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{listadoExamenOralController.selected.nombre}" title="#{bundleExamenOral.EditListadoExamenOralTitle_nombre}" />
+                    <h:outputLabel value="#{bundleExamenOral.EditListadoExamenOralLabel_pulpar}" for="pulpar" />
+                    <h:inputText id="pulpar" value="#{listadoExamenOralController.selected.pulpar}" title="#{bundleExamenOral.EditListadoExamenOralTitle_pulpar}" />
+                    <h:outputLabel value="#{bundleExamenOral.EditListadoExamenOralLabel_dentarios}" for="dentarios" />
+                    <h:inputText id="dentarios" value="#{listadoExamenOralController.selected.dentarios}" title="#{bundleExamenOral.EditListadoExamenOralTitle_dentarios}" />
+                    <h:outputLabel value="#{bundleExamenOral.EditListadoExamenOralLabel_periodontales}" for="periodontales" />
+                    <h:inputText id="periodontales" value="#{listadoExamenOralController.selected.periodontales}" title="#{bundleExamenOral.EditListadoExamenOralTitle_periodontales}" />
+                </h:panelGrid>
+                <h:commandLink action="#{listadoExamenOralController.update}" value="#{bundleExamenOral.EditListadoExamenOralSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundleExamenOral.EditListadoExamenOralViewLink}"/>
+                <br />
+                <h:commandLink action="#{listadoExamenOralController.prepareList}" value="#{bundleExamenOral.EditListadoExamenOralShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundleExamenOral.EditListadoExamenOralIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

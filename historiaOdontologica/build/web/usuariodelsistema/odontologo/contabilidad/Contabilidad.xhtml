@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <br/><CENTER><h1> CONTABILIDAD CONSULTORIO ODONTOLÓGICO</h1></CENTER><br/>
+        <br/><h:form>
+            <p:panelGrid columns="2" styleClass="panelgrid" >
+                <p:commandButton value="Generar resultados"  
+                                 action="#{contabilidadController.calcurarGanancias()}" 
+                                 ajax="r"
+                                 />
+            </p:panelGrid>
+            <p:panelGrid style="margin-left: 11px ">
+                <p:row >
+                    <p:column style=" font-weight:bold; color: white; background: #339cdf">
+                        <p:outputLabel value="Ganancia"/>
+                    </p:column>
+                    <p:column style=" font-weight:bold; color: white; background: #339cdf">
+                        <p:outputLabel value="Perdida"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>                       
+                        <p:outputLabel value="#{contabilidadController.ganancia}"/>
+                    </p:column>
+                    <p:column>                       
+                        <p:outputLabel value="#{contabilidadController.perdida}"/>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+
+            <p:panelGrid styleClass="panelgrid">
+                <p:row>
+                    <p:column>
+                        <p:dataTable value="#{ingresoController.itemsAvailableSelectOne}" var="ingresos">
+                            <f:facet name="header" >
+                                <p:outputLabel value="Ingreso"/>
+                            </f:facet>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Fecha Ingreso"/>
+                                </f:facet>
+                                <p:outputLabel value="#{ingresos.fechaIngreso}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Descripciòn Ingreso"/>
+                                </f:facet>
+                                <p:outputLabel value="#{ingresos.descripcionIngreso}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Valor Ingreso"/>
+                                </f:facet>
+                                <p:outputLabel value="#{ingresos.valorIngreso}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:column>
+                    <p:column>
+
+                        <p:dataTable value="#{egresoController.itemsAvailableSelectOne}" var="egresos">
+                            <f:facet name="header" >
+                                <p:outputLabel value="Egreso"/>
+                            </f:facet>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Fecha"/>
+                                </f:facet>
+                                <p:outputLabel value="#{egresos.fechaEgreso}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Descripciòn"/>
+                                </f:facet>
+                                <p:outputLabel value="#{egresos.descripcionEgreso}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Valor"/>
+                                </f:facet>
+                                <p:outputLabel value="#{egresos.valorEgreso}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
+        </h:form>
+
+    </body>
+
+</html>

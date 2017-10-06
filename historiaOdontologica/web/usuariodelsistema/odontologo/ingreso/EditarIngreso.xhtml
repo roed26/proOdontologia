@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IngresoEditDlg" widgetVar="IngresoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleEgresoIngreso.EditIngresoTitle}">
+            <h:form id="IngresoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ingresoController.selected != null}">
+                        <p:outputLabel value="#{bundleEgresoIngreso.EditIngresoLabel_idIngreso}" for="idIngreso" />
+                        <p:inputText id="idIngreso" value="#{ingresoController.selected.idIngreso}" title="#{bundleEgresoIngreso.EditIngresoTitle_idIngreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditIngresoRequiredMessage_idIngreso}"/>
+                        <p:outputLabel value="#{bundleEgresoIngreso.EditIngresoLabel_fechaIngreso}" for="fechaIngreso" />
+                        <p:calendar id="fechaIngreso" pattern="MM/dd/yyyy" value="#{ingresoController.selected.fechaIngreso}" title="#{bundleEgresoIngreso.EditIngresoTitle_fechaIngreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditIngresoRequiredMessage_fechaIngreso}" showOn="button"/>
+                        <p:outputLabel value="#{bundleEgresoIngreso.EditIngresoLabel_descripcionIngreso}" for="descripcionIngreso" />
+                        <p:inputText id="descripcionIngreso" value="#{ingresoController.selected.descripcionIngreso}" title="#{bundleEgresoIngreso.EditIngresoTitle_descripcionIngreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditIngresoRequiredMessage_descripcionIngreso}"/>
+                        <p:outputLabel value="#{bundleEgresoIngreso.EditIngresoLabel_valorIngreso}" for="valorIngreso" />
+                        <p:inputText id="valorIngreso" value="#{ingresoController.selected.valorIngreso}" title="#{bundleEgresoIngreso.EditIngresoTitle_valorIngreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditIngresoRequiredMessage_valorIngreso}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ingresoController.update}" value="#{bundleEgresoIngreso.Save}" update="display,:IngresoListForm:datalist" oncomplete="handleSubmit(args, 'IngresoEditDialog');"/>
+                    <p:commandButton value="#{bundleEgresoIngreso.Cancel}" onclick="IngresoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

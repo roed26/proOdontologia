@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundleAntOdon.CreateListadoAntOdonTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundleAntOdon.CreateListadoAntOdonLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{listadoAntOdonController.selected.id}" title="#{bundleAntOdon.CreateListadoAntOdonTitle_id}" required="true" requiredMessage="#{bundleAntOdon.CreateListadoAntOdonRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundleAntOdon.CreateListadoAntOdonLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{listadoAntOdonController.selected.nombre}" title="#{bundleAntOdon.CreateListadoAntOdonTitle_nombre}" />
+                    <h:outputLabel value="#{bundleAntOdon.CreateListadoAntOdonLabel_familiar}" for="familiar" />
+                    <h:inputText id="familiar" value="#{listadoAntOdonController.selected.familiar}" title="#{bundleAntOdon.CreateListadoAntOdonTitle_familiar}" />
+                    <h:outputLabel value="#{bundleAntOdon.CreateListadoAntOdonLabel_personal}" for="personal" />
+                    <h:inputText id="personal" value="#{listadoAntOdonController.selected.personal}" title="#{bundleAntOdon.CreateListadoAntOdonTitle_personal}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{listadoAntOdonController.create}" value="#{bundleAntOdon.CreateListadoAntOdonSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{listadoAntOdonController.prepareList}" value="#{bundleAntOdon.CreateListadoAntOdonShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundleAntOdon.CreateListadoAntOdonIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
