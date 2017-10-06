@@ -164,3 +164,9 @@ body {
     background:  transparent;
     border:0;
 }
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    border: 1px solid #1b00ff !important;
+    background: #12045d 50% 50% repeat-x !important;
+    color: #FFFFFF !important;
+}
