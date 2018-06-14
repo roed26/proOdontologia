@@ -69,7 +69,6 @@ public class ServiciosOdoController implements Serializable {
     }
 
     public void registrarServicio_Odo() {
-
         RequestContext requestContext = RequestContext.getCurrentInstance();
         ejbFacade.create(selected);
         //requestContext.execute("PF('RegistroExitoso').show()");
@@ -77,7 +76,14 @@ public class ServiciosOdoController implements Serializable {
         requestContext.update("ServiciosOdoListForm:datalist");
         selected = new ServiciosOdo();
     }
-
+    
+    public void editarServicio() {
+        ejbFacade.edit(selected);
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("PF('ActualizacionExitosa').show()");
+        selected = new ServiciosOdo();
+    }
+    
     public void seleccionarServicio_Odo(ServiciosOdo selected) {
         this.selected = selected;
         RequestContext requestContext = RequestContext.getCurrentInstance();

@@ -8,6 +8,7 @@ import com.historiaodontologica.managedbeans.util.JsfUtil.PersistAction;
 import com.historiaodontologica.sessionbeans.DetalleServicioFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -34,30 +35,30 @@ public class ContabilidadController implements Serializable {
     private List<Egreso> itemsEgreso = null;
     private Ingreso selectedIngreso;
     private Egreso selectedEgreso;
-    private double ganancia;
-    private double perdida;
+    private String ganancia;
+    private String perdida;
 
     public ContabilidadController() {
-        this.ganancia = 0;
-        this.perdida = 0;
+        this.ganancia = "";
+        this.perdida = "";
         itemsIngreso = new ArrayList<>();
         itemsEgreso = new ArrayList<>();
     }
 
-    public double getPerdida() {
-        return perdida;
-    }
-
-    public void setPerdida(double perdida) {
-        this.perdida = perdida;
-    }
-
-    public double getGanancia() {
+    public String getGanancia() {
         return ganancia;
     }
 
-    public void setGanancia(double ganancia) {
+    public void setGanancia(String ganancia) {
         this.ganancia = ganancia;
+    }
+
+    public String getPerdida() {
+        return perdida;
+    }
+
+    public void setPerdida(String perdida) {
+        this.perdida = perdida;
     }
 
     public List<Ingreso> getItemsIngreso() {
@@ -77,9 +78,9 @@ public class ContabilidadController implements Serializable {
     }
 
     public void calcurarGanancias() {
-        double totalEgresos = 0, totalIngresos = 0;
-        ganancia = 0;
-        perdida = 0;
+        double totalEgresos = 0, totalIngresos = 0, per=0, gan=0;
+        ganancia = "";
+        perdida = "";
         itemsEgreso = ejbEgreso.findAll();
         itemsIngreso = ejbIngreso.findAll();
         for (int i = 0; i < itemsEgreso.size(); i++) {
@@ -90,12 +91,14 @@ public class ContabilidadController implements Serializable {
         }
 
         if (totalIngresos > totalEgresos) {
-            ganancia = totalIngresos - totalEgresos;
+            gan = totalIngresos - totalEgresos;
+            ganancia = String.valueOf(gan);
         } else if (totalIngresos < totalEgresos) {
-            perdida = (totalIngresos - totalEgresos) * -1;
+            per = (totalIngresos - totalEgresos) * -1;
+            perdida = String.valueOf(per);
         } else {
-            ganancia = 0;
-            perdida = 0;
+            ganancia = "0";
+            perdida = "0";
         }
 
     }

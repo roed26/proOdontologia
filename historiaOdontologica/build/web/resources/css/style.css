@@ -164,18 +164,13 @@ input:focus {
 
 .CuadroDeBotonesSesion
 {
-
-    
     position: absolute;
     padding: 5px;
     color: #FFFFFF;
     text-align: center;
-    border: 3px  solid #ffffff;
-    border-style: none none solid;
     right: 20px;
     top: 10px;
-    border-radius: 20px; 
-    
+   
 }
 .CuadroLogo
 {
@@ -195,39 +190,4 @@ input:focus {
 }
 
 
-#mainFooter {
 
-}	
-#mainFooter .contenedor {
-    width: auto;
-    margin: auto;
-    background: url(../img/footer/bkg-footer.jpg) repeat-x 0% 41px; 
-    background-color: #FFFFFF;
-    padding: 0px;
-}
-#mainFooter .contenedor .separador {
-    background: url(../img/footer/foot-bkg.gif) no-repeat;
-    width: auto;
-    height: auto;
-}
-#mainFooter .contenedor .pie {
-    background: url(../img/footer/bkg-cabecera-rojo.png) repeat-y;
-    width: auto;
-    border-top: 5px solid #092169;
-}
-#mainFooter .contenedor .pie .decoracion {
-    width: 132px;
-    height: 59px;
-}
-#mainFooter .contenedor .pie .decoracion.izq {
-    background: url(../img/footer/fon-izq-footer-inf.gif) no-repeat;
-    float: left;
-}
-#mainFooter .contenedor .pie .decoracion.der {
-    background: url(../img/footer/fon-der-footer-inf.gif) no-repeat;
-    float: right;
-}
-
-.clear {
-    clear: both;
-}

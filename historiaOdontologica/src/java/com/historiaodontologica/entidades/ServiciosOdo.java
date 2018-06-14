@@ -31,8 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ServiciosOdo.findById", query = "SELECT s FROM ServiciosOdo s WHERE s.id = :id"),
     @NamedQuery(name = "ServiciosOdo.findByNombre", query = "SELECT s FROM ServiciosOdo s WHERE s.nombre = :nombre"),
     @NamedQuery(name = "ServiciosOdo.findByPrecio", query = "SELECT s FROM ServiciosOdo s WHERE s.precio = :precio"),
-    @NamedQuery(name = "ServiciosOdo.findByServiciosOdo", query = "SELECT s FROM ServiciosOdo s WHERE LOWER(s.nombre)LIKE :busqueda"),
     @NamedQuery(name = "ServiciosOdo.findByServiciosOdo", query = "SELECT s FROM ServiciosOdo s WHERE LOWER(s.nombre)LIKE :busqueda")
+    
 })
 
 public class ServiciosOdo implements Serializable {

@@ -1,15 +1,14 @@
 
 body {
-    background: url(../img/body-bkg.png) repeat-x scroll 0% 0% #C8CDD6;
-
+    background: url(../img/body-bkg.png) ;
     line-height: 1;
-    font-size: 12px;
-    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    font-size: 14px !important;
+    font-family: helvetica !important;
     width: 98.5%;
 }
 
 #header{
-    height: 170px;
+    height: 50px;
     background-color: rgb(241, 241, 241);
     box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.5);
     margin-bottom: 5px;
@@ -74,11 +73,11 @@ body {
 }
 
 .ui-widget .ui-widget{
-    font-size: 13px !important;
+    font-size: 14px !important;
 }
 
 .ui-datatable th{
-    font-size: 13px !important;
+    font-size: 14px !important;
 }
 .ui-menu{
     min-width: 100px !important;
@@ -86,12 +85,12 @@ body {
 
 .recaudoTable td{
     text-align: center !important;
-    font-size: 12px !important;
+    font-size: 14px !important;
     color: #000000;
 }
 
 .ui-button-text{
-    font-size: 10px !important;
+    font-size: 14px !important;
 }
 
 .fechaRed{
@@ -110,7 +109,7 @@ body {
 .CampoLabelEspecificacion
 {
     font-style: italic;
-    font-size: 10px;
+    font-size: 14px;
 }
 .panelgrid , .panelgrid tr , .panelgrid td
 {
@@ -156,7 +155,7 @@ body {
 
 }
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 
@@ -170,3 +169,4 @@ body {
     background: #12045d 50% 50% repeat-x !important;
     color: #FFFFFF !important;
 }
+

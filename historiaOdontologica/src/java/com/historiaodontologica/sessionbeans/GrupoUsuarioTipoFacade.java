@@ -34,7 +34,7 @@ public class GrupoUsuarioTipoFacade extends AbstractFacade<GrupoUsuarioTipo> {
     public List<GrupoUsuarioTipo> buscarPorNombreUsuario(String nombreUsuario)
     {
         Query query = getEntityManager().createNamedQuery("GrupoUsuarioTipo.findByNombreUsuario");
-        query.setParameter("nombreUsuario", nombreUsuario);
+        query.setParameter("nombreUsuario",nombreUsuario);
         List<GrupoUsuarioTipo> resultList = query.getResultList();
         return resultList;
     }

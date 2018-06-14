@@ -38,8 +38,8 @@ and open the template in the editor.
                         <p:outputLabel style="font-weight: bold;" value="Nombre: " />
                     </p:column>
                     <p:column>
-                        <p:outputLabel value="#{gestionHOdontologicaController.paciente.nombre1} #{gestionHOdontologicaController.paciente.nombre2}" />
-                        <p:outputLabel value=" #{gestionHOdontologicaController.paciente.apellido1} #{gestionHOdontologicaController.paciente.apellido2}" />
+                        <p:outputLabel value="#{gestionHOdontologicaController.paciente.nombres} " />
+                        <p:outputLabel value=" #{gestionHOdontologicaController.paciente.apellidos} " />
                     </p:column> 
                     <p:column>
                         <p:outputLabel style="font-weight: bold; color: black;" value="#{bundlePaciente.CreatePacienteLabel_ocupacion}" />
@@ -144,61 +144,61 @@ and open the template in the editor.
                                 </p:row>
                                 <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[0].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[0].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[0].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[0].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[1].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[1].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[1].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[1].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[2].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[2].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[2].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[2].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[3].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[3].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[3].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[3].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[4].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[4].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[4].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[4].resultado}" />      
                                     </p:column>
 
                                 </p:row>
                                 <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[5].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[5].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[5].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[5].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[6].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[6].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[6].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[6].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[7].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[7].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[7].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[7].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[8].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[8].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[8].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[8].resultado}" />      
                                     </p:column>
 
                                 </p:row>
@@ -219,134 +219,134 @@ and open the template in the editor.
 
                                 <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[9].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[9].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[9].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[9].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[10].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[10].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[10].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[10].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[11].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[11].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[11].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[11].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[12].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[12].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[12].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[12].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[13].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[13].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[13].resultado}" />      
-                                    </p:column>
-
-                                </p:row>
-                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
-                                    <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[14].nombre}: " style="font-weight: bold"/>      
-                                    </p:column>
-                                    <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[14].resultado}" />      
-                                    </p:column>
-                                    <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[15].nombre}: " style="font-weight: bold"/>      
-                                    </p:column>
-                                    <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[15].resultado}" />      
-                                    </p:column>
-                                    <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[16].nombre}: " style="font-weight: bold"/>      
-                                    </p:column>
-                                    <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[16].resultado}" />      
-                                    </p:column>
-                                    <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[17].nombre}: " style="font-weight: bold"/>      
-                                    </p:column>
-                                    <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[17].resultado}" />      
-                                    </p:column>
-                                    <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[18].nombre}: " style="font-weight: bold"/>      
-                                    </p:column>
-                                    <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[18].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[13].resultado}" />      
                                     </p:column>
 
                                 </p:row>
                                 <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[19].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[14].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[19].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[14].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[20].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[15].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[20].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[15].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[21].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[16].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[21].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[16].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[22].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[17].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[22].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[17].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[23].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[18].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[23].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[18].resultado}" />      
+                                    </p:column>
+
+                                </p:row>
+                                <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[19].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[19].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[20].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[20].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[21].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[21].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[22].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[22].resultado}" />      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[23].nombre}: " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[23].resultado}" />      
                                     </p:column>
 
 
                                 </p:row>
                                 <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[24].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[24].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[24].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[24].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[25].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[25].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[25].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[25].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[26].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[26].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[26].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[26].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[27].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[27].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[27].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[27].resultado}" />      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[28].nombre}: " style="font-weight: bold"/>      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[28].nombre}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.antOdoCollection.toArray()[28].resultado}" />      
+                                        <h:outputText value="#{actualizacion.antecedenteOdoCollection.toArray()[28].resultado}" />      
                                     </p:column>
 
                                 </p:row>
@@ -655,7 +655,7 @@ and open the template in the editor.
                                         <h:outputText value="Higiene: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.higieneCollection.toArray()[0].higuiene}" />      
+                                        <h:outputText value="#{actualizacion.higieneCollection.toArray()[0].higiene}" />      
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="Frecuencia de cepillado: " style="font-weight: bold"/>      
@@ -1903,28 +1903,12 @@ and open the template in the editor.
                                                     <h:outputText value="DX Rel-1" style="font-weight: bold"/>                  
                                                 </p:column>
                                                 <p:column>
-                                                    <h:outputText value="#{actualizacion.diagnosticoOdoCollection.toArray()[0].ndx1}" style="font-weight: bold"/>                  
+                                                    <h:outputText value="#{actualizacion.diagnosticoOdoCollection.toArray()[0].ndx}" style="font-weight: bold"/>                  
                                                 </p:column>
 
                                             </p:row>
-                                            <p:row>
-                                                <p:column>
-                                                    <h:outputText value="DX Rel-2" style="font-weight: bold"/>                  
-                                                </p:column>
-                                                <p:column>
-                                                    <h:outputText value="#{actualizacion.diagnosticoOdoCollection.toArray()[0].ndx2}" style="font-weight: bold"/>                  
-                                                </p:column>
-
-                                            </p:row>
-                                            <p:row>
-                                                <p:column>
-                                                    <h:outputText value="DX Rel-3" style="font-weight: bold"/>                  
-                                                </p:column>
-                                                <p:column>
-                                                    <h:outputText value="#{actualizacion.diagnosticoOdoCollection.toArray()[0].ndx3}" style="font-weight: bold"/>                  
-                                                </p:column>
-
-                                            </p:row>
+                                           
+                                           
                                         </p:panelGrid>
 
                                     </p:column>
@@ -1985,25 +1969,13 @@ and open the template in the editor.
                         <f:facet name="header">
                             <h:outputText value="#{bundlePaciente.ListPacienteTitle_nombre1}"/>
                         </f:facet>
-                        <h:outputText value="#{item.nombre1}"/>
+                        <h:outputText value="#{item.nombres}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_nombre2}"/>
+                            <h:outputText value="Apellidos"/>
                         </f:facet>
-                        <h:outputText value="#{item.nombre2}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_apellido1}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.apellido1}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_apellido2}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.apellido2}"/>
+                        <h:outputText value="#{item.apellidos}"/>
                     </p:column>
 
                     <p:column>

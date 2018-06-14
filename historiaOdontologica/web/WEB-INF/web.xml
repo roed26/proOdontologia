@@ -58,8 +58,8 @@
         <auth-method>FORM</auth-method>
         <realm-name>consultorioaJDBCRealm</realm-name>
         <form-login-config>
-            <form-login-page>/sinsesion/inicio.xhtml</form-login-page>
-            <form-error-page>/sinsesion/inicio.xhtml</form-error-page>
+            <form-login-page>/faces/sinsesion/inicio.xhtml</form-login-page>
+            <form-error-page>/faces/sinsesion/inicio.xhtml</form-error-page>
         </form-login-config>
     </login-config>
     <security-role>

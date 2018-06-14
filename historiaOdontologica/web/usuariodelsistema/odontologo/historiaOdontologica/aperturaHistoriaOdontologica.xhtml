@@ -832,13 +832,13 @@ and open the template in the editor.
                                             </p:column>                                            
                                         </p:row>
                                         <p:row>
-                                            <p:column colspan="4">
+                                            <p:column colspan="3">
                                                 <p:selectOneRadio  id="examenPulpar" value="No"
                                                                    valueChangeListener="#{aperturaHOdontologicaController.respuestaExamenPulpar}"
                                                                    >
                                                     <f:selectItem itemLabel="Con resultados" itemValue="Si" />
                                                     <f:selectItem itemLabel="Sin resultados" itemValue="No" />    
-                                                    <f:ajax   execute="examenPulpar" render="panelExamneOral" /> 
+                                                    <f:ajax   execute="examenPulpar" render="pnlPulpar" /> 
                                                 </p:selectOneRadio>
                                             </p:column>
                                         </p:row>
@@ -847,58 +847,66 @@ and open the template in the editor.
                                                 <p:separator/>
                                             </p:column>    
                                         </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conExamenPulpar}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPulpar.get(0).nombre}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralPulpar1" value="#{aperturaHOdontologicaController.respuestasExamenOral.respuesta1}"
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                            <p:column rowspan="4">
-                                                <p:inputTextarea placeholder="Observacion" rows="6" cols="30" id="observacionExamenOralPulpar"  />
-                                            </p:column>        
-                                        </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conExamenPulpar}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPulpar.get(1).nombre}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralPulpar2"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                        </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conExamenPulpar}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPulpar.get(2).nombre}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralPulpar3"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                        </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conExamenPulpar}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPulpar.get(3).nombre}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralPulpar4"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                        </p:row>
+                                        <p:row>
+                                            <p:column colspan="3">
+                                                <p:panelGrid id="pnlPulpar">
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenPulpar}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPulpar.get(0).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPulpar1" value="#{aperturaHOdontologicaController.respuestasExamenOral.respuesta1}"
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                        <p:column rowspan="4">
+                                                            <p:inputTextarea placeholder="Observacion" rows="6" cols="30" id="observacionExamenOralPulpar"  />
+                                                        </p:column>        
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenPulpar}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPulpar.get(1).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPulpar2"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenPulpar}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPulpar.get(2).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPulpar3"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenPulpar}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPulpar.get(3).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPulpar4"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
 
+
+                                                </p:panelGrid>
+                                            </p:column>
+
+                                        </p:row>
                                         <p:row>
                                             <p:column colspan="3" style="background: #bbb; text-align: center; font-weight: bold;">
                                                 <p:outputLabel value="Tejidos dentarios"/>
@@ -911,7 +919,7 @@ and open the template in the editor.
                                                                    >
                                                     <f:selectItem itemLabel="Con resultados" itemValue="Si" />
                                                     <f:selectItem itemLabel="Sin resultados" itemValue="No" />    
-                                                    <f:ajax   execute="tejisdoaDentarios" render="panelExamneOral" /> 
+                                                    <f:ajax   execute="tejisdoaDentarios" render="pnlTejidos" /> 
                                                 </p:selectOneRadio>
                                             </p:column>
                                         </p:row>
@@ -920,69 +928,77 @@ and open the template in the editor.
                                                 <p:separator/>
                                             </p:column>    
                                         </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(0).nombre}"/>
+
+                                        <p:row>
+                                            <p:column colspan="3">
+                                                <p:panelGrid id="pnlTejidos">
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(0).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralDentario1"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                        <p:column rowspan="4">
+                                                            <p:inputTextarea placeholder="Observacion" rows="6" cols="30" id="observacionExamenOralDentario"  />
+                                                        </p:column>        
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(1).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralDentario2"       value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                 
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(2).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralDentario3"    value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                    
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(3).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralDentario4"     value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                   
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(4).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralDentario5"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                </p:panelGrid>
                                             </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralDentario1"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                            <p:column rowspan="4">
-                                                <p:inputTextarea placeholder="Observacion" rows="6" cols="30" id="observacionExamenOralDentario"  />
-                                            </p:column>        
                                         </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(1).nombre}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralDentario2"       value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                 
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                        </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(2).nombre}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralDentario3"    value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                    
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                        </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(3).nombre}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralDentario4"     value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                   
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                        </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(4).nombre}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralDentario5"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                        </p:row>
+
                                         <p:row>
                                             <p:column colspan="3" style="background: #bbb; text-align: center; font-weight: bold;">
                                                 <p:outputLabel value="Alteraciones periodontales"/>
@@ -995,7 +1011,7 @@ and open the template in the editor.
                                                                    >
                                                     <f:selectItem itemLabel="Con alteraciones" itemValue="Si" />
                                                     <f:selectItem itemLabel="Sin alteraciones" itemValue="No" />    
-                                                    <f:ajax   execute="alteracionesPer" render="panelExamneOral" /> 
+                                                    <f:ajax   execute="alteracionesPer" render="pnlAlteraciones" /> 
                                                 </p:selectOneRadio>
                                             </p:column>
                                         </p:row>
@@ -1005,92 +1021,98 @@ and open the template in the editor.
                                             </p:column>    
                                         </p:row>
 
-                                        <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(0).nombre}"/>
+                                        <p:row>
+                                            <p:column colspan="3">
+                                                <p:panelGrid id="pnlAlteraciones">
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(0).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPeriodontal1" value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                       
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                        <p:column rowspan="4">
+                                                            <p:inputTextarea placeholder="Observacion" rows="6" cols="30" id="observacionExamenOralPeriodontal"  />
+                                                        </p:column>        
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(1).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPeriodontal2"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(2).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPeriodontal3"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(3).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPeriodontal4"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(4).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPeriodontal5"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(5).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPeriodontal6"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(6).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPeriodonta7"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                </p:panelGrid>
                                             </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralPeriodontal1" value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                       
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                            <p:column rowspan="4">
-                                                <p:inputTextarea placeholder="Observacion" rows="6" cols="30" id="observacionExamenOralPeriodontal"  />
-                                            </p:column>        
-                                        </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(1).nombre}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralPeriodontal2"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                        </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(2).nombre}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralPeriodontal3"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                        </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(3).nombre}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralPeriodontal4"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                        </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(4).nombre}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralPeriodontal5"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                        </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(5).nombre}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralPeriodontal6"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
-                                        </p:row>
-                                        <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
-                                            <p:column>
-                                                <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(6).nombre}"/>
-                                            </p:column>
-                                            <p:column>
-                                                <p:selectOneRadio  id="respuestaExamenOralPeriodonta7"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
-                                                                   >
-                                                    <f:selectItem itemLabel="Si " itemValue="Si"  />
-                                                    <f:selectItem itemLabel="No " itemValue="No" />    
-                                                </p:selectOneRadio>
-                                            </p:column>    
                                         </p:row>
 
                                     </p:panelGrid>
@@ -1099,36 +1121,36 @@ and open the template in the editor.
                             <p:column>
                                 <p:panel header="Higiene oral">
                                     <p:panelGrid columns="2"  >
-                                        <p:outputLabel value="#{bundleHigiene.CreateHigieneLabel_higuiene}"/>
-                                        <p:selectOneMenu id="higieneOral" value="#{aperturaHOdontologicaController.higiene.higiene}">
+                                        <p:outputLabel value="Higiene"/>
+                                        <p:selectOneMenu style="width: 100px" id="higieneOral" value="#{aperturaHOdontologicaController.higiene.higiene}">
                                             <f:selectItem itemLabel="Buena" itemValue="Buena"  />
                                             <f:selectItem itemValue="Regular" itemLabel="Regular" />
                                             <f:selectItem itemValue="Mala" itemLabel="Mala" />
                                         </p:selectOneMenu>
 
-                                        <p:outputLabel value="#{bundleHigiene.CreateHigieneLabel_frecuenciaCep}"  />
+                                        <p:outputLabel value="Frecuencia de cepillado"  />
 
-                                        <p:selectOneMenu id="frecuenciaCepillado" value="#{aperturaHOdontologicaController.higiene.frecuenciaCep}">
+                                        <p:selectOneMenu style="width: 100px" id="frecuenciaCepillado" value="#{aperturaHOdontologicaController.higiene.frecuenciaCep}">
                                             <f:selectItem itemValue="1" itemLabel="1" />
                                             <f:selectItem itemValue="2" itemLabel="2" />
                                             <f:selectItem itemValue="3" itemLabel="3" />
                                             <f:selectItem itemValue=">3" itemLabel=">3" />
                                         </p:selectOneMenu>
 
-                                        <p:outputLabel value="#{bundleHigiene.CreateHigieneLabel_sedaDental}" />
-                                        <p:selectOneMenu id="sedaDental" value="#{aperturaHOdontologicaController.higiene.sedaDental}">
+                                        <p:outputLabel value="¿Usa seda dental?" />
+                                        <p:selectOneMenu style="width: 100px" id="sedaDental" value="#{aperturaHOdontologicaController.higiene.sedaDental}">
                                             <f:selectItem itemValue="Si" itemLabel="Si" />
                                             <f:selectItem itemValue="No" itemLabel="No" />                                        
                                         </p:selectOneMenu>
 
-                                        <p:outputLabel value="#{bundleHigiene.CreateHigieneLabel_gradoRiesgo}" />
-                                        <p:selectOneMenu id="gradoRiesgo" value="#{aperturaHOdontologicaController.higiene.gradoRiesgo}" >
+                                        <p:outputLabel value="Grado de riesgo" />
+                                        <p:selectOneMenu style="width: 100px" id="gradoRiesgo" value="#{aperturaHOdontologicaController.higiene.gradoRiesgo}" >
                                             <f:selectItem itemValue="A" itemLabel="A" />
                                             <f:selectItem itemValue="M" itemLabel="M" />                                        
                                             <f:selectItem itemValue="B" itemLabel="B" />                                        
                                         </p:selectOneMenu>
-                                        <p:outputLabel value="#{bundleHigiene.CreateHigieneLabel_pigmentacion}" for="pigmentacion" />
-                                        <p:selectOneMenu id="pigmentacion" value="#{aperturaHOdontologicaController.higiene.pigmentacion}">
+                                        <p:outputLabel value="Pigmentación" />
+                                        <p:selectOneMenu  style="width: 100px" id="pigmentacion" value="#{aperturaHOdontologicaController.higiene.pigmentacion}">
                                             <f:selectItem itemValue="Si" itemLabel="Si" />
                                             <f:selectItem itemValue="No" itemLabel="No" />                                        
                                         </p:selectOneMenu>
@@ -1529,13 +1551,13 @@ and open the template in the editor.
                                                             style="position: absolute;"
                                                             name="#{aperturaHOdontologicaController.listaOdontogramaArriba.get(0)}"                                                   
                                                             />
-                                            <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('arriba',0)}" update="dienteA18" />
+                                            <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('arriba',0)}" update="dienteA18 dienteFNEnl8" />
                                         </h:commandLink>
                                         <h:commandLink>
                                             <p:graphicImage id="dienteI18"  library="img/imgodonto" 
                                                             name="#{aperturaHOdontologicaController.listaOdontogramaIzquierda.get(0)}"
                                                             />
-                                            <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('izquierda',0)}" update="dienteI18" />
+                                            <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('izquierda',0)}" update="dienteI18 dienteFNEnl8" />
 
 
                                         </h:commandLink>
@@ -1545,7 +1567,7 @@ and open the template in the editor.
                                                             style="position: relative; top:-11px;"
                                                             />
 
-                                            <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('centro',0)}" update="dienteC18"/>
+                                            <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('centro',0)}" update="dienteC18 dienteFNEnl8"/>
 
                                         </h:commandLink>
                                         <h:commandLink>
@@ -1553,15 +1575,26 @@ and open the template in the editor.
                                                             name="#{aperturaHOdontologicaController.listaOdontogramaDerecha.get(0)}"
 
                                                             />
-                                            <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('derecha',0)}" update="dienteD18"/>
+                                            <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('derecha',0)}" update="dienteD18 dienteFNEnl8"/>
                                         </h:commandLink>
                                         <h:commandLink>
                                             <p:graphicImage id="dienteAb18"  library="img/imgodonto" 
                                                             name="#{aperturaHOdontologicaController.listaOdontogramaAbajo.get(0)}"
                                                             style="position:relative; top:-13px;"
                                                             />
-                                            <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',0)}" update="dienteAb18"/>
+                                            <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',0)}" update="dienteAb18 dienteFNEnl8"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEnl8"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(0)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEnl8"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(0)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBPl8"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(0)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -1601,6 +1634,18 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',1)}" update="dienteAb17"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEnl7"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(1)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEnl7"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(1)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP3l7"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(1)}"
+                                                        />
+                                    </span>
+
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -1638,6 +1683,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',2)}" update="dienteAb16"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEnl6"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(2)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEnl6"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(2)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBPl6"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(2)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -1677,6 +1733,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',3)}" update="dienteAb15"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEnl5"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(3)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEnl5"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(3)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBPl5"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(3)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -1714,6 +1781,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',4)}" update="dienteAb14"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEnl4"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(4)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEnl4"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(4)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBPl4"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(4)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -1753,6 +1831,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',5)}" update="dienteAb13"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEnl3"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(5)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEnl3"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(5)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBPl3"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(5)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -1790,6 +1879,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',6)}" update="dienteAb12"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEnl2"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(6)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEnl2"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(6)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBPl2"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(6)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -1829,6 +1929,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',7)}" update="dienteAb11"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEnl1"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(7)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEnl1"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(7)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP3l1"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(7)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -1866,6 +1977,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',8)}" update="dienteAb21"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn21"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(8)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn21"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(8)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP21"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(8)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -1905,6 +2027,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',9)}" update="dienteAb22"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn22"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(9)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn22"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(9)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP22"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(9)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -1942,6 +2075,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',10)}" update="dienteAb23"/>
                                         </h:commandLink>
+                                    </span>
+                                     <span>
+                                        <p:graphicImage id="dienteFNEn23"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(10)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn23"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(10)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP23"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(10)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -1981,6 +2125,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',11)}" update="dienteAb24"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn24"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(11)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn24"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(11)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP324"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(11)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -2018,6 +2173,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',12)}" update="dienteAb25"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn25"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(12)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn25"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(12)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP25"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(12)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -2057,6 +2223,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',13)}" update="dienteAb26"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn26"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(13)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn26"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(13)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP26"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(13)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -2095,6 +2272,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',14)}" update="dienteAb27"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn27"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(14)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn27"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(14)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP27"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(14)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -2132,6 +2320,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',15)}" update="dienteAb28"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn28"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(15)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn28"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(15)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP28"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(15)}"
+                                                        />
                                     </span>
                                 </p:column>
                             </p:row>
@@ -2238,6 +2437,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',32)}" update="dienteAb55"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn55"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(32)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn55"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(32)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP55"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(32)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -2275,6 +2485,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',33)}" update="dienteAb54"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn54"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(33)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn54"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(33)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP54"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(33)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -2314,6 +2535,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',34)}" update="dienteAb53"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn53"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(34)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn53"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(34)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP53"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(34)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -2351,6 +2583,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',35)}" update="dienteAb52"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn52"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(35)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn52"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(35)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP52"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(35)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -2390,6 +2633,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',36)}" update="dienteAb51"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn51"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(36)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn51"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(36)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP51"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(36)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -2427,6 +2681,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',37)}" update="dienteAb61"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn61"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(37)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn61"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(37)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP61"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(37)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -2466,6 +2731,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',38)}" update="dienteAb62"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn62"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(38)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn62"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(38)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP62"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(38)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -2503,6 +2779,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',39)}" update="dienteAb63"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn63"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(39)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn63"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(39)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP63"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(39)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -2542,6 +2829,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',40)}" update="dienteAb64"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn64"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(40)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn64"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(40)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP64"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(40)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -2579,6 +2877,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',41)}" update="dienteAb65"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn65"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(41)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn65"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(41)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP65"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(41)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column >
@@ -2647,6 +2956,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',42)}" update="dienteAb85"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn85"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(42)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn85"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(42)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP85"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(42)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -2684,6 +3004,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',43)}" update="dienteAb84"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn84"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(43)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn84"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(43)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP84"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(43)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -2723,6 +3054,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',44)}" update="dienteAb83"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn83"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(44)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn83"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(44)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP83"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(44)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -2760,6 +3102,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',45)}" update="dienteAb82"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn82"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(45)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn82"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(45)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP82"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(45)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -2799,6 +3152,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',46)}" update="dienteAb81"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn81"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(46)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn81"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(46)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP81"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(46)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -2836,6 +3200,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',47)}" update="dienteAb71"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn71"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(47)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn71"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(47)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP71"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(47)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -2875,6 +3250,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',48)}" update="dienteAb72"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn72"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(48)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn72"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(48)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP72"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(48)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -2912,6 +3298,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',49)}" update="dienteAb73"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn73"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(49)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn73"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(49)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP73"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(49)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -2951,6 +3348,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',50)}" update="dienteAb74"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn74"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(50)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn74"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(50)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP74"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(50)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -2988,6 +3396,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',51)}" update="dienteAb75"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn75"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(51)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn75"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(51)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP75"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(51)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column >
@@ -3094,6 +3513,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',16)}" update="dienteAb48"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn48"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(16)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn48"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(16)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP48"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(16)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -3131,6 +3561,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',17)}" update="dienteAb47"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn47"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(17)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn47"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(17)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP47"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(17)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -3170,6 +3611,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',18)}" update="dienteAb46"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn46"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(18)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn46"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(18)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP46"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(18)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -3207,6 +3659,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',19)}" update="dienteAb45"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn45"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(19)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn45"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(19)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP45"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(19)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -3246,6 +3709,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',20)}" update="dienteAb44"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn44"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(20)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn44"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(20)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP44"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(20)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -3283,6 +3757,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',21)}" update="dienteAb43"/>
                                         </h:commandLink>
+                                    </span>
+                                     <span>
+                                        <p:graphicImage id="dienteFNEn43"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(21)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn43"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(21)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP43"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(21)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -3322,6 +3807,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',22)}" update="dienteAb42"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn42"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(22)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn42"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(22)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP42"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(22)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -3359,6 +3855,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',23)}" update="dienteAb41"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn41"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(23)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn41"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(23)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP41"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(23)}"
+                                                        />
                                     </span>
                                 </p:column>
 
@@ -3399,6 +3906,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',24)}" update="dienteAb31"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn31"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(24)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn31"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(24)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP31"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(24)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -3436,6 +3954,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',25)}" update="dienteAb32"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn32"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(25)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn32"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(25)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP32"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(25)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -3475,6 +4004,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',26)}" update="dienteAb33"/>
                                         </h:commandLink>
                                     </span>
+                                     <span>
+                                        <p:graphicImage id="dienteFNEn33"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(26)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn33"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(26)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP33"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(26)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -3512,6 +4052,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',27)}" update="dienteAb34"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn34"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(27)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn34"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(27)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP34"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(27)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -3551,6 +4102,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',28)}" update="dienteAb35"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn35"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(28)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn35"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(28)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP35"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(28)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -3588,6 +4150,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',29)}" update="dienteAb36"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn36"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(29)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn36"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(29)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP36"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(29)}"
+                                                        />
                                     </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
@@ -3627,6 +4200,17 @@ and open the template in the editor.
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',30)}" update="dienteAb37"/>
                                         </h:commandLink>
                                     </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn37"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(30)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn37"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(30)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP37"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(30)}"
+                                                        />
+                                    </span>
                                 </p:column>
                                 <p:column style="width: 40px" >
                                     <span >
@@ -3664,6 +4248,17 @@ and open the template in the editor.
                                                             />
                                             <p:ajax listener="#{aperturaHOdontologicaController.cambiarImgOdontograma('abajo',31)}" update="dienteAb38"/>
                                         </h:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEn38"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraNecEndodoncia.get(31)}"
+                                                        />
+                                        <p:graphicImage id="dienteFCEn38"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraEndodoncia.get(31)}"
+                                                        />
+                                        <p:graphicImage id="dienteFBP38"  library="img/imgodonto" 
+                                                        name="#{aperturaHOdontologicaController.listaOdontogramaFueraBolsaPer.get(31)}"
+                                                        />
                                     </span>
                                 </p:column>
                             </p:row>
@@ -4026,7 +4621,7 @@ and open the template in the editor.
                                         <f:facet name="header">
                                             <h:outputText value="Acción"/>
                                         </f:facet>
-                                        <p:commandButton id="createButton" icon="ui-icon-plus" value="Eliminar" action="#{aperturaHOdontologicaController.eliminarDiagnosticoTipo(item)}"/>
+                                        <p:commandButton id="createButton" icon="ui-icon-plus" value="Eliminar" action="#{aperturaHOdontologicaController.abrirMensajeAdvertencia(item)}"/>
                                     </p:column>
                                 </p:dataTable>
                             </p:column>
@@ -4142,7 +4737,7 @@ and open the template in the editor.
             </p:wizard>
         </h:form>
 
-        <p:dialog visible="#{!aperturaHOdontologicaController.pacienteSeleccionado}" id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center"   header="Seleccionar paciente">
+        <p:dialog visible="#{!aperturaHOdontologicaController.pacienteSeleccionado and !aperturaHOdontologicaController.comprobarInicioApertura()}" id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center"   header="Seleccionar paciente">
             <h:form id="PacienteListForm">
                 <h:panelGrid columns="2" >
                     <p:outputLabel value="Buscar paciente:" />
@@ -4193,13 +4788,20 @@ and open the template in the editor.
 
             </h:form>
         </p:dialog>
-        <p:dialog widgetVar="listaServicios" width="450" header="Listado de tratamientos">
+        <p:dialog widgetVar="listaServicios" width="450" modal="true" header="Listado de tratamientos">
             <h:form id="ServiciosOdoListForm">
-                <p:dataTable id="datalist" value="#{serviciosOdoController.itemsAvailableSelectOne}" var="item"
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Buscar tratamiento:" />
+                    <p:inputText  placeholder="Digite el nombre del tratamiento" style="width: 300px;"  
+                                  value="#{serviciosOdoController.busquedaServicioOdo}" >
+                        <p:ajax event="keyup" update="datalist" listener="#{serviciosOdoController.buscarServicioOdo()}" />                                
+                    </p:inputText>                          
+                </h:panelGrid>
+                <p:dataTable id="datalist" value="#{serviciosOdoController.items}" var="item"
                              paginator="true"
                              rowKey="#{item.id}"
-                             rows="10"
-                             rowsPerPageTemplate="10,20,30,40,50"
+                             rows="7"
+
                              >
 
                     <p:column>
@@ -4291,6 +4893,28 @@ and open the template in the editor.
                         <p:commandButton id="createButton" icon="ui-icon-plus" value="Seleccionar" action="#{aperturaHOdontologicaController.agregarDiagnosticoTipo(item)}"/>
                     </p:column>
                 </p:dataTable>
+            </h:form>
+        </p:dialog>
+        <p:dialog header="Información" modal="true" position="center" widgetVar="dlgMensajeAdventencia" closable="false">
+            <p:messages  style="font-size: 15px;"  showDetail="true" autoUpdate="true"/>
+            <h:form>
+                <center>
+                    <p:commandButton  value="Aceptar" style="font-weight: normal;"
+                                      action="#{aperturaHOdontologicaController.eliminarDiagnosticoTipoDeLista()}"/>
+                    <p:commandButton  value="Cancelar" style="font-weight: normal;"
+                                      onclick="PF('dlgMensajeAdventencia').hide()"/>
+                </center>
+            </h:form>
+        </p:dialog>
+        <p:dialog widgetVar="msgAdvertenciaApertura"  width="400" modal="true" showHeader="false" visible="#{aperturaHOdontologicaController.comprobarInicioApertura()}">
+            <p:messages  style="font-size: 15px;"  showDetail="true" autoUpdate="true"/>
+            <h:form>
+                <center>
+                    <p:commandButton  value="Iniciar nueva" style="font-weight: normal; font-size: 18px !important" oncomplete="PF('msgAdvertenciaApertura').hide()"
+                                      action="#{aperturaHOdontologicaController.reiniciarVariables()}" update=":aperturaHistoriaOdontologica, :InformacionPaciente "/>
+                    <p:commandButton  value="Continuar" style="font-weight: normal;"
+                                      onclick="PF('msgAdvertenciaApertura').hide()" />
+                </center>
             </h:form>
         </p:dialog>
     </body>

@@ -1,5 +1,6 @@
 package com.historiaodontologica.managedbeans;
 
+import com.historiaodontologica.clases.FechaContabilidad;
 import com.historiaodontologica.entidades.Ingreso;
 import com.historiaodontologica.entidades.Paciente;
 import com.historiaodontologica.managedbeans.util.JsfUtil;
@@ -7,6 +8,7 @@ import com.historiaodontologica.managedbeans.util.JsfUtil.PersistAction;
 import com.historiaodontologica.sessionbeans.IngresoFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -30,7 +32,16 @@ public class IngresoController implements Serializable {
     private com.historiaodontologica.sessionbeans.IngresoFacade ejbFacade;
     private List<Ingreso> items = null;
     private Ingreso selected;
+    private FechaContabilidad fechaContabilidad;
+    
+    public FechaContabilidad getFechaContabilidad() {
+        return fechaContabilidad;
+    }
 
+    public void setFechaContabilidad(FechaContabilidad fechaContabilidad) {
+        this.fechaContabilidad = fechaContabilidad;
+    }
+    
     public IngresoController() {
     }
 
@@ -75,7 +86,20 @@ public class IngresoController implements Serializable {
 
         selected = new Ingreso();
     }
-
+    public List<Ingreso> listFechasIngresos(){
+    items = getFacade().findAll();
+    List<Ingreso> ingresosFiltro = new ArrayList<>();   //lista que almacena los ingresos iguales al seleccionado en el filtro
+    
+    for(int i =0; i<items.size();i++){
+        if(items.get(i).getFechaIngreso().equals(fechaContabilidad.getIngreso().getFechaIngreso())){
+            ingresosFiltro.add(items.get(i));
+        }
+    }
+    return ingresosFiltro;
+}
+//    public void buscarIngresoFecha(){
+//        
+//    }
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleEgresoIngreso").getString("IngresoUpdated"));
     }

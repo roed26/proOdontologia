@@ -336,6 +336,9 @@ public class AperturaHOdontologicaController implements Serializable {
     private List<String> listaOdontogramaDerecha;
     private List<String> listaOdontogramaCentro;
     private List<DiagnosticoTipo> listaDiagnosticosTipo;
+    private List<String> listaOdontogramaFueraBolsaPer;
+    private List<String> listaOdontogramaFueraEndodoncia;
+    private List<String> listaOdontogramaFueraNecEndodoncia;
     private ArrayList<DetalleServicioPresupuesto> listaServicios;
     private ArrayList<DetalleServicioPresupuesto> listaServiciosTemporal;
     private DescuentoOdo descuento;
@@ -427,7 +430,7 @@ public class AperturaHOdontologicaController implements Serializable {
         listadoObservacionesExmEst = new ArrayList<>();
         listaDiagnosticosTipo = new ArrayList<>();
         listaServicios = new ArrayList<>();
-        listaServiciosTemporal= new ArrayList<>();
+        listaServiciosTemporal = new ArrayList<>();
         respuestasAntecedentesFamiliares = new RespuestasAntecedentesFamiliares();
         respuestasAntecedentesPersonales = new RespuestasAntecedentesPersonales();
         respuestasExamenEstomatologico = new RespuestasExamenEstomatologico();
@@ -531,6 +534,14 @@ public class AperturaHOdontologicaController implements Serializable {
 
     public List<ListadoExamenOral> getListadoExamenOralPeriodontal() {
         return listadoExamenOralPeriodontal;
+    }
+
+    public List<String> getListaOdontogramaFueraEndodoncia() {
+        return listaOdontogramaFueraEndodoncia;
+    }
+
+    public void setListaOdontogramaFueraEndodoncia(List<String> listaOdontogramaFueraEndodoncia) {
+        this.listaOdontogramaFueraEndodoncia = listaOdontogramaFueraEndodoncia;
     }
 
     public List<String> getListaOdontogramaArriba() {
@@ -905,6 +916,22 @@ public class AperturaHOdontologicaController implements Serializable {
         this.respuestasAntecedentesPersonales = respuestasAntecedentesPersonales;
     }
 
+    public List<String> getListaOdontogramaFueraBolsaPer() {
+        return listaOdontogramaFueraBolsaPer;
+    }
+
+    public void setListaOdontogramaFueraBolsaPer(List<String> listaOdontogramaFueraBolsaPer) {
+        this.listaOdontogramaFueraBolsaPer = listaOdontogramaFueraBolsaPer;
+    }
+
+    public List<String> getListaOdontogramaFueraNecEndodoncia() {
+        return listaOdontogramaFueraNecEndodoncia;
+    }
+
+    public void setListaOdontogramaFueraNecEndodoncia(List<String> listaOdontogramaFueraNecEndodoncia) {
+        this.listaOdontogramaFueraNecEndodoncia = listaOdontogramaFueraNecEndodoncia;
+    }
+
     public Higiene getHigiene() {
         return higiene;
     }
@@ -976,6 +1003,14 @@ public class AperturaHOdontologicaController implements Serializable {
 
     public void setCentro(String centro) {
         this.centro = centro;
+    }
+
+    public void abrirMensajeAdvertencia(DiagnosticoTipo diagnosticoTipo) {
+        this.diagnosticoTipo = diagnosticoTipo;
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Adventencia", "¿Esta seguro de eliminar el diagnóstico?"));
+        requestContext.execute("PF('dlgMensajeAdventencia').show()");
+
     }
 
     public void seleccionarPaciente(Paciente paciente) {
@@ -1577,19 +1612,15 @@ public class AperturaHOdontologicaController implements Serializable {
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 } else if (diagnosticoDiente.equalsIgnoreCase("necendodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_necendodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_necendodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_necendodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_necendodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_necendodoncia.png");
+                    listaOdontogramaFueraNecEndodoncia.set(posDienteList, "necendodoncia_A.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 } else if (diagnosticoDiente.equalsIgnoreCase("ttoendodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_ttoendodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_ttoendodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_ttoendodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_ttoendodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_ttoendodoncia.png");
+                    listaOdontogramaFueraEndodoncia.set(posDienteList, "ttoendodoncia_A.png");
+                    RequestContext requestContext = RequestContext.getCurrentInstance();
+                    requestContext.update("aperturaHistoriaOdontologica");
+                } else if (diagnosticoDiente.equalsIgnoreCase("bolsa_per")) {
+                    listaOdontogramaFueraBolsaPer.set(posDienteList, "bolsa_per_A.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 }
@@ -1660,19 +1691,15 @@ public class AperturaHOdontologicaController implements Serializable {
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 } else if (diagnosticoDiente.equalsIgnoreCase("necendodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_necendodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_necendodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_necendodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_necendodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_necendodoncia.png");
+                    listaOdontogramaFueraNecEndodoncia.set(posDienteList, "necendodoncia_A.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 } else if (diagnosticoDiente.equalsIgnoreCase("ttoendodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_ttoendodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_ttoendodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_ttoendodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_ttoendodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_ttoendodoncia.png");
+                    listaOdontogramaFueraEndodoncia.set(posDienteList, "ttoendodoncia_A.png");
+                    RequestContext requestContext = RequestContext.getCurrentInstance();
+                    requestContext.update("aperturaHistoriaOdontologica");
+                } else if (diagnosticoDiente.equalsIgnoreCase("bolsa_per")) {
+                    listaOdontogramaFueraBolsaPer.set(posDienteList, "bolsa_per_A.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 }
@@ -1746,19 +1773,15 @@ public class AperturaHOdontologicaController implements Serializable {
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 } else if (diagnosticoDiente.equalsIgnoreCase("necendodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_necendodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_necendodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_necendodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_necendodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_necendodoncia.png");
+                    listaOdontogramaFueraNecEndodoncia.set(posDienteList, "necendodoncia_A.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 } else if (diagnosticoDiente.equalsIgnoreCase("ttoendodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_ttoendodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_ttoendodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_ttoendodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_ttoendodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_ttoendodoncia.png");
+                    listaOdontogramaFueraEndodoncia.set(posDienteList, "ttoendodoncia_A.png");
+                    RequestContext requestContext = RequestContext.getCurrentInstance();
+                    requestContext.update("aperturaHistoriaOdontologica");
+                } else if (diagnosticoDiente.equalsIgnoreCase("bolsa_per")) {
+                    listaOdontogramaFueraBolsaPer.set(posDienteList, "bolsa_per_A.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 }
@@ -1830,19 +1853,15 @@ public class AperturaHOdontologicaController implements Serializable {
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 } else if (diagnosticoDiente.equalsIgnoreCase("necendodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_necendodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_necendodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_necendodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_necendodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_necendodoncia.png");
+                    listaOdontogramaFueraNecEndodoncia.set(posDienteList, "necendodoncia_A.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 } else if (diagnosticoDiente.equalsIgnoreCase("ttoendodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_ttoendodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_ttoendodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_ttoendodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_ttoendodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_ttoendodoncia.png");
+                    listaOdontogramaFueraEndodoncia.set(posDienteList, "ttoendodoncia_A.png");
+                    RequestContext requestContext = RequestContext.getCurrentInstance();
+                    requestContext.update("aperturaHistoriaOdontologica");
+                } else if (diagnosticoDiente.equalsIgnoreCase("bolsa_per")) {
+                    listaOdontogramaFueraBolsaPer.set(posDienteList, "bolsa_per_A.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 }
@@ -1914,19 +1933,15 @@ public class AperturaHOdontologicaController implements Serializable {
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 } else if (diagnosticoDiente.equalsIgnoreCase("necendodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_necendodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_necendodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_necendodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_necendodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_necendodoncia.png");
+                    listaOdontogramaFueraNecEndodoncia.set(posDienteList, "necendodoncia_A.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 } else if (diagnosticoDiente.equalsIgnoreCase("ttoendodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_ttoendodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_ttoendodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_ttoendodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_ttoendodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_ttoendodoncia.png");
+                    listaOdontogramaFueraEndodoncia.set(posDienteList, "ttoendodoncia_A.png");
+                    RequestContext requestContext = RequestContext.getCurrentInstance();
+                    requestContext.update("aperturaHistoriaOdontologica");
+                } else if (diagnosticoDiente.equalsIgnoreCase("bolsa_per")) {
+                    listaOdontogramaFueraBolsaPer.set(posDienteList, "bolsa_per_A.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
                 }
@@ -2792,6 +2807,10 @@ public class AperturaHOdontologicaController implements Serializable {
         this.listaOdontogramaIzquierda = new ArrayList<>();
         this.listaOdontogramaDerecha = new ArrayList<>();
         this.listaOdontogramaCentro = new ArrayList<>();
+        this.listaOdontogramaFueraBolsaPer = new ArrayList<>();
+        this.listaOdontogramaFueraEndodoncia = new ArrayList<>();
+        this.listaOdontogramaFueraNecEndodoncia = new ArrayList<>();
+        
 
         for (int i = 0; i < 52; i++) {
             this.listaOdontogramaArriba.add("arriba_normal.png");
@@ -2799,8 +2818,56 @@ public class AperturaHOdontologicaController implements Serializable {
             this.listaOdontogramaIzquierda.add("izq_normal.png");
             this.listaOdontogramaDerecha.add("der_normal.png");
             this.listaOdontogramaCentro.add("centro_normal.png");
+            this.listaOdontogramaFueraBolsaPer.add("fuera.png");
+            this.listaOdontogramaFueraEndodoncia.add("fuera.png");
+            this.listaOdontogramaFueraNecEndodoncia.add("fuera.png");
 
         }
+    }
+
+    public void inicializarVariables() {
+        this.actualizacionOdo = new ActualizacionOdo();
+        this.higiene = new Higiene();
+        this.obsOdontograma = new ObsOdontograma();
+        this.obsOdontograma.setOclusion("Normal");
+        this.obsOdontograma.setCaries("0");
+        this.obsOdontograma.setObturados("0");
+        this.obsOdontograma.setPerdidos("0");
+        this.cuadroSintesis = new CuadroSintesis();
+
+        this.diagnosticoDiente = "normal";
+        cargarAntecedentesFamiliares();
+        cargarAntecedentesPersonales();
+        cargarEstomatologicos();
+        cargarListaExamenOralPulpar();
+        cargarListaExamenOralDentario();
+        cargarListaExamenOralPeriodontal();
+        inicializarOdontograma();
+        inicializarCuadroSintesis();
+    }
+
+    public boolean comprobarInicioApertura() {
+        boolean iniciada = false;
+        if (conAcompaniante == true) {
+            iniciada = true;
+        } else {
+            if (motivoConsulta != null) {
+                if (!motivoConsulta.equalsIgnoreCase("")) {
+                    iniciada = true;
+                }else if (motivoConsulta.equalsIgnoreCase("")) {
+                    iniciada = false;
+                }
+            }
+            if (motivoConsulta == null) {
+                iniciada = false;
+            }
+        }
+
+        if (iniciada == true) {
+            FacesContext.getCurrentInstance().addMessage("msgAdvertenciaApertura", new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Usted tiene una apertura iniciada, ¿Desea continuar o inicar una nueva apertura de historia?"));
+        }
+
+        return iniciada;
     }
 
     private String idDiagnostico(String diagnostico) {
@@ -2998,7 +3065,9 @@ public class AperturaHOdontologicaController implements Serializable {
         RequestContext requestcontext = RequestContext.getCurrentInstance();
         diagnosticoTipo.setDiagnostico(tipoDiagnostico);
 
-        listaDiagnosticosTipo.add(diagnosticoTipo);
+        if (!validarExistenciaEnLista(diagnosticoTipo)) {
+            listaDiagnosticosTipo.add(diagnosticoTipo);
+        }
 
         requestcontext.update("aperturaHistoriaOdontologica:datalistDiagnosticosTipo");
         requestcontext.execute("PF('seleccionarTipoDiagnostico').hide()");
@@ -3011,6 +3080,15 @@ public class AperturaHOdontologicaController implements Serializable {
 
         listaDiagnosticosTipo.remove(diagnosticoTipo);
         requestcontext.update("aperturaHistoriaOdontologica:datalistDiagnosticosTipo");
+
+    }
+
+    public void eliminarDiagnosticoTipoDeLista() {
+        RequestContext requestcontext = RequestContext.getCurrentInstance();
+
+        listaDiagnosticosTipo.remove(this.diagnosticoTipo);
+        requestcontext.update("aperturaHistoriaOdontologica:datalistDiagnosticosTipo");
+        requestcontext.execute("PF('dlgMensajeAdventencia').hide()");
 
     }
 
@@ -3035,7 +3113,7 @@ public class AperturaHOdontologicaController implements Serializable {
         ejbEvolucionOdo.create(evolucionOdontologica);
     }
 
-    private void reiniciarVariables() {
+    public void reiniciarVariables() {
         this.actualizacionOdo = new ActualizacionOdo();
         this.conAcompaniante = false;
         this.conAntecedentesFamiliares = false;
@@ -3136,7 +3214,7 @@ public class AperturaHOdontologicaController implements Serializable {
             detalleServicio.setDetalleServicioPK(detalleServicioPK);
             detalleServicio.setIdServiciosOdo(listaServicios.get(i).getServicioOdo());
             detalleServicio.setPrecio(listaServicios.get(i).getPrecio());
-            
+
             ejbDetalleServicio.create(detalleServicio);
         }
     }
@@ -3233,7 +3311,7 @@ public class AperturaHOdontologicaController implements Serializable {
         return serviciosOdoCopia;
 
     }
-    
+
     public void seleccionarTrataminto(ServiciosOdo serviciosOdo) {
         RequestContext requestcontext = RequestContext.getCurrentInstance();
         DetalleServicioPresupuesto detalleServicio = new DetalleServicioPresupuesto();
@@ -3247,6 +3325,18 @@ public class AperturaHOdontologicaController implements Serializable {
         requestcontext.update("aperturaHistoriaOdontologica:datalistTratamiento");
         requestcontext.update("aperturaHistoriaOdontologica:panelPago");
 
+    }
+
+    private boolean validarExistenciaEnLista(DiagnosticoTipo diagnosticoTipo) {
+        boolean existe = false;
+
+        for (int i = 0; i < listaDiagnosticosTipo.size(); i++) {
+            if (listaDiagnosticosTipo.get(i).getDiagnosticoCie10().getNombre().equalsIgnoreCase(diagnosticoTipo.getDiagnosticoCie10().getNombre())) {
+                existe = true;
+            }
+        }
+
+        return existe;
     }
 
 }

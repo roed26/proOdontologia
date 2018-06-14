@@ -173,6 +173,13 @@ public class AbonoOdoController implements Serializable {
         this.ejbUsuario = ejbUsuario;
     }
 
+    public void iniciarAbono() {
+        selected = new AbonoOdo();
+        TotalPresupuesto = 0;
+        TotalAbonado = 0;
+        SaldoFinal = 0;
+        selectedPaciente = new Paciente();
+    }
     public AbonoOdo prepareCreate() {
         selected = new AbonoOdo();
         initializeEmbeddableKey();
@@ -206,6 +213,12 @@ public class AbonoOdoController implements Serializable {
         this.selectedPresupuesto = ejbPresupuesto.buscarPorPaciente(selectedPaciente);
         itemsDetalle = ejbDetalle.buscarPorPresupuestoDetalle(selectedPresupuesto);
         items = ejbFacade.buscarPorPresupustoAbono(selectedPresupuesto);
+        estadoPagos();
+        requestContext.update("AbonoOdoListForm");
+        
+        selected = new AbonoOdo();
+    }
+    public void estadoPagos(){
         TotalPresupuesto=0;
         TotalAbonado=0;
         SaldoFinal=0;
@@ -222,8 +235,12 @@ public class AbonoOdoController implements Serializable {
         } else {
             SaldoFinal = TotalPresupuesto - TotalAbonado;
         }
-        requestContext.update("AbonoOdoListForm");
-        
+    }
+    public void editarAbono() {
+        ejbFacade.edit(selected);
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("PF('ActualizacionExitosa').show()");
+        estadoPagos();
         selected = new AbonoOdo();
     }
 
