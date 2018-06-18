@@ -21,7 +21,11 @@ public class CargarVistaController implements Serializable {
     }
 
     public CargarVistaController() {
+        this.ruta = "/usuariodelsistema/odontologo/paginaPrincipal.xhtml";
+    }
 
+    public void cargarInicio() {
+        this.ruta = "/usuariodelsistema/odontologo/paginaPrincipal.xhtml";
     }
 
     public void cargarRegistrarPaciente() {
@@ -64,19 +68,24 @@ public class CargarVistaController implements Serializable {
     public void cargarRegistrarPagos() {
         this.ruta = "/usuariodelsistema/odontologo/presupuesto/ListaPresupuesto.xhtml";
     }
-    public void cargarRegistrarIngresos(){
+
+    public void cargarRegistrarIngresos() {
         this.ruta = "/usuariodelsistema/odontologo/ingreso/ListaIngreso.xhtml";
     }
-    public void cargarRegistrarEgresos(){
+
+    public void cargarRegistrarEgresos() {
         this.ruta = "/usuariodelsistema/odontologo/egreso/ListaEgreso.xhtml";
     }
-    public void cargarRegistrarResultados(){
+
+    public void cargarRegistrarResultados() {
         this.ruta = "/usuariodelsistema/odontologo/contabilidad/Contabilidad.xhtml";
     }
-    public void cargarRegistrarAbonos(){
+
+    public void cargarRegistrarAbonos() {
         this.ruta = "/usuariodelsistema/odontologo/abonoOdo/ListarAbono.xhtml";
     }
-    public void cargarGestionServicios(){
+
+    public void cargarGestionServicios() {
         this.ruta = "/usuariodelsistema/odontologo/serviciosOdo/ListaServicio.xhtml";
     }
 }

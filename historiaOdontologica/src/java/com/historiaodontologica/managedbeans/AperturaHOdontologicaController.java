@@ -1063,6 +1063,10 @@ public class AperturaHOdontologicaController implements Serializable {
 
     }
 
+    public void iniciarOdontograma() {
+
+    }
+
     public void respuestaExamenE(ValueChangeEvent e) {
         if (e.getNewValue().equals("Si")) {
             conExamenEstomatologico = true;
@@ -1300,249 +1304,165 @@ public class AperturaHOdontologicaController implements Serializable {
     public void cambiarSeleccionDiagnosticoDent(String diagnosticoDiente) {
         this.diagnosticoDiente = diagnosticoDiente;
 
-        if (this.diagnosticoDiente.equalsIgnoreCase("normal")) {
+        inicializarSeleccion();
+        if (this.diagnosticoDiente.compareTo("normal") == 0) {
             seleccionDienteNormal = true;
-            seleccionDienteCaries = false;
-            seleccionDienteAmalgama = false;
-            seleccionDienteObstPlastica = false;
-            seleccionDienteObstTemporal = false;
-            this.seleccionDienteConSellante = false;
-            this.seleccionDienteSinSellante = false;
-            this.seleccionDienteFaltante = false;
-            this.seleccionDienteFaltanteExt = false;
-            this.seleccionDienteExodoncia = false;
-            this.seleccionDienteProtesis = false;
-            this.seleccionDienteProtesisTotal = false;
-            this.seleccionDienteNecendodoncia = false;
-            this.seleccionDienteTtoEndodoncia = false;
-            this.seleccionDienteBolsaPer = false;
-        } else if (this.diagnosticoDiente.equalsIgnoreCase("caries")) {
-            seleccionDienteNormal = false;
+        } else if (this.diagnosticoDiente.compareTo("caries") == 0) {
             seleccionDienteCaries = true;
-            seleccionDienteAmalgama = false;
-            seleccionDienteObstPlastica = false;
-            seleccionDienteObstTemporal = false;
-            this.seleccionDienteConSellante = false;
-            this.seleccionDienteSinSellante = false;
-            this.seleccionDienteFaltante = false;
-            this.seleccionDienteFaltanteExt = false;
-            this.seleccionDienteExodoncia = false;
-            this.seleccionDienteProtesis = false;
-            this.seleccionDienteProtesisTotal = false;
-            this.seleccionDienteNecendodoncia = false;
-            this.seleccionDienteTtoEndodoncia = false;
-            this.seleccionDienteBolsaPer = false;
-        } else if (this.diagnosticoDiente.equalsIgnoreCase("amalgama")) {
-            seleccionDienteNormal = false;
-            seleccionDienteCaries = false;
+        } else if (this.diagnosticoDiente.compareTo("amalgama") == 0) {
             seleccionDienteAmalgama = true;
-            seleccionDienteObstPlastica = false;
-            seleccionDienteObstTemporal = false;
-            this.seleccionDienteConSellante = false;
-            this.seleccionDienteSinSellante = false;
-            this.seleccionDienteFaltante = false;
-            this.seleccionDienteFaltanteExt = false;
-            this.seleccionDienteExodoncia = false;
-            this.seleccionDienteProtesis = false;
-            this.seleccionDienteProtesisTotal = false;
-            this.seleccionDienteNecendodoncia = false;
-            this.seleccionDienteTtoEndodoncia = false;
-            this.seleccionDienteBolsaPer = false;
-        } else if (this.diagnosticoDiente.equalsIgnoreCase("obst_plastica")) {
-
-            seleccionDienteNormal = false;
-            seleccionDienteCaries = false;
-            seleccionDienteAmalgama = false;
+        } else if (this.diagnosticoDiente.compareTo("obst_plastica") == 0) {
             seleccionDienteObstPlastica = true;
-            seleccionDienteObstTemporal = false;
-            this.seleccionDienteConSellante = false;
-            this.seleccionDienteSinSellante = false;
-            this.seleccionDienteFaltante = false;
-            this.seleccionDienteFaltanteExt = false;
-            this.seleccionDienteExodoncia = false;
-            this.seleccionDienteProtesis = false;
-            this.seleccionDienteProtesisTotal = false;
-            this.seleccionDienteNecendodoncia = false;
-            this.seleccionDienteTtoEndodoncia = false;
-            this.seleccionDienteBolsaPer = false;
-        } else if (this.diagnosticoDiente.equalsIgnoreCase("obst_temporal")) {
-            seleccionDienteNormal = false;
-            seleccionDienteCaries = false;
-            seleccionDienteAmalgama = false;
-            seleccionDienteObstPlastica = false;
+        } else if (this.diagnosticoDiente.compareTo("obst_temporal") == 0) {
             seleccionDienteObstTemporal = true;
-            this.seleccionDienteConSellante = false;
-            this.seleccionDienteSinSellante = false;
-            this.seleccionDienteFaltante = false;
-            this.seleccionDienteFaltanteExt = false;
-            this.seleccionDienteExodoncia = false;
-            this.seleccionDienteProtesis = false;
-            this.seleccionDienteProtesisTotal = false;
-            this.seleccionDienteNecendodoncia = false;
-            this.seleccionDienteTtoEndodoncia = false;
-            this.seleccionDienteBolsaPer = false;
-        } else if (this.diagnosticoDiente.equalsIgnoreCase("sellante")) {
-            seleccionDienteNormal = false;
-            seleccionDienteCaries = false;
-            seleccionDienteAmalgama = false;
-            seleccionDienteObstPlastica = false;
-            seleccionDienteObstTemporal = false;
+        } else if (this.diagnosticoDiente.compareTo("sellante") == 0) {
             this.seleccionDienteConSellante = true;
-            this.seleccionDienteSinSellante = false;
-            this.seleccionDienteFaltante = false;
-            this.seleccionDienteFaltanteExt = false;
-            this.seleccionDienteExodoncia = false;
-            this.seleccionDienteProtesis = false;
-            this.seleccionDienteProtesisTotal = false;
-            this.seleccionDienteNecendodoncia = false;
-            this.seleccionDienteTtoEndodoncia = false;
-            this.seleccionDienteBolsaPer = false;
-        } else if (this.diagnosticoDiente.equalsIgnoreCase("sinsellante")) {
-            seleccionDienteNormal = false;
-            seleccionDienteCaries = false;
-            seleccionDienteAmalgama = false;
-            seleccionDienteObstPlastica = false;
-            seleccionDienteObstTemporal = false;
-            this.seleccionDienteConSellante = false;
+        } else if (this.diagnosticoDiente.compareTo("sinsellante") == 0) {
             this.seleccionDienteSinSellante = true;
-            this.seleccionDienteFaltante = false;
-            this.seleccionDienteFaltanteExt = false;
-            this.seleccionDienteExodoncia = false;
-            this.seleccionDienteProtesis = false;
-            this.seleccionDienteProtesisTotal = false;
-            this.seleccionDienteNecendodoncia = false;
-            this.seleccionDienteTtoEndodoncia = false;
-            this.seleccionDienteBolsaPer = false;
-        } else if (this.diagnosticoDiente.equalsIgnoreCase("faltante")) {
-            seleccionDienteNormal = false;
-            seleccionDienteCaries = false;
-            seleccionDienteAmalgama = false;
-            seleccionDienteObstPlastica = false;
-            seleccionDienteObstTemporal = false;
-            this.seleccionDienteConSellante = false;
-            this.seleccionDienteSinSellante = false;
+        } else if (this.diagnosticoDiente.compareTo("faltante") == 0) {
             this.seleccionDienteFaltante = true;
-            this.seleccionDienteFaltanteExt = false;
-            this.seleccionDienteExodoncia = false;
-            this.seleccionDienteProtesis = false;
-            this.seleccionDienteProtesisTotal = false;
-            this.seleccionDienteNecendodoncia = false;
-            this.seleccionDienteTtoEndodoncia = false;
-            this.seleccionDienteBolsaPer = false;
-        } else if (this.diagnosticoDiente.equalsIgnoreCase("faltante_ext")) {
-            seleccionDienteNormal = false;
-            seleccionDienteCaries = false;
-            seleccionDienteAmalgama = false;
-            seleccionDienteObstPlastica = false;
-            seleccionDienteObstTemporal = false;
-            this.seleccionDienteConSellante = false;
-            this.seleccionDienteSinSellante = false;
-            this.seleccionDienteFaltante = false;
+        } else if (this.diagnosticoDiente.compareTo("faltante_ext") == 0) {
             this.seleccionDienteFaltanteExt = true;
-            this.seleccionDienteExodoncia = false;
-            this.seleccionDienteProtesis = false;
-            this.seleccionDienteProtesisTotal = false;
-            this.seleccionDienteNecendodoncia = false;
-            this.seleccionDienteTtoEndodoncia = false;
-            this.seleccionDienteBolsaPer = false;
-        } else if (this.diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
-            seleccionDienteNormal = false;
-            seleccionDienteCaries = false;
-            seleccionDienteAmalgama = false;
-            seleccionDienteObstPlastica = false;
-            seleccionDienteObstTemporal = false;
-            this.seleccionDienteConSellante = false;
-            this.seleccionDienteSinSellante = false;
-            this.seleccionDienteFaltante = false;
-            this.seleccionDienteFaltanteExt = false;
+        } else if (this.diagnosticoDiente.compareTo("exodoncia") == 0) {
             this.seleccionDienteExodoncia = true;
-            this.seleccionDienteProtesis = false;
-            this.seleccionDienteProtesisTotal = false;
-            this.seleccionDienteNecendodoncia = false;
-            this.seleccionDienteTtoEndodoncia = false;
-            this.seleccionDienteBolsaPer = false;
-        } else if (this.diagnosticoDiente.equalsIgnoreCase("protesis")) {
-            seleccionDienteNormal = false;
-            seleccionDienteCaries = false;
-            seleccionDienteAmalgama = false;
-            seleccionDienteObstPlastica = false;
-            seleccionDienteObstTemporal = false;
-            this.seleccionDienteConSellante = false;
-            this.seleccionDienteSinSellante = false;
-            this.seleccionDienteFaltante = false;
-            this.seleccionDienteFaltanteExt = false;
-            this.seleccionDienteExodoncia = false;
+        } else if (this.diagnosticoDiente.compareTo("protesis") == 0) {
             this.seleccionDienteProtesis = true;
-            this.seleccionDienteProtesisTotal = false;
-            this.seleccionDienteNecendodoncia = false;
-            this.seleccionDienteTtoEndodoncia = false;
-            this.seleccionDienteBolsaPer = false;
-        } else if (this.diagnosticoDiente.equalsIgnoreCase("protesistotal")) {
-            seleccionDienteNormal = false;
-            seleccionDienteCaries = false;
-            seleccionDienteAmalgama = false;
-            seleccionDienteObstPlastica = false;
-            seleccionDienteObstTemporal = false;
-            this.seleccionDienteConSellante = false;
-            this.seleccionDienteSinSellante = false;
-            this.seleccionDienteFaltante = false;
-            this.seleccionDienteFaltanteExt = false;
-            this.seleccionDienteExodoncia = false;
-            this.seleccionDienteProtesis = false;
+        } else if (this.diagnosticoDiente.compareTo("protesistotal") == 0) {
             this.seleccionDienteProtesisTotal = true;
-            this.seleccionDienteNecendodoncia = false;
-            this.seleccionDienteTtoEndodoncia = false;
-            this.seleccionDienteBolsaPer = false;
-        } else if (this.diagnosticoDiente.equalsIgnoreCase("necendodoncia")) {
-            seleccionDienteNormal = false;
-            seleccionDienteCaries = false;
-            seleccionDienteAmalgama = false;
-            seleccionDienteObstPlastica = false;
-            seleccionDienteObstTemporal = false;
-            this.seleccionDienteConSellante = false;
-            this.seleccionDienteSinSellante = false;
-            this.seleccionDienteFaltante = false;
-            this.seleccionDienteFaltanteExt = false;
-            this.seleccionDienteExodoncia = false;
-            this.seleccionDienteProtesis = false;
-            this.seleccionDienteProtesisTotal = false;
+        } else if (this.diagnosticoDiente.compareTo("necendodoncia") == 0) {
             this.seleccionDienteNecendodoncia = true;
-            this.seleccionDienteTtoEndodoncia = false;
-            this.seleccionDienteBolsaPer = false;
-        } else if (this.diagnosticoDiente.equalsIgnoreCase("ttoendodoncia")) {
-            seleccionDienteNormal = false;
-            seleccionDienteCaries = false;
-            seleccionDienteAmalgama = false;
-            seleccionDienteObstPlastica = false;
-            seleccionDienteObstTemporal = false;
-            this.seleccionDienteConSellante = false;
-            this.seleccionDienteSinSellante = false;
-            this.seleccionDienteFaltante = false;
-            this.seleccionDienteFaltanteExt = false;
-            this.seleccionDienteExodoncia = false;
-            this.seleccionDienteProtesis = false;
-            this.seleccionDienteProtesisTotal = false;
-            this.seleccionDienteNecendodoncia = false;
+        } else if (this.diagnosticoDiente.compareTo("ttoendodoncia") == 0) {
             this.seleccionDienteTtoEndodoncia = true;
-            this.seleccionDienteBolsaPer = false;
-        } else if (this.diagnosticoDiente.equalsIgnoreCase("bolsa_per")) {
-            seleccionDienteNormal = false;
-            seleccionDienteCaries = false;
-            seleccionDienteAmalgama = false;
-            seleccionDienteObstPlastica = false;
-            seleccionDienteObstTemporal = false;
-            this.seleccionDienteConSellante = false;
-            this.seleccionDienteSinSellante = false;
-            this.seleccionDienteFaltante = false;
-            this.seleccionDienteFaltanteExt = false;
-            this.seleccionDienteExodoncia = false;
-            this.seleccionDienteProtesis = false;
-            this.seleccionDienteProtesisTotal = false;
-            this.seleccionDienteNecendodoncia = false;
-            this.seleccionDienteTtoEndodoncia = false;
+        } else if (this.diagnosticoDiente.compareTo("bolsa_per") == 0) {
             this.seleccionDienteBolsaPer = true;
         }
+        /*switch (diagnosticoDiente) {
+            case "normal":
+                seleccionDienteNormal = true;
+                break;
+            case "caries":
+                seleccionDienteCaries = true;
+                break;
+            case "amalgama":
+                seleccionDienteAmalgama = true;
+                break;
+            case "obst_plastica":
+                seleccionDienteObstPlastica = true;
+                break;
+            case "obst_temporal":
+                seleccionDienteObstTemporal = true;
+                break;
+            case "sellante":
+                this.seleccionDienteConSellante = true;
+                break;
+            case "sinsellante":
+                this.seleccionDienteSinSellante = true;
+                break;
+            case "faltante":
+                this.seleccionDienteFaltante = true;
+                break;
+            case "faltante_ext":
+                this.seleccionDienteFaltanteExt = true;
+                break;
+            case "exodoncia":
+                this.seleccionDienteExodoncia = true;
+                break;
+            case "protesis":
+                this.seleccionDienteProtesis = true;
+                break;
+            case "protesistotal":
+                this.seleccionDienteProtesisTotal = true;
+                break;
+            case "necendodoncia":
+                this.seleccionDienteNecendodoncia = true;
+                break;
+            case "ttoendodoncia":
+                this.seleccionDienteTtoEndodoncia = true;
+                break;
+            case "bolsa_per":
+                this.seleccionDienteBolsaPer = true;
+                break;
+        }
+         */
+    }
 
+    public void cambiarImgOdontogramaArriba(int posDienteList) {
+        if (diagnosticoDiente.compareTo("caries")==0) {
+            listaOdontogramaArriba.set(posDienteList, "arriba_caries.png");
+            contarCaries(posDienteList);
+        } else if (diagnosticoDiente.compareTo("normal")==0) {
+            listaOdontogramaArriba.set(posDienteList, "arriba_normal.png");
+        } else if (diagnosticoDiente.compareTo("amalgama")==0) {
+            listaOdontogramaArriba.set(posDienteList, "arriba_amalgama.png");
+            contarObturados(posDienteList);
+        } else if (diagnosticoDiente.compareTo("obst_plastica")==0) {
+            listaOdontogramaArriba.set(posDienteList, "arriba_obst_plastica.png");
+            contarObturados(posDienteList);
+        } else if (diagnosticoDiente.compareTo("obst_temporal")==0) {
+            listaOdontogramaArriba.set(posDienteList, "arriba_obst_temporal.png");
+        } else if (diagnosticoDiente.compareTo("sellante")==0) {
+            listaOdontogramaArriba.set(posDienteList, "arriba_sellante.png");
+        } else if (diagnosticoDiente.compareTo("sinsellante")==0) {
+            listaOdontogramaArriba.set(posDienteList, "arriba_sinsellante.png");
+        } else if (diagnosticoDiente.compareTo("faltante")==0) {
+            listaOdontogramaArriba.set(posDienteList, "arriba_faltante.png");
+            listaOdontogramaAbajo.set(posDienteList, "abajo_faltante.png");
+            listaOdontogramaCentro.set(posDienteList, "centro_faltante.png");
+            contarDientesPerdidos(posDienteList);
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            requestContext.update("aperturaHistoriaOdontologica");
+        } else if (diagnosticoDiente.compareTo("faltante_ext")==0) {
+            listaOdontogramaArriba.set(posDienteList, "arriba_faltante_ext.png");
+            listaOdontogramaAbajo.set(posDienteList, "abajo_faltante_ext.png");
+            listaOdontogramaCentro.set(posDienteList, "centro_faltante_ext.png");
+            contarDientesPerdidos(posDienteList);
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            requestContext.update("aperturaHistoriaOdontologica");
+        } else if (diagnosticoDiente.compareTo("exodoncia")==0) {
+            listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
+            listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
+            listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
+            listaOdontogramaIzquierda.set(posDienteList, "izq_exodoncia.png");
+            listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            requestContext.update("aperturaHistoriaOdontologica");
+        } else if (diagnosticoDiente.compareTo("exodoncia")==0) {
+            listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
+            listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
+            listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
+            listaOdontogramaIzquierda.set(posDienteList, "izq_exodoncia.png");
+            listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            requestContext.update("aperturaHistoriaOdontologica");
+        } else if (diagnosticoDiente.compareTo("protesis")==0) {
+            listaOdontogramaArriba.set(posDienteList, "arriba_protesis.png");
+            listaOdontogramaAbajo.set(posDienteList, "abajo_protesis.png");
+            listaOdontogramaCentro.set(posDienteList, "centro_protesis.png");
+            listaOdontogramaIzquierda.set(posDienteList, "izq_protesis.png");
+            listaOdontogramaDerecha.set(posDienteList, "der_protesis.png");
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            requestContext.update("aperturaHistoriaOdontologica");
+        } else if (diagnosticoDiente.compareTo("protesistotal")==0) {
+            listaOdontogramaArriba.set(posDienteList, "arriba_protesistotal.png");
+            listaOdontogramaAbajo.set(posDienteList, "abajo_protesistotal.png");
+            listaOdontogramaCentro.set(posDienteList, "centro_protesistotal.png");
+            listaOdontogramaIzquierda.set(posDienteList, "izq_protesistotal.png");
+            listaOdontogramaDerecha.set(posDienteList, "der_protesistotal.png");
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            requestContext.update("aperturaHistoriaOdontologica");
+        } else if (diagnosticoDiente.compareTo("necendodoncia")==0) {
+            listaOdontogramaFueraNecEndodoncia.set(posDienteList, "necendodoncia_A.png");
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            requestContext.update("aperturaHistoriaOdontologica");
+        } else if (diagnosticoDiente.compareTo("ttoendodoncia")==0) {
+            listaOdontogramaFueraEndodoncia.set(posDienteList, "ttoendodoncia_A.png");
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            requestContext.update("aperturaHistoriaOdontologica");
+        } else if (diagnosticoDiente.compareTo("bolsa_per")==0) {
+            listaOdontogramaFueraBolsaPer.set(posDienteList, "bolsa_per_A.png");
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            requestContext.update("aperturaHistoriaOdontologica");
+        }
     }
 
     public void cambiarImgOdontograma(String posicion, int posDienteList) {
@@ -1707,40 +1627,40 @@ public class AperturaHOdontologicaController implements Serializable {
                 break;
             case "izquierda":
 
-                if (diagnosticoDiente.equalsIgnoreCase("caries")) {
+                if (diagnosticoDiente.compareTo("caries") == 0) {
                     listaOdontogramaIzquierda.set(posDienteList, "izq_caries.png");
                     contarCaries(posDienteList);
-                } else if (diagnosticoDiente.equalsIgnoreCase("normal")) {
+                } else if (diagnosticoDiente.compareTo("normal") == 0) {
                     listaOdontogramaIzquierda.set(posDienteList, "izq_normal.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("amalgama")) {
+                } else if (diagnosticoDiente.compareTo("amalgama") == 0) {
                     listaOdontogramaIzquierda.set(posDienteList, "izq_amalgama.png");
                     contarObturados(posDienteList);
-                } else if (diagnosticoDiente.equalsIgnoreCase("obst_plastica")) {
+                } else if (diagnosticoDiente.compareTo("obst_plastica") == 0) {
                     listaOdontogramaIzquierda.set(posDienteList, "izq_obst_plastica.png");
                     contarObturados(posDienteList);
-                } else if (diagnosticoDiente.equalsIgnoreCase("obst_plastica")) {
+                } else if (diagnosticoDiente.compareTo("obst_plastica") == 0) {
                     listaOdontogramaIzquierda.set(posDienteList, "izq_obst_plastica.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("obst_temporal")) {
+                } else if (diagnosticoDiente.compareTo("obst_temporal") == 0) {
                     listaOdontogramaIzquierda.set(posDienteList, "izq_obst_temporal.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("sellante")) {
+                } else if (diagnosticoDiente.compareTo("sellante") == 0) {
                     listaOdontogramaIzquierda.set(posDienteList, "izq_sellante.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("sinsellante")) {
+                } else if (diagnosticoDiente.compareTo("sinsellante") == 0) {
                     listaOdontogramaIzquierda.set(posDienteList, "izq_sinsellante.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("faltante")) {
+                } else if (diagnosticoDiente.compareTo("faltante") == 0) {
                     contarDientesPerdidos(posDienteList);
                     listaOdontogramaArriba.set(posDienteList, "arriba_faltante.png");
                     listaOdontogramaAbajo.set(posDienteList, "abajo_faltante.png");
                     listaOdontogramaCentro.set(posDienteList, "centro_faltante.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("faltante_ext")) {
+                } else if (diagnosticoDiente.compareTo("faltante_ext") == 0) {
                     contarDientesPerdidos(posDienteList);
                     listaOdontogramaArriba.set(posDienteList, "arriba_faltante_ext.png");
                     listaOdontogramaAbajo.set(posDienteList, "abajo_faltante_ext.png");
                     listaOdontogramaCentro.set(posDienteList, "centro_faltante_ext.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
+                } else if (diagnosticoDiente.compareTo("exodoncia") == 0) {
                     listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
                     listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
                     listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
@@ -1748,7 +1668,7 @@ public class AperturaHOdontologicaController implements Serializable {
                     listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
+                } else if (diagnosticoDiente.compareTo("exodoncia") == 0) {
                     listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
                     listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
                     listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
@@ -1756,7 +1676,7 @@ public class AperturaHOdontologicaController implements Serializable {
                     listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("protesis")) {
+                } else if (diagnosticoDiente.compareTo("protesis") == 0) {
                     listaOdontogramaArriba.set(posDienteList, "arriba_protesis.png");
                     listaOdontogramaAbajo.set(posDienteList, "abajo_protesis.png");
                     listaOdontogramaCentro.set(posDienteList, "centro_protesis.png");
@@ -1764,7 +1684,7 @@ public class AperturaHOdontologicaController implements Serializable {
                     listaOdontogramaDerecha.set(posDienteList, "der_protesis.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("protesistotal")) {
+                } else if (diagnosticoDiente.compareTo("protesistotal") == 0) {
                     listaOdontogramaArriba.set(posDienteList, "arriba_protesistotal.png");
                     listaOdontogramaAbajo.set(posDienteList, "abajo_protesistotal.png");
                     listaOdontogramaCentro.set(posDienteList, "centro_protesistotal.png");
@@ -1772,15 +1692,15 @@ public class AperturaHOdontologicaController implements Serializable {
                     listaOdontogramaDerecha.set(posDienteList, "der_protesistotal.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("necendodoncia")) {
+                } else if (diagnosticoDiente.compareTo("necendodoncia") == 0) {
                     listaOdontogramaFueraNecEndodoncia.set(posDienteList, "necendodoncia_A.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("ttoendodoncia")) {
+                } else if (diagnosticoDiente.compareTo("ttoendodoncia") == 0) {
                     listaOdontogramaFueraEndodoncia.set(posDienteList, "ttoendodoncia_A.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("bolsa_per")) {
+                } else if (diagnosticoDiente.compareTo("bolsa_per") == 0) {
                     listaOdontogramaFueraBolsaPer.set(posDienteList, "bolsa_per_A.png");
                     RequestContext requestContext = RequestContext.getCurrentInstance();
                     requestContext.update("aperturaHistoriaOdontologica");
@@ -2801,6 +2721,24 @@ public class AperturaHOdontologicaController implements Serializable {
         return usuario;
     }
 
+    public String retornarNombreImagen(int posicion, String lista) {
+        String nombreImagen = "";
+
+        if (lista.compareTo("Izquierda") == 0) {
+            nombreImagen = listaOdontogramaIzquierda.get(posicion);
+        } else if (lista.compareTo("Derecha") == 0) {
+            nombreImagen = listaOdontogramaDerecha.get(posicion);
+        } else if (lista.compareTo("Arriba") == 0) {
+            nombreImagen = listaOdontogramaArriba.get(posicion);
+        } else if (lista.compareTo("Abajo") == 0) {
+            nombreImagen = listaOdontogramaAbajo.get(posicion);
+        } else if (lista.compareTo("Centro") == 0) {
+            nombreImagen = listaOdontogramaCentro.get(posicion);
+        }
+
+        return nombreImagen;
+    }
+
     private void inicializarOdontograma() {
         this.listaOdontogramaArriba = new ArrayList<>();
         this.listaOdontogramaAbajo = new ArrayList<>();
@@ -2810,7 +2748,6 @@ public class AperturaHOdontologicaController implements Serializable {
         this.listaOdontogramaFueraBolsaPer = new ArrayList<>();
         this.listaOdontogramaFueraEndodoncia = new ArrayList<>();
         this.listaOdontogramaFueraNecEndodoncia = new ArrayList<>();
-        
 
         for (int i = 0; i < 52; i++) {
             this.listaOdontogramaArriba.add("arriba_normal.png");
@@ -2854,7 +2791,7 @@ public class AperturaHOdontologicaController implements Serializable {
             if (motivoConsulta != null) {
                 if (!motivoConsulta.equalsIgnoreCase("")) {
                     iniciada = true;
-                }else if (motivoConsulta.equalsIgnoreCase("")) {
+                } else if (motivoConsulta.equalsIgnoreCase("")) {
                     iniciada = false;
                 }
             }
@@ -3337,6 +3274,24 @@ public class AperturaHOdontologicaController implements Serializable {
         }
 
         return existe;
+    }
+
+    private void inicializarSeleccion() {
+        seleccionDienteNormal = false;
+        seleccionDienteCaries = false;
+        seleccionDienteAmalgama = false;
+        seleccionDienteObstPlastica = false;
+        seleccionDienteObstTemporal = false;
+        this.seleccionDienteConSellante = false;
+        this.seleccionDienteSinSellante = false;
+        this.seleccionDienteFaltante = false;
+        this.seleccionDienteFaltanteExt = false;
+        this.seleccionDienteExodoncia = false;
+        this.seleccionDienteProtesis = false;
+        this.seleccionDienteProtesisTotal = false;
+        this.seleccionDienteNecendodoncia = false;
+        this.seleccionDienteTtoEndodoncia = false;
+        this.seleccionDienteBolsaPer = false;
     }
 
 }
