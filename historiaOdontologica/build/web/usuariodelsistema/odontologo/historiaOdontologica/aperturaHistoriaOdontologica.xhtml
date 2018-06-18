@@ -1,0 +1,1507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <f:event type="preRenderView" listener="#{aperturaHOdontologicaController.iniciarOdontograma}"/>
+        <h:form id="InformacionPaciente" >
+            <p:panelGrid styleClass="panelgrid">
+                <p:row>
+                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: black; background: #339cdf">
+                        <p:outputLabel value="Información de paciente"/>
+                    </p:column>
+                    <p:column rowspan="2">
+                        <p:commandButton onclick="PF('seleccionPacienteDialog').show()" value="Seleccionar paciente" />
+                    </p:column>   
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold; color: black;" value="Fecha de registro" />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{aperturaHOdontologicaController.fechaRegistro}" />
+                    </p:column>   
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold; color: black;" value="#{bundlePaciente.CreatePacienteLabel_identificacion}" />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{aperturaHOdontologicaController.paciente.identificacion}" />
+                    </p:column>    
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold;" value="Nombre: " />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{aperturaHOdontologicaController.paciente.nombres} " />
+                        <p:outputLabel value=" #{aperturaHOdontologicaController.paciente.apellidos}"/>
+                    </p:column> 
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold; color: black;" value="#{bundlePaciente.CreatePacienteLabel_ocupacion}" />
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="#{aperturaHOdontologicaController.paciente.ocupacion}" />
+                    </p:column>   
+                    <p:column>
+                        <p:outputLabel style="font-weight: bold; color: black;" value="#{bundlePaciente.CreatePacienteLabel_estado}" />
+                    </p:column>
+                    <p:column style="background: green;">
+                        <p:outputLabel rendered="#{aperturaHOdontologicaController.paciente.estado==1}" style="color: white;" value="Activo" />
+                    </p:column>   
+                </p:row>                
+            </p:panelGrid>
+        </h:form>
+        <p:separator style="height:3px; color: #000000"/>
+        <h:form id="aperturaHistoriaOdontologica" >
+            <p:wizard widgetVar="aperturaHistoriaWizard" showNavBar="true" nextLabel="Siguiente" backLabel="Anterior">
+                <p:tab title="Datos de acompañante">
+                    <p:panel header="Datos de acompañante">
+
+                        <p:panelGrid  id="panel" styleClass="panelgrid">
+                            <p:row>
+                                <p:column colspan="4">
+                                    <p:selectOneRadio  id="acompaniante" value="No"
+                                                       valueChangeListener="#{aperturaHOdontologicaController.respuestaAcompanante}"
+                                                       >
+                                        <f:selectItem itemLabel="Con acompañante" itemValue="Si" />
+                                        <f:selectItem itemLabel="Sin acompañante" itemValue="No" />    
+                                        <f:ajax   execute="acompaniante" render="panel" /> 
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conAcompaniante}">
+                                <p:column >
+                                    <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_acompanante}" 
+                                                   for="acompanante" />
+                                </p:column>
+                                <p:column >
+                                    <p:inputText id="acompanante" required="true"
+                                                 value="#{aperturaHOdontologicaController.actualizacionOdo.acompanante}" 
+                                                 title="#{bundleActualizacionOdo.CreateActualizacionOdoTitle_acompanante}" />
+                                </p:column>
+                                <p:column >
+                                    <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_parentesco}" for="parentesco" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="parentesco" value="#{aperturaHOdontologicaController.actualizacionOdo.parentesco}" >
+                                        <f:selectItems value="#{parentescoController.itemsAvailableSelectOne}"
+                                                       var="idParentescoItem"
+                                                       itemValue="#{idParentescoItem.id}"
+                                                       itemLabel="#{idParentescoItem.nombre}"/>
+                                    </p:selectOneMenu>
+
+                                </p:column>
+
+                            </p:row>
+
+                            <p:row rendered="#{aperturaHOdontologicaController.conAcompaniante}">
+                                <p:column >
+                                    <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_telefono}" for="telefono" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText required="true" id="telefono" value="#{aperturaHOdontologicaController.actualizacionOdo.telefono}" title="#{bundleActualizacionOdo.CreateActualizacionOdoTitle_telefono}" />
+                                </p:column>
+                                <p:column >
+                                    <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_celular}" for="celular" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText required="true" id="celular" value="#{aperturaHOdontologicaController.actualizacionOdo.celular}" title="#{bundleActualizacionOdo.CreateActualizacionOdoTitle_celular}" />
+                                </p:column>
+
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="Motivo de consulta">
+                    <p:panel header="Motivo de consulta">
+                        <p:panelGrid columns="2" styleClass="panelgrid" >
+                            <p:inputTextarea required="true" placeholder="#{bundleMotivoOdo.CreateMotivoOdoLabel_motivo}" 
+                                             rows="4" 
+                                             cols="80" 
+                                             id="motivo" 
+                                             requiredMessage="Campo obligatorio"
+                                             value="#{aperturaHOdontologicaController.motivoConsulta}" 
+                                             title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                            <p:message for="motivo"/>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+                <p:tab title="Antecedentes familiares">
+                    <p:panel header="Antecedentes familiares">
+                        <p:panelGrid id="panelAntFamiliar" styleClass="panelgrid" >
+                            <p:row>
+                                <p:column colspan="4">
+                                    <p:selectOneRadio  id="antecedentesF" value="No"
+                                                       valueChangeListener="#{aperturaHOdontologicaController.respuestaAntecedenteF}"
+                                                       >
+                                        <f:selectItem itemLabel="Con antecedentes familiares" itemValue="Si" />
+                                        <f:selectItem itemLabel="Sin antecedentes familiares" itemValue="No" />    
+                                        <f:ajax   execute="antecedentesF" render="panelAntFamiliar" /> 
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+
+                            <p:row rendered="#{aperturaHOdontologicaController.conAntecedentesFamiliares}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesFamiliares.get(0).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntFamiliar1" value="#{aperturaHOdontologicaController.respuestasAntecedentesFamiliares.respuesta1}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesFamiliares.get(1).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntFamiliar2" value="#{aperturaHOdontologicaController.respuestasAntecedentesFamiliares.respuesta2}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesFamiliares.get(2).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntFamiliar3" value="#{aperturaHOdontologicaController.respuestasAntecedentesFamiliares.respuesta3}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesFamiliares.get(3).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntFamiliar4" value="#{aperturaHOdontologicaController.respuestasAntecedentesFamiliares.respuesta4}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conAntecedentesFamiliares}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesFamiliares.get(4).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntFamiliar5" value="#{aperturaHOdontologicaController.respuestasAntecedentesFamiliares.respuesta5}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesFamiliares.get(5).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntFamiliar6" value="#{aperturaHOdontologicaController.respuestasAntecedentesFamiliares.respuesta6}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesFamiliares.get(6).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntFamiliar7" value="#{aperturaHOdontologicaController.respuestasAntecedentesFamiliares.respuesta7}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesFamiliares.get(7).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntFamiliar8" value="#{aperturaHOdontologicaController.respuestasAntecedentesFamiliares.respuesta8}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conAntecedentesFamiliares}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesFamiliares.get(8).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntFamiliar9" value="#{aperturaHOdontologicaController.respuestasAntecedentesFamiliares.respuesta9}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conAntecedentesFamiliares}" >
+                                <p:column colspan="8">
+                                    <p:outputLabel value="Observaciones"/>    
+                                </p:column>
+
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conAntecedentesFamiliares}">
+                                <p:column colspan="4">
+                                    <p:inputTextarea placeholder="Observacion antecedentes familiares" 
+                                                     rows="4" 
+                                                     cols="80" 
+                                                     id="observacionAntFam" 
+                                                     value="#{aperturaHOdontologicaController.observacionAntecendetesFam}" 
+                                                     title="Observacion antecedentes familiares" 
+                                                     rendered="true"
+                                                     requiredMessage="Campo obligatorio"
+                                                     />
+
+                                </p:column>
+                                <p:column>
+                                    <p:message for="observacionAntFam"/>
+                                </p:column>                                   
+
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+
+                </p:tab>
+                <p:tab title="Antecedentes personales">
+                    <p:panel header="Antecedentes personales">
+                        <p:panelGrid id="panelAntPersonal" styleClass="panelgrid" >
+
+                            <p:row>
+                                <p:column colspan="4">
+                                    <p:selectOneRadio  id="antecedentesP" value="No"
+                                                       valueChangeListener="#{aperturaHOdontologicaController.respuestaAntecedenteP}"
+                                                       >
+                                        <f:selectItem itemLabel="Con antecedentes personales" itemValue="Si" />
+                                        <f:selectItem itemLabel="Sin antecedentes personales" itemValue="No" />    
+                                        <f:ajax   execute="antecedentesP" render="panelAntPersonal" /> 
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+
+                            <p:row rendered="#{aperturaHOdontologicaController.conAntecedentesPersonales}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(0).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales1" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta1}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(1).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales2" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta2}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(2).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales3" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta3}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(3).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales4" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta4}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conAntecedentesPersonales}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(4).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales5" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta5}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(5).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales6" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta6}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(6).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales7" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta7}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(7).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales8" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta8}"                             
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conAntecedentesPersonales}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(8).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales9" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta9}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(9).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales10" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta10}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(10).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales11" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta11}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(11).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales12" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta12}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conAntecedentesPersonales}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(12).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales13" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta13}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(13).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales14" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta14}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(14).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales15" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta15}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(15).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales16" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta16}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conAntecedentesPersonales}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(16).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales17" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta17}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(17).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales18" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta18}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(18).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales19" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta19}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoAntecedentesPersonales.get(19).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaAntPerosales20" value="#{aperturaHOdontologicaController.respuestasAntecedentesPersonales.respuesta20}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conAntecedentesPersonales}">
+                                <p:column colspan="8">
+                                    <p:outputLabel value="Observaciones"/>    
+                                </p:column>
+
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conAntecedentesPersonales}">
+                                <p:column colspan="4">
+                                    <p:inputTextarea placeholder="Observaciones antecedentes personales" 
+                                                     rows="4" 
+                                                     cols="80" 
+                                                     id="observacionAntPer" 
+                                                     value="#{aperturaHOdontologicaController.observacionAntecendetesPer}" 
+                                                     title="Observacion antecedentes personales" 
+                                                     required="true"
+                                                     requiredMessage="Campo obligatorio"
+                                                     />
+                                </p:column>
+                                <p:column>
+                                    <p:message for="observacionAntPer"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+
+                </p:tab>
+                <p:tab title="Examen estomatologico">
+                    <p:panel header="Examen estomatologico">
+                        <p:panelGrid id="panelExmEstomatologico" styleClass="panelgrid" >
+                            <p:row>
+                                <p:column colspan="4">
+                                    <p:selectOneRadio  id="examenE" value="No"
+                                                       valueChangeListener="#{aperturaHOdontologicaController.respuestaExamenE}"
+                                                       >
+                                        <f:selectItem itemLabel="Con examen estomatologico" itemValue="Si" />
+                                        <f:selectItem itemLabel="Sin examen estomatologico" itemValue="No" />    
+                                        <f:ajax   execute="examenE" render="panelExmEstomatologico" /> 
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conExamenEstomatologico}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(0).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico1" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta1}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico1" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion1}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(1).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico2" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta2}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico2" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion2}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(2).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico3" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta3}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico3" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion3}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conExamenEstomatologico}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(3).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico4" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta4}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico4" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion4}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(4).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico5" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta5}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico5" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion5}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(5).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico6" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta6}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico6" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion6}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conExamenEstomatologico}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(6).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico7" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta7}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico7" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion7}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(7).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico8" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta8}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico8" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion8}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(8).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico9" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta9}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico9" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion9}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conExamenEstomatologico}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(9).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico10" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta10}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico10" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion10}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(10).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico11" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta11}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico11" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion11}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(11).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico12" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta12}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico12" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion12}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                            </p:row>
+
+                            <p:row rendered="#{aperturaHOdontologicaController.conExamenEstomatologico}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(12).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico13" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta13}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico13" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion13}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(13).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico14" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta14}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico14" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion14}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(14).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico15" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta15}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico15" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion15}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conExamenEstomatologico}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(15).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico16" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta16}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico16" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion16}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(16).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico17" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta17}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico17" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion17}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(17).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico18" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta18}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico18" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion18}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conExamenEstomatologico}">
+                                <p:column style="background: #C8CDD6">
+                                    <p:outputLabel value="#{aperturaHOdontologicaController.listadoEstomatologicos.get(18).nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneRadio  id="respuestaEstomatologico19" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.respuesta19}"                                                       
+                                                       >
+                                        <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                        <f:selectItem itemLabel="No " itemValue="No" />    
+                                    </p:selectOneRadio>
+                                </p:column>
+                                <p:column>
+                                    <p:inputTextarea placeholder="Observacion" rows="4" cols="20" id="ObservacionEstomatologico19" value="#{aperturaHOdontologicaController.respuestasExamenEstomatologico.observacion19}" title="#{bundleMotivoOdo.CreateMotivoOdoTitle_motivo}" />
+                                </p:column>
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conExamenEstomatologico}">
+                                <p:column colspan="8">
+                                    <p:outputLabel value="Observaciones"/>    
+                                </p:column>
+
+                            </p:row>
+                            <p:row rendered="#{aperturaHOdontologicaController.conExamenEstomatologico}">
+                                <p:column colspan="8">
+                                    <p:inputTextarea placeholder="Observacion general del examen estomatologico" 
+                                                     rows="4" 
+                                                     cols="80" 
+                                                     id="observacionExmEst" 
+                                                     value="#{aperturaHOdontologicaController.observacionGenExmEst}" 
+                                                     title="Observacion examen estomatologico" />
+                                </p:column>
+
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+
+                </p:tab>
+                <p:tab title="Examen oral - higiene oral">
+                    <p:panelGrid styleClass="panelgrid" style="vertical-align: top;">
+                        <p:row >
+                            <p:column>
+                                <p:panel header="Examen oral">
+                                    <p:panelGrid id="panelExamneOral">
+                                        <p:row>
+                                            <p:column colspan="3" style="background: #bbb; text-align: center; font-weight: bold;">
+                                                <p:outputLabel value="Examen pulpar"/>
+                                            </p:column>                                            
+                                        </p:row>
+                                        <p:row>
+                                            <p:column colspan="3">
+                                                <p:selectOneRadio  id="examenPulpar" value="No"
+                                                                   valueChangeListener="#{aperturaHOdontologicaController.respuestaExamenPulpar}"
+                                                                   >
+                                                    <f:selectItem itemLabel="Con resultados" itemValue="Si" />
+                                                    <f:selectItem itemLabel="Sin resultados" itemValue="No" />    
+                                                    <f:ajax   execute="examenPulpar" render="pnlPulpar" /> 
+                                                </p:selectOneRadio>
+                                            </p:column>
+                                        </p:row>
+                                        <p:row>
+                                            <p:column colspan="3">
+                                                <p:separator/>
+                                            </p:column>    
+                                        </p:row>
+                                        <p:row>
+                                            <p:column colspan="3">
+                                                <p:panelGrid id="pnlPulpar">
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenPulpar}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPulpar.get(0).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPulpar1" value="#{aperturaHOdontologicaController.respuestasExamenOral.respuesta1}"
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                        <p:column rowspan="4">
+                                                            <p:inputTextarea placeholder="Observacion" rows="6" cols="30" id="observacionExamenOralPulpar"  />
+                                                        </p:column>        
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenPulpar}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPulpar.get(1).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPulpar2"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenPulpar}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPulpar.get(2).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPulpar3"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenPulpar}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPulpar.get(3).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPulpar4"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+
+
+                                                </p:panelGrid>
+                                            </p:column>
+
+                                        </p:row>
+                                        <p:row>
+                                            <p:column colspan="3" style="background: #bbb; text-align: center; font-weight: bold;">
+                                                <p:outputLabel value="Tejidos dentarios"/>
+                                            </p:column>                                            
+                                        </p:row>
+                                        <p:row>
+                                            <p:column colspan="4">
+                                                <p:selectOneRadio  id="tejisdoaDentarios" value="No"
+                                                                   valueChangeListener="#{aperturaHOdontologicaController.respuestaTejidosDentarios}"
+                                                                   >
+                                                    <f:selectItem itemLabel="Con resultados" itemValue="Si" />
+                                                    <f:selectItem itemLabel="Sin resultados" itemValue="No" />    
+                                                    <f:ajax   execute="tejisdoaDentarios" render="pnlTejidos" /> 
+                                                </p:selectOneRadio>
+                                            </p:column>
+                                        </p:row>
+                                        <p:row>
+                                            <p:column colspan="3">
+                                                <p:separator/>
+                                            </p:column>    
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column colspan="3">
+                                                <p:panelGrid id="pnlTejidos">
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(0).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralDentario1"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                        <p:column rowspan="4">
+                                                            <p:inputTextarea placeholder="Observacion" rows="6" cols="30" id="observacionExamenOralDentario"  />
+                                                        </p:column>        
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(1).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralDentario2"       value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                 
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(2).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralDentario3"    value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                    
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(3).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralDentario4"     value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                   
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conExamenTejidosDent}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralDentario.get(4).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralDentario5"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                </p:panelGrid>
+                                            </p:column>
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column colspan="3" style="background: #bbb; text-align: center; font-weight: bold;">
+                                                <p:outputLabel value="Alteraciones periodontales"/>
+                                            </p:column>                                            
+                                        </p:row>
+                                        <p:row>
+                                            <p:column colspan="4">
+                                                <p:selectOneRadio  id="alteracionesPer" value="No"
+                                                                   valueChangeListener="#{aperturaHOdontologicaController.respuestaAlteraciones}"
+                                                                   >
+                                                    <f:selectItem itemLabel="Con alteraciones" itemValue="Si" />
+                                                    <f:selectItem itemLabel="Sin alteraciones" itemValue="No" />    
+                                                    <f:ajax   execute="alteracionesPer" render="pnlAlteraciones" /> 
+                                                </p:selectOneRadio>
+                                            </p:column>
+                                        </p:row>
+                                        <p:row>
+                                            <p:column colspan="3">
+                                                <p:separator/>
+                                            </p:column>    
+                                        </p:row>
+
+                                        <p:row>
+                                            <p:column colspan="3">
+                                                <p:panelGrid id="pnlAlteraciones">
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(0).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPeriodontal1" value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                       
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                        <p:column rowspan="4">
+                                                            <p:inputTextarea placeholder="Observacion" rows="6" cols="30" id="observacionExamenOralPeriodontal"  />
+                                                        </p:column>        
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(1).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPeriodontal2"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(2).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPeriodontal3"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(3).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPeriodontal4"   value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                     
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(4).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPeriodontal5"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(5).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPeriodontal6"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                    <p:row rendered="#{aperturaHOdontologicaController.conAlteraciones}">
+                                                        <p:column>
+                                                            <p:outputLabel value="#{aperturaHOdontologicaController.listadoExamenOralPeriodontal.get(6).nombre}"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <p:selectOneRadio  id="respuestaExamenOralPeriodonta7"  value="#{aperturaHOdontologicaController.respuestaAntOdo}"                                                      
+                                                                               >
+                                                                <f:selectItem itemLabel="Si " itemValue="Si"  />
+                                                                <f:selectItem itemLabel="No " itemValue="No" />    
+                                                            </p:selectOneRadio>
+                                                        </p:column>    
+                                                    </p:row>
+                                                </p:panelGrid>
+                                            </p:column>
+                                        </p:row>
+
+                                    </p:panelGrid>
+                                </p:panel>
+                            </p:column>
+                            <p:column>
+                                <p:panel header="Higiene oral">
+                                    <p:panelGrid columns="2"  >
+                                        <p:outputLabel value="Higiene"/>
+                                        <p:selectOneMenu style="width: 100px" id="higieneOral" value="#{aperturaHOdontologicaController.higiene.higiene}">
+                                            <f:selectItem itemLabel="Buena" itemValue="Buena"  />
+                                            <f:selectItem itemValue="Regular" itemLabel="Regular" />
+                                            <f:selectItem itemValue="Mala" itemLabel="Mala" />
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel value="Frecuencia de cepillado"  />
+
+                                        <p:selectOneMenu style="width: 100px" id="frecuenciaCepillado" value="#{aperturaHOdontologicaController.higiene.frecuenciaCep}">
+                                            <f:selectItem itemValue="1" itemLabel="1" />
+                                            <f:selectItem itemValue="2" itemLabel="2" />
+                                            <f:selectItem itemValue="3" itemLabel="3" />
+                                            <f:selectItem itemValue=">3" itemLabel=">3" />
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel value="¿Usa seda dental?" />
+                                        <p:selectOneMenu style="width: 100px" id="sedaDental" value="#{aperturaHOdontologicaController.higiene.sedaDental}">
+                                            <f:selectItem itemValue="Si" itemLabel="Si" />
+                                            <f:selectItem itemValue="No" itemLabel="No" />                                        
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel value="Grado de riesgo" />
+                                        <p:selectOneMenu style="width: 100px" id="gradoRiesgo" value="#{aperturaHOdontologicaController.higiene.gradoRiesgo}" >
+                                            <f:selectItem itemValue="A" itemLabel="A" />
+                                            <f:selectItem itemValue="M" itemLabel="M" />                                        
+                                            <f:selectItem itemValue="B" itemLabel="B" />                                        
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Pigmentación" />
+                                        <p:selectOneMenu  style="width: 100px" id="pigmentacion" value="#{aperturaHOdontologicaController.higiene.pigmentacion}">
+                                            <f:selectItem itemValue="Si" itemLabel="Si" />
+                                            <f:selectItem itemValue="No" itemLabel="No" />                                        
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+                                </p:panel>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:tab>
+                <p:tab title="Odontograma">
+                    <ui:include src="odontograma.xhtml"/>
+                </p:tab>
+                <p:tab title="Diagnostico">
+                    <p:panelGrid styleClass="panelgrid">
+                        <p:row> 
+                            <p:column  >
+                                <p:commandButton value="Agregar diagnostico" icon="ui-icon-plus" onclick="PF('agregarDiagnosticoDialog').show()"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="3" style=" width: 600px; text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf">
+                                <p:outputLabel value="Diagnosticos" />
+                            </p:column>
+                        </p:row>
+                        <p:row> 
+                            <p:column>
+                                <p:dataTable id="datalistDiagnosticosTipo" value="#{aperturaHOdontologicaController.listaDiagnosticosTipo}" var="item"
+                                             paginator="true"
+
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30"
+                                             >
+                                    <p:column style="width: 70px;">
+                                        <f:facet name="header">
+                                            <h:outputText value="Identificador"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.diagnosticoCie10.id}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Descripcion"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.diagnosticoCie10.nombre}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Tipo de diagnostico"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.diagnostico.nombre}"/>
+                                    </p:column>
+                                    <p:column style="width: 80px;">
+                                        <f:facet name="header">
+                                            <h:outputText value="Acción"/>
+                                        </f:facet>
+                                        <p:commandButton id="createButton" icon="ui-icon-plus" value="Eliminar" action="#{aperturaHOdontologicaController.abrirMensajeAdvertencia(item)}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel id="nombreDiadnosticoDX1" value="#{aperturaHOdontologicaController.diagnosticoDX1}" />
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+
+
+                </p:tab>
+                <p:tab title="Evolución">
+                    <p:panel header="Evolución del paciente">
+                        <p:panelGrid columns="1" styleClass="panelgrid" >
+                            <p:inputTextarea placeholder="Descripción de la evolucion del paciente" 
+                                             rows="4" 
+                                             cols="100" 
+                                             id="descripcionEvolucion" 
+                                             value="#{aperturaHOdontologicaController.descripcionEvolucion}" 
+                                             title="Descripción evolución" />
+                        </p:panelGrid>
+                    </p:panel>
+
+                </p:tab>
+                <p:tab title="Presupuesto">
+                    <CENTER><h1> Gestión de pagos </h1></CENTER><br/>
+                    <br/><p:commandButton id="listaServiciosButton" icon="ui-icon-plus"   value="Agregar tratamiento" onclick="PF('listaServicios').show()"/>
+
+                    <p:dataTable id="datalistTratamiento" value="#{aperturaHOdontologicaController.listaServicios}" var="presupuesto"
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tratamiento"/>
+                            </f:facet>
+                            <h:outputText value="#{presupuesto.servicioOdo.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Valor"/>
+                            </f:facet>
+                            <h:outputText value="$ #{presupuesto.servicioOdo.precio}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cantidad"/>
+                            </f:facet>
+                            <p:commandButton disabled="#{presupuesto.cantidad==1}" id="menosButton" icon="ui-icon-minus" action="#{aperturaHOdontologicaController.menosCantidad(presupuesto)}"/>
+                            <h:inputText id="cantidad" style="width: 50px" value="#{presupuesto.cantidad}"/>
+                            <p:commandButton id="masButton" icon="ui-icon-plus"  action="#{aperturaHOdontologicaController.sumaCantidad(presupuesto)}"  />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Total"/>
+                            </f:facet>
+                            <h:outputText value="$ #{presupuesto.precio}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Acción"/>
+                            </f:facet>
+                            <p:commandButton id="createButton" icon="ui-icon-trash"   value="Eliminar"/>
+                        </p:column>
+
+                    </p:dataTable>
+
+
+
+                    <p:panelGrid id="panelPago">
+                        <p:row>
+                            <p:column style="font-weight:bold; width: 846px; text-align: right">
+                                <p:outputLabel value="Pagar"/>
+                            </p:column>
+                            <p:column style="width: 268px; text-align: right">
+                                <p:outputLabel id="pagar" value="$ #{aperturaHOdontologicaController.totalPagar}"
+                                               title="Valor a pagar" >
+                                </p:outputLabel>
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+                            <p:column style="font-weight:bold; width: 846px; text-align: right">
+                                <p:outputLabel value="Descuento"/>
+                            </p:column>
+                            <p:column> 
+                                <p:selectOneMenu filter="true" id="descuento"  
+                                                 valueChangeListener="#{aperturaHOdontologicaController.descuentoPresupuesto}"
+                                                 required="true"
+                                                 >
+                                    <f:selectItem itemLabel="0" itemValue="0"/>
+                                    <f:selectItems value="#{descuentoOdoController.itemsAvailableSelectOne}"
+                                                   var="descuentoItem"
+                                                   itemValue="#{descuentoItem.numeroDescuento}"
+                                                   itemLabel="#{descuentoItem.numeroDescuento}"
+                                                   />
+                                    <f:ajax   execute="descuento" render="datalist" /> 
+                                </p:selectOneMenu>
+                            </p:column>
+
+                        </p:row>
+                    </p:panelGrid>
+                    <p:panelGrid>
+                        <p:row>
+                            <p:column>
+                                <p:commandButton value="Guardar Apertura de historia" action="#{aperturaHOdontologicaController.guardarAperturaHistoria()}"
+                                                 onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
+                            </p:column>
+
+                        </p:row>
+                    </p:panelGrid>
+                </p:tab>
+            </p:wizard>
+        </h:form>
+
+        <p:dialog visible="#{!aperturaHOdontologicaController.pacienteSeleccionado and !aperturaHOdontologicaController.comprobarInicioApertura()}" id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center"   header="Seleccionar paciente">
+            <h:form id="PacienteListForm">
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Buscar paciente:" />
+                    <p:inputText  placeholder="Digite los nombres, apellidos o identificación" style="width: 300px;"  value="#{pacienteController.busquedaPaciente}" >
+                        <p:ajax event="keyup" update="datalist" listener="#{pacienteController.buscarPaciente()}" />                                
+                    </p:inputText>                          
+                </h:panelGrid>
+
+                <p:dataTable id="datalist" value="#{pacienteController.listaPacientesActivosAtencion}" var="item"
+                             paginator="true"
+                             rowKey="#{item.id}"
+                             rows="10"
+
+                             >
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_identificacion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.identificacion}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombres"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombres}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Apellidos"/>
+                        </f:facet>
+                        <h:outputText value="#{item.apellidos}"/>
+                    </p:column>
+
+                    <p:column>
+                        <p:commandButton id="botonSeleccionarPaciente" value="Selecionar"  icon="ui-icon-plus"  action="#{aperturaHOdontologicaController.seleccionarPaciente(item)}" oncomplete="#{aperturaHOdontologicaController.cambiarEstadoBool()}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </p:dialog>    
+        <p:dialog   widgetVar="registroExitosoDialog" closable="false" modal="true" position="center"   header="Mensaje">
+            <h:form id="mensajeForm">
+                <h:panelGrid columns="2" >
+                    <p:graphicImage width="50px" height="50px" library="img" name="exitoso.png" />
+                    <p:outputLabel value="La apertura de la historia se ha realizado con exito" />
+                    <p:commandButton value="Aceptar" onclick="PF('registroExitosoDialog').hide()" update="@all" ajax="r"/>
+                </h:panelGrid>
+
+            </h:form>
+        </p:dialog>
+        <p:dialog widgetVar="listaServicios" width="450" modal="true" header="Listado de tratamientos">
+            <h:form id="ServiciosOdoListForm">
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Buscar tratamiento:" />
+                    <p:inputText  placeholder="Digite el nombre del tratamiento" style="width: 300px;"  
+                                  value="#{serviciosOdoController.busquedaServicioOdo}" >
+                        <p:ajax event="keyup" update="datalist" listener="#{serviciosOdoController.buscarServicioOdo()}" />                                
+                    </p:inputText>                          
+                </h:panelGrid>
+                <p:dataTable id="datalist" value="#{serviciosOdoController.items}" var="item"
+                             paginator="true"
+                             rowKey="#{item.id}"
+                             rows="7"
+
+                             >
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundleServicios.ListServiciosOdoTitle_nombre}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundleServicios.ListServiciosOdoTitle_valor}"/>
+                        </f:facet>
+                        <h:outputText value="$ #{item.precio}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Acción"/>
+                        </f:facet>
+                        <p:commandButton id="createButton" icon="ui-icon-plus" value="Seleccionar" 
+                                         action="#{aperturaHOdontologicaController.seleccionarTrataminto(item)}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+        <p:dialog widgetVar="agregarDiagnosticoDialog" width="650" header="Listado de diagnosticos">
+            <h:form id="DiagnosticosCieOdoListForm">
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Buscar por:" />
+                    <p:inputText  placeholder="Identificador o nombre" style="width: 340px;"  value="#{diagnosticocie10OdoController.busquedaDiagnostico}" >
+                        <p:ajax event="keyup" update="datalist" listener="#{diagnosticocie10OdoController.buscarPorNombreId()}" oncomplete="#{diagnosticocie10OdoController.reiniciarCampoBusqueda()}" />                                
+                    </p:inputText>                          
+                </h:panelGrid>
+                <p:dataTable id="datalist" value="#{diagnosticocie10OdoController.items}" var="item"
+                             paginator="true"
+                             rowKey="#{item.id}"
+                             rows="5"
+                             rowsPerPageTemplate="5,10"
+                             >
+                    <p:column style="width: 70px;">
+                        <f:facet name="header">
+                            <h:outputText value="Identificador"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre}"/>
+                    </p:column>
+                    <p:column style="width: 80px;">
+                        <f:facet name="header">
+                            <h:outputText value="Acción"/>
+                        </f:facet>
+                        <p:commandButton id="createButton" icon="ui-icon-plus" value="Seleccionar" action="#{aperturaHOdontologicaController.seleccionarDiagnostico(item)}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+        <p:dialog widgetVar="seleccionarTipoDiagnostico" width="300">
+            <h:form id="tipoDiagnostico">
+                <p:dataTable id="datalist" value="#{tipodiagnosticoController.items}" var="item"
+                             paginator="true"
+                             rowKey="#{item.id}"
+                             rows="5"
+                             rowsPerPageTemplate="5,10"
+                             >
+                    <p:column style="width: 70px;">
+                        <f:facet name="header">
+                            <h:outputText value="Identificador"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre}"/>
+                    </p:column>
+                    <p:column style="width: 80px;">
+                        <f:facet name="header">
+                            <h:outputText value="Acción"/>
+                        </f:facet>
+                        <p:commandButton id="createButton" icon="ui-icon-plus" value="Seleccionar" action="#{aperturaHOdontologicaController.agregarDiagnosticoTipo(item)}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+        <p:dialog header="Información" modal="true" position="center" widgetVar="dlgMensajeAdventencia" closable="false">
+            <p:messages  style="font-size: 15px;"  showDetail="true" autoUpdate="true"/>
+            <h:form>
+                <center>
+                    <p:commandButton  value="Aceptar" style="font-weight: normal;"
+                                      action="#{aperturaHOdontologicaController.eliminarDiagnosticoTipoDeLista()}"/>
+                    <p:commandButton  value="Cancelar" style="font-weight: normal;"
+                                      onclick="PF('dlgMensajeAdventencia').hide()"/>
+                </center>
+            </h:form>
+        </p:dialog>
+        <p:dialog widgetVar="msgAdvertenciaApertura"  width="400" modal="true" showHeader="false" visible="#{aperturaHOdontologicaController.comprobarInicioApertura()}">
+            <p:messages  style="font-size: 15px;"  showDetail="true" autoUpdate="true"/>
+            <h:form>
+                <center>
+                    <p:commandButton  value="Iniciar nueva" style="font-weight: normal; font-size: 18px !important" oncomplete="PF('msgAdvertenciaApertura').hide()"
+                                      action="#{aperturaHOdontologicaController.reiniciarVariables()}" update=":aperturaHistoriaOdontologica, :InformacionPaciente "/>
+                    <p:commandButton  value="Continuar" style="font-weight: normal;"
+                                      onclick="PF('msgAdvertenciaApertura').hide()" />
+                </center>
+            </h:form>
+        </p:dialog>
+    </body>
+</html>
+
