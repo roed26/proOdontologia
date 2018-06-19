@@ -204,7 +204,7 @@
                         <p:ajax update="datalist"  event="keyup" listener="#{pacienteController.buscarPaciente()}"/>
                     </p:inputText>    
 
-                    <p:dataTable id="datalist" value="#{pacienteController.items}" var="item"
+                    <p:dataTable id="datalist" value="#{pacienteController.listaPacientesActivos}" var="item"
                                  paginator="true"
                                  rowKey="#{item.id}"
                                  rows="10"

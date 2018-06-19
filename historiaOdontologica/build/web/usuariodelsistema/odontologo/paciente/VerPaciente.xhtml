@@ -123,7 +123,7 @@
                 </h:panelGroup>
             </h:form>
 
-            <p:dialog id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center"   header="Seleccionar paciente">
+            <p:dialog id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center" header="Seleccionar paciente">
                 <h:form id="PacienteListForm">
                     <h:panelGrid columns="2" >
                         <p:outputLabel value="Buscar paciente:" />
@@ -136,7 +136,8 @@
                                  paginator="true"
                                  rowKey="#{item.id}"
                                  rows="10"
-
+                                 rowsPerPageTemplate="5,10"
+                                 emptyMessage="¡No se encontraron coincidencias!"
                                  >
                         <p:column>
                             <f:facet name="header">

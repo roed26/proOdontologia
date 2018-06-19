@@ -89,13 +89,14 @@ and open the template in the editor.
                                     <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_parentesco}" for="parentesco" />
                                 </p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="parentesco" value="#{aperturaHOdontologicaController.actualizacionOdo.parentesco}" >
-                                        <f:selectItems value="#{parentescoController.itemsAvailableSelectOne}"
-                                                       var="idParentescoItem"
-                                                       itemValue="#{idParentescoItem.id}"
-                                                       itemLabel="#{idParentescoItem.nombre}"/>
+                                    <p:selectOneMenu style="width: 120px" id="parentesco" value="#{aperturaHOdontologicaController.actualizacionOdo.parentesco}" >
+                                        <f:selectItem itemLabel="Seleccione..." itemValue="0"/>
+                                        <f:selectItem itemLabel="Padres" itemValue="Padres"  />
+                                        <f:selectItem itemValue="Hijos" itemLabel="Hijos" />
+                                        <f:selectItem itemValue="Conyuges" itemLabel="Conyuges" />
+                                        <f:selectItem itemValue="Otros" itemLabel="Otros" />
                                     </p:selectOneMenu>
-
+                                    
                                 </p:column>
 
                             </p:row>
