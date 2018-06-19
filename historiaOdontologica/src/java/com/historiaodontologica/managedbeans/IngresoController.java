@@ -1,6 +1,7 @@
 package com.historiaodontologica.managedbeans;
 
 import com.historiaodontologica.clases.FechaContabilidad;
+import com.historiaodontologica.clases.ReportesMedicos;
 import com.historiaodontologica.entidades.Ingreso;
 import com.historiaodontologica.entidades.Paciente;
 import com.historiaodontologica.managedbeans.util.JsfUtil;
@@ -9,6 +10,7 @@ import com.historiaodontologica.sessionbeans.IngresoFacade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -32,17 +34,34 @@ public class IngresoController implements Serializable {
     private com.historiaodontologica.sessionbeans.IngresoFacade ejbFacade;
     private List<Ingreso> items = null;
     private Ingreso selected;
-    private FechaContabilidad fechaContabilidad;
-    
-    public FechaContabilidad getFechaContabilidad() {
-        return fechaContabilidad;
+    private ReportesMedicos reportesMedicos;
+
+    public IngresoController() {
+        reportesMedicos = new ReportesMedicos();
     }
 
-    public void setFechaContabilidad(FechaContabilidad fechaContabilidad) {
-        this.fechaContabilidad = fechaContabilidad;
+    public ReportesMedicos getReportesMedicos() {
+        return reportesMedicos;
+    }
+
+    public void setReportesMedicos(ReportesMedicos reportesMedicos) {
+        this.reportesMedicos = reportesMedicos;
     }
     
-    public IngresoController() {
+    public Date getFechadesde() {
+        return reportesMedicos.getFechadesde();
+    }
+
+    public void setFechadesde(Date fechadesde) {
+        reportesMedicos.setFechadesde(fechadesde);
+    }
+
+    public Date getFechahasta() {
+        return reportesMedicos.getFechahasta();
+    }
+
+    public void setFechahasta(Date fechahasta) {
+        reportesMedicos.setFechahasta(fechahasta);
     }
 
     public Ingreso getSelected() {
@@ -86,20 +105,23 @@ public class IngresoController implements Serializable {
 
         selected = new Ingreso();
     }
-    public List<Ingreso> listFechasIngresos(){
-    items = getFacade().findAll();
-    List<Ingreso> ingresosFiltro = new ArrayList<>();   //lista que almacena los ingresos iguales al seleccionado en el filtro
     
-    for(int i =0; i<items.size();i++){
-        if(items.get(i).getFechaIngreso().equals(fechaContabilidad.getIngreso().getFechaIngreso())){
-            ingresosFiltro.add(items.get(i));
+    public List<Ingreso> getItems() {
+        if (items == null || getFechadesde() == null || getFechahasta() == null) {
+            items = getFacade().findAll();
+        } else {
+            prueba();
         }
+        return items;
     }
-    return ingresosFiltro;
-}
-//    public void buscarIngresoFecha(){
-//        
-//    }
+
+    public void filtrar() {
+//        prueba();
+    }
+
+    public void prueba() {
+        items = getFacade().listadoIngresoFecha(reportesMedicos.getFechadesde(), reportesMedicos.getFechahasta());
+    }
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleEgresoIngreso").getString("IngresoUpdated"));
     }
@@ -111,14 +133,7 @@ public class IngresoController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
-    public List<Ingreso> getItems() {
-
-        items = getFacade().findAll();
-
-        return items;
-    }
-
+    
     public int contarCaracteres() {
         int cont = 0;
         if (selected.getDescripcionIngreso() != null) {

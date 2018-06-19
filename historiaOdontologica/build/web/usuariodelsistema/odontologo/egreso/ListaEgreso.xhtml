@@ -9,6 +9,31 @@
     <h:body>
         <br/><CENTER><h1> EGRESOS DEL CONSULTORIO ODONTOLÓGICO </h1></CENTER><br/>
         <br/><h:form id="EgresoListForm">
+            <p:row>
+                    <p:column style=" font-size: 18px; font-weight:bold; color: black;" colspan="4"  >
+                        <p:outputLabel value="Seleccione el rango de tiempo que desea consultar:" style="font-weight:bold; color: black;" />
+                        <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                    </p:column>
+                </p:row>
+                <br/><br/><p:row>
+                    <p:column style="font-size: 18px; font-weight:bold; color: black">
+                        <p:outputLabel value="Desde" />
+                        <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                    </p:column>
+                    <p:column>
+                        <p:calendar id="fechadesde" value="#{egresoController.fechadesde}" placeholder="dd-mm-aaaa" pattern="yyyy-MM-dd" showOn="button"/>
+                    </p:column>
+                    <p:column style="font-size: 18px; font-weight:bold; color: black">
+                        <p:outputLabel value="Hasta" />
+                        <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                    </p:column>
+                    <p:column>
+                        <p:calendar id="fechahasta" value="#{egresoController.fechahasta}" placeholder="dd-mm-aaaa" pattern="yyyy-MM-dd" showOn="button"/>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="Buscar" actionListener="#{egresoController.filtrar()}" ajax="r"/>
+                    </p:column>
+                </p:row>
             <p:dataTable id="datalist" value="#{egresoController.items}" var="item"
                          selectionMode="single" selection="#{egresoController.selected}"
                          paginator="true"

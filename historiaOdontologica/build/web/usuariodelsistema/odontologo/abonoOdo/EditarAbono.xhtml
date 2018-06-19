@@ -8,19 +8,60 @@
 
     <ui:composition>
 
-        <p:dialog id="AbonoOdoEditDlg" widgetVar="AbonoOdoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleAbonos.EditAbonoOdoTitle}">
+        <p:dialog id="AbonoOdoEditDlg" widgetVar="AbonoOdoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar abono">
             <h:form id="AbonoOdoEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{abonoOdoController.selected != null}">
-                        <p:outputLabel value="#{bundleAbonos.EditAbonoOdoLabel_fecha}" for="fecha" />
-                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{abonoOdoController.selected.fecha}" title="#{bundleAbonos.EditAbonoOdoTitle_fecha}" required="true" requiredMessage="#{bundleAbonos.EditAbonoOdoRequiredMessage_fecha}" showOn="button"/>
-                        <p:outputLabel value="#{bundleAbonos.EditAbonoOdoLabel_valor}" for="valor" />
-                        <p:inputText id="valor" value="#{abonoOdoController.selected.valor}" title="#{bundleAbonos.EditAbonoOdoTitle_valor}" required="true" requiredMessage="#{bundleAbonos.EditAbonoOdoRequiredMessage_valor}"/>
-                        <p:outputLabel value="#{bundleAbonos.EditAbonoOdoLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{abonoOdoController.selected.descripcion}" title="#{bundleAbonos.EditAbonoOdoTitle_descripcion}" required="true" requiredMessage="#{bundleAbonos.EditAbonoOdoRequiredMessage_descripcion}"/>
+                    <p:panelGrid id="panelValidarEditar" styleClass="panelgrid" rendered="#{abonoOdoController.selected != null}">
+                        <p:row>
+                        <p:column>
+                            <p:outputLabel style="font-weight: bold" value="Fecha"/>
+                            <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                        </p:column>
+                        <p:column>
+                            <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{abonoOdoController.selected.fecha}" title="#{bundleAbonos.EditAbonoOdoTitle_fecha}" required="true" requiredMessage="#{bundleAbonos.EditAbonoOdoRequiredMessage_fecha}" showOn="button"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel value="Valor del Abono" style="font-weight: bold" />
+                            <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                        </p:column>
+                        <p:column>
+                            <p:inputText id="valor" value="#{abonoOdoController.selected.valor}" title="#{bundleAbonos.EditAbonoOdoTitle_valor}" required="true" requiredMessage="#{bundleAbonos.EditAbonoOdoRequiredMessage_valor}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:outputLabel style="font-weight:bold" value="Descripción del abono" />
+                            <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:inputTextarea cols="50" rows="4" id="descripcionAbono" value="#{abonoOdoController.selected.descripcion}" 
+                                             title="#{bundleAbonos.CreateAbonoOdoTitle_descripcion}" required="true" 
+                                             requiredMessage="Campo obligatorio">
+                                <p:ajax update="msgDescripcionAbono contador" event="keyup"/>
+                                <f:validator validatorId="ValidarCampoMaximo100Caracteres"/>
+                            </p:inputTextarea>        
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel id="contador" value="#{abonoOdoController.contarCaracteres()} de 100"/>
+                        </p:column>
+                        <p:column>
+                            <p:message id="msgDescripcionAbono" for="descripcionAbono"/>
+                        </p:column>
+                    </p:row>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{abonoOdoController.update}" value="#{bundleAbonos.Save}" update="display,:AbonoOdoListForm:datalist" oncomplete="PF('AbonoOdoEditDialog').hide()"/>
-                    <p:commandButton value="#{bundleAbonos.Cancel}" onclick="AbonoOdoEditDialog.hide()"/>
+                    <br><p:commandButton style="left: 10px; size: 19px; font-weight:bold; color: black; background-color: #97AED7"  
+                                         action="#{abonoOdoController.editarAbono()}" 
+                                         value="Guardar cambios" 
+                                         update="display,:AbonoOdoListForm:datalist,panelValidarEditar"
+                                         onclick="AbonoOdoEditDialog.hide()"
+                                         /></br>
+                    <p:commandButton value="Cancelar" onclick="AbonoOdoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -6,9 +6,12 @@
 package com.historiaodontologica.sessionbeans;
 
 import com.historiaodontologica.entidades.Ingreso;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,14 @@ public class IngresoFacade extends AbstractFacade<Ingreso> {
 
     public IngresoFacade() {
         super(Ingreso.class);
+    }
+    
+    public List<Ingreso> listadoIngresoFecha(Date fechaInicio, Date fechaFin) {
+        Query query = getEntityManager().createNamedQuery("Ingreso.findByConsultaFechaIngreso");
+        query.setParameter("desde", fechaInicio);
+        query.setParameter("hasta", fechaFin);
+        List<Ingreso> resultList = query.getResultList();
+        return resultList;
     }
     
 }
