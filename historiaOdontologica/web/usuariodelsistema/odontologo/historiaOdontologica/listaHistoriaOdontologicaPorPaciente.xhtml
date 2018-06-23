@@ -59,26 +59,18 @@ and open the template in the editor.
         <p:separator style="height:3px; color: #000000"/>
 
         <h:form id="listaHistoriaOdontologica" >
-            <p:panelGrid >
+            <p:panelGrid styleClass="panelgrid">
                 <p:row>
-                    <p:column style="font-weight: bold; text-align: center ">
-                        
-                        <p:commandButton id="botonImprimirHistoria" value="imprimir historia"  action="#{gestionHOdontologicaController.seleccionarPaciente(item)}" oncomplete="#{gestionHOdontologicaController.cambiarEstadoBool()}">
-
+                    <p:column style="font-weight: bold;">
+                        <p:commandButton id="botonImprimirHistoria" value="imprimir historia"  
+                                         action="#{gestionHOdontologicaController.seleccionarPaciente(item)}" 
+                                         oncomplete="#{gestionHOdontologicaController.cambiarEstadoBool()}">
                             <p:printer target="historial" />
                         </p:commandButton>
-                        <p:separator/>
-                        <p:dataGrid value="#{gestionHOdontologicaController.listaActualizaciones}" 
-                                    var="actualizacion" columns="1" >
-                            <h:panelGrid columns="3" styleClass="panelgrid">
-                                <h:outputText value="#{gestionHOdontologicaController.formatoFecha.format(actualizacion.fecha)}" style="font-weight: bold"/>
-                                <h:outputText value="#{actualizacion.tipo}" style="font-weight: bold"/>
-                                
-                            </h:panelGrid>
-                            <p:separator/>
-                        </p:dataGrid>
-
                     </p:column>
+                </p:row>
+
+                <p:row>
                     <p:column >
                         <p:dataScroller id="historial" value="#{gestionHOdontologicaController.listaActualizaciones}" 
                                         var="actualizacion" chunkSize="10">
@@ -1907,8 +1899,8 @@ and open the template in the editor.
                                                 </p:column>
 
                                             </p:row>
-                                           
-                                           
+
+
                                         </p:panelGrid>
 
                                     </p:column>

@@ -11,18 +11,22 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <body>
-        <f:event type="preRenderView" listener="#{aperturaHOdontologicaController.iniciarOdontograma}"/>
+        
         <h:form id="InformacionPaciente" >
-            <p:panelGrid styleClass="panelgrid">
+            <p:panelGrid styleClass="panelgrid" >
                 <p:row>
-                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: black; background: #339cdf">
+                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: black; background: #339cdf" rendered="#{aperturaHOdontologicaController.pacienteSeleccionado}">
                         <p:outputLabel value="Información de paciente"/>
                     </p:column>
                     <p:column rowspan="2">
                         <p:commandButton onclick="PF('seleccionPacienteDialog').show()" value="Seleccionar paciente" />
                     </p:column>   
+                    <p:column rowspan="2">
+                        <center><p:commandButton value="Cancelar apertura" 
+                                     action="#{aperturaHOdontologicaController.inicializarVariablesCancelar(cargarVistaController)}" ajax="false"/></center>
+                    </p:column>   
                 </p:row>
-                <p:row>
+                <p:row rendered="#{aperturaHOdontologicaController.pacienteSeleccionado}">
                     <p:column>
                         <p:outputLabel style="font-weight: bold; color: black;" value="Fecha de registro" />
                     </p:column>
@@ -59,10 +63,10 @@ and open the template in the editor.
         </h:form>
         <p:separator style="height:3px; color: #000000"/>
         <h:form id="aperturaHistoriaOdontologica" >
-            <p:wizard widgetVar="aperturaHistoriaWizard" showNavBar="true" nextLabel="Siguiente" backLabel="Anterior">
+            <p:wizard widgetVar="aperturaHistoriaWizard" showNavBar="true" nextLabel="Siguiente" backLabel="Anterior" rendered="#{aperturaHOdontologicaController.pacienteSeleccionado}">
                 <p:tab title="Datos de acompañante">
                     <p:panel header="Datos de acompañante">
-
+ 
                         <p:panelGrid  id="panel" styleClass="panelgrid">
                             <p:row>
                                 <p:column colspan="4">
@@ -89,11 +93,12 @@ and open the template in the editor.
                                     <p:outputLabel value="#{bundleActualizacionOdo.CreateActualizacionOdoLabel_parentesco}" for="parentesco" />
                                 </p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="parentesco" value="#{aperturaHOdontologicaController.actualizacionOdo.parentesco}" >
-                                        <f:selectItems value="#{parentescoController.itemsAvailableSelectOne}"
-                                                       var="idParentescoItem"
-                                                       itemValue="#{idParentescoItem.id}"
-                                                       itemLabel="#{idParentescoItem.nombre}"/>
+                                    <p:selectOneMenu style="width: 120px" id="parentesco" value="#{aperturaHOdontologicaController.actualizacionOdo.parentesco}" >
+                                        <f:selectItem itemLabel="Seleccione..." itemValue="0"/>
+                                        <f:selectItem itemLabel="Padres" itemValue="Padres"  />
+                                        <f:selectItem itemValue="Hijos" itemLabel="Hijos" />
+                                        <f:selectItem itemValue="Conyuges" itemLabel="Conyuges" />
+                                        <f:selectItem itemValue="Otros" itemLabel="Otros" />
                                     </p:selectOneMenu>
 
                                 </p:column>
@@ -1165,6 +1170,8 @@ and open the template in the editor.
                     <ui:include src="odontograma.xhtml"/>
                 </p:tab>
                 <p:tab title="Diagnostico">
+                    <br/>
+                    <br/>
                     <p:panelGrid styleClass="panelgrid">
                         <p:row> 
                             <p:column  >
@@ -1180,7 +1187,7 @@ and open the template in the editor.
                             <p:column>
                                 <p:dataTable id="datalistDiagnosticosTipo" value="#{aperturaHOdontologicaController.listaDiagnosticosTipo}" var="item"
                                              paginator="true"
-
+                                             paginatorPosition="bottom"
                                              rows="10"
                                              rowsPerPageTemplate="10,20,30"
                                              >
@@ -1234,7 +1241,8 @@ and open the template in the editor.
                 </p:tab>
                 <p:tab title="Presupuesto">
                     <CENTER><h1> Gestión de pagos </h1></CENTER><br/>
-                    <br/><p:commandButton id="listaServiciosButton" icon="ui-icon-plus"   value="Agregar tratamiento" onclick="PF('listaServicios').show()"/>
+                    <br/><p:commandButton id="listaServiciosButton" icon="ui-icon-plus"   
+                                          value="Agregar tratamiento" onclick="PF('listaServicios').show()"/>
 
                     <p:dataTable id="datalistTratamiento" value="#{aperturaHOdontologicaController.listaServicios}" var="presupuesto"
                                  >
@@ -1269,7 +1277,9 @@ and open the template in the editor.
                             <f:facet name="header">
                                 <h:outputText value="Acción"/>
                             </f:facet>
-                            <p:commandButton id="createButton" icon="ui-icon-trash"   value="Eliminar"/>
+                            <p:commandButton id="createButton" icon="ui-icon-trash"  
+                                             value="Eliminar" 
+                                             action="#{aperturaHOdontologicaController.abrirMensajeAdvertenciaServicio(presupuesto)}"/>
                         </p:column>
 
                     </p:dataTable>
@@ -1301,7 +1311,7 @@ and open the template in the editor.
                                     <f:selectItems value="#{descuentoOdoController.itemsAvailableSelectOne}"
                                                    var="descuentoItem"
                                                    itemValue="#{descuentoItem.numeroDescuento}"
-                                                   itemLabel="#{descuentoItem.numeroDescuento}"
+                                                   itemLabel="#{descuentoItem.numeroDescuento} %"
                                                    />
                                     <f:ajax   execute="descuento" render="datalist" /> 
                                 </p:selectOneMenu>
@@ -1312,7 +1322,8 @@ and open the template in the editor.
                     <p:panelGrid>
                         <p:row>
                             <p:column>
-                                <p:commandButton value="Guardar Apertura de historia" action="#{aperturaHOdontologicaController.guardarAperturaHistoria()}"
+                                <p:commandButton value="Guardar Apertura de historia"
+                                                 action="#{aperturaHOdontologicaController.guardarAperturaHistoria()}"
                                                  onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
                             </p:column>
 
@@ -1320,47 +1331,61 @@ and open the template in the editor.
                     </p:panelGrid>
                 </p:tab>
             </p:wizard>
+            <br/>
+            <p:separator/>
+            
         </h:form>
 
         <p:dialog visible="#{!aperturaHOdontologicaController.pacienteSeleccionado and !aperturaHOdontologicaController.comprobarInicioApertura()}" id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center"   header="Seleccionar paciente">
             <h:form id="PacienteListForm">
-                <h:panelGrid columns="2" >
-                    <p:outputLabel value="Buscar paciente:" />
-                    <p:inputText  placeholder="Digite los nombres, apellidos o identificación" style="width: 300px;"  value="#{pacienteController.busquedaPaciente}" >
-                        <p:ajax event="keyup" update="datalist" listener="#{pacienteController.buscarPaciente()}" />                                
-                    </p:inputText>                          
-                </h:panelGrid>
+                <p:panel rendered="#{pacienteController.listaPacientesActivosAtencion.size()==0}">
+                    <ui:include src="CrearPaciente.xhtml"/>
+                    <center><p:commandButton id="botonSeleccionarPaciente" 
+                                     value="Registrar y selecionar"   
+                                     action="#{aperturaHOdontologicaController.registrarSeleccionarPaciente()}" 
+                                     oncomplete="#{aperturaHOdontologicaController.cambiarEstadoBool()}"/></center>
+                </p:panel>
+                <p:panel rendered="#{pacienteController.listaPacientesActivosAtencion.size()>0}">
+                    <h:panelGrid columns="2" >
+                        <p:outputLabel value="Buscar paciente:" />
+                        <p:inputText  placeholder="Digite los nombres, apellidos o identificación" style="width: 300px;"  value="#{pacienteController.busquedaPaciente}" >
+                            <p:ajax event="keyup" update="datalist" listener="#{pacienteController.buscarPaciente()}" />                                
+                        </p:inputText>                          
+                    </h:panelGrid>
 
-                <p:dataTable id="datalist" value="#{pacienteController.listaPacientesActivosAtencion}" var="item"
-                             paginator="true"
-                             rowKey="#{item.id}"
-                             rows="10"
+                    <p:dataTable id="datalist" value="#{pacienteController.listaPacientesActivosAtencion}" var="item"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundlePaciente.ListPacienteTitle_identificacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.identificacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombres"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombres}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Apellidos"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apellidos}"/>
+                        </p:column>
 
-                             >
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_identificacion}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.identificacion}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nombres"/>
-                        </f:facet>
-                        <h:outputText value="#{item.nombres}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Apellidos"/>
-                        </f:facet>
-                        <h:outputText value="#{item.apellidos}"/>
-                    </p:column>
+                        <p:column>
+                            <p:commandButton id="botonSeleccionarPaciente" 
+                                             value="Selecionar"  icon="ui-icon-plus" 
+                                             action="#{aperturaHOdontologicaController.seleccionarPaciente(item)}" oncomplete="#{aperturaHOdontologicaController.cambiarEstadoBool()}"/>
+                        </p:column>
 
-                    <p:column>
-                        <p:commandButton id="botonSeleccionarPaciente" value="Selecionar"  icon="ui-icon-plus"  action="#{aperturaHOdontologicaController.seleccionarPaciente(item)}" oncomplete="#{aperturaHOdontologicaController.cambiarEstadoBool()}"/>
-                    </p:column>
+                    </p:dataTable>
+                </p:panel>
 
-                </p:dataTable>
             </h:form>
         </p:dialog>    
         <p:dialog   widgetVar="registroExitosoDialog" closable="false" modal="true" position="center"   header="Mensaje">
@@ -1368,7 +1393,8 @@ and open the template in the editor.
                 <h:panelGrid columns="2" >
                     <p:graphicImage width="50px" height="50px" library="img" name="exitoso.png" />
                     <p:outputLabel value="La apertura de la historia se ha realizado con exito" />
-                    <p:commandButton value="Aceptar" onclick="PF('registroExitosoDialog').hide()" update="@all" ajax="r"/>
+                    <p:commandButton value="Aceptar" action="#{aperturaHOdontologicaController.volverAInicio(cargarVistaController)}" 
+                                     update="@all" ajax="r"/>
                 </h:panelGrid>
 
             </h:form>
@@ -1413,7 +1439,7 @@ and open the template in the editor.
                 </p:dataTable>
             </h:form>
         </p:dialog>
-        <p:dialog widgetVar="agregarDiagnosticoDialog" width="650" header="Listado de diagnosticos">
+        <p:dialog widgetVar="agregarDiagnosticoDialog" width="650" modal="true" header="Listado de diagnosticos">
             <h:form id="DiagnosticosCieOdoListForm">
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Buscar por:" />
@@ -1424,7 +1450,7 @@ and open the template in the editor.
                 <p:dataTable id="datalist" value="#{diagnosticocie10OdoController.items}" var="item"
                              paginator="true"
                              rowKey="#{item.id}"
-                             rows="5"
+                             rows="5" paginatorPosition="bottom"
                              rowsPerPageTemplate="5,10"
                              >
                     <p:column style="width: 70px;">
@@ -1450,7 +1476,7 @@ and open the template in the editor.
                 </p:dataTable>
             </h:form>
         </p:dialog>
-        <p:dialog widgetVar="seleccionarTipoDiagnostico" width="300">
+        <p:dialog widgetVar="seleccionarTipoDiagnostico" width="300" modal="true">
             <h:form id="tipoDiagnostico">
                 <p:dataTable id="datalist" value="#{tipodiagnosticoController.items}" var="item"
                              paginator="true"
@@ -1458,12 +1484,6 @@ and open the template in the editor.
                              rows="5"
                              rowsPerPageTemplate="5,10"
                              >
-                    <p:column style="width: 70px;">
-                        <f:facet name="header">
-                            <h:outputText value="Identificador"/>
-                        </f:facet>
-                        <h:outputText value="#{item.id}"/>
-                    </p:column>
 
                     <p:column>
                         <f:facet name="header">
@@ -1488,6 +1508,18 @@ and open the template in the editor.
                                       action="#{aperturaHOdontologicaController.eliminarDiagnosticoTipoDeLista()}"/>
                     <p:commandButton  value="Cancelar" style="font-weight: normal;"
                                       onclick="PF('dlgMensajeAdventencia').hide()"/>
+                </center>
+            </h:form>
+        </p:dialog>
+        <p:dialog header="Información" modal="true" position="center" widgetVar="dlgMensajeAdventenciaServicio"
+                  closable="false">
+            <p:messages  style="font-size: 15px;"  showDetail="true" autoUpdate="true"/>
+            <h:form>
+                <center>
+                    <p:commandButton  value="Aceptar" style="font-weight: normal;"
+                                      action="#{aperturaHOdontologicaController.eliminarServicioDeLista()}"/>
+                    <p:commandButton  value="Cancelar" style="font-weight: normal;"
+                                      onclick="PF('dlgMensajeAdventenciaServicio').hide()"/>
                 </center>
             </h:form>
         </p:dialog>

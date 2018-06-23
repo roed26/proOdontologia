@@ -35,8 +35,20 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Odontograma.findByImgAbajo", query = "SELECT o FROM Odontograma o WHERE o.imgAbajo = :imgAbajo"),
     @NamedQuery(name = "Odontograma.findByImgCentro", query = "SELECT o FROM Odontograma o WHERE o.imgCentro = :imgCentro"),
     @NamedQuery(name = "Odontograma.findByImgIzq", query = "SELECT o FROM Odontograma o WHERE o.imgIzq = :imgIzq"),
-    @NamedQuery(name = "Odontograma.findByImgDer", query = "SELECT o FROM Odontograma o WHERE o.imgDer = :imgDer")})
+    @NamedQuery(name = "Odontograma.findByImgDer", query = "SELECT o FROM Odontograma o WHERE o.imgDer = :imgDer"),
+    @NamedQuery(name = "Odontograma.findByActualizacion", query = "SELECT o FROM Odontograma o WHERE o.idActualizacion = :actualizacion")
+})
 public class Odontograma implements Serializable {
+
+    @Size(max = 100)
+    @Column(name = "IMG_FUERA_BOL_PERl")
+    private String imgFueraBolPeri;
+    @Size(max = 100)
+    @Column(name = "IMG_FUERA_END")
+    private String imgFueraEnd;
+    @Size(max = 100)
+    @Column(name = "IMG_FUERA_N_END")
+    private String imgFueraNEnd;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -160,6 +172,30 @@ public class Odontograma implements Serializable {
     @Override
     public String toString() {
         return "com.historiaodontologica.entidades.Odontograma[ id=" + id + " ]";
+    }
+
+    public String getImgFueraBolPeri() {
+        return imgFueraBolPeri;
+    }
+
+    public void setImgFueraBolPeri(String imgFueraBolPeri) {
+        this.imgFueraBolPeri = imgFueraBolPeri;
+    }
+
+    public String getImgFueraEnd() {
+        return imgFueraEnd;
+    }
+
+    public void setImgFueraEnd(String imgFueraEnd) {
+        this.imgFueraEnd = imgFueraEnd;
+    }
+
+    public String getImgFueraNEnd() {
+        return imgFueraNEnd;
+    }
+
+    public void setImgFueraNEnd(String imgFueraNEnd) {
+        this.imgFueraNEnd = imgFueraNEnd;
     }
     
 }

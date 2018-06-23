@@ -6,53 +6,29 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-   <h:head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <h:outputStylesheet name="./css/default.css"/>
-      <h:outputStylesheet name="./css/cssLayout.css"/>
-      <h:outputStylesheet name="./css/usuario.css"/>
-      <h:outputStylesheet name="./css/style.css"/>
-      <h:outputScript library="js" name="login.js"/>
-      <title>Registro de historia</title>
-   </h:head>
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <h:outputStylesheet name="./css/usuario.css"/>
+        <h:outputStylesheet name="./css/style.css"/>
+        <h:outputScript library="js" name="login.js"/>
+        <title>Registro de historia</title>
+    </h:head>
 
-   <h:body>
+    <h:body>
 
-      <div id="header">
-         
-            <div class="CuadroDeBotonesSesion">
-                    <ui:insert name="CuadroDeBotonesSesion"> 
-                        <h:form style="width: auto">
-                            <h:link id="opcionesusuario" style="text-decoration: none;color:#000000; ">
-                                
-                                <p:graphicImage value="#{usuarioSessionController.imagenPorDefecto}" 
-                                                style="border-radius:20px;" width="35"  height="35" >
-                                    <f:param name="id" value="#{usuarioSessionController.identificacion}" />
-                                </p:graphicImage> 
-                                #{usuarioSessionController.nombreUsuario()}
-                            </h:link>
-                            <p:menu  overlay="true"  trigger="opcionesusuario" my="right top" at="right bottom" >
-                                <p:menuitem value="Mi Perfil" action="#{cargarVistaController.cargarPerfilUsuario()}"
-                                            ajax="false"
-                              />
-                                <p:separator/>
-                                <p:menuitem value="Cerrar Sesión" action="#{usuarioSessionController.logout()}"/>
-                            </p:menu>
 
-                        </h:form>
-                    </ui:insert>
-                </div>
-         </div>
-         
-            <div>
-         <div id="menu">
-            <ui:insert name="left">Left</ui:insert>
-         </div>
-         <div id="content" >
-            <ui:insert name="content">Content</ui:insert>
-         </div>
-      </div>
-      <ui:include src="/EfectodeCarga.xhtml"/> 
-   </h:body>
+
+        <div>
+            <div id="menu">
+                <ui:insert name="left">Left</ui:insert>
+            </div>
+            <div id="content" >
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+        </div>
+        <ui:include src="/EfectodeCarga.xhtml"/> 
+    </h:body>
 
 </html>

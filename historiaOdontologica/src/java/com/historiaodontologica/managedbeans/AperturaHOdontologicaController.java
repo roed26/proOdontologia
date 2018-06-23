@@ -36,6 +36,7 @@ import com.historiaodontologica.entidades.Paciente;
 import com.historiaodontologica.entidades.Presupuesto;
 import com.historiaodontologica.entidades.ServiciosOdo;
 import com.historiaodontologica.entidades.TipoDiagnostico;
+import com.historiaodontologica.entidades.TipoIdentificacion;
 import com.historiaodontologica.entidades.UsuariosSistema;
 import com.historiaodontologica.sessionbeans.ActualizacionOdoFacade;
 import com.historiaodontologica.sessionbeans.AntOdoFacade;
@@ -55,6 +56,7 @@ import com.historiaodontologica.sessionbeans.ObsAntOdoFacade;
 import com.historiaodontologica.sessionbeans.ObsExaOralFacade;
 import com.historiaodontologica.sessionbeans.ObsOdontogramaFacade;
 import com.historiaodontologica.sessionbeans.OdontogramaFacade;
+import com.historiaodontologica.sessionbeans.PacienteFacade;
 import com.historiaodontologica.sessionbeans.PresupuestoFacade;
 import com.historiaodontologica.sessionbeans.UsuariosSistemaFacade;
 import java.io.Serializable;
@@ -124,6 +126,8 @@ public class AperturaHOdontologicaController implements Serializable {
     private PresupuestoFacade ejbPresupuesto;
     @EJB
     private DetalleServicioFacade ejbDetalleServicio;
+    @EJB
+    private PacienteFacade ejbPaciente;
 
     //variables booleanas
     private boolean conAcompaniante;
@@ -343,6 +347,7 @@ public class AperturaHOdontologicaController implements Serializable {
     private ArrayList<DetalleServicioPresupuesto> listaServiciosTemporal;
     private DescuentoOdo descuento;
     private DetalleServicioPresupuesto detallePresupuestoDes;
+    private DetalleServicioPresupuesto detalleServicioPresupuestoEliminar;
     double totalPagar = 0;
 
     //String
@@ -375,7 +380,9 @@ public class AperturaHOdontologicaController implements Serializable {
 
     //objetos 
     private Paciente paciente;
+    private Paciente pacienteApertura;
     private Higiene higiene;
+    private TipoIdentificacion tipoIdentificacion;
     private CuadroSintesis cuadroSintesis;
     private ActualizacionOdo actualizacionOdo;
     private RespuestasAntecedentesFamiliares respuestasAntecedentesFamiliares;
@@ -435,6 +442,9 @@ public class AperturaHOdontologicaController implements Serializable {
         respuestasAntecedentesPersonales = new RespuestasAntecedentesPersonales();
         respuestasExamenEstomatologico = new RespuestasExamenEstomatologico();
         respuestasExamenOral = new RespuestasExamenOral();
+        tipoIdentificacion = new TipoIdentificacion();
+        pacienteApertura = new Paciente();
+
     }
 
     @PostConstruct
@@ -576,6 +586,14 @@ public class AperturaHOdontologicaController implements Serializable {
         this.listaDiagnosticosTipo = listaDiagnosticosTipo;
     }
 
+    public Paciente getPacienteApertura() {
+        return pacienteApertura;
+    }
+
+    public void setPacienteApertura(Paciente pacienteApertura) {
+        this.pacienteApertura = pacienteApertura;
+    }
+
     public ArrayList<DetalleServicioPresupuesto> getListaServicios() {
         return listaServicios;
     }
@@ -598,6 +616,14 @@ public class AperturaHOdontologicaController implements Serializable {
 
     public void setDescuento(DescuentoOdo descuento) {
         this.descuento = descuento;
+    }
+
+    public TipoIdentificacion getTipoIdentificacion() {
+        return tipoIdentificacion;
+    }
+
+    public void setTipoIdentificacion(TipoIdentificacion tipoIdentificacion) {
+        this.tipoIdentificacion = tipoIdentificacion;
     }
 
     public double getTotalPagar() {
@@ -1012,6 +1038,14 @@ public class AperturaHOdontologicaController implements Serializable {
         requestContext.execute("PF('dlgMensajeAdventencia').show()");
 
     }
+    
+    public void abrirMensajeAdvertenciaServicio(DetalleServicioPresupuesto detallePresupuesto) {
+        this.detalleServicioPresupuestoEliminar = detallePresupuesto;
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Adventencia", "¿Esta seguro de eliminar el servicio?"));
+        requestContext.execute("PF('dlgMensajeAdventenciaServicio').show()");
+
+    }
 
     public void seleccionarPaciente(Paciente paciente) {
         this.tipoActualizacion = "Apertura";
@@ -1029,6 +1063,33 @@ public class AperturaHOdontologicaController implements Serializable {
         requestContext.update("aperturaHistoriaOdontologica");
         requestContext.execute("PF('seleccionPacienteDialog').hide()");
 
+    }
+
+    public void registrarSeleccionarPaciente() {
+        pacienteApertura.setTipoIdentificacion(tipoIdentificacion);
+        pacienteApertura.setEstado("1");
+        pacienteApertura.setFechaRegistro(asignarFechaApertura());
+        ejbPaciente.create(pacienteApertura);
+        this.tipoActualizacion = "Apertura";
+        this.pacienteSeleccionado = true;
+        this.paciente = pacienteApertura;
+        this.fechaRegistro = formatoFecha.format(this.paciente.getFechaRegistro());
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        FacesContext context = FacesContext.getCurrentInstance();
+        Application application = context.getApplication();
+        ViewHandler viewHandler = application.getViewHandler();
+        UIViewRoot viewRoot = viewHandler.createView(context, context.getViewRoot().getViewId());
+        context.setViewRoot(viewRoot);
+        context.renderResponse();
+        requestContext.update("InformacionPaciente");
+        requestContext.update("aperturaHistoriaOdontologica");
+        requestContext.execute("PF('seleccionPacienteDialog').hide()");
+
+    }
+
+    private Date asignarFechaApertura() {
+        GregorianCalendar c = new GregorianCalendar();
+        return c.getTime();
     }
 
     public void cambiarEstadoBool() {
@@ -1184,12 +1245,11 @@ public class AperturaHOdontologicaController implements Serializable {
         registrarPresupuesto();
 
         RequestContext requestContext = RequestContext.getCurrentInstance();
-        requestContext.execute("PF('registroExitosoDialog').show()");
 
         reiniciarVariables();
 
         requestContext.update("aperturaHistoriaOdontologica");
-
+        requestContext.execute("PF('registroExitosoDialog').show()");
     }
 
     private void asignarFecha() {
@@ -1301,6 +1361,13 @@ public class AperturaHOdontologicaController implements Serializable {
 
     }
 
+    public void volverAInicio(CargarVistaController cargarVistaController) {
+        cargarVistaController.cargarInicio();
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.execute("PF('registroExitosoDialog').hide()");
+
+    }
+
     public void cambiarSeleccionDiagnosticoDent(String diagnosticoDiente) {
         this.diagnosticoDiente = diagnosticoDiente;
 
@@ -1387,38 +1454,38 @@ public class AperturaHOdontologicaController implements Serializable {
     }
 
     public void cambiarImgOdontogramaArriba(int posDienteList) {
-        if (diagnosticoDiente.compareTo("caries")==0) {
+        if (diagnosticoDiente.compareTo("caries") == 0) {
             listaOdontogramaArriba.set(posDienteList, "arriba_caries.png");
             contarCaries(posDienteList);
-        } else if (diagnosticoDiente.compareTo("normal")==0) {
+        } else if (diagnosticoDiente.compareTo("normal") == 0) {
             listaOdontogramaArriba.set(posDienteList, "arriba_normal.png");
-        } else if (diagnosticoDiente.compareTo("amalgama")==0) {
+        } else if (diagnosticoDiente.compareTo("amalgama") == 0) {
             listaOdontogramaArriba.set(posDienteList, "arriba_amalgama.png");
             contarObturados(posDienteList);
-        } else if (diagnosticoDiente.compareTo("obst_plastica")==0) {
+        } else if (diagnosticoDiente.compareTo("obst_plastica") == 0) {
             listaOdontogramaArriba.set(posDienteList, "arriba_obst_plastica.png");
             contarObturados(posDienteList);
-        } else if (diagnosticoDiente.compareTo("obst_temporal")==0) {
+        } else if (diagnosticoDiente.compareTo("obst_temporal") == 0) {
             listaOdontogramaArriba.set(posDienteList, "arriba_obst_temporal.png");
-        } else if (diagnosticoDiente.compareTo("sellante")==0) {
+        } else if (diagnosticoDiente.compareTo("sellante") == 0) {
             listaOdontogramaArriba.set(posDienteList, "arriba_sellante.png");
-        } else if (diagnosticoDiente.compareTo("sinsellante")==0) {
+        } else if (diagnosticoDiente.compareTo("sinsellante") == 0) {
             listaOdontogramaArriba.set(posDienteList, "arriba_sinsellante.png");
-        } else if (diagnosticoDiente.compareTo("faltante")==0) {
+        } else if (diagnosticoDiente.compareTo("faltante") == 0) {
             listaOdontogramaArriba.set(posDienteList, "arriba_faltante.png");
             listaOdontogramaAbajo.set(posDienteList, "abajo_faltante.png");
             listaOdontogramaCentro.set(posDienteList, "centro_faltante.png");
             contarDientesPerdidos(posDienteList);
             RequestContext requestContext = RequestContext.getCurrentInstance();
             requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("faltante_ext")==0) {
+        } else if (diagnosticoDiente.compareTo("faltante_ext") == 0) {
             listaOdontogramaArriba.set(posDienteList, "arriba_faltante_ext.png");
             listaOdontogramaAbajo.set(posDienteList, "abajo_faltante_ext.png");
             listaOdontogramaCentro.set(posDienteList, "centro_faltante_ext.png");
             contarDientesPerdidos(posDienteList);
             RequestContext requestContext = RequestContext.getCurrentInstance();
             requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("exodoncia")==0) {
+        } else if (diagnosticoDiente.compareTo("exodoncia") == 0) {
             listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
             listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
             listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
@@ -1426,7 +1493,7 @@ public class AperturaHOdontologicaController implements Serializable {
             listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
             RequestContext requestContext = RequestContext.getCurrentInstance();
             requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("exodoncia")==0) {
+        } else if (diagnosticoDiente.compareTo("exodoncia") == 0) {
             listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
             listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
             listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
@@ -1434,7 +1501,7 @@ public class AperturaHOdontologicaController implements Serializable {
             listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
             RequestContext requestContext = RequestContext.getCurrentInstance();
             requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("protesis")==0) {
+        } else if (diagnosticoDiente.compareTo("protesis") == 0) {
             listaOdontogramaArriba.set(posDienteList, "arriba_protesis.png");
             listaOdontogramaAbajo.set(posDienteList, "abajo_protesis.png");
             listaOdontogramaCentro.set(posDienteList, "centro_protesis.png");
@@ -1442,7 +1509,7 @@ public class AperturaHOdontologicaController implements Serializable {
             listaOdontogramaDerecha.set(posDienteList, "der_protesis.png");
             RequestContext requestContext = RequestContext.getCurrentInstance();
             requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("protesistotal")==0) {
+        } else if (diagnosticoDiente.compareTo("protesistotal") == 0) {
             listaOdontogramaArriba.set(posDienteList, "arriba_protesistotal.png");
             listaOdontogramaAbajo.set(posDienteList, "abajo_protesistotal.png");
             listaOdontogramaCentro.set(posDienteList, "centro_protesistotal.png");
@@ -1450,15 +1517,15 @@ public class AperturaHOdontologicaController implements Serializable {
             listaOdontogramaDerecha.set(posDienteList, "der_protesistotal.png");
             RequestContext requestContext = RequestContext.getCurrentInstance();
             requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("necendodoncia")==0) {
+        } else if (diagnosticoDiente.compareTo("necendodoncia") == 0) {
             listaOdontogramaFueraNecEndodoncia.set(posDienteList, "necendodoncia_A.png");
             RequestContext requestContext = RequestContext.getCurrentInstance();
             requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("ttoendodoncia")==0) {
+        } else if (diagnosticoDiente.compareTo("ttoendodoncia") == 0) {
             listaOdontogramaFueraEndodoncia.set(posDienteList, "ttoendodoncia_A.png");
             RequestContext requestContext = RequestContext.getCurrentInstance();
             requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("bolsa_per")==0) {
+        } else if (diagnosticoDiente.compareTo("bolsa_per") == 0) {
             listaOdontogramaFueraBolsaPer.set(posDienteList, "bolsa_per_A.png");
             RequestContext requestContext = RequestContext.getCurrentInstance();
             requestContext.update("aperturaHistoriaOdontologica");
@@ -2783,6 +2850,11 @@ public class AperturaHOdontologicaController implements Serializable {
         inicializarCuadroSintesis();
     }
 
+    public void inicializarVariablesCancelar(CargarVistaController cargarVistaController) {
+        cargarVistaController.cargarInicio();
+        reiniciarVariables();
+    }
+
     public boolean comprobarInicioApertura() {
         boolean iniciada = false;
         if (conAcompaniante == true) {
@@ -2961,8 +3033,8 @@ public class AperturaHOdontologicaController implements Serializable {
 
     private void registrarOdontograma() {
         int contDientesArribaIzq = 18, contDientesArribaDer = 21, contDientesAbajoIzq = 48, contDientesAbajoDer = 31;
-
-        for (int i = 0; i < 32; i++) {
+        int contDientesCentroAIzq = 55, contDientesCentroADer = 61, contDientesCentroAbIzq = 85, contDientesCentroAbDer = 71;
+        for (int i = 0; i < 52; i++) {
             Odontograma odontograma = new Odontograma();
             if (i >= 0 && i < 8) {
                 odontograma.setDiente("" + contDientesArribaIzq);
@@ -2976,6 +3048,18 @@ public class AperturaHOdontologicaController implements Serializable {
             } else if (i >= 24 && i < 32) {
                 odontograma.setDiente("" + contDientesAbajoDer);
                 contDientesAbajoDer++;
+            } else if (i >= 32 && i < 37) {
+                odontograma.setDiente("" + contDientesCentroAIzq);
+                contDientesCentroAIzq--;
+            } else if (i >= 37 && i < 42) {
+                odontograma.setDiente("" + contDientesCentroADer);
+                contDientesCentroADer++;
+            } else if (i >= 42 && i < 47) {
+                odontograma.setDiente("" + contDientesCentroAbIzq);
+                contDientesCentroAbIzq--;
+            } else if (i >= 47 && i < 52) {
+                odontograma.setDiente("" + contDientesCentroAbDer);
+                contDientesCentroAbDer++;
             }
 
             odontograma.setIdActualizacion(actualizacionOdo);
@@ -2984,6 +3068,9 @@ public class AperturaHOdontologicaController implements Serializable {
             odontograma.setImgCentro(listaOdontogramaCentro.get(i));
             odontograma.setImgIzq(listaOdontogramaIzquierda.get(i));
             odontograma.setImgDer(listaOdontogramaDerecha.get(i));
+            odontograma.setImgFueraBolPeri(listaOdontogramaFueraBolsaPer.get(i));
+            odontograma.setImgFueraEnd(listaOdontogramaFueraEndodoncia.get(i));
+            odontograma.setImgFueraNEnd(listaOdontogramaFueraNecEndodoncia.get(i));
             ejbOdontograma.create(odontograma);
         }
     }
@@ -3028,6 +3115,16 @@ public class AperturaHOdontologicaController implements Serializable {
         requestcontext.execute("PF('dlgMensajeAdventencia').hide()");
 
     }
+    public void eliminarServicioDeLista() {
+        RequestContext requestcontext = RequestContext.getCurrentInstance();
+
+        listaServicios.remove(this.detalleServicioPresupuestoEliminar);
+        calcularPrecioTotal();
+        requestcontext.update("aperturaHistoriaOdontologica:datalistTratamiento");
+        requestcontext.update("aperturaHistoriaOdontologica:panelPago");
+        requestcontext.execute("PF('dlgMensajeAdventenciaServicio').hide()");
+
+    }
 
     private void registrarDiagnostico() {
 
@@ -3063,13 +3160,17 @@ public class AperturaHOdontologicaController implements Serializable {
         this.diagnosticoDX2 = "";
         this.diagnosticoDX3 = "";
         this.motivoConsulta = "";
-
+        this.descripcionEvolucion = "";
         this.higiene = new Higiene();
         this.obsOdontograma = new ObsOdontograma();
         this.obsOdontograma.setOclusion("Normal");
         this.obsOdontograma.setCaries("0");
         this.obsOdontograma.setObturados("0");
         this.obsOdontograma.setPerdidos("0");
+        totalPagar = 0;
+        this.paciente = new Paciente();
+        this.pacienteSeleccionado = false;
+
         listadoAntecedentesFamiliares = new ArrayList<>();
         listadoAntecedentesPersonales = new ArrayList<>();
         listadoEstomatologicos = new ArrayList<>();
@@ -3081,6 +3182,9 @@ public class AperturaHOdontologicaController implements Serializable {
         listadoRespuestasExmEst = new ArrayList<>();
         listadoRespuestasExamenOral = new ArrayList<>();
         listadoObservacionesExmEst = new ArrayList<>();
+        listaDiagnosticosTipo = new ArrayList<>();
+        listaServicios = new ArrayList<>();
+        listaServiciosTemporal = new ArrayList<>();
         respuestasAntecedentesFamiliares = new RespuestasAntecedentesFamiliares();
         respuestasAntecedentesPersonales = new RespuestasAntecedentesPersonales();
         respuestasExamenEstomatologico = new RespuestasExamenEstomatologico();
@@ -3092,6 +3196,7 @@ public class AperturaHOdontologicaController implements Serializable {
         cargarListaExamenOralDentario();
         cargarListaExamenOralPeriodontal();
         inicializarOdontograma();
+        inicializarCuadroSintesis();
     }
 
     private void inicializarCuadroSintesis() {
@@ -3256,11 +3361,13 @@ public class AperturaHOdontologicaController implements Serializable {
         detalleServicio.setCantidad(1);
         detalleServicio.calcularPrecio();
 
-        listaServiciosTemporal.add(detalleServicio);
-        copiarListas();
-        calcularPrecioTotal();
-        requestcontext.update("aperturaHistoriaOdontologica:datalistTratamiento");
-        requestcontext.update("aperturaHistoriaOdontologica:panelPago");
+        if (!existeServicioSeleccionado(serviciosOdo)) {
+            listaServiciosTemporal.add(detalleServicio);
+            copiarListas();
+            calcularPrecioTotal();
+            requestcontext.update("aperturaHistoriaOdontologica:datalistTratamiento");
+            requestcontext.update("aperturaHistoriaOdontologica:panelPago");
+        }
 
     }
 
@@ -3292,6 +3399,16 @@ public class AperturaHOdontologicaController implements Serializable {
         this.seleccionDienteNecendodoncia = false;
         this.seleccionDienteTtoEndodoncia = false;
         this.seleccionDienteBolsaPer = false;
+    }
+
+    private boolean existeServicioSeleccionado(ServiciosOdo serviciosOdo) {
+        boolean existe = false;
+        for (int i = 0; i < listaServiciosTemporal.size(); i++) {
+            if (listaServiciosTemporal.get(i).getServicioOdo().equals(serviciosOdo)) {
+                existe = true;
+            }
+        }
+        return existe;
     }
 
 }

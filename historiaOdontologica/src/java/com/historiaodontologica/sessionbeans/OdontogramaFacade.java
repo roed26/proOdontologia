@@ -34,7 +34,7 @@ public class OdontogramaFacade extends AbstractFacade<Odontograma> {
     
     public List<Odontograma> buscarPorActualizacion(ActualizacionOdo actualizacionOdo){
         Query query = getEntityManager().createNamedQuery("Odontograma.findByActualizacion");
-        query.setParameter("actualizacionOdo", actualizacionOdo);
+        query.setParameter("actualizacion", actualizacionOdo);
         List<Odontograma> resultList = query.getResultList();
 
         return resultList;

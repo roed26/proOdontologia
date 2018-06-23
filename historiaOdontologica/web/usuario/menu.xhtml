@@ -5,7 +5,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        
+
     </h:head>
     <h:body>
         <div id="contenidoMenu">
@@ -22,22 +22,41 @@
                         <p:menuitem value="Evolución" action="#{cargarVistaController.cargarEvolucionHistoriaOdontologica()}" ajax="false"/>
                         <p:menuitem value="Gestión de historias" action="#{cargarVistaController.cargarGestionHistoriaOdontologica()}" ajax="false"/>
                     </p:submenu>
-                    
+
                     <p:submenu  label="Reportes">
                         <p:menuitem value="Indice COP" action="#{cargarVistaController.cargarIndiceCOP()}" ajax="false" />
                     </p:submenu>
                     <p:submenu label="Contabilidad">
-                         <p:menuitem value="Ingresos" action="#{cargarVistaController.cargarRegistrarIngresos()}" ajax="false" />
-                         <p:menuitem value="Egresos" action="#{cargarVistaController.cargarRegistrarEgresos()}" ajax="false"/>
-                         <p:menuitem value="Resultados" action="#{cargarVistaController.cargarRegistrarResultados()}" ajax="false"/>
+                        <p:menuitem value="Ingresos" action="#{cargarVistaController.cargarRegistrarIngresos()}" ajax="false" />
+                        <p:menuitem value="Egresos" action="#{cargarVistaController.cargarRegistrarEgresos()}" ajax="false"/>
+                        <p:menuitem value="Resultados" action="#{cargarVistaController.cargarRegistrarResultados()}" ajax="false"/>
                     </p:submenu>
-                    
+
                     <p:submenu label="Abonos">
                         <p:menuitem value="Ingresar abonos" action="#{cargarVistaController.cargarRegistrarAbonos()}" ajax="false" />
                     </p:submenu>
                     <p:submenu label="Gestión de servicios">
                         <p:menuitem value="Lista de servcios" action="#{cargarVistaController.cargarGestionServicios()}" ajax="false" />
                     </p:submenu>
+                    <f:facet name="options">
+
+                        <h:link id="opcionesusuario" style="text-decoration: none;color:#000000; ">
+
+                            <p:graphicImage value="#{usuarioSessionController.imagenPorDefecto}" 
+                                            style="border-radius:20px;" width="35"  height="35" >
+                                <f:param name="id" value="#{usuarioSessionController.identificacion}" />
+                            </p:graphicImage> 
+                            <p:outputLabel value="#{usuarioSessionController.nombreUsuario()}" 
+                                           style="vertical-align: middle !important; position: relative; "/>
+                        </h:link>
+                        <p:menu  overlay="true"  trigger="opcionesusuario" my="right top" at="right bottom" >
+                            <p:menuitem value="Mi Perfil" action="#{cargarVistaController.cargarPerfilUsuario()}"
+                                        ajax="false"
+                                        />
+                            <p:separator/>
+                            <p:menuitem value="Cerrar Sesión" action="#{usuarioSessionController.logout()}"/>
+                        </p:menu>
+                    </f:facet>
                 </p:menubar>
             </h:form>
         </div>

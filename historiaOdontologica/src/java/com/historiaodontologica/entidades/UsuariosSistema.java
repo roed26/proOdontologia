@@ -42,6 +42,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "UsuariosSistema.findByTelefono", query = "SELECT u FROM UsuariosSistema u WHERE u.telefono = :telefono")})
 public class UsuariosSistema implements Serializable {
 
+    @OneToMany(mappedBy = "idUsuario")
+    private List<ActualizacionOdo> actualizacionOdoList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -193,6 +196,15 @@ public class UsuariosSistema implements Serializable {
     @Override
     public String toString() {
         return "com.historiaodontologica.entidades.UsuariosSistema[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<ActualizacionOdo> getActualizacionOdoList() {
+        return actualizacionOdoList;
+    }
+
+    public void setActualizacionOdoList(List<ActualizacionOdo> actualizacionOdoList) {
+        this.actualizacionOdoList = actualizacionOdoList;
     }
     
 }

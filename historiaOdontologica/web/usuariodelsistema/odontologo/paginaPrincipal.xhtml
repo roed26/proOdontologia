@@ -14,84 +14,86 @@ and open the template in the editor.
     <h:body>
         <center>
             <h:form>
-            <p:panelGrid styleClass="panelgrid">
-                <p:row>
-                    <p:column>
-                        <p:commandLink action="#{cargarVistaController.cargarAperturaHistoriaOdontologica()}" ajax="false">
-                            <p:graphicImage library="img" name="logo-apertura.png" />
-                        </p:commandLink>
-                    </p:column>
-                    <p:column>
-                        <p:commandLink action="#{cargarVistaController.cargarRegistrarPaciente()}" ajax="false">
-                            <p:graphicImage library="img" name="logo-registro.png" />
-                        </p:commandLink>
-                    </p:column>
-                    <p:column>
-                        <p:commandLink action="#{cargarVistaController.cargarRegistrarResultados()}" ajax="false">
-                            <p:graphicImage library="img" name="logo-contabilidad.png" />
-                        </p:commandLink>
-                    </p:column>
-                    <p:column>
-                        <p:commandLink action="#{cargarVistaController.cargarRegistrarAbonos()}" ajax="false">
-                            <p:graphicImage library="img" name="logo-pagos.png" />
-                        </p:commandLink>
-                    </p:column>
-
-                </p:row>
-                <p:row>
-                    <p:column style="text-align: center">
-                        <h:outputLabel value="Apertura de historia" style="font-weight: bold; font-size: 20px; text-align: center"/>
-                    </p:column>
-                    <p:column style="text-align: center">
-                        <h:outputLabel value="Registro de paciente" style="font-weight: bold; font-size: 20px; text-align: center"/>
-                    </p:column>
-                    <p:column style="text-align: center">
-                        <h:outputLabel value="Reportes contabilidad" style="font-weight: bold; font-size: 20px; text-align: center"/>
-                    </p:column>
-                    <p:column style="text-align: center">
-                        <h:outputLabel value="Registro de pagos" style="font-weight: bold; font-size: 20px; text-align: center"/>
-                    </p:column>
-                </p:row>
-                <p:row>
-                    <p:column>
-                        <p:commandLink>
-                            
-                        </p:commandLink>
-                    </p:column>
-                    <p:column>
-                        <p:commandLink action="#{cargarVistaController.cargarGestionHistoriaOdontologica()}" ajax="false">
-                            <p:graphicImage library="img" name="logo-historiaP.png" />
-                        </p:commandLink>
-                    </p:column>
-                    <p:column>
-                        <p:commandLink action="#{cargarVistaController.cargarGestionServicios()}" ajax="false">
-                            <p:graphicImage library="img" name="logo-servicios.png" />
-                        </p:commandLink>
-                    </p:column>
-                    <p:column>
-                        <p:commandLink>
-                            
-                        </p:commandLink>
-                    </p:column>
-
-                </p:row>
-                <p:row>
-                    <p:column style="text-align: center">
-                        
-                    </p:column>
-                    <p:column style="text-align: center">
-                        <h:outputLabel value="Historia de paciente" style="font-weight: bold; font-size: 20px; text-align: center"/>
-                    </p:column>
-                    <p:column style="text-align: center">
-                        <h:outputLabel value="Gestión de servicios" style="font-weight: bold; font-size: 20px; text-align: center"/>
-                    </p:column>
-                    <p:column style="text-align: center">
-                        
-                    </p:column>
-                </p:row>
                 
-            </p:panelGrid>
-                </h:form>
+                    <p:panelGrid styleClass="panelgrid">
+                        <p:row>
+                            <p:column>
+                                <p:commandLink action="#{cargarVistaController.cargarAperturaHistoriaOdontologica()}" ajax="false">
+                                    <p:graphicImage library="img" name="logo-apertura.png" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column>
+                                <p:commandLink action="#{cargarVistaController.cargarRegistrarPaciente()}" ajax="false">
+                                    <p:graphicImage library="img" name="logo-registro.png" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column>
+                                <p:commandLink action="#{cargarVistaController.cargarRegistrarResultados()}" ajax="false">
+                                    <p:graphicImage library="img" name="logo-contabilidad.png" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column>
+                                <p:commandLink action="#{cargarVistaController.cargarRegistrarAbonos()}" ajax="false">
+                                    <p:graphicImage library="img" name="logo-pagos.png" />
+                                </p:commandLink>
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+                            <p:column style="text-align: center">
+                                <h:outputLabel value="Apertura de historia" style="font-weight: bold; font-size: 20px; text-align: center"/>
+                            </p:column>
+                            <p:column style="text-align: center">
+                                <h:outputLabel value="Registro de paciente" style="font-weight: bold; font-size: 20px; text-align: center"/>
+                            </p:column>
+                            <p:column style="text-align: center">
+                                <h:outputLabel value="Reportes contabilidad" style="font-weight: bold; font-size: 20px; text-align: center"/>
+                            </p:column>
+                            <p:column style="text-align: center">
+                                <h:outputLabel value="Registro de pagos" style="font-weight: bold; font-size: 20px; text-align: center"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:commandLink>
+
+                                </p:commandLink>
+                            </p:column>
+                            <p:column>
+                                <p:commandLink action="#{cargarVistaController.cargarGestionHistoriaOdontologica()}" ajax="false">
+                                    <p:graphicImage library="img" name="logo-historiaP.png" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column>
+                                <p:commandLink action="#{cargarVistaController.cargarGestionServicios()}" ajax="false">
+                                    <p:graphicImage library="img" name="logo-servicios.png" />
+                                </p:commandLink>
+                            </p:column>
+                            <p:column>
+                                <p:commandLink>
+
+                                </p:commandLink>
+                            </p:column>
+
+                        </p:row>
+                        <p:row>
+                            <p:column style="text-align: center">
+
+                            </p:column>
+                            <p:column style="text-align: center">
+                                <h:outputLabel value="Historia de paciente" style="font-weight: bold; font-size: 20px; text-align: center"/>
+                            </p:column>
+                            <p:column style="text-align: center">
+                                <h:outputLabel value="Gestión de servicios" style="font-weight: bold; font-size: 20px; text-align: center"/>
+                            </p:column>
+                            <p:column style="text-align: center">
+
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+                   
+            </h:form>
         </center>
 
 

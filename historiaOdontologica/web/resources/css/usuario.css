@@ -67,9 +67,11 @@ body {
 }
 
 #content{
-    background-color: #dddddd;
+    background-color: #FFFFFd;
     padding: 4px;
     font-size: 12px !important;
+    height: auto;
+    min-height: 500px
 }
 
 .ui-widget .ui-widget{
