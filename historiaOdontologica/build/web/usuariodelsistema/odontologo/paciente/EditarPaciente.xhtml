@@ -159,7 +159,7 @@
 
                             <p:column>
                                 <p:inputText id="ocupacion" value="#{pacienteController.selected.ocupacion}"/>
-                                
+
                             </p:column>
 
                         </p:row>
@@ -252,49 +252,51 @@
             </p:dialog>
 
 
-            <p:dialog id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center"   header="Editar Paciente">
+            <p:dialog id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center" header="Editar Paciente">
                 <h:form id="PacienteListForm">
+                    <h:panelGrid columns="2" >
                         <p:outputLabel value="Buscar Paciente: "  style="bold"/>
-                        <p:inputText   style="width: 300px" placeholder="Ingrese nombre,apellidos o identificación" value="#{pacienteController.busquedaPaciente}">
-                            <p:ajax update="datalist"  event="keyup" listener="#{pacienteController.buscarPaciente()}"/>
-                        </p:inputText>    
-                        <p:dataTable id="datalist" value="#{pacienteController.items}" var="item"
-                                     paginator="true"
-                                     rowKey="#{item.id}"
-                                     rows="10"
-                                     rowsPerPageTemplate="5,10"
-                                     >
+                        <p:inputText placeholder="Ingrese nombre,apellidos o identificación" style="width: 300px" value="#{pacienteController.busquedaPaciente}">
+                            <p:ajax event="keyup" update="datalist" listener="#{pacienteController.buscarPaciente()}"/>
+                        </p:inputText> 
+                    </h:panelGrid>
+                    <p:dataTable id="datalist" value="#{pacienteController.listaPacientesActivos}" var="item"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="5,10"
+                                 emptyMessage="¡No se encontraron coincidencias!"
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundlePaciente.ListPacienteTitle_identificacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.identificacion}"/>
+                        </p:column>
 
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundlePaciente.ListPacienteTitle_identificacion}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.identificacion}"/>
-                            </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundlePaciente.ListPacienteTitle_nombre1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombres}"/>
+                        </p:column>
 
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundlePaciente.ListPacienteTitle_nombre1}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.nombres}"/>
-                            </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundlePaciente.ListPacienteTitle_apellido1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apellidos}"/>
+                        </p:column>
+                        <p:column> 
+                            <p:commandButton id="botonSeleccionarPaciente" 
+                                             value="Seleccionar"   
+                                             icon="ui-icon-plus"  
+                                             update=":PacienteEditForm" 
+                                             action="#{pacienteController.seleccionar_CargarPaciente(item)}" 
+                                             oncomplete="#{pacienteController.limpiarCampos()}"/>
+                        </p:column>
 
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundlePaciente.ListPacienteTitle_apellido1}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.apellidos}"/>
-                            </p:column>
-                            <p:column> 
-                                <p:commandButton id="botonSeleccionarPaciente" 
-                                                 value="Seleccionar"   
-                                                 icon="ui-icon-plus"  
-                                                 update=":PacienteEditForm" 
-                                                 action="#{pacienteController.seleccionar_CargarPaciente(item)}" 
-                                                 oncomplete="#{pacienteController.limpiarCampos()}"/>
-                            </p:column>
-
-                        </p:dataTable>
+                    </p:dataTable>
                 </h:form>
             </p:dialog>  
         </h:body> </center>

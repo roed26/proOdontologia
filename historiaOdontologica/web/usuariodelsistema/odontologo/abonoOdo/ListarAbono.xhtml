@@ -4,14 +4,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 
     <h:body>
         <CENTER><h1> Abonos al Presupuesto  </h1></CENTER><br/>
         <h:form>
             <p:commandButton style="font-weight: bold; color: black" id="seleccionarServicioButton" icon="ui-icon-plus"   
-                             value="Seleccionar Paciente" onclick="PF('seleccionPacienteDialog').show()"/>
+                             value="Seleccionar Paciente" actionListener="#{abonoOdoController.iniciarAbono()}" onclick="PF('seleccionPacienteDialog').show()"/>
         </h:form>
         <h:form id="informacionPaciente">
             <p:panelGrid id="panel" styleClass="panelgrid">
@@ -24,22 +25,22 @@
                                 </p:column>
                                 <br/></p:row>
                             <p:row>
-                                <p:column>
-                                    <p:outputLabel value="Nombres "/>
+                                <p:column style="font-size: 18px; font-weight:bold; color: black">
+                                    <p:outputLabel value="Nombres: "/>
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="#{abonoOdoController.selectedPaciente.nombres}"/>
                                 </p:column>
 
-                                <p:column>
-                                    <p:outputLabel value="Apellidos "/>
+                                <p:column style="font-size: 18px; font-weight:bold; color: black">
+                                    <p:outputLabel value="Apellidos: "/>
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="#{abonoOdoController.selectedPaciente.apellidos}"/>
                                 </p:column>
 
-                                <p:column>
-                                    <p:outputLabel value="Identificacion "/>
+                                <p:column style="font-size: 18px; font-weight:bold; color: black">
+                                    <p:outputLabel value="Identificación: "/>
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="#{abonoOdoController.selectedPaciente.identificacion}"/>
@@ -47,22 +48,22 @@
                             </p:row>
 
                             <p:row>
-                                <p:column>
-                                    <p:outputLabel value="Dirección "/>
+                                <p:column style="font-size: 18px; font-weight:bold; color: black">
+                                    <p:outputLabel value="Dirección: "/>
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="#{abonoOdoController.selectedPaciente.direccion}"/>
                                 </p:column>
 
-                                <p:column>
-                                    <p:outputLabel value="Telefono "/>
+                                <p:column style="font-size: 18px; font-weight:bold; color: black">
+                                    <p:outputLabel value="Teléfono: "/>
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="#{abonoOdoController.selectedPaciente.telefono}"/>
                                 </p:column>
 
-                                <p:column>
-                                    <p:outputLabel value="Ocupación "/>
+                                <p:column style="font-size: 18px; font-weight:bold; color: black">
+                                    <p:outputLabel value="Ocupación: "/>
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="#{abonoOdoController.selectedPaciente.ocupacion}"/>
@@ -79,21 +80,21 @@
                                 </p:column>
                                 <br/></p:row>
                             <p:row>
-                                <p:column>
+                                <p:column style="font-size: 18px; font-weight:bold; color: black">
                                     <p:outputLabel value="Valor Presupuesto"/>
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="#{abonoOdoController.totalPresupuesto}"/>
                                 </p:column>
 
-                                <p:column>
+                                <p:column style="font-size: 18px; font-weight:bold; color: black">
                                     <p:outputLabel value="Total Abonado "/>
                                 </p:column>
                                 <p:column>
                                     <p:outputLabel value="#{abonoOdoController.totalAbonado}"/>
                                 </p:column>
 
-                                <p:column>
+                                <p:column style="font-size: 18px; font-weight:bold; color: black">
                                     <p:outputLabel value="Saldo "/>
                                 </p:column>
                                 <p:column>
@@ -110,9 +111,9 @@
         <br/><h:form id="PresupuestoListForm">    
             <p:dataTable id="datalist" value="#{abonoOdoController.itemsDetalle}" var="detalle"
                          >
-                 <f:facet name="header">
-                        <h:outputText value="Detalles del Servicio"/>
-                    </f:facet>
+                <f:facet name="header">
+                    <h:outputText value="Detalles del Servicio"/>
+                </f:facet>
                 <p:column>
                     <f:facet name="header">
                         <h:outputText value="Tratamiento"/>
@@ -146,8 +147,8 @@
                          value="#{abonoOdoController.items}" var="item"
                          >
                 <f:facet name="header">
-                        <h:outputText value="Abonos al Presupuesto"/>
-                    </f:facet>
+                    <h:outputText value="Abonos al Presupuesto"/>
+                </f:facet>
                 <p:column>
                     <f:facet name="header">
                         <h:outputText value="#{bundleAbonos.ListAbonoOdoTitle_idAbono}"/>
@@ -180,59 +181,68 @@
                     </f:facet>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Editar Abono"
                                      actionListener="#{abonoOdoController.seleccionar_CargarAbono(item)}"
-                                     
-                                      />
+
+                                     />
                 </p:column>
                 <f:facet name="footer">
-                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="Registrar Abono" onclick="PF('AbonoOdoCreateDialog').show()"/>
+                    <c:if test="#{abonoOdoController.saldoFinal==0}">
+                        <p:commandButton id="createButton" disabled="true" icon="ui-icon-plus"   value="Registrar Abono" onclick="PF('AbonoOdoCreateDialog').show()"/>
+                        <p:commandButton id="generarFacturaButton" disabled="true" icon="ui-icon-plus"   value="Generar Factura" onclick="PF('AbonoOdoGenerarFacturaDialog').show()" ajax="true"/>
+                    </c:if>
+                    <c:if test="#{abonoOdoController.saldoFinal!=0}">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="Registrar Abono" onclick="PF('AbonoOdoCreateDialog').show()"/>
+                        <p:commandButton id="generarFacturaButton" icon="ui-icon-plus"   value="Generar Factura" onclick="PF('AbonoOdoGenerarFacturaDialog').show()" ajax="true"/>
+                    </c:if>
                 </f:facet>
             </p:dataTable>
 
             <p:dialog visible="#{!abonoOdoController.pacienteSeleccionado}" id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center"   header="Seleccionar Paciente">
                 <h:form id="PacienteListForm">
-                        <p:outputLabel value="Buscar Paciente: "  style="bold"/>
+                    <p:outputLabel value="Buscar Paciente: "  style="bold"/>
 
-                        <p:inputText   style="width: 300px" placeholder="Ingrese nombre,apellidos o identificación" value="#{pacienteController.busquedaPaciente}">
-                            <p:ajax update="datalist"  event="keyup" listener="#{pacienteController.buscarPaciente()}"/>
-                        </p:inputText>    
-                        <p:dataTable id="datalist" value="#{pacienteController.items}" var="item"
-                                     paginator="true"
-                                     rowKey="#{item.id}"
-                                     rows="10"
-                                     rowsPerPageTemplate="5,10"
-                                     >
+                    <p:inputText   style="width: 300px" placeholder="Ingrese nombre,apellidos o identificación" value="#{pacienteController.busquedaPaciente}">
+                        <p:ajax update="datalist"  event="keyup" listener="#{pacienteController.buscarPaciente()}"/>
+                    </p:inputText>    
 
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundlePaciente.ListPacienteTitle_identificacion}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.identificacion}"/>
-                            </p:column>
+                    <p:dataTable id="datalist" value="#{pacienteController.listaPacientesActivos}" var="item"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="5,10"
+                                 emptyMessage="¡No se encontraron coincidencias!"
+                                 >
 
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundlePaciente.ListPacienteTitle_nombre1}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.nombres}"/>
-                            </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundlePaciente.ListPacienteTitle_identificacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.identificacion}"/>
+                        </p:column>
 
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{bundlePaciente.ListPacienteTitle_apellido1}"/>
-                                </f:facet>
-                                <h:outputText value="#{item.apellidos}"/>
-                            </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundlePaciente.ListPacienteTitle_nombre1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombres}"/>
+                        </p:column>
 
-                            <p:column> 
-                                <p:commandButton id="botonSeleccionarPaciente" 
-                                                 value="Seleccionar"   
-                                                 icon="ui-icon-plus"  
-                                                 update=":AbonoOdoListForm" 
-                                                 action="#{abonoOdoController.seleccionarPaciente(item)}" 
-                                                 />
-                            </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundlePaciente.ListPacienteTitle_apellido1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apellidos}"/>
+                        </p:column>
 
-                        </p:dataTable>
+                        <p:column> 
+                            <p:commandButton id="botonSeleccionarPaciente" 
+                                             value="Seleccionar"   
+                                             icon="ui-icon-plus"  
+                                             update=":AbonoOdoListForm" 
+                                             action="#{abonoOdoController.seleccionarPaciente(item)}" 
+                                             />
+                        </p:column>
+
+                    </p:dataTable>
                 </h:form>
             </p:dialog>
 
@@ -420,10 +430,141 @@
                 </h:form>
             </p:dialog>
         </h:form>
+        <h:form>
+            <p:dialog id="enerarFacturaDlg" widgetVar="AbonoOdoGenerarFacturaDialog" modal="true" resizable="false" appendTo="@(body)" header="Factura">
+                    <p:panelGrid styleClass="panelgrid">
+                        <p:row>
+                            <p:column>
+                                <h1 style=" font-size: 30px; font-weight:bold"> Laboratorio Odontológico </h1>
+                                <center><h4> ODONTOLOGIA INTEGRAL</h4>
+                                <p style=" font-size: 12px; font-weight:bold; color: black"> Dr. Álvaro Fernando Martinez Pabón</p>
+                                <p style=" font-size: 12px; font-weight:bold; color: black;right: 10px"> Odontlogo U. del Cauca</p></center>
+                            </p:column>
+                            <p:column>
+                                <p:panel id="numFactura" header="Nº Factura"  style="width: 110px">
+                                    <h:outputText value="00001" />
+                                </p:panel>
+                                <p:panel id="fechaFactura" header="Fecha"  style="width: 110px">
+                                    <h:outputText value="24/11/2017" />
+                                </p:panel>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <h1>____________________________________________________________</h1>
+                    <p style=" font-size: 12px; font-weight:bold; color: black"> Nit: 123xxxxx-5  Rehabilitación Oral, Urgencias Odontológicas - Cr 10 # 7-49, Cauca, Popayán</p>
+                    <center><p style=" font-size: 12px; font-weight:bold; color: black">Telefono: (2) 824-0609       Celular: 300xxxxxxxx</p></center>
+                    <p:panelGrid styleClass="panelgrid">
+                        <p:row>
+                            <p:column style=" font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="Nombre"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="#{abonoOdoController.selectedPaciente.nombres}"/>   
+                                <p:outputLabel value="#{abonoOdoController.selectedPaciente.apellidos}"/>   
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column style=" font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="Identificación"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="#{abonoOdoController.selectedPaciente.identificacion}"/>   
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column style=" font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="Teléfono"/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="#{abonoOdoController.selectedPaciente.telefono}"/>   
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column style=" font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="Condición de pago"/>
+                            </p:column>
+                            <!--                <p:column>
+                                                <p:inputText id="pago" value="#{pacienteController.selected.nombres}"/>   
+                                            </p:column>-->
+                        </p:row>
+                    </p:panelGrid>
+                    
+                    <br/><p:dataTable id="datalistTratamiento" value="#{abonoOdoController.itemsDetalle}" var="presupuesto"
+                                           style="width:500px;">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cantidad"/>
+                            </f:facet>
+                            <h:outputText value="#{presupuesto.cantidad}"/>              
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tratamiento"/>
+                            </f:facet>
+                            <h:outputText value="#{presupuesto.idServiciosOdo.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Valor"/>
+                            </f:facet>
+                            <h:outputText value="$ #{presupuesto.idServiciosOdo.precio}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:panelGrid rendered="#{abonoOdoController.pacienteSeleccionado}">
+                        <p:row>
+                            <p:column style="font-size: 18px; font-weight:bold; color: black; width: 312px; text-align: right">
+                                <h:outputText value="Total"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="$ #{abonoOdoController.totalPresupuesto}"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <br/> <br/><p:panelGrid rendered="#{abonoOdoController.pacienteSeleccionado}" style="width: 500px">
+                        <p:row>
+                            <p:column style="font-weight:bold; width: 846px; text-align: right">
+                                <p:outputLabel value="Abono"/>
+                            </p:column>
+                            <p:column style="width: 268px; text-align: right">
+                                <p:outputLabel id="abono" value="$ #{abonoOdoController.totalAbonado}"
+                                               title="Abonoo" >
+                                </p:outputLabel>
+                            </p:column>
+                            <p:column style="font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="Saldo "/>
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel value="#{abonoOdoController.saldoFinal}"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <br/> <br/><p:panelGrid rendered="#{abonoOdoController.pacienteSeleccionado}" styleClass="panelgrid" style="width: 400px">
+                        <p:row>
+                            <p:column>
+                                <h2>___________________________</h2>
+                                <center><p>Firma Medico</p></center>
+                            </p:column>
+                            <p:column>
+                                <h2>___________________________</h2>
+                                <center><p>Firma Paciente</p></center>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                    <br/><center>
+                        <p:commandButton value="IMPRIMIR FACTURA" style="">
+                            <p:printer target="enerarFacturaDlg"/>     
+                        </p:commandButton>
+                    </center>
+                </p:dialog>
+        </h:form>
 
 
         <ui:include src="CrearAbono.xhtml"/>
         <ui:include src="EditarAbono.xhtml"/>
         <ui:include src="VerAbono.xhtml"/>
+
+
+
     </h:body>
 </html>

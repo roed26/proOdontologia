@@ -15,13 +15,40 @@ public class IndiceCOP {
     private int cariados;
     private int obturados;
     private int perdidos;
+    private int contHombres;
+    private int contMujeres;
+    
 
     public IndiceCOP() {
         this.cariados = 0;
         this.obturados = 0;
         this.perdidos = 0;
+        this.contHombres =0;
+        this.contMujeres = 0;
     }
 
+    public int getContHombres() {
+        return contHombres;
+    }
+
+    public void setContHombres(int contHombres) {
+        this.contHombres = contHombres;
+    }
+    public void aumentarContHombres() {
+        this.contHombres++;
+    }
+
+    public int getContMujeres() {
+        return contMujeres;
+    }
+
+    public void setContMujeres(int contMujeres) {
+        this.contMujeres = contMujeres;
+    }
+    public void aumentarContMujeres() {
+        this.contMujeres++;
+    }
+    
     public String getArea() {
         return area;
     }

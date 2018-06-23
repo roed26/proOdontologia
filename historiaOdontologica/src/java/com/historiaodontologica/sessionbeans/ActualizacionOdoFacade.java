@@ -74,5 +74,13 @@ public class ActualizacionOdoFacade extends AbstractFacade<ActualizacionOdo> {
         }
 
     }
+    
+     public List<ActualizacionOdo> listadoCOPFecha(Date fechaInicio, Date fechaFin) {
+        Query query = getEntityManager().createNamedQuery("ActualizacionOdo.findByConsultaFechaCOP");
+        query.setParameter("desde", fechaInicio);
+        query.setParameter("hasta", fechaFin);
+        List<ActualizacionOdo> resultList = query.getResultList();
+        return resultList;
+    }
 
 }

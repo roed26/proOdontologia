@@ -1,11 +1,13 @@
 package com.historiaodontologica.managedbeans;
 
+import com.historiaodontologica.clases.ReportesMedicos;
 import com.historiaodontologica.entidades.Egreso;
 import com.historiaodontologica.managedbeans.util.JsfUtil;
 import com.historiaodontologica.managedbeans.util.JsfUtil.PersistAction;
 import com.historiaodontologica.sessionbeans.EgresoFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -29,10 +31,20 @@ public class EgresoController implements Serializable {
     private com.historiaodontologica.sessionbeans.EgresoFacade ejbFacade;
     private List<Egreso> items = null;
     private Egreso selected;
+    private ReportesMedicos reportesMedicos;
 
-    public EgresoController() {
+    public ReportesMedicos getReportesMedicos() {
+        return reportesMedicos;
     }
 
+    public void setReportesMedicos(ReportesMedicos reportesMedicos) {
+        this.reportesMedicos = reportesMedicos;
+    }
+
+    public EgresoController() {
+        reportesMedicos = new ReportesMedicos();
+    }
+    
     public Egreso getSelected() {
         return selected;
     }
@@ -43,7 +55,21 @@ public class EgresoController implements Serializable {
 
     protected void setEmbeddableKeys() {
     }
+    public Date getFechadesde() {
+        return reportesMedicos.getFechadesde();
+    }
 
+    public void setFechadesde(Date fechadesde) {
+        reportesMedicos.setFechadesde(fechadesde);
+    }
+
+    public Date getFechahasta() {
+        return reportesMedicos.getFechahasta();
+    }
+
+    public void setFechahasta(Date fechahasta) {
+        reportesMedicos.setFechahasta(fechahasta);
+    }
     protected void initializeEmbeddableKey() {
     }
 
@@ -81,10 +107,20 @@ public class EgresoController implements Serializable {
     }
 
     public List<Egreso> getItems() {
-        if (items == null) {
+        if (items == null || getFechadesde() == null || getFechahasta() == null) {
             items = getFacade().findAll();
+        } else {
+            prueba();
         }
         return items;
+    }
+    
+    public void filtrar() {
+//        prueba();
+    }
+
+    public void prueba() {
+        items = getFacade().listadoEgresoFecha(reportesMedicos.getFechadesde(), reportesMedicos.getFechahasta());
     }
     public int contarCaracteres(){
         int cont=0;

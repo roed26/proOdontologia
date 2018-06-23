@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Ingreso.findByIdIngreso", query = "SELECT i FROM Ingreso i WHERE i.idIngreso = :idIngreso"),
     @NamedQuery(name = "Ingreso.findByFechaIngreso", query = "SELECT i FROM Ingreso i WHERE i.fechaIngreso = :fechaIngreso"),
     @NamedQuery(name = "Ingreso.findByDescripcionIngreso", query = "SELECT i FROM Ingreso i WHERE i.descripcionIngreso = :descripcionIngreso"),
-    @NamedQuery(name = "Ingreso.findByValorIngreso", query = "SELECT i FROM Ingreso i WHERE i.valorIngreso = :valorIngreso")})
+    @NamedQuery(name = "Ingreso.findByValorIngreso", query = "SELECT i FROM Ingreso i WHERE i.valorIngreso = :valorIngreso"),
+    @NamedQuery(name = "Ingreso.findByConsultaFechaIngreso", query = "SELECT i FROM Ingreso i WHERE i.fechaIngreso BETWEEN :desde AND :hasta")})
 public class Ingreso implements Serializable {
 
     private static final long serialVersionUID = 1L;

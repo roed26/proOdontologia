@@ -17,7 +17,7 @@
                             <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
                         </p:column>
                         <p:column>
-                            <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{abonoOdoController.selected.fecha}" title="#{bundleAbonos.EditAbonoOdoTitle_fecha}" required="true" requiredMessage="#{bundleAbonos.EditAbonoOdoRequiredMessage_fecha}" showOn="button"/>
+                            <p:calendar id="fecha" placeholder="yyyy-mm-dd" pattern="MM/dd/yyyy" value="#{abonoOdoController.selected.fecha}" title="#{bundleAbonos.EditAbonoOdoTitle_fecha}" required="true" requiredMessage="#{bundleAbonos.EditAbonoOdoRequiredMessage_fecha}" showOn="button"/>
                         </p:column>
                     </p:row>
                     <p:row>
@@ -26,33 +26,39 @@
                             <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
                         </p:column>
                         <p:column>
-                            <p:inputText id="valor" value="#{abonoOdoController.selected.valor}" title="#{bundleAbonos.CreateAbonoOdoTitle_valor}" required="true" requiredMessage="#{bundleAbonos.CreateAbonoOdoRequiredMessage_valor}"/> 
+                            <p:inputText id="valor" value="#{abonoOdoController.selected.valor}" 
+                                         title="#{bundleAbonos.CreateAbonoOdoTitle_valor}" 
+                                         required="true" 
+                                         requiredMessage="#{bundleAbonos.CreateAbonoOdoRequiredMessage_valor}">
+                                <f:validator validatorId="ValidarCampoNumericoPositivo"/>
+                                <f:validator validatorId="ValidarCampoObligatorio"> </f:validator>
+                            </p:inputText>
                         </p:column>
                     </p:row>
                     <p:row>
-                            <p:column colspan="2">
-                                <p:outputLabel style="font-weight:bold" value="Descripción del abono" />
-                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column colspan="2">
-                                <p:inputTextarea cols="50" rows="4" id="descripcionAbono" value="#{abonoOdoController.selected.descripcion}" 
-                                                 title="#{bundleAbonos.CreateAbonoOdoTitle_descripcion}" required="true" 
-                                                 requiredMessage="Campo obligatorio">
-                                    <p:ajax update="msgDescripcionAbono contador" event="keyup"/>
-                                    <f:validator validatorId="ValidarCampoMaximo100Caracteres"/>
-                                </p:inputTextarea>        
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column>
-                                <p:outputLabel id="contador" value="#{abonoOdoController.contarCaracteres()} de 100"/>
-                            </p:column>
-                            <p:column>
-                                <p:message id="msgDescripcionAbono" for="descripcionAbono"/>
-                            </p:column>
-                        </p:row>
+                        <p:column colspan="2">
+                            <p:outputLabel style="font-weight:bold" value="Descripción del abono" />
+                            <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2">
+                            <p:inputTextarea cols="50" rows="4" id="descripcionAbono" value="#{abonoOdoController.selected.descripcion}" 
+                                             title="#{bundleAbonos.CreateAbonoOdoTitle_descripcion}" required="true" 
+                                             requiredMessage="Campo obligatorio">
+                                <p:ajax update="msgDescripcionAbono contador" event="keyup"/>
+                                <f:validator validatorId="ValidarCampoMaximo100Caracteres"/>
+                            </p:inputTextarea>        
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel id="contador" value="#{abonoOdoController.contarCaracteres()} de 100"/>
+                        </p:column>
+                        <p:column>
+                            <p:message id="msgDescripcionAbono" for="descripcionAbono"/>
+                        </p:column>
+                    </p:row>
                 </p:panelGrid>
                 <p:commandButton action="#{abonoOdoController.registrarAbono}" 
                                  value="Guardar" update="display,:AbonoOdoListForm:datalist,:informacionPaciente:panel" 

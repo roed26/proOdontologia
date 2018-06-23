@@ -6,15 +6,37 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
 
     <body>
         <CENTER><h1> ESTADISTICAS ÍNDICE COP </h1></CENTER><br/>
         <br/><h:form>
+
             <p:panelGrid columns="2" styleClass="panelgrid" >
+                <p:row>
+                    <p:column style=" font-size: 18px; font-weight:bold; color: black;" colspan="4"  >
+                        <p:outputLabel value="Seleccione el rango de tiempo que desea consultar:" style="font-weight:bold; color: black;" />
+                        <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                    </p:column>
+                </p:row>
+                <br/><br/><p:row>
+                    <p:column style="font-size: 18px; font-weight:bold; color: black">
+                        <p:outputLabel value="Desde" />
+                        <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                    </p:column>
+                    <p:column>
+                        <p:calendar id="fechadesde" value="#{estadisticasController.fechadesde}" placeholder="dd-mm-aaaa" pattern="yyyy-MM-dd" showOn="button"/>
+                    </p:column>
+                    <p:column style="font-size: 18px; font-weight:bold; color: black">
+                        <p:outputLabel value="Hasta" />
+                        <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                    </p:column>
+                    <p:column>
+                        <p:calendar id="fechahasta" value="#{estadisticasController.fechahasta}" placeholder="dd-mm-aaaa" pattern="yyyy-MM-dd" showOn="button"/>
+                    </p:column>
+
+                </p:row>
                 <p:commandButton value="GENERAR ÍNDICE COP"  
                                  action="#{estadisticasController.generarIndiceCOP()}" 
                                  ajax="r"
@@ -24,7 +46,7 @@ and open the template in the editor.
                     <p:printer target="estadisticasF"/>     
                 </p:commandButton>
             </p:panelGrid>
-            <p:panelGrid  styleClass="panelgrid" >
+<!--            <p:panelGrid  styleClass="panelgrid" >
                 <p:row>
                     <p:column>
                         <p:chart type="pie" widgetVar="browserChart1" model="#{estadisticasController.modeloResultadosCariados}" style="width:250px;height:200px"  />
@@ -36,16 +58,26 @@ and open the template in the editor.
                         <p:chart type="pie" widgetVar="browserChart3" model="#{estadisticasController.modeloResultadosPerdidos}" style="width:250px;height:200px"  />
                     </p:column>
                 </p:row>
-            </p:panelGrid>
+            </p:panelGrid>-->
 
             <p:panelGrid id="estadisticasF" styleClass="panelgrid" >
-               
+
                 <p:row rendered="#{estadisticasController.listaCOP.size()>0}">
                     <p:column colspan="3">
                         <h1><p:outputLabel value="INDICE COP GENERAL" /></h1>
                     </p:column> 
                 </p:row>
                 <p:row rendered="#{estadisticasController.listaCOP.size()>0}">    
+
+                    <p:column>
+                        <h:outputText value="Edades" style="font-weight: bold; font-size: 16px"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="Hombres" style="font-weight: bold; font-size: 16px"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="Mujeres" style="font-weight: bold; font-size: 16px"/>
+                    </p:column>
                     <p:column>
                         <h:outputText value="Cariados" style="font-weight: bold; font-size: 16px"/>
                     </p:column>
@@ -57,7 +89,16 @@ and open the template in the editor.
                     </p:column>
                 </p:row>
 
-                <p:row rendered="#{estadisticasController.listaCOP.size()>0}">
+                <p:row rendered="#{estadisticasController.listaCOP.size()>0}"> 
+                    <p:column>
+                        <h:outputText value="0-6 años" style="font-weight: bold"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{estadisticasController.getContHombres(0)}" style="font-weight: bold"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{estadisticasController.listaCOP.get(0).getContMujeres()}" style="font-weight: bold"/>
+                    </p:column>
                     <p:column>
                         <h:outputText value="#{estadisticasController.listaCOP.get(0).getCariados()}" style="font-weight: bold"/>
                     </p:column>
@@ -68,936 +109,48 @@ and open the template in the editor.
                         <h:outputText value="#{estadisticasController.listaCOP.get(0).getPerdidos()}" style="font-weight: bold"/>
                     </p:column>
                 </p:row>
-                <p:row rendered="#{estadisticasController.listaCOP.size()>0}">
-                    <p:column colspan="3">
-                        <br/><br/><h1><p:outputLabel value="INDICE COP POR FACULTADES" /></h1>
-                    </p:column> 
-                </p:row><br/>
-                <p:row rendered="#{estadisticasController.listaCOP.size()>0}">    
+                <br/><p:row rendered="#{estadisticasController.listaCOP.size()>0}"> 
                     <p:column>
-
+                        <h:outputText value="7-14 años" style="font-weight: bold"/>
                     </p:column>
                     <p:column>
-                        <h:outputText value="Cariados" style="font-weight: bold; font-size: 17px"/>
+                        <h:outputText value="#{estadisticasController.getContHombres(1)}" style="font-weight: bold"/>
                     </p:column>
                     <p:column>
-                        <h:outputText value="Obturados" style="font-weight: bold; font-size: 17px"/>
+                        <h:outputText value="#{estadisticasController.listaCOP.get(1).getContMujeres()}" style="font-weight: bold"/>
                     </p:column>
                     <p:column>
-                        <h:outputText value="Perdidos" style="font-weight: bold; font-size: 17px"/>
+                        <h:outputText value="#{estadisticasController.listaCOP.get(1).getCariados()}" style="font-weight: bold"/>
                     </p:column>
-                </p:row>
-
-                <p:row rendered="#{estadisticasController.listaCOP.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaFacultades.get(0).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(0).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(0).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(0).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOP.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaFacultades.get(1).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(1).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(1).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(1).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOP.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaFacultades.get(2).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(2).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(2).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(2).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOP.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaFacultades.get(3).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(3).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(3).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(3).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOP.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaFacultades.get(4).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(4).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(4).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(4).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOP.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaFacultades.get(5).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(5).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(5).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(5).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOP.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaFacultades.get(6).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(6).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(6).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(6).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOP.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaFacultades.get(7).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(7).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(7).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(7).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOP.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaFacultades.get(8).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(8).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(8).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPfacultades.get(8).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-
-
-
-                <p:row rendered="#{estadisticasController.listaCOP.size()>0}">
-                    <p:column colspan="3">
-                        <br/><br/><h1><p:outputLabel value="INDICE COP POR PROGRAMA" /></h1>
-                    </p:column> 
-                </p:row><br/>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">    
-                    <p:column>
-
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="Cariados" style="font-weight: bold; font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="Obturados" style="font-weight: bold; font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="Perdidos" style="font-weight: bold; font-size: 17px"/>
-                    </p:column>
-                </p:row>
-
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(0).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(0).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(0).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(0).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(1).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(1).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(1).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(1).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(2).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(2).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(2).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(2).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(3).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(3).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(3).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(3).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(4).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(4).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(4).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(4).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(5).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(5).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(5).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(5).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(6).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(6).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(6).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(6).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(7).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(7).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(7).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(7).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(8).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(8).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(8).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(8).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(9).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(9).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(9).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(9).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(10).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(10).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(10).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(10).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(11).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(11).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(11).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(11).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(12).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(12).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(12).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(12).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(13).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(13).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(13).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(13).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(14).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(14).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(14).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(14).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(15).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(15).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(15).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(15).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(16).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(16).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(16).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(16).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(17).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(17).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(17).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(17).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(18).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(18).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(18).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(18).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(19).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(19).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(19).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(19).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(20).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(20).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(20).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(20).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(21).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(21).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(21).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(21).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(22).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(22).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(22).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(22).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(23).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(23).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(23).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(23).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(24).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(24).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(24).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(24).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(25).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(25).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(25).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(25).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(26).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(26).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(26).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(26).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(27).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(27).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(27).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(27).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(28).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(28).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(28).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(28).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(29).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(29).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(29).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(29).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(30).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(30).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(30).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(30).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(31).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(31).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(31).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(31).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(32).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(32).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(32).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(32).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(33).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(33).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(33).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(33).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(34).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(34).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(34).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(34).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(35).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(35).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(35).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(35).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(36).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(36).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(36).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(36).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(37).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(37).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(37).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(37).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(38).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(38).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(38).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(38).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(39).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(39).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(39).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(39).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(40).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(40).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(40).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(40).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(41).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(41).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(41).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(41).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(42).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(42).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(42).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(42).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(43).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(43).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(43).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(43).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(44).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(44).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(44).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(44).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(45).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(45).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(45).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(45).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(46).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(46).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(46).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(46).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(47).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(47).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(47).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(47).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(48).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(48).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
                     <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(48).getObturados()}" style="font-weight: bold"/>
+                        <h:outputText value="#{estadisticasController.listaCOP.get(1).getObturados()}" style="font-weight: bold"/>
                     </p:column>
                     <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(48).getPerdidos()}" style="font-weight: bold"/>
+                        <h:outputText value="#{estadisticasController.listaCOP.get(1).getPerdidos()}" style="font-weight: bold"/>
                     </p:column>
                 </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
+                <br/><p:row rendered="#{estadisticasController.listaCOP.size()>0}"> 
                     <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(49).getNombre()}" style="font-size: 17px"/>
+                        <h:outputText value="Mayor a 14 años" style="font-weight: bold"/>
                     </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(49).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(49).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(49).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(50).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(50).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(50).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(50).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(51).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(51).getCariados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(51).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(51).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(52).getNombre()}" style="font-size: 17px"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(52).getCariados()}" style="font-weight: bold"/>
+                   <p:column>
+                        <h:outputText value="#{estadisticasController.getContHombres(2)}" style="font-weight: bold"/>
                     </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(52).getObturados()}" style="font-weight: bold"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(52).getPerdidos()}" style="font-weight: bold"/>
-                    </p:column>
-                </p:row>
-                <p:row rendered="#{estadisticasController.listaCOPprograma.size()>0}">
                     <p:column>
-                        <h:outputText value="#{estadisticasController.listaProgramas.get(53).getNombre()}" style="font-size: 17px"/>
+                        <h:outputText value="#{estadisticasController.listaCOP.get(2).getContMujeres()}" style="font-weight: bold"/>
                     </p:column>
                     <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(53).getCariados()}" style="font-weight: bold"/>
+                        <h:outputText value="#{estadisticasController.listaCOP.get(2).getCariados()}" style="font-weight: bold"/>
                     </p:column>
                     <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(53).getObturados()}" style="font-weight: bold"/>
+                        <h:outputText value="#{estadisticasController.listaCOP.get(2).getObturados()}" style="font-weight: bold"/>
                     </p:column>
                     <p:column>
-                        <h:outputText value="#{estadisticasController.listaCOPprograma.get(53).getPerdidos()}" style="font-weight: bold"/>
+                        <h:outputText value="#{estadisticasController.listaCOP.get(2).getPerdidos()}" style="font-weight: bold"/>
                     </p:column>
                 </p:row>
-
             </p:panelGrid>
-
         </h:form>
-
     </body>
 
 </html>
