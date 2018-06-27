@@ -5,10 +5,13 @@
  */
 package com.historiaodontologica.sessionbeans;
 
+import com.historiaodontologica.entidades.ActualizacionOdo;
 import com.historiaodontologica.entidades.AntecedenteOdo;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +32,12 @@ public class AntOdoFacade extends AbstractFacade<AntecedenteOdo> {
         super(AntecedenteOdo.class);
     }
 
+    public List<AntecedenteOdo> buscarPorActualizacion(ActualizacionOdo actualizacionOdo) {
+        Query query = getEntityManager().createNamedQuery("AntecedenteOdo.findByActualizacion");
+        query.setParameter("actualizacion", actualizacionOdo);
+        List<AntecedenteOdo> resultList = query.getResultList();
+
+        return resultList;
+
+    }
 }

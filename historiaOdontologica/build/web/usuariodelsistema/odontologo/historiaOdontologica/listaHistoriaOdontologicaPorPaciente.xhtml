@@ -9,7 +9,8 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <body>
         <h:form id="InformacionPaciente" >
             <p:panelGrid styleClass="panelgrid">
@@ -62,11 +63,13 @@ and open the template in the editor.
             <p:panelGrid styleClass="panelgrid">
                 <p:row>
                     <p:column style="font-weight: bold;">
-                        <p:commandButton id="botonImprimirHistoria" value="imprimir historia"  
-                                         action="#{gestionHOdontologicaController.seleccionarPaciente(item)}" 
-                                         oncomplete="#{gestionHOdontologicaController.cambiarEstadoBool()}">
-                            <p:printer target="historial" />
-                        </p:commandButton>
+                        <div id="floater">
+                            <p:commandButton id="botonImprimirHistoria" value="imprimir historia"  
+                                             action="#{gestionHOdontologicaController.seleccionarPaciente(item)}" 
+                                             oncomplete="#{gestionHOdontologicaController.cambiarEstadoBool()}">
+                                <p:printer target="historial" />
+                            </p:commandButton>
+                        </div>
                     </p:column>
                 </p:row>
 
@@ -715,7 +718,7 @@ and open the template in the editor.
                                         </p:panelGrid>  
                                         <br/>
                                         <br/>
-                                        <p:panelGrid id="panelOdontograma" style="text-align: center; font-weight: bold;" >
+                                        <p:panelGrid id="panelOdontograma" style="text-align: center; font-weight: bold;" styleClass="panelgrid" >
                                             <p:row>
                                                 <p:column>
                                                     <p:graphicImage width="30px" height="45px" library="img/dientes-odontograma" name="diente18.png" />
@@ -818,74 +821,136 @@ and open the template in the editor.
                                                 </p:column>
                                             </p:row>
                                             <p:row>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA18" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[0].imgArriba}"                                                   
                                                                         />
+
+
+
                                                         <p:graphicImage id="dienteI18"  library="img/imgodonto" 
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[0].imgIzq}"
                                                                         />
+
+
                                                         <p:graphicImage id="dienteC18"  library="img/imgodonto" 
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[0].imgCentro}"
                                                                         style="position: relative; top:-11px;"
                                                                         />
+
+
                                                         <p:graphicImage id="dienteD18"  library="img/imgodonto" 
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[0].imgDer}"
                                                                         />
+
+
                                                         <p:graphicImage id="dienteAb18"  library="img/imgodonto" 
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[0].imgAbajo}"
-                                                                        style="position:relative !important; top:-13px !important;"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEnl8"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[0].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEnl8"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[0].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBPl8"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[0].imgFueraBolPeri}"
                                                                         />
                                                     </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA17" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[1].imgArriba}"                                                   
                                                                         />
+
+
+
                                                         <p:graphicImage id="dienteI17"  library="img/imgodonto" 
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[1].imgIzq}"
                                                                         />
+
+
                                                         <p:graphicImage id="dienteC17"  library="img/imgodonto" 
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[1].imgCentro}"
                                                                         style="position: relative; top:-11px;"
                                                                         />
+
+
                                                         <p:graphicImage id="dienteD17"  library="img/imgodonto" 
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[1].imgDer}"
                                                                         />
+
+
                                                         <p:graphicImage id="dienteAb17"  library="img/imgodonto" 
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[1].imgAbajo}"
                                                                         style="position:relative; top:-13px;"
                                                                         />
+
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEnl7"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[1].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEnl7"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[1].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBPl7"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[1].imgFueraBolPeri}"
+                                                                        />
                                                     </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA16" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[2].imgArriba}"                                                   
                                                                         />
+
                                                         <p:graphicImage id="dienteI16"  library="img/imgodonto" 
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[2].imgIzq}"
                                                                         />
+
+
                                                         <p:graphicImage id="dienteC16"  library="img/imgodonto" 
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[2].imgCentro}"
                                                                         style="position: relative; top:-11px;"
                                                                         />
+
+
                                                         <p:graphicImage id="dienteD16"  library="img/imgodonto" 
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[2].imgDer}"
                                                                         />
+
+
                                                         <p:graphicImage id="dienteAb16"  library="img/imgodonto" 
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[2].imgAbajo}"
                                                                         style="position:relative; top:-13px;"
                                                                         />
+
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEnl6"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[2].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEnl6"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[2].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBPl6"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[2].imgFueraBolPeri}"
+                                                                        />
                                                     </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA15" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[3].imgArriba}"                                                   
@@ -904,9 +969,22 @@ and open the template in the editor.
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[3].imgAbajo}"
                                                                         style="position:relative; top:-13px;"
                                                                         />
+
                                                     </span>
-                                                </p:column>                                                <p:column >
-                                                    <span >
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEnl5"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[3].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEnl5"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[3].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBPl5"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[3].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA14" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[4].imgArriba}"                                                   
@@ -926,9 +1004,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn14"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[4].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn14"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[4].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP14"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[4].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA13" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[5].imgArriba}"                                                   
@@ -948,9 +1037,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn13"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[5].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn13"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[5].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP13"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[5].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA12" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[6].imgArriba}"                                                   
@@ -970,9 +1070,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn12"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[6].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn12"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[6].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP12"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[6].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA11" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[7].imgArriba}"                                                   
@@ -992,9 +1103,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn11"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[7].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn11"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[7].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP11"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[7].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA21" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[8].imgArriba}"                                                   
@@ -1014,9 +1136,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn21"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[8].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn21"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[8].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP21"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[8].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA22" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[9].imgArriba}"                                                   
@@ -1036,14 +1169,25 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn22"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[9].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn22"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[9].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP22"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[9].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA23" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[10].imgArriba}"                                                   
                                                                         />
-                                                        <p:graphicImage id="dienteI123"  library="img/imgodonto" 
+                                                        <p:graphicImage id="dienteI23"  library="img/imgodonto" 
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[10].imgIzq}"
                                                                         />
                                                         <p:graphicImage id="dienteC23"  library="img/imgodonto" 
@@ -1058,9 +1202,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn23"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[10].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn23"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[10].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP23"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[10].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA24" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[11].imgArriba}"                                                   
@@ -1080,9 +1235,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn24"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[11].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn24"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[11].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP24"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[11].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA25" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[12].imgArriba}"                                                   
@@ -1102,9 +1268,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn25"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[12].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn25"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[12].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP25"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[12].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA26" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[13].imgArriba}"                                                   
@@ -1124,9 +1301,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn26"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[13].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn26"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[13].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP26"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[13].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA27" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[14].imgArriba}"                                                   
@@ -1146,9 +1334,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn27"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[14].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn27"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[14].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP27"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[14].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA28" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[15].imgArriba}"                                                   
@@ -1168,6 +1367,17 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn28"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[15].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn28"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[15].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP28"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[15].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
                                             </p:row>
                                             <p:row>
@@ -1175,13 +1385,836 @@ and open the template in the editor.
                                                     <p:separator/>
                                                 </p:column>
                                             </p:row>
+                                            <p:row>
+                                                <p:column>
+
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="55"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="54"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="53"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="52"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="51"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="61"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="62"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="63"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="64"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="65"/>
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column >
+
+                                                </p:column>
+                                                <p:column >
+
+                                                </p:column>
+                                                <p:column >
+
+                                                </p:column>
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA55" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[32].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI55"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[32].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC55"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[32].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD55"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[32].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb55"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[32].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn55"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[32].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn55"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[32].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP55"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[32].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA54" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[33].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI54"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[33].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC54"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[33].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD54"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[33].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb54"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[33].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn54"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[33].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn54"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[33].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP54"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[33].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA53" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[34].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI53"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[34].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC53"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[34].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD53"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[34].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb53"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[34].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn53"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[34].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn53"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[34].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP53"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[34].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA52" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[35].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI52"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[35].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC52"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[35].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD52"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[35].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb52"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[35].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn52"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[35].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn52"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[35].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP52"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[35].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA51" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[36].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI51"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[36].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC51"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[36].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD51"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[36].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb51"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[36].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn51"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[36].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn51"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[36].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP51"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[36].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA61" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[37].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI61"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[37].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC61"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[37].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD61"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[37].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb61"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[37].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn61"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[37].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn61"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[37].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP61"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[37].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA62" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[38].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI62"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[38].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC62"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[38].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD62"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[38].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb62"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[38].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn62"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[38].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn62"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[38].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP62"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[38].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA63" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[39].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI63"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[39].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC63"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[39].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD63"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[39].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb63"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[39].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn63"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[39].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn63"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[39].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP63"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[39].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA64" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[40].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI64"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[40].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC64"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[40].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD64"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[40].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb64"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[40].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn64"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[40].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn64"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[40].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP64"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[40].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA65" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[41].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI65"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[41].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC65"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[41].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD65"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[41].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb65"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[41].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn65"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[41].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn65"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[41].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP65"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[41].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+                                                <p:column >
+
+                                                </p:column>
+                                                <p:column >
+
+                                                </p:column>
+                                                <p:column >
+
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column colspan="16">
+                                                    <p:separator/>
+                                                </p:column>
+                                            </p:row>
                                         </p:panelGrid>
 
                                         <p:panelGrid style="text-align: center; font-weight: bold;" styleClass="panelgrid">
+
+                                            <p:row>
+                                                <p:column>
+
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA85" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[42].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI85"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[42].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC85"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[42].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD85"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[42].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb85"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[42].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn85"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[42].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn85"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[42].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP85"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[42].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA84" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[43].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI84"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[43].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC84"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[43].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD84"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[43].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb84"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[43].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn84"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[43].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn84"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[43].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP84"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[43].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA83" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[44].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI83"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[44].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC83"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[44].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD83"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[44].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb83"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[44].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn83"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[44].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn83"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[44].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP83"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[44].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA82" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[45].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI82"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[45].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC82"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[45].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD82"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[45].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb82"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[45].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn82"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[45].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn82"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[45].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP82"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[45].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA81" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[46].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI81"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[46].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC81"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[46].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD81"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[46].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb81"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[46].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn81"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[46].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn81"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[46].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP81"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[46].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA71" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[47].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI71"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[47].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC71"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[47].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD71"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[47].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb71"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[47].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn71"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[47].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn71"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[47].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP71"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[47].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA72" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[48].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI72"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[48].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC72"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[48].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD72"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[48].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb72"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[48].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn72"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[48].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn72"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[48].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP72"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[48].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA73" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[49].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI73"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[49].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC73"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[49].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD73"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[49].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb73"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[49].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn73"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[49].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn73"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[49].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP73"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[49].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA74" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[50].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI74"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[50].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC74"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[50].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD74"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[50].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb74"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[50].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn74"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[50].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn74"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[50].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP74"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[50].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+                                                </p:column>
+
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
+                                                        <p:graphicImage id="dienteA75" library="img/imgodonto" 
+                                                                        style="position: absolute;"
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[51].imgArriba}"                                                   
+                                                                        />
+                                                        <p:graphicImage id="dienteI75"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[51].imgIzq}"
+                                                                        />
+                                                        <p:graphicImage id="dienteC75"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[51].imgCentro}"
+                                                                        style="position: relative; top:-11px;"
+                                                                        />
+                                                        <p:graphicImage id="dienteD75"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[51].imgDer}"
+                                                                        />
+                                                        <p:graphicImage id="dienteAb75"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[51].imgAbajo}"
+                                                                        style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn75"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[51].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn75"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[51].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP75"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[51].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
+
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column>
+
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="85"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="84"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="83"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="82"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="81"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="71"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="72"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="73"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="74"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:outputLabel value="75"/>
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+                                                <p:column>
+
+                                                </p:column>
+                                            </p:row>
+                                            <p:row>
+                                                <p:column  colspan="16">
+                                                    <p:separator/>
+                                                </p:column>
+                                            </p:row>
+
                                             <p:row>
 
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA48" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[16].imgArriba}"                                                   
@@ -1201,9 +2234,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn48"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[16].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn48"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[16].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP48"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[16].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA47" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[17].imgArriba}"                                                   
@@ -1223,9 +2267,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn47"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[17].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn47"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[17].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP47"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[17].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA46" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[18].imgArriba}"                                                   
@@ -1245,9 +2300,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn46"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[18].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn46"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[18].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP46"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[18].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA45" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[19].imgArriba}"                                                   
@@ -1267,9 +2333,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn45"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[19].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn45"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[19].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP45"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[19].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA44" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[20].imgArriba}"                                                   
@@ -1289,9 +2366,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn44"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[20].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn44"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[20].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP44"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[20].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA43" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[21].imgArriba}"                                                   
@@ -1311,9 +2399,20 @@ and open the template in the editor.
                                                                         style="position:relative; top:-13px;"
                                                                         />
                                                     </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn43"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[21].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn43"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[21].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP43"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[21].imgFueraBolPeri}"
+                                                                        />
+                                                    </span>
                                                 </p:column>
-                                                <p:column >
-                                                    <span >
+                                                <p:column style="width: 40px">
+                                                    <span >                                                        
                                                         <p:graphicImage id="dienteA42" library="img/imgodonto" 
                                                                         style="position: absolute;"
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[22].imgArriba}"                                                   
@@ -1331,6 +2430,17 @@ and open the template in the editor.
                                                         <p:graphicImage id="dienteAb42"  library="img/imgodonto" 
                                                                         name="#{actualizacion.odontogramaCollection.toArray()[22].imgAbajo}"
                                                                         style="position:relative; top:-13px;"
+                                                                        />
+                                                    </span>
+                                                    <span>
+                                                        <p:graphicImage id="dienteFNEn42"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[22].imgFueraNEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFCEn42"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[22].imgFueraEnd}"
+                                                                        />
+                                                        <p:graphicImage id="dienteFBP42"  library="img/imgodonto" 
+                                                                        name="#{actualizacion.odontogramaCollection.toArray()[22].imgFueraBolPeri}"
                                                                         />
                                                     </span>
                                                 </p:column>
@@ -1869,40 +2979,31 @@ and open the template in the editor.
                                     <p:column colspan="10">
                                         <p:panelGrid>
                                             <p:row>
-                                                <p:column>
-                                                    <h:outputText value="Diagnostico" style="font-weight: bold"/>                  
-                                                </p:column>
-                                                <p:column>
+                                                <p:column style="width: 500px;">
                                                     <h:outputText value="Descripción" style="font-weight: bold"/>                  
                                                 </p:column>
                                                 <p:column>
                                                     <h:outputText value="Tipo diagnostico DX" style="font-weight: bold"/>                  
                                                 </p:column>
                                             </p:row>
-                                            <p:row>
-                                                <p:column>
-                                                    <h:outputText value="DX Principal" style="font-weight: bold"/>                  
-                                                </p:column>
-                                                <p:column>
-                                                    <h:outputText value="#{actualizacion.diagnosticoOdoCollection.toArray()[0].ndx}" style="font-weight: bold"/>                  
-                                                </p:column>
-                                                <p:column>
-                                                    <h:outputText value="#{actualizacion.diagnosticoOdoCollection.toArray()[0].tipodiagnostico.nombre}" style="font-weight: bold"/>                  
-                                                </p:column>
-                                            </p:row>
-                                            <p:row>
-                                                <p:column>
-                                                    <h:outputText value="DX Rel-1" style="font-weight: bold"/>                  
-                                                </p:column>
-                                                <p:column>
-                                                    <h:outputText value="#{actualizacion.diagnosticoOdoCollection.toArray()[0].ndx}" style="font-weight: bold"/>                  
-                                                </p:column>
-
-                                            </p:row>
-
-
                                         </p:panelGrid>
 
+
+                                        <p:dataScroller id="historial" value="#{actualizacion.diagnosticoOdoCollection}" 
+                                                        var="diagnosticoP" chunkSize="10">
+                                            <p:panelGrid>
+
+                                                <p:row>
+                                                    <p:column style="width: 500px">
+                                                        <h:outputText value="#{diagnosticoP.ndx}" style="font-weight: bold"/>                  
+                                                    </p:column>
+                                                    <p:column>
+                                                        <h:outputText value="#{diagnosticoP.tipodiagnostico.nombre}" style="font-weight: bold"/>                  
+                                                    </p:column>
+                                                </p:row>
+
+                                            </p:panelGrid>
+                                        </p:dataScroller>
                                     </p:column>
 
                                 </p:row>
@@ -1916,8 +3017,14 @@ and open the template in the editor.
                                     <p:column >
                                         <h:outputText value="Descripcion " style="font-weight: bold"/>      
                                     </p:column>
-                                    <p:column colspan="9">
+                                    <p:column colspan="5">
                                         <h:outputText value="#{actualizacion.evolucionOdoCollection.toArray()[0].evolucion}" style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column >
+                                        <h:outputText value="Diente " style="font-weight: bold"/>      
+                                    </p:column>
+                                    <p:column colspan="2">
+                                        <h:outputText value="#{actualizacion.evolucionOdoCollection.toArray()[0].numeroDiente}" style="font-weight: bold; font-size: 19px"/>      
                                     </p:column>
 
                                 </p:row>
@@ -1971,12 +3078,24 @@ and open the template in the editor.
                     </p:column>
 
                     <p:column>
-                        <p:commandButton id="botonSeleccionarPaciente" value="Selecionar"  icon="ui-icon-plus"  action="#{gestionHOdontologicaController.seleccionarPaciente(item)}" oncomplete="#{gestionHOdontologicaController.cambiarEstadoBool()}"/>
+                        <p:commandButton id="botonSeleccionarPaciente" value="Selecionar"  icon="ui-icon-plus" 
+                                         action="#{gestionHOdontologicaController.seleccionarPaciente(item)}" oncomplete="#{gestionHOdontologicaController.cambiarEstadoBool()}"/>
                     </p:column>
 
                 </p:dataTable>
             </h:form>
         </p:dialog>    
+        <script>
+            $(window).scroll(function () {
+                var winScrollTop = $(window).scrollTop();
+                var winHeight = $(window).height();
+                var floaterHeight = $('#floater').outerHeight(true);
+                var fromBottom = 20;
+                var top = winScrollTop + winHeight/2 - floaterHeight - fromBottom;
+                $('#floater').css({'top': top + 'px'});
+            });
+        </script>
+
     </body>
 </html>
 

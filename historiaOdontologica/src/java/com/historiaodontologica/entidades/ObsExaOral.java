@@ -29,9 +29,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "obs_exa_oral")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ObsExaOral.findAll", query = "SELECT o FROM ObsExaOral o"),
-    @NamedQuery(name = "ObsExaOral.findById", query = "SELECT o FROM ObsExaOral o WHERE o.id = :id"),
-    @NamedQuery(name = "ObsExaOral.findByTipo", query = "SELECT o FROM ObsExaOral o WHERE o.tipo = :tipo")})
+    @NamedQuery(name = "ObsExaOral.findAll", query = "SELECT o FROM ObsExaOral o")
+    ,
+    @NamedQuery(name = "ObsExaOral.findById", query = "SELECT o FROM ObsExaOral o WHERE o.id = :id")
+    ,
+    @NamedQuery(name = "ObsExaOral.findByTipo", query = "SELECT o FROM ObsExaOral o WHERE o.tipo = :tipo")
+    ,
+    @NamedQuery(name = "ObsExaOral.findByActualizacion", query = "SELECT o FROM ObsExaOral o WHERE o.idActualizacion = :actualizacion")
+})
 public class ObsExaOral implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -114,5 +119,5 @@ public class ObsExaOral implements Serializable {
     public String toString() {
         return "com.historiaodontologica.entidades.ObsExaOral[ id=" + id + " ]";
     }
-    
+
 }

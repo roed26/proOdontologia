@@ -12,6 +12,9 @@ import com.historiaodontologica.clases.RespuestasExamenEstomatologico;
 import com.historiaodontologica.clases.RespuestasExamenOral;
 import com.historiaodontologica.entidades.ActualizacionOdo;
 import com.historiaodontologica.entidades.AntecedenteOdo;
+import com.historiaodontologica.entidades.CuadroSintesis;
+import com.historiaodontologica.entidades.DiagnosticoOdo;
+import com.historiaodontologica.entidades.EvolucionOdo;
 import com.historiaodontologica.entidades.ExaEstomatologico;
 import com.historiaodontologica.entidades.ExaOral;
 import com.historiaodontologica.entidades.Higiene;
@@ -21,10 +24,15 @@ import com.historiaodontologica.entidades.ListadoExamenOral;
 import com.historiaodontologica.entidades.MotivoOdo;
 import com.historiaodontologica.entidades.ObsAntOdo;
 import com.historiaodontologica.entidades.ObsExaOral;
+import com.historiaodontologica.entidades.ObsOdontograma;
+import com.historiaodontologica.entidades.Odontograma;
 import com.historiaodontologica.entidades.Paciente;
 import com.historiaodontologica.entidades.UsuariosSistema;
 import com.historiaodontologica.sessionbeans.ActualizacionOdoFacade;
 import com.historiaodontologica.sessionbeans.AntOdoFacade;
+import com.historiaodontologica.sessionbeans.CuadroSintesisFacade;
+import com.historiaodontologica.sessionbeans.DiagnosticoOdoFacade;
+import com.historiaodontologica.sessionbeans.EvolucionOdoFacade;
 import com.historiaodontologica.sessionbeans.ExaEstomatologicoFacade;
 import com.historiaodontologica.sessionbeans.ExaOralFacade;
 import com.historiaodontologica.sessionbeans.HigieneFacade;
@@ -34,10 +42,13 @@ import com.historiaodontologica.sessionbeans.ListadoExamenOralFacade;
 import com.historiaodontologica.sessionbeans.MotivoOdoFacade;
 import com.historiaodontologica.sessionbeans.ObsAntOdoFacade;
 import com.historiaodontologica.sessionbeans.ObsExaOralFacade;
+import com.historiaodontologica.sessionbeans.ObsOdontogramaFacade;
+import com.historiaodontologica.sessionbeans.OdontogramaFacade;
 import com.historiaodontologica.sessionbeans.UsuariosSistemaFacade;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -61,7 +72,6 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class GestionHOdontologicaController implements Serializable {
 
-    
     @EJB
     private ListadoAntOdonFacade ejbListadoAntecedentesOdon;
     @EJB
@@ -86,6 +96,16 @@ public class GestionHOdontologicaController implements Serializable {
     private ObsExaOralFacade ejbObsExaOral;
     @EJB
     private HigieneFacade ejbHigiene;
+    @EJB
+    private OdontogramaFacade ejbOdontograma;
+    @EJB
+    private ObsOdontogramaFacade ejbObsOdontograma;
+    @EJB
+    private CuadroSintesisFacade ejbCuadroSintesis;
+    @EJB
+    private EvolucionOdoFacade ejbEvolucionOdo;
+    @EJB
+    private DiagnosticoOdoFacade ejbDiagnosticoOdo;
 
     //variables booleanas
     private boolean conAcompaniante;
@@ -518,6 +538,45 @@ public class GestionHOdontologicaController implements Serializable {
         context.setViewRoot(viewRoot);
         context.renderResponse();
         this.listaActualizaciones = ejbActualizacionOdo.buscarPorPaciente(paciente.getId());
+
+        for (int i = 0; i < listaActualizaciones.size(); i++) {
+            ActualizacionOdo actualizacionActual = listaActualizaciones.get(i);
+            Collection<MotivoOdo> collectionMotivo = new ArrayList<>(ejbMotivoOdo.buscarPorActualizacion(actualizacionActual));
+            Collection<Odontograma> collectionOdontograma = new ArrayList<>(ejbOdontograma.buscarPorActualizacion(actualizacionActual));
+            Collection<ObsOdontograma> collectionObsOdontograma = new ArrayList<>(ejbObsOdontograma.buscarPorActualizacion(actualizacionActual));
+            Collection<CuadroSintesis> cuadroSintesisCollection = new ArrayList<>(ejbCuadroSintesis.buscarPorActualizacion(actualizacionActual));
+            Collection<EvolucionOdo> evolucionOdontologico = new ArrayList<>(ejbEvolucionOdo.buscarPorActualizacion(actualizacionActual));
+            Collection<DiagnosticoOdo> diagnosticoOdontologico = new ArrayList<>(ejbDiagnosticoOdo.buscarPorActualizacion(actualizacionActual));
+            if (i == 0) {
+
+                Collection<AntecedenteOdo> collectionAntecendetesOdo = new ArrayList<>(ejbAntOdo.buscarPorActualizacion(actualizacionActual));
+                Collection<ExaEstomatologico> collectionExamenEstomatologico = new ArrayList<>(ejbExaEstomatologico.buscarPorActualizacion(actualizacionActual));
+                Collection<ExaOral> collectionExamenOral = new ArrayList<>(ejbExaOral.buscarPorActualizacion(actualizacionActual));
+                Collection<ObsExaOral> obsExaOralCollection = new ArrayList<>(ejbObsExaOral.buscarPorActualizacion(actualizacionActual));
+                Collection<Higiene> collectionHigiene = new ArrayList<>(ejbHigiene.buscarPorActualizacion(actualizacionActual));
+
+                actualizacionActual.setMotivoOdoCollection(collectionMotivo);
+                actualizacionActual.setAntecedenteOdoCollection(collectionAntecendetesOdo);
+                actualizacionActual.setExaEstomatologicoCollection(collectionExamenEstomatologico);
+                actualizacionActual.setExaOralCollection(collectionExamenOral);
+                actualizacionActual.setObsExaOralCollection(obsExaOralCollection);
+                actualizacionActual.setHigieneCollection(collectionHigiene);
+                actualizacionActual.setOdontogramaCollection(collectionOdontograma);
+                actualizacionActual.setObsOdontogramaCollection(collectionObsOdontograma);
+                actualizacionActual.setCuadroSintesisCollection(cuadroSintesisCollection);
+                actualizacionActual.setEvolucionOdoCollection(evolucionOdontologico);
+                actualizacionActual.setDiagnosticoOdoCollection(diagnosticoOdontologico);
+            } else {
+
+                actualizacionActual.setMotivoOdoCollection(collectionMotivo);
+                actualizacionActual.setOdontogramaCollection(collectionOdontograma);
+                actualizacionActual.setObsOdontogramaCollection(collectionObsOdontograma);
+                actualizacionActual.setCuadroSintesisCollection(cuadroSintesisCollection);
+                actualizacionActual.setEvolucionOdoCollection(evolucionOdontologico);
+            }
+
+        }
+
         requestContext.update("InformacionPaciente");
         requestContext.update("listaHistoriaOdontologica");
         requestContext.execute("PF('seleccionPacienteDialog').hide()");
@@ -782,11 +841,28 @@ public class GestionHOdontologicaController implements Serializable {
 
         //registro de higiene oral
         this.higiene.setIdActualizacion(actualizacionOdo);
+
         this.ejbHigiene.create(higiene);
 
         this.actualizacionOdo = new ActualizacionOdo();
 
         //ActualizacionOdo=this.ejbActualizacionOdo.buscarPorFecha(fechaApertura);
+    }
+
+    public List<Odontograma> listaOdontograma(ActualizacionOdo actualizacionOdo) {
+        List<Odontograma> lista = ejbOdontograma.buscarPorActualizacion(actualizacionOdo);
+        //actualizacionOdo.getOdontogramaCollection();
+        return lista;
+
+    }
+
+    public List<Odontograma> listaOdontogramaL(ActualizacionOdo actualizacionOdo) {
+        List<Odontograma> lista = new ArrayList<>();
+        lista = ejbOdontograma.buscarPorActualizacion(actualizacionOdo);
+
+        //actualizacionOdo.getOdontogramaCollection();
+        return lista;
+
     }
 
     private void asignarFecha() {
@@ -903,8 +979,7 @@ public class GestionHOdontologicaController implements Serializable {
 
     public void verHistoria() {
         //listaActualizaciones
-        
-        
+
     }
 
     public void cambiarImgOdontograma(String posicion, int posDienteList) {

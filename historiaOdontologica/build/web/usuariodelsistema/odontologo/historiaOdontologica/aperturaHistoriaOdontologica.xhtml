@@ -11,7 +11,7 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <body>
-        
+
         <h:form id="InformacionPaciente" >
             <p:panelGrid styleClass="panelgrid" >
                 <p:row>
@@ -23,7 +23,7 @@ and open the template in the editor.
                     </p:column>   
                     <p:column rowspan="2">
                         <center><p:commandButton value="Cancelar apertura" 
-                                     action="#{aperturaHOdontologicaController.inicializarVariablesCancelar(cargarVistaController)}" ajax="false"/></center>
+                                                 action="#{aperturaHOdontologicaController.inicializarVariablesCancelar(cargarVistaController)}" ajax="false"/></center>
                     </p:column>   
                 </p:row>
                 <p:row rendered="#{aperturaHOdontologicaController.pacienteSeleccionado}">
@@ -66,7 +66,7 @@ and open the template in the editor.
             <p:wizard widgetVar="aperturaHistoriaWizard" showNavBar="true" nextLabel="Siguiente" backLabel="Anterior" rendered="#{aperturaHOdontologicaController.pacienteSeleccionado}">
                 <p:tab title="Datos de acompañante">
                     <p:panel header="Datos de acompañante">
- 
+
                         <p:panelGrid  id="panel" styleClass="panelgrid">
                             <p:row>
                                 <p:column colspan="4">
@@ -100,7 +100,7 @@ and open the template in the editor.
                                         <f:selectItem itemValue="Conyuges" itemLabel="Conyuges" />
                                         <f:selectItem itemValue="Otros" itemLabel="Otros" />
                                     </p:selectOneMenu>
-                                    
+
                                 </p:column>
 
                             </p:row>
@@ -1228,13 +1228,70 @@ and open the template in the editor.
                 </p:tab>
                 <p:tab title="Evolución">
                     <p:panel header="Evolución del paciente">
-                        <p:panelGrid columns="1" styleClass="panelgrid" >
+                        <p:panelGrid columns="3" styleClass="panelgrid" >
                             <p:inputTextarea placeholder="Descripción de la evolucion del paciente" 
                                              rows="4" 
                                              cols="100" 
                                              id="descripcionEvolucion" 
                                              value="#{aperturaHOdontologicaController.descripcionEvolucion}" 
-                                             title="Descripción evolución" />
+                                             title="Descripción evolución"  />
+                            <p:outputLabel value="Diente: "/>
+                            <p:selectOneMenu filter="true" value="#{aperturaHOdontologicaController.diente}">
+                                <f:selectItem itemLabel="Seleccione..." itemValue="0"/>
+                                <f:selectItem itemLabel="11" itemValue="11"/>
+                                <f:selectItem itemLabel="12" itemValue="12"/>
+                                <f:selectItem itemLabel="13" itemValue="13"/>
+                                <f:selectItem itemLabel="14" itemValue="14"/>
+                                <f:selectItem itemLabel="15" itemValue="15"/>
+                                <f:selectItem itemLabel="16" itemValue="16"/>
+                                <f:selectItem itemLabel="17" itemValue="17"/>
+                                <f:selectItem itemLabel="18" itemValue="18"/>
+                                <f:selectItem itemLabel="21" itemValue="21"/>
+                                <f:selectItem itemLabel="22" itemValue="22"/>
+                                <f:selectItem itemLabel="23" itemValue="23"/>
+                                <f:selectItem itemLabel="24" itemValue="24"/>
+                                <f:selectItem itemLabel="25" itemValue="25"/>
+                                <f:selectItem itemLabel="26" itemValue="26"/>
+                                <f:selectItem itemLabel="27" itemValue="27"/>
+                                <f:selectItem itemLabel="28" itemValue="28"/>
+                                <f:selectItem itemLabel="31" itemValue="31"/>
+                                <f:selectItem itemLabel="32" itemValue="32"/>
+                                <f:selectItem itemLabel="33" itemValue="33"/>
+                                <f:selectItem itemLabel="34" itemValue="34"/>
+                                <f:selectItem itemLabel="35" itemValue="35"/>
+                                <f:selectItem itemLabel="36" itemValue="36"/>
+                                <f:selectItem itemLabel="37" itemValue="37"/>
+                                <f:selectItem itemLabel="38" itemValue="38"/>
+                                <f:selectItem itemLabel="41" itemValue="41"/>
+                                <f:selectItem itemLabel="42" itemValue="42"/>
+                                <f:selectItem itemLabel="43" itemValue="43"/>
+                                <f:selectItem itemLabel="44" itemValue="44"/>
+                                <f:selectItem itemLabel="45" itemValue="45"/>
+                                <f:selectItem itemLabel="46" itemValue="46"/>
+                                <f:selectItem itemLabel="47" itemValue="47"/>
+                                <f:selectItem itemLabel="48" itemValue="48"/>
+                                <f:selectItem itemLabel="51" itemValue="51"/>
+                                <f:selectItem itemLabel="52" itemValue="52"/>
+                                <f:selectItem itemLabel="53" itemValue="53"/>
+                                <f:selectItem itemLabel="54" itemValue="54"/>
+                                <f:selectItem itemLabel="55" itemValue="55"/>
+                                <f:selectItem itemLabel="61" itemValue="61"/>
+                                <f:selectItem itemLabel="62" itemValue="62"/>
+                                <f:selectItem itemLabel="63" itemValue="63"/>
+                                <f:selectItem itemLabel="64" itemValue="64"/>
+                                <f:selectItem itemLabel="65" itemValue="65"/>
+                                <f:selectItem itemLabel="71" itemValue="71"/>
+                                <f:selectItem itemLabel="72" itemValue="72"/>
+                                <f:selectItem itemLabel="73" itemValue="73"/>
+                                <f:selectItem itemLabel="74" itemValue="74"/>
+                                <f:selectItem itemLabel="75" itemValue="75"/>
+                                <f:selectItem itemLabel="81" itemValue="81"/>
+                                <f:selectItem itemLabel="82" itemValue="82"/>
+                                <f:selectItem itemLabel="83" itemValue="83"/>
+                                <f:selectItem itemLabel="84" itemValue="84"/>
+                                <f:selectItem itemLabel="85" itemValue="85"/>                                    
+
+                            </p:selectOneMenu>
                         </p:panelGrid>
                     </p:panel>
 
@@ -1333,7 +1390,7 @@ and open the template in the editor.
             </p:wizard>
             <br/>
             <p:separator/>
-            
+
         </h:form>
 
         <p:dialog visible="#{!aperturaHOdontologicaController.pacienteSeleccionado and !aperturaHOdontologicaController.comprobarInicioApertura()}" id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center"   header="Seleccionar paciente">
@@ -1341,9 +1398,9 @@ and open the template in the editor.
                 <p:panel rendered="#{pacienteController.listaPacientesActivosAtencion.size()==0}">
                     <ui:include src="CrearPaciente.xhtml"/>
                     <center><p:commandButton id="botonSeleccionarPaciente" 
-                                     value="Registrar y selecionar"   
-                                     action="#{aperturaHOdontologicaController.registrarSeleccionarPaciente()}" 
-                                     oncomplete="#{aperturaHOdontologicaController.cambiarEstadoBool()}"/></center>
+                                             value="Registrar y selecionar"   
+                                             action="#{aperturaHOdontologicaController.registrarSeleccionarPaciente()}" 
+                                             oncomplete="#{aperturaHOdontologicaController.cambiarEstadoBool()}"/></center>
                 </p:panel>
                 <p:panel rendered="#{pacienteController.listaPacientesActivosAtencion.size()>0}">
                     <h:panelGrid columns="2" >

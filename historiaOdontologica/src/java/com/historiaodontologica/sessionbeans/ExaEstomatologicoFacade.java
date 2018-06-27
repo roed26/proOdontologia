@@ -5,10 +5,13 @@
  */
 package com.historiaodontologica.sessionbeans;
 
+import com.historiaodontologica.entidades.ActualizacionOdo;
 import com.historiaodontologica.entidades.ExaEstomatologico;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +31,12 @@ public class ExaEstomatologicoFacade extends AbstractFacade<ExaEstomatologico> {
     public ExaEstomatologicoFacade() {
         super(ExaEstomatologico.class);
     }
-    
+    public List<ExaEstomatologico> buscarPorActualizacion(ActualizacionOdo actualizacionOdo) {
+        Query query = getEntityManager().createNamedQuery("ExaEstomatologico.findByActualizacion");
+        query.setParameter("actualizacion", actualizacionOdo);
+        List<ExaEstomatologico> resultList = query.getResultList();
+
+        return resultList;
+
+    }
 }

@@ -28,12 +28,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "exa_oral")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ExaOral.findAll", query = "SELECT e FROM ExaOral e"),
-    @NamedQuery(name = "ExaOral.findById", query = "SELECT e FROM ExaOral e WHERE e.id = :id"),
-    @NamedQuery(name = "ExaOral.findByCampo", query = "SELECT e FROM ExaOral e WHERE e.campo = :campo"),
-    @NamedQuery(name = "ExaOral.findByValor", query = "SELECT e FROM ExaOral e WHERE e.valor = :valor"),
-    @NamedQuery(name = "ExaOral.findByTipo", query = "SELECT e FROM ExaOral e WHERE e.tipo = :tipo"),
-    @NamedQuery(name = "ExaOral.findByIdExa", query = "SELECT e FROM ExaOral e WHERE e.idExa = :idExa")})
+    @NamedQuery(name = "ExaOral.findAll", query = "SELECT e FROM ExaOral e")
+    ,
+    @NamedQuery(name = "ExaOral.findById", query = "SELECT e FROM ExaOral e WHERE e.id = :id")
+    ,
+    @NamedQuery(name = "ExaOral.findByCampo", query = "SELECT e FROM ExaOral e WHERE e.campo = :campo")
+    ,
+    @NamedQuery(name = "ExaOral.findByValor", query = "SELECT e FROM ExaOral e WHERE e.valor = :valor")
+    ,
+    @NamedQuery(name = "ExaOral.findByTipo", query = "SELECT e FROM ExaOral e WHERE e.tipo = :tipo")
+    ,
+    @NamedQuery(name = "ExaOral.findByIdExa", query = "SELECT e FROM ExaOral e WHERE e.idExa = :idExa")
+    ,
+    @NamedQuery(name = "ExaOral.findByActualizacion", query = "SELECT e FROM ExaOral e WHERE e.idActualizacion = :actualizacion")
+})
 public class ExaOral implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -137,5 +145,5 @@ public class ExaOral implements Serializable {
     public String toString() {
         return "com.historiaodontologica.entidades.ExaOral[ id=" + id + " ]";
     }
-    
+
 }

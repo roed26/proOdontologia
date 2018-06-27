@@ -30,7 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MotivoOdo.findAll", query = "SELECT m FROM MotivoOdo m"),
-    @NamedQuery(name = "MotivoOdo.findById", query = "SELECT m FROM MotivoOdo m WHERE m.id = :id")})
+    @NamedQuery(name = "MotivoOdo.findById", query = "SELECT m FROM MotivoOdo m WHERE m.id = :id"),
+    @NamedQuery(name = "MotivoOdo.findByActualizacion", query = "SELECT m FROM MotivoOdo m WHERE m.idActualizacion = :actualizacion")
+})
 public class MotivoOdo implements Serializable {
 
     private static final long serialVersionUID = 1L;

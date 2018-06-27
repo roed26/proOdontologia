@@ -32,7 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ExaEstomatologico.findById", query = "SELECT e FROM ExaEstomatologico e WHERE e.id = :id"),
     @NamedQuery(name = "ExaEstomatologico.findByNombre", query = "SELECT e FROM ExaEstomatologico e WHERE e.nombre = :nombre"),
     @NamedQuery(name = "ExaEstomatologico.findByResultado", query = "SELECT e FROM ExaEstomatologico e WHERE e.resultado = :resultado"),
-    @NamedQuery(name = "ExaEstomatologico.findByObs", query = "SELECT e FROM ExaEstomatologico e WHERE e.obs = :obs")})
+    @NamedQuery(name = "ExaEstomatologico.findByObs", query = "SELECT e FROM ExaEstomatologico e WHERE e.obs = :obs"),
+    @NamedQuery(name = "ExaEstomatologico.findByActualizacion", query = "SELECT e FROM ExaEstomatologico e WHERE e.idActualizacion = :actualizacion")
+})
 public class ExaEstomatologico implements Serializable {
 
     private static final long serialVersionUID = 1L;

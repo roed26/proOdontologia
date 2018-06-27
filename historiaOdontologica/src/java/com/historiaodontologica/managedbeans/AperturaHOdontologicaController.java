@@ -377,6 +377,7 @@ public class AperturaHOdontologicaController implements Serializable {
 
     //numeros
     private int contCaries = 0;
+    private int diente;
 
     //objetos 
     private Paciente paciente;
@@ -664,6 +665,14 @@ public class AperturaHOdontologicaController implements Serializable {
 
     public void setDescripcionEvolucion(String descripcionEvolucion) {
         this.descripcionEvolucion = descripcionEvolucion;
+    }
+
+    public int getDiente() {
+        return diente;
+    }
+
+    public void setDiente(int diente) {
+        this.diente = diente;
     }
 
     public List<String> getListaOdontogramaDerecha() {
@@ -3142,6 +3151,7 @@ public class AperturaHOdontologicaController implements Serializable {
     private void registrarEvolucion() {
         EvolucionOdo evolucionOdontologica = new EvolucionOdo();
         evolucionOdontologica.setEvolucion(descripcionEvolucion);
+        evolucionOdontologica.setNumeroDiente(diente);
         evolucionOdontologica.setIdActualizacion(actualizacionOdo);
 
         ejbEvolucionOdo.create(evolucionOdontologica);

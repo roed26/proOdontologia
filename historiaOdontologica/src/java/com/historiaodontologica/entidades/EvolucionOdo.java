@@ -30,8 +30,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "EvolucionOdo.findAll", query = "SELECT e FROM EvolucionOdo e"),
-    @NamedQuery(name = "EvolucionOdo.findById", query = "SELECT e FROM EvolucionOdo e WHERE e.id = :id")})
+    @NamedQuery(name = "EvolucionOdo.findById", query = "SELECT e FROM EvolucionOdo e WHERE e.id = :id"),
+    @NamedQuery(name = "EvolucionOdo.findByActualizacion", query = "SELECT e FROM EvolucionOdo e WHERE e.idActualizacion = :actualizacion")
+})
 public class EvolucionOdo implements Serializable {
+
+    @Column(name = "NUMERO_DIENTE")
+    private Integer numeroDiente;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -101,6 +106,14 @@ public class EvolucionOdo implements Serializable {
     @Override
     public String toString() {
         return "com.historiaodontologica.entidades.EvolucionOdo[ id=" + id + " ]";
+    }
+
+    public Integer getNumeroDiente() {
+        return numeroDiente;
+    }
+
+    public void setNumeroDiente(Integer numeroDiente) {
+        this.numeroDiente = numeroDiente;
     }
     
 }

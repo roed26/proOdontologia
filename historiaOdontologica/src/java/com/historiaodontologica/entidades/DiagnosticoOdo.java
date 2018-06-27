@@ -31,7 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "DiagnosticoOdo.findAll", query = "SELECT d FROM DiagnosticoOdo d"),
     @NamedQuery(name = "DiagnosticoOdo.findById", query = "SELECT d FROM DiagnosticoOdo d WHERE d.id = :id"),
-    @NamedQuery(name = "DiagnosticoOdo.findByDx", query = "SELECT d FROM DiagnosticoOdo d WHERE d.dx = :dx")})
+    @NamedQuery(name = "DiagnosticoOdo.findByDx", query = "SELECT d FROM DiagnosticoOdo d WHERE d.dx = :dx"),
+    @NamedQuery(name = "DiagnosticoOdo.findByActualizacion", query = "SELECT d FROM DiagnosticoOdo d WHERE d.idActualizacion = :actualizacion")
+})
 public class DiagnosticoOdo implements Serializable {
 
     private static final long serialVersionUID = 1L;

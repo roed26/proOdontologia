@@ -138,6 +138,9 @@ public class EvolucionHOdontologicaController implements Serializable {
     private Date fechaApertura;
     private SimpleDateFormat formatoFecha;
 
+    //numero
+    private int diente;
+    
     //objetos 
     private Paciente paciente;
     private CuadroSintesis cuadroSintesis;
@@ -213,6 +216,14 @@ public class EvolucionHOdontologicaController implements Serializable {
 
     public void setDiagnosticoDX1(String diagnosticoDX1) {
         this.diagnosticoDX1 = diagnosticoDX1;
+    }
+
+    public int getDiente() {
+        return diente;
+    }
+
+    public void setDiente(int diente) {
+        this.diente = diente;
     }
 
     public String getDiagnosticoDX2() {
@@ -599,8 +610,8 @@ public class EvolucionHOdontologicaController implements Serializable {
 
     private void registrarOdontograma() {
         int contDientesArribaIzq = 18, contDientesArribaDer = 21, contDientesAbajoIzq = 48, contDientesAbajoDer = 31;
-
-        for (int i = 0; i < 32; i++) {
+        int contDientesCentroAIzq = 55, contDientesCentroADer = 61, contDientesCentroAbIzq = 85, contDientesCentroAbDer = 71;
+        for (int i = 0; i < 52; i++) {
             Odontograma odontograma = new Odontograma();
             if (i >= 0 && i < 8) {
                 odontograma.setDiente("" + contDientesArribaIzq);
@@ -614,6 +625,18 @@ public class EvolucionHOdontologicaController implements Serializable {
             } else if (i >= 24 && i < 32) {
                 odontograma.setDiente("" + contDientesAbajoDer);
                 contDientesAbajoDer++;
+            } else if (i >= 32 && i < 37) {
+                odontograma.setDiente("" + contDientesCentroAIzq);
+                contDientesCentroAIzq--;
+            } else if (i >= 37 && i < 42) {
+                odontograma.setDiente("" + contDientesCentroADer);
+                contDientesCentroADer++;
+            } else if (i >= 42 && i < 47) {
+                odontograma.setDiente("" + contDientesCentroAbIzq);
+                contDientesCentroAbIzq--;
+            } else if (i >= 47 && i < 52) {
+                odontograma.setDiente("" + contDientesCentroAbDer);
+                contDientesCentroAbDer++;
             }
 
             odontograma.setIdActualizacion(actualizacionOdo);
@@ -622,6 +645,9 @@ public class EvolucionHOdontologicaController implements Serializable {
             odontograma.setImgCentro(listaOdontogramaCentro.get(i));
             odontograma.setImgIzq(listaOdontogramaIzquierda.get(i));
             odontograma.setImgDer(listaOdontogramaDerecha.get(i));
+            odontograma.setImgFueraBolPeri(listaOdontogramaFueraBolsaPer.get(i));
+            odontograma.setImgFueraEnd(listaOdontogramaFueraEndodoncia.get(i));
+            odontograma.setImgFueraNEnd(listaOdontogramaFueraNecEndodoncia.get(i));
             ejbOdontograma.create(odontograma);
         }
     }
@@ -1270,6 +1296,7 @@ public class EvolucionHOdontologicaController implements Serializable {
     private void registrarEvolucion() {
         EvolucionOdo evolucionOdontologica = new EvolucionOdo();
         evolucionOdontologica.setEvolucion(descripcionEvolucion);
+        evolucionOdontologica.setNumeroDiente(diente);
         evolucionOdontologica.setIdActualizacion(actualizacionOdo);
 
         ejbEvolucionOdo.create(evolucionOdontologica);

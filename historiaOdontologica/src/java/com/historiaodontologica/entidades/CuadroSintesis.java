@@ -57,7 +57,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CuadroSintesis.findByAnomaliasForInf", query = "SELECT c FROM CuadroSintesis c WHERE c.anomaliasForInf = :anomaliasForInf"),
     @NamedQuery(name = "CuadroSintesis.findByAnomaliasPosInf", query = "SELECT c FROM CuadroSintesis c WHERE c.anomaliasPosInf = :anomaliasPosInf"),
     @NamedQuery(name = "CuadroSintesis.findByEnfermedadPeriodentalInf", query = "SELECT c FROM CuadroSintesis c WHERE c.enfermedadPeriodentalInf = :enfermedadPeriodentalInf"),
-    @NamedQuery(name = "CuadroSintesis.findByNucleosInf", query = "SELECT c FROM CuadroSintesis c WHERE c.nucleosInf = :nucleosInf")})
+    @NamedQuery(name = "CuadroSintesis.findByNucleosInf", query = "SELECT c FROM CuadroSintesis c WHERE c.nucleosInf = :nucleosInf"),
+    @NamedQuery(name = "CuadroSintesis.findByActualizacion", query = "SELECT c FROM CuadroSintesis c WHERE c.idActualizacion = :actualizacion")
+})
 public class CuadroSintesis implements Serializable {
 
     private static final long serialVersionUID = 1L;

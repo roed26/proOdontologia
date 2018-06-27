@@ -5,10 +5,13 @@
  */
 package com.historiaodontologica.sessionbeans;
 
+import com.historiaodontologica.entidades.ActualizacionOdo;
 import com.historiaodontologica.entidades.ObsExaOral;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +30,15 @@ public class ObsExaOralFacade extends AbstractFacade<ObsExaOral> {
 
     public ObsExaOralFacade() {
         super(ObsExaOral.class);
+    }
+    
+    public List<ObsExaOral> buscarPorActualizacion(ActualizacionOdo actualizacionOdo) {
+        Query query = getEntityManager().createNamedQuery("ObsExaOral.findByActualizacion");
+        query.setParameter("actualizacion", actualizacionOdo);
+        List<ObsExaOral> resultList = query.getResultList();
+
+        return resultList;
+
     }
     
 }

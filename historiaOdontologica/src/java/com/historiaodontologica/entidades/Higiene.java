@@ -28,14 +28,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "higiene")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Higiene.findAll", query = "SELECT h FROM Higiene h"),
-    @NamedQuery(name = "Higiene.findById", query = "SELECT h FROM Higiene h WHERE h.id = :id"),
-    @NamedQuery(name = "Higiene.findByHigiene", query = "SELECT h FROM Higiene h WHERE h.higiene = :higiene"),
-    @NamedQuery(name = "Higiene.findByFrecuenciaCep", query = "SELECT h FROM Higiene h WHERE h.frecuenciaCep = :frecuenciaCep"),
-    @NamedQuery(name = "Higiene.findByGradoRiesgo", query = "SELECT h FROM Higiene h WHERE h.gradoRiesgo = :gradoRiesgo"),
-    @NamedQuery(name = "Higiene.findByPigmentacion", query = "SELECT h FROM Higiene h WHERE h.pigmentacion = :pigmentacion"),
-    @NamedQuery(name = "Higiene.findBySedaDental", query = "SELECT h FROM Higiene h WHERE h.sedaDental = :sedaDental"),
-    @NamedQuery(name = "Higiene.findByHabitos", query = "SELECT h FROM Higiene h WHERE h.habitos = :habitos")})
+    @NamedQuery(name = "Higiene.findAll", query = "SELECT h FROM Higiene h")
+    ,
+    @NamedQuery(name = "Higiene.findById", query = "SELECT h FROM Higiene h WHERE h.id = :id")
+    ,
+    @NamedQuery(name = "Higiene.findByHigiene", query = "SELECT h FROM Higiene h WHERE h.higiene = :higiene")
+    ,
+    @NamedQuery(name = "Higiene.findByFrecuenciaCep", query = "SELECT h FROM Higiene h WHERE h.frecuenciaCep = :frecuenciaCep")
+    ,
+    @NamedQuery(name = "Higiene.findByGradoRiesgo", query = "SELECT h FROM Higiene h WHERE h.gradoRiesgo = :gradoRiesgo")
+    ,
+    @NamedQuery(name = "Higiene.findByPigmentacion", query = "SELECT h FROM Higiene h WHERE h.pigmentacion = :pigmentacion")
+    ,
+    @NamedQuery(name = "Higiene.findBySedaDental", query = "SELECT h FROM Higiene h WHERE h.sedaDental = :sedaDental")
+    ,
+    @NamedQuery(name = "Higiene.findByHabitos", query = "SELECT h FROM Higiene h WHERE h.habitos = :habitos")
+    ,
+@NamedQuery(name = "Higiene.findByActualizacion", query = "SELECT h FROM Higiene h WHERE h.idActualizacion = :actualizacion")
+})
 public class Higiene implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -161,5 +171,5 @@ public class Higiene implements Serializable {
     public String toString() {
         return "com.historiaodontologica.entidades.Higiene[ id=" + id + " ]";
     }
-    
+
 }
