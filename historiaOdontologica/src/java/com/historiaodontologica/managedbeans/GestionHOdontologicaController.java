@@ -573,6 +573,7 @@ public class GestionHOdontologicaController implements Serializable {
                 actualizacionActual.setObsOdontogramaCollection(collectionObsOdontograma);
                 actualizacionActual.setCuadroSintesisCollection(cuadroSintesisCollection);
                 actualizacionActual.setEvolucionOdoCollection(evolucionOdontologico);
+                actualizacionActual.setDiagnosticoOdoCollection(diagnosticoOdontologico);
             }
 
         }

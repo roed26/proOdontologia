@@ -127,119 +127,60 @@ and open the template in the editor.
                     <ui:include src="odontogramaEvolucion.xhtml"/>
                 </p:tab>
                 <p:tab title="Diagnostico">
-                    <p:panelGrid style="border-style: none !important">
+                    <br/>
+                    <br/>
+                    <p:panelGrid styleClass="panelgrid">
                         <p:row> 
+                            <p:column  >
+                                <p:commandButton value="Agregar diagnostico" icon="ui-icon-plus" onclick="PF('agregarDiagnosticoDialog').show()"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
                             <p:column colspan="3" style=" width: 600px; text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf">
                                 <p:outputLabel value="Diagnosticos" />
                             </p:column>
-                            <p:column  style=" text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf">
-                                <p:outputLabel value="Tipo de diagnostico principal" />
-                            </p:column>
                         </p:row>
-                        <p:row>
-                            <p:column style="width: 70px;">
-                                <p:outputLabel value="DX principal" />
-                            </p:column>
-                            <p:column style="width: 70px;">
-                                <p:selectOneMenu filter="true" id="diagnosticoCie10Odo" 
-                                                 value="#{evolucionHOdontologicaController.diagnosticoPrincipal}"
-                                                 >
-                                    <f:selectItem itemValue="No"
-                                                  itemLabel="Seleccione..."/>
-                                    <f:selectItems value="#{diagnosticocie10OdoController.itemsAvailableSelectOne}"
-                                                   var="diagnosticoCie10"
-                                                   itemValue="#{diagnosticoCie10.nombre}"
-                                                   itemLabel="#{diagnosticoCie10.id}"
-                                                   />
-                                    <f:ajax execute="diagnosticoCie10Odo" render="nombreDiadnosticoP" />
-                                </p:selectOneMenu>
-                            </p:column>
-                            <p:column style="width: 500px;">
-                                <p:outputLabel id="nombreDiadnosticoP" value="#{evolucionHOdontologicaController.diagnosticoPrincipal}" />
-                            </p:column>
-                            <p:column rowspan="4" style="vertical-align: central !important;">
-                                <p:selectOneMenu filter="true" id="diagnostico1" 
-                                                 value="#{evolucionHOdontologicaController.tipoDiagnostico.id}"
-                                                 required="true"
-                                                 >
-                                    <f:selectItem itemValue="No"
-                                                  itemLabel="Seleccione..."/>
-                                    <f:selectItems
-                                        value="#{tipodiagnosticoController.itemsAvailableSelectOne}"
-                                        var="tipoDiagnostico"
-                                        itemValue="#{tipoDiagnostico.id}"
-                                        itemLabel="#{tipoDiagnostico.nombre}"
-                                        />
-
-                                </p:selectOneMenu>
-                            </p:column>
-                        </p:row>
-                        <p:row>
+                        <p:row> 
                             <p:column>
-                                <p:outputLabel value="DX1" />
-                            </p:column>
-                            <p:column>
-                                <p:selectOneMenu filter="true" id="diagnosticoCie10DX1" 
-                                                 value="#{evolucionHOdontologicaController.diagnosticoDX1}"
-                                                 >
-                                    <f:selectItem itemValue="No"
-                                                  itemLabel="Seleccione..."/>
-                                    <f:selectItems value="#{diagnosticocie10OdoController.itemsAvailableSelectOne}"
-                                                   var="diagnosticoCie10"
-                                                   itemValue="#{diagnosticoCie10.nombre}"
-                                                   itemLabel="#{diagnosticoCie10.id}"
-                                                   />
-                                    <f:ajax execute="diagnosticoCie10DX1" render="nombreDiadnosticoDX1" />
-                                </p:selectOneMenu>
+                                <p:dataTable id="datalistDiagnosticosTipo" 
+                                             value="#{evolucionHOdontologicaController.listaDiagnosticosTipo}" var="item"
+                                             paginator="true"
+                                             paginatorPosition="bottom"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30"
+                                             >
+                                    <p:column style="width: 70px;">
+                                        <f:facet name="header">
+                                            <h:outputText value="Identificador"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.diagnosticoCie10.id}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Descripcion"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.diagnosticoCie10.nombre}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Tipo de diagnostico"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.diagnostico.nombre}"/>
+                                    </p:column>
+                                    <p:column style="width: 80px;">
+                                        <f:facet name="header">
+                                            <h:outputText value="Acción"/>
+                                        </f:facet>
+                                        <p:commandButton id="createButton" icon="ui-icon-plus" value="Eliminar"
+                                                         action="#{evolucionHOdontologicaController.abrirMensajeAdvertencia(item)}"/>
+                                    </p:column>
+                                </p:dataTable>
                             </p:column>
                             <p:column>
                                 <p:outputLabel id="nombreDiadnosticoDX1" value="#{evolucionHOdontologicaController.diagnosticoDX1}" />
                             </p:column>
                         </p:row>
-                        <p:row>
-                            <p:column>
-                                <p:outputLabel value="DX2" />
-                            </p:column>
-                            <p:column>
-                                <p:selectOneMenu filter="true" id="diagnosticoCie10DX2" 
-                                                 value="#{evolucionHOdontologicaController.diagnosticoDX2}"
-                                                 >
-                                    <f:selectItem itemValue="No"
-                                                  itemLabel="Seleccione..."/>
-                                    <f:selectItems value="#{diagnosticocie10OdoController.itemsAvailableSelectOne}"
-                                                   var="diagnosticoCie10"
-                                                   itemValue="#{diagnosticoCie10.nombre}"
-                                                   itemLabel="#{diagnosticoCie10.id}"
-                                                   />
-                                    <f:ajax execute="diagnosticoCie10DX2" render="nombreDiadnosticoDX2" />
-                                </p:selectOneMenu>
-                            </p:column>
-                            <p:column>
-                                <p:outputLabel id="nombreDiadnosticoDX2" value="#{evolucionHOdontologicaController.diagnosticoDX2}" />
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column>
-                                <p:outputLabel value="DX3" />
-                            </p:column>
-                            <p:column>
-                                <p:selectOneMenu filter="true" id="diagnosticoCie10DX3" 
-                                                 value="#{evolucionHOdontologicaController.diagnosticoDX3}"
-                                                 >
-                                    <f:selectItem itemValue="No"
-                                                  itemLabel="Seleccione..."/>
-                                    <f:selectItems value="#{diagnosticocie10OdoController.itemsAvailableSelectOne}"
-                                                   var="diagnosticoCie10"
-                                                   itemValue="#{diagnosticoCie10.nombre}"
-                                                   itemLabel="#{diagnosticoCie10.id}"
-                                                   />
-                                    <f:ajax execute="diagnosticoCie10DX3" render="nombreDiadnosticoDX3" />
-                                </p:selectOneMenu>
-                            </p:column>
-                            <p:column>
-                                <p:outputLabel id="nombreDiadnosticoDX3" value="#{evolucionHOdontologicaController.diagnosticoDX3}" />
-                            </p:column>
-                        </p:row>
+
                     </p:panelGrid>
                 </p:tab>
                 <p:tab title="Evolución">
@@ -312,18 +253,15 @@ and open the template in the editor.
                         </p:panelGrid>
 
                     </p:panel>
-                    <p:panelGrid>
-                        <p:row>
-                            <p:column>
-                                <p:commandButton value="Guardar evolucion" action="#{evolucionHOdontologicaController.guardarEvolucionHistoria()}"/>
-                            </p:column>
-
-                        </p:row>
-                    </p:panelGrid>
+                    <br/>
+                    <br/>
+                    <center>
+                        <p:commandButton value="Guardar evolucion" 
+                                         action="#{evolucionHOdontologicaController.guardarEvolucionHistoria()}"
+                                         onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"
+                                         />
+                    </center>
                 </p:tab>
-
-
-
             </p:wizard>
         </h:form>
 
@@ -363,7 +301,8 @@ and open the template in the editor.
 
 
                     <p:column>
-                        <p:commandButton id="botonSeleccionarPaciente" value="Selecionar"  icon="ui-icon-plus"  action="#{evolucionHOdontologicaController.seleccionarPaciente(item)}" oncomplete="#{evolucionHOdontologicaController.cambiarEstadoBool()}"/>
+                        <p:commandButton id="botonSeleccionarPaciente" value="Selecionar" 
+                                         icon="ui-icon-plus"  action="#{evolucionHOdontologicaController.seleccionarPaciente(item)}" oncomplete="#{evolucionHOdontologicaController.cambiarEstadoBool()}"/>
                     </p:column>
 
                 </p:dataTable>
@@ -374,9 +313,86 @@ and open the template in the editor.
                 <h:panelGrid columns="2" >
                     <p:graphicImage width="50px" height="50px" library="img" name="exitoso.png" />
                     <p:outputLabel value="La evolución del paciente se ha realizado con exito" />
-                    <p:commandButton value="Aceptar" onclick="PF('registroEvolucionExitosoDialog').hide()" ajax="r"/>
+                    <p:commandButton value="Aceptar" 
+                                     action="#{evolucionHOdontologicaController.volverAInicio(cargarVistaController)}" 
+                                     ajax="r" update="@all"/>
                 </h:panelGrid>
 
+            </h:form>
+        </p:dialog>
+
+        <p:dialog widgetVar="agregarDiagnosticoDialog" width="650" modal="true" header="Listado de diagnosticos">
+            <h:form id="DiagnosticosCieOdoListForm">
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Buscar por:" />
+                    <p:inputText  placeholder="Identificador o nombre" style="width: 340px;"  value="#{diagnosticocie10OdoController.busquedaDiagnostico}" >
+                        <p:ajax event="keyup" update="datalist" listener="#{diagnosticocie10OdoController.buscarPorNombreId()}" oncomplete="#{diagnosticocie10OdoController.reiniciarCampoBusqueda()}" />                                
+                    </p:inputText>                          
+                </h:panelGrid>
+                <p:dataTable id="datalist" value="#{diagnosticocie10OdoController.items}" var="item"
+                             paginator="true"
+                             rowKey="#{item.id}"
+                             rows="5" paginatorPosition="bottom"
+                             rowsPerPageTemplate="5,10"
+                             >
+                    <p:column style="width: 70px;">
+                        <f:facet name="header">
+                            <h:outputText value="Identificador"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre}"/>
+                    </p:column>
+                    <p:column style="width: 80px;">
+                        <f:facet name="header">
+                            <h:outputText value="Acción"/>
+                        </f:facet>
+                        <p:commandButton id="createButton" icon="ui-icon-plus" value="Seleccionar"
+                                         action="#{evolucionHOdontologicaController.seleccionarDiagnostico(item)}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+        <p:dialog widgetVar="seleccionarTipoDiagnostico" width="300" modal="true">
+            <h:form id="tipoDiagnostico">
+                <p:dataTable id="datalist" value="#{tipodiagnosticoController.items}" var="item"
+                             paginator="true"
+                             rowKey="#{item.id}"
+                             rows="5"
+                             rowsPerPageTemplate="5,10"
+                             >
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre}"/>
+                    </p:column>
+                    <p:column style="width: 80px;">
+                        <f:facet name="header">
+                            <h:outputText value="Acción"/>
+                        </f:facet>
+                        <p:commandButton id="createButton" icon="ui-icon-plus" value="Seleccionar"
+                                         action="#{evolucionHOdontologicaController.agregarDiagnosticoTipo(item)}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:dialog>
+        <p:dialog header="Información" modal="true" position="center" widgetVar="dlgMensajeAdventencia" closable="false">
+            <p:messages  style="font-size: 15px;"  showDetail="true" autoUpdate="true"/>
+            <h:form>
+                <center>
+                    <p:commandButton  value="Aceptar" style="font-weight: normal;"
+                                      action="#{evolucionHOdontologicaController.eliminarDiagnosticoTipoDeLista()}"/>
+                    <p:commandButton  value="Cancelar" style="font-weight: normal;"
+                                      onclick="PF('dlgMensajeAdventencia').hide()"/>
+                </center>
             </h:form>
         </p:dialog>
     </body>

@@ -292,7 +292,7 @@ and open the template in the editor.
         <br/>
         <br/>
         <center>
-            <p:panelGrid id="panelOdontograma" style="text-align: center; font-weight: bold;" styleClass="panelgrid">
+            <p:panelGrid id="panelOdontogramaSuperior" style="text-align: center; font-weight: bold;" styleClass="panelgrid">
                 <p:row>
                     <p:column>
                         <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente18.png" />
@@ -397,7 +397,7 @@ and open the template in the editor.
                 <p:row>
                     <p:column style="width: 40px" >
                         <span >
-                            <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaArriba(0)}" >
+                            <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontograma('arriba',0)}" >
                                 <p:graphicImage id="dienteA18" library="img/imgodonto" 
                                                 style="position: absolute;"
                                                 name="#{aperturaHOdontologicaController.retornarNombreImagen(0,'Arriba')}"                                                   
@@ -1753,7 +1753,7 @@ and open the template in the editor.
                 </p:row>
             </p:panelGrid>
 
-            <p:panelGrid style="text-align: center; font-weight: bold;" styleClass="panelgrid">
+            <p:panelGrid id="panelOdontogramaInferior" style="text-align: center; font-weight: bold;" styleClass="panelgrid">
 
                 <p:row>
                     <p:column >

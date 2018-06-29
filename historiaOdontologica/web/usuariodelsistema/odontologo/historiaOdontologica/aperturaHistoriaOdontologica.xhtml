@@ -1376,16 +1376,13 @@ and open the template in the editor.
 
                         </p:row>
                     </p:panelGrid>
-                    <p:panelGrid>
-                        <p:row>
-                            <p:column>
-                                <p:commandButton value="Guardar Apertura de historia"
-                                                 action="#{aperturaHOdontologicaController.guardarAperturaHistoria()}"
-                                                 onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
-                            </p:column>
-
-                        </p:row>
-                    </p:panelGrid>
+                    <br/>
+                    <br/>
+                    <center>
+                        <p:commandButton value="Guardar Apertura de historia"
+                                         action="#{aperturaHOdontologicaController.guardarAperturaHistoria()}"
+                                         onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
+                    </center>
                 </p:tab>
             </p:wizard>
             <br/>
