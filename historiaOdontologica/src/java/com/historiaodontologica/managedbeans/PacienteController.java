@@ -168,6 +168,9 @@ public class PacienteController implements Serializable {
     public void seleccionarPacienteEdicion(Paciente paciente) {
         this.selected = paciente;
         this.tipoIdentificacion = paciente.getTipoIdentificacion();
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.update("PacienteEditForm");
+        requestContext.execute("PF('seleccionPacienteDialog').show()");
     }
 
     public void editarPaciente() {
@@ -200,7 +203,7 @@ public class PacienteController implements Serializable {
         this.tipoIdentificacion = selected.getTipoIdentificacion();
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.update("PacienteViewForm");
-        requestContext.execute("PF('seleccionPacienteDialog').hide()");
+        requestContext.execute("PF('seleccionPacienteDialogView').show()");
         
     }
 

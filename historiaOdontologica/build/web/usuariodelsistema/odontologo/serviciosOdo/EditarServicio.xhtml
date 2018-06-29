@@ -8,14 +8,14 @@
 
     <ui:composition>
 
-        <p:dialog id="ServiciosOdoEditDlg" widgetVar="ServiciosOdoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleServicios.EditServiciosOdoTitle}">
+        <p:dialog id="ServiciosOdoEditDlg" widgetVar="ServiciosOdoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Editar servicio">
             <h:form id="ServiciosOdoEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid  rendered="#{serviciosOdoController.selected != null}">
+                    <p:panelGrid  styleClass="panelgrid"  rendered="#{serviciosOdoController.selected != null}">
 
                         <p:row>
                             <p:column>
-                                <p:outputLabel value="#{bundleServicios.EditServiciosOdoLabel_nombre}" for="nombre" />
+                                <p:outputLabel value="#{bundleServicios.EditServiciosOdoLabel_nombre}" />
                             </p:column>
 
                             <p:column>
@@ -35,7 +35,7 @@
 
                         <p:row>
                             <p:column>
-                                <p:outputLabel value="#{bundleServicios.EditServiciosOdoLabel_valor}" for="valor" />
+                                <p:outputLabel value="#{bundleServicios.EditServiciosOdoLabel_valor}"/>
                             </p:column>
 
                             <p:column>
@@ -57,10 +57,10 @@
                     </p:panelGrid>
 
                     <p:commandButton actionListener="#{serviciosOdoController.update}" 
-                                     value="#{bundleServicios.Save}" 
+                                     value="Guardar" 
                                      update="display,:ServiciosOdoListForm:datalist" 
                                      oncomplete="PF('ServiciosOdoEditDialog').hide()"/>
-                    <p:commandButton value="#{bundleServicios.Cancel}" 
+                    <p:commandButton value="Cancelar" 
                                      actionListener="#{serviciosOdoController.reiniciarServicio_Odo()}" 
                                      onclick="ServiciosOdoEditDialog.hide()"/>
                 </h:panelGroup>

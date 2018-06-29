@@ -6,118 +6,92 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <h:body>
 
+        <h:form id="PacienteListForm">
+            <br/><CENTER><h1> Gestión de pacientes  </h1></CENTER><br/>
+            <center><p:row>
+                    <p:outputLabel value="Buscar pacientes : "  style="bold"/>
+                    <p:inputText   style="width: 300px" 
+                                   placeholder="Ingrese nombre,apellidos o identificación" 
+                                   value="#{pacienteController.busquedaPaciente}">
+                        <p:ajax update="datalist"  event="keyup" 
+                                listener="#{pacienteController.buscarPaciente()}"/>
+                    </p:inputText>    
+                </p:row>
+            </center>
 
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListPacienteTitle}"></h:outputText>
-        </ui:define>
+            <br><p:dataTable id="datalist" value="#{pacienteController.listaPacientesActivos}" var="item"
+                             paginator="true"
+                             rowKey="#{item.id}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             emptyMessage="¡No se encontraron coincidencias!"
+                             >
 
-        <ui:define name="body">
-            <h:form id="PacienteListForm">
-                <p:panel header="#{bundle.ListPacienteTitle}">
-                    <p:dataTable id="datalist" value="#{pacienteController.items}" var="item"
-                                 selectionMode="single" selection="#{pacienteController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.id}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_identificacion}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.identificacion}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_nombre1}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombres}"/>
+                    </p:column>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPacienteTitle_fechaApertura}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechaApertura}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPacienteTitle_nombre1}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombre1}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPacienteTitle_nombre2}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombre2}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPacienteTitle_apellido1}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.apellido1}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPacienteTitle_apellido2}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.apellido2}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPacienteTitle_identificacion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.identificacion}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPacienteTitle_telefono}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.telefono}"/>
-                        </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundlePaciente.ListPacienteTitle_apellido1}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.apellidos}"/>
+                    </p:column>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPacienteTitle_telefonoPresponsable}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.telefonoPresponsable}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPacienteTitle_ocupacion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.ocupacion}"/>
-                        </p:column>
-                        
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPacienteTitle_facultad}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.facultad.nombre}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPacienteTitle_programa}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.programa.nombre}"/>
-                        </p:column>                      
-                        
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPacienteTitle_tipoIdentificacion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.tipoIdentificacion}"/>
-                        </p:column>
-                        <p:column>
-                            
-                            <p:commandButton id="createButton" icon="ui-icon-plus"    actionListener="#{pacienteController.prepareCreate}" update=":PacienteCreateForm" oncomplete="PF('PacienteCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search"  update=":PacienteViewForm" oncomplete="PF('PacienteViewDialog').show()" disabled="#{empty pacienteController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil"  update=":PacienteEditForm" oncomplete="PF('PacienteEditDialog').show()" disabled="#{empty pacienteController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  actionListener="#{pacienteController.destroy}" update=":growl,datalist" disabled="#{empty pacienteController.selected}"/>
-                        
-                        </p:column>
-                        
-                    </p:dataTable>
-                </p:panel>
+                    <p:column style="width: 150px">
+                        <f:facet name="header">
+                            <h:outputText value="Acciones"/>
+                        </f:facet>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil"  actionListener="#{pacienteController.seleccionarPacienteEdicion(item)}" />
+                        <p:commandButton id="verButton" icon="ui-icon-eye" actionListener="#{pacienteController.seleccionarVer(item)}" />
+                    </p:column>
+
+                    <f:facet name="footer">
+                        <br><p:commandButton id="createButton" icon="ui-icon-plus"   
+                                             value="Registrar paciente"                                         
+                                             update=":PacienteCreateForm" 
+                                             oncomplete="PF('PacienteOdoCreateDialog').show()"/></br>
+                    </f:facet>
+                </p:dataTable>
+            </br>
+        </h:form>
+
+        <ui:include src="CrearPaciente.xhtml"/>
+        <ui:include src="EditarPaciente.xhtml"/>
+        <ui:include src="VerPaciente.xhtml"/>
+        
+        <p:dialog header="Mensaje registro" modal="true" position="center" widgetVar="RegistroExitoso">
+            <h:form id="mensajeFormRegistrar">
+                <h:panelGrid columns="2" >
+                    <p:graphicImage width="50px" height="50px" library="img" name="exitoso.png" />
+                    <p:outputLabel value="La información del paciente se registro con exito" />
+                    <p:commandButton value="Aceptar" onclick="PF('RegistroExitoso').hide()" />
+                </h:panelGrid>
+
             </h:form>
+        </p:dialog>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
-        </ui:define>
-    </ui:composition>
+        <p:dialog header="Mensaje Editar" modal="true" position="center" widgetVar="ActualizacionExitosa">
+            <h:form id="mensajeFormEditar">
+                <h:panelGrid columns="2" >
+                    <p:graphicImage width="50px" height="50px" library="img" name="exitoso.png" />
+                    <p:outputLabel value="La información del paciente se edito con exito" />
+                    <p:commandButton value="Aceptar" action="#{pacienteController.limpiarcamposformulario()}" />
+                </h:panelGrid>
+
+            </h:form>
+        </p:dialog>
+    </h:body>
 
 </html>

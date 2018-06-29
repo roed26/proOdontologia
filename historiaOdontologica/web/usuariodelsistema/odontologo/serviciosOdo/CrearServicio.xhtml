@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ServiciosOdoCreateDlg" widgetVar="ServiciosOdoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleServicios.CreateServiciosOdoTitle}">
+        <p:dialog id="ServiciosOdoCreateDlg" widgetVar="ServiciosOdoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Nuevo servicio">
             <h:form id="ServiciosOdoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid  styleClass="panelgrid" >
@@ -35,14 +35,13 @@
 
                         <p:row>
                             <p:column style=" font-size: 18px; font-weight:bold;color: black">
-                                <p:outputLabel value="#{bundleServicios.CreateServiciosOdoLabel_valor}" for="valor" />
+                                <p:outputLabel value="#{bundleServicios.CreateServiciosOdoLabel_valor}"/>
                             </p:column>
 
                             <p:column>
                                 <p:inputText id="valor" 
                                              value="#{serviciosOdoController.selected.precio}" 
                                              title="#{bundleServicios.CreateServiciosOdoTitle_valor}">
-                                    <f:validator validatorId="ValidarCampoNumerico"> </f:validator>
                                     <f:validator validatorId="ValidarCampoNumericoPositivo"> </f:validator>
                                     <f:validator validatorId="ValidarCampoObligatorio"> </f:validator>
                                     <p:ajax update="msgValor" event="keyup"></p:ajax>
@@ -57,15 +56,11 @@
 
                     </p:panelGrid>
 
-                    <p:commandButton  style="left: 10px; size: 19px; font-weight:bold; color: black; background-color: #97AED7"  
-                                      actionListener="#{serviciosOdoController.registrarServicio_Odo}" 
-                                      value="#{bundleServicios.Save}" 
-                                      update="display,:ServiciosOdoListForm:datalist" 
-                                      oncomplete="handleSubmit(args,'ServiciosOdoCreateDialog');"/>
-                    <p:commandButton style="left: 10px; size: 19px; font-weight:bold; color: black; background-color: #97AED7"  
-                                     value="#{bundleServicios.Cancel}" 
-                                     actionListener="#{serviciosOdoController.reiniciarServicio_Odo()}" 
-                                     onclick="ServiciosOdoCreateDialog.hide()"/>
+                    <p:commandButton action="#{serviciosOdoController.registrarServicio_Odo}" 
+                                     value="Guardar" update="display,:ServiciosOdoListForm:datalist" 
+                                     oncomplete="PF('ServiciosOdoCreateDialog').hide()"/>
+                    <p:commandButton value="Cancelar" onclick="ServiciosOdoCreateDialog.hide()"/>
+                    
                 </h:panelGroup>
             </h:form>
         </p:dialog>

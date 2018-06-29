@@ -28,7 +28,7 @@ public class CargarVistaController implements Serializable {
         this.ruta = "/usuariodelsistema/odontologo/paginaPrincipal.xhtml";
     }
     public void cargarGestionPaciente() {
-        this.ruta = "/usuariodelsistema/odontologo/gestionPaciente.xhtml";
+        this.ruta = "/usuariodelsistema/odontologo/paciente/ListaPaciente.xhtml";
     }
 
     public void cargarRegistrarPaciente() {
