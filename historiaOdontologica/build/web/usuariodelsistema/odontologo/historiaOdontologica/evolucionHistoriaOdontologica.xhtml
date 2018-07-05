@@ -308,6 +308,13 @@ and open the template in the editor.
                 </p:dataTable>
             </h:form>
         </p:dialog>    
+
+        <p:dialog  id="AlergiasPaciente" resizable="false"
+                   widgetVar="AlergiasPacienteDialog" modal="true" width="450" position="center"  
+                   header="Alergias">
+            <p:messages id="msgAlergias" style="font-size: 15px;"  showDetail="true" autoUpdate="true"/>
+           
+        </p:dialog>    
         <p:dialog   widgetVar="registroEvolucionExitosoDialog" closable="false" modal="true" position="center"   header="Mensaje">
             <h:form id="mensajeForm">
                 <h:panelGrid columns="2" >

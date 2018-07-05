@@ -214,3 +214,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+historiaOdontologica/build/web/WEB-INF/classes/com/historiaodontologica/managedbeans/CargarVistaController.class
+historiaOdontologica/nbproject/project.properties
+historiaOdontologica/nbproject/private/private.xml

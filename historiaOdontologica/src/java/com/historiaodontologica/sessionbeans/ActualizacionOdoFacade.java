@@ -62,6 +62,15 @@ public class ActualizacionOdoFacade extends AbstractFacade<ActualizacionOdo> {
 
     }
     
+    public ActualizacionOdo buscarPrimeraActualizacionPorPaciente(int idPaciente) {
+        Query query = getEntityManager().createNamedQuery("ActualizacionOdo.findByPaciente");
+        query.setParameter("idPaciente", idPaciente);
+        List<ActualizacionOdo> resultList = query.getResultList();
+        
+        return resultList.get(0);
+
+    }
+    
     public boolean buscarPorPacienteBool(int idPaciente) {
         Query query = getEntityManager().createNamedQuery("ActualizacionOdo.findByPaciente");
         query.setParameter("idPaciente", idPaciente);

@@ -31,7 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ObsAntOdo.findAll", query = "SELECT o FROM ObsAntOdo o"),
     @NamedQuery(name = "ObsAntOdo.findById", query = "SELECT o FROM ObsAntOdo o WHERE o.id = :id"),
-    @NamedQuery(name = "ObsAntOdo.findByTipo", query = "SELECT o FROM ObsAntOdo o WHERE o.tipo = :tipo")})
+    @NamedQuery(name = "ObsAntOdo.findByTipo", query = "SELECT o FROM ObsAntOdo o WHERE o.tipo = :tipo"),
+    @NamedQuery(name = "ObsAntOdo.findByActualizacionObservacion", query = "SELECT o FROM ObsAntOdo o WHERE o.idActualizacion = :actualizacion AND o.tipo = :tipo")
+})
 public class ObsAntOdo implements Serializable {
 
     private static final long serialVersionUID = 1L;

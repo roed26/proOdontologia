@@ -40,4 +40,18 @@ public class AntOdoFacade extends AbstractFacade<AntecedenteOdo> {
         return resultList;
 
     }
+
+    public AntecedenteOdo buscarPorActualizacionAlergia(ActualizacionOdo actualizacionOdo) {
+        Query query = getEntityManager().createNamedQuery("AntecedenteOdo.findByActualizacionAlergia");
+        query.setParameter("actualizacion", actualizacionOdo);
+        query.setParameter("alergia", "ALERGIAS");
+        query.setParameter("tipo", "PE");
+        List<AntecedenteOdo> resultList = query.getResultList();
+        if (resultList.size() > 0) {
+            return resultList.get(0);
+        } else {
+            return null;
+        }
+
+    }
 }

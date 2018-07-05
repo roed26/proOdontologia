@@ -87,6 +87,10 @@ public class EvolucionHOdontologicaController implements Serializable {
     private DiagnosticoOdoFacade ejbDiagnosticoOdo;
     @EJB
     private OdontogramaFacade ejbOdontograma;
+    @EJB
+    private AntOdoFacade ejbAntecedente;
+    @EJB
+    private ObsAntOdoFacade ejbObservaiconAntecedentes;
 
     //variables booleanas
     private boolean conAcompaniante;
@@ -136,6 +140,7 @@ public class EvolucionHOdontologicaController implements Serializable {
     private String izquierda = "izq_normal.png";
     private String derecha = "der_normal.png";
     private String centro = "centro_normal.png";
+    private String alergias = "";
 
     //fechas
     private Date fechaApertura;
@@ -577,6 +582,14 @@ public class EvolucionHOdontologicaController implements Serializable {
         this.seleccionDienteNecendodoncia = seleccionDienteNecendodoncia;
     }
 
+    public String getAlergias() {
+        return alergias;
+    }
+
+    public void setAlergias(String alergias) {
+        this.alergias = alergias;
+    }
+
     public boolean isSeleccionDienteTtoEndodoncia() {
         return seleccionDienteTtoEndodoncia;
     }
@@ -755,6 +768,9 @@ public class EvolucionHOdontologicaController implements Serializable {
         requestContext.update("InformacionPaciente");
         requestContext.update("evolucionHistoriaOdontologica");
         requestContext.execute("PF('seleccionPacienteDialog').hide()");
+        if (comprobarAlergias()) {
+            requestContext.execute("PF('AlergiasPacienteDialog').show()");
+        }
 
     }
 
@@ -2275,6 +2291,7 @@ public class EvolucionHOdontologicaController implements Serializable {
         requestContext.execute("PF('registroEvolucionExitosoDialog').hide()");
 
     }
+
     private void registrarDiagnostico() {
 
         for (int i = 0; i < listaDiagnosticosTipo.size(); i++) {
@@ -2287,6 +2304,7 @@ public class EvolucionHOdontologicaController implements Serializable {
         }
 
     }
+
     public void cambiarImgOdontograma(String posicion, int posDienteList) {
         switch (posicion) {
             case "arriba":
@@ -2760,6 +2778,31 @@ public class EvolucionHOdontologicaController implements Serializable {
 
         }
 
+    }
+
+    public boolean comprobarAlergias() {
+        boolean conAlergia = false;
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        ActualizacionOdo actualizacionOdoAlergias = new ActualizacionOdo();
+
+        actualizacionOdoAlergias = ejbActualizacionOdo.buscarPrimeraActualizacionPorPaciente(paciente.getId());
+
+        AntecedenteOdo antecedenteOdo = ejbAntecedente.buscarPorActualizacionAlergia(actualizacionOdoAlergias);
+        if (antecedenteOdo != null) {
+            if (antecedenteOdo.getResultado().compareTo("No") == 0) {
+                conAlergia = false;
+            } else {
+                ObsAntOdo obsAntOdo = ejbObservaiconAntecedentes.buscarPorActualizacionAlergia(actualizacionOdoAlergias);
+                if (obsAntOdo != null) {
+                    alergias = obsAntOdo.getObs();
+                    FacesContext.getCurrentInstance().addMessage("msgAlergias", new FacesMessage(FacesMessage.SEVERITY_WARN, "Paciente con las siguientes alergias:", alergias));
+                }
+                conAlergia = true;
+
+                requestContext.update("AlergiasForm");
+            }
+        }
+        return conAlergia;
     }
 
     private void registrarActualizacion() {
