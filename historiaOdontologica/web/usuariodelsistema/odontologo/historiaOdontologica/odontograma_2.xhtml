@@ -1,0 +1,1053 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:body>
+        <p:panelGrid id="panelDiagnostico" style="text-align: center;">
+            <p:row>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteNormal}">
+                    <p:commandLink  >
+                        <p:graphicImage library="img/imgodonto" name="normal.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('normal')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteNormal}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="normal.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('normal')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteCaries}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="caries.png"  />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('caries')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteCaries}">
+                    <p:commandLink  >
+                        <p:graphicImage library="img/imgodonto" name="caries.png"  />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('caries')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteAmalgama}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="amalgama.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('amalgama')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteAmalgama}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="amalgama.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('amalgama')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteObstPlastica}">
+                    <p:commandLink>
+                        <p:graphicImage library="img/imgodonto" name="obst_plastica.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('obst_plastica')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteObstPlastica}" >
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="obst_plastica.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('obst_plastica')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column style="background: #339cdf"  rendered="#{aperturaHOdontologicaController.seleccionDienteObstTemporal}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="obst_temporal.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('obst_temporal')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteObstTemporal}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="obst_temporal.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('obst_temporal')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteConSellante}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="sellante.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('sellante')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteConSellante}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="sellante.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('sellante')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteSinSellante}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="sinsellante.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('sinsellante')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteSinSellante}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="sinsellante.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('sinsellante')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteFaltante}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="faltante.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('faltante')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteFaltante}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="faltante.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('faltante')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteFaltanteExt}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="faltante_ext.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('faltante_ext')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteFaltanteExt}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="faltante_ext.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('faltante_ext')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteExodoncia}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="exodoncia.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('exodoncia')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteExodoncia}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="exodoncia.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('exodoncia')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteProtesis}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="protesis.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('protesis')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteProtesis}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="protesis.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('protesis')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteProtesisTotal}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="protesistotal.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('protesistotal')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteProtesisTotal}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="protesistotal.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('protesistotal')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteNecendodoncia}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="necendodoncia.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('necendodoncia')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteNecendodoncia}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="necendodoncia.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('necendodoncia')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteTtoEndodoncia}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="ttoendodoncia.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('ttoendodoncia')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteTtoEndodoncia}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="ttoendodoncia.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('ttoendodoncia')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteBolsaPer}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="bolsa_per.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('bolsa_per')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteBolsaPer}">
+                    <p:commandLink >
+                        <p:graphicImage library="img/imgodonto" name="bolsa_per.png" />
+                        <p:ajax listener="#{aperturaHOdontologicaController.cambiarSeleccionDiagnosticoDent('bolsa_per')}" update="panelDiagnostico" />
+                    </p:commandLink>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteNormal}">
+                    <p:outputLabel value="Normal"/>    
+                </p:column>
+                <p:column  rendered="#{!aperturaHOdontologicaController.seleccionDienteNormal}">
+                    <p:outputLabel value="Normal"/>    
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteCaries}">
+                    <p:outputLabel value="Caries"/>    
+                </p:column>
+                <p:column  rendered="#{!aperturaHOdontologicaController.seleccionDienteCaries}">
+                    <p:outputLabel value="Caries"/>    
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteAmalgama}">
+                    <p:outputLabel value="Amalgama"/>    
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteAmalgama}">
+                    <p:outputLabel value="Amalgama"/>    
+                </p:column>
+
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteObstPlastica}">
+                    <p:outputLabel value="Obturacion Plástica"/> 
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteObstPlastica}">
+                    <p:outputLabel value="Obturacion Plástica"/>  
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteObstTemporal}">
+                    <p:outputLabel value="Obturacion Temporal"/> 
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteObstTemporal}">
+                    <p:outputLabel value="Obturacion Temporal"/> 
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteConSellante}">
+                    <p:outputLabel value="Con sellante"/> 
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteConSellante}">
+                    <p:outputLabel value="Con sellante"/> 
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteSinSellante}">
+                    <p:outputLabel value="Sin sellante"/>                           
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteSinSellante}">
+                    <p:outputLabel value="Sin sellante"/>  
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteFaltante}">
+                    <p:outputLabel value="Diente Faltante"/>  
+                </p:column>
+                <p:column  rendered="#{!aperturaHOdontologicaController.seleccionDienteFaltante}">
+                    <p:outputLabel value="Diente Faltante"/> 
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteFaltanteExt}">
+                    <p:outputLabel value="Diente Extraido"/>  
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteFaltanteExt}">
+                    <p:outputLabel value="Diente Extraido"/>
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteExodoncia}">
+                    <p:outputLabel value="Exodoncia Indicada"/> 
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteExodoncia}">
+                    <p:outputLabel value="Exodoncia Indicada"/>    
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteProtesis}">
+                    <p:outputLabel value="Protesis fija y nucleos"/>    
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteProtesis}">
+                    <p:outputLabel value="Protesis fija y nucleos"/>   
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteProtesisTotal}">
+                    <p:outputLabel value="Protesis Total"/>   
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteProtesisTotal}">
+                    <p:outputLabel value="Protesis Total"/>  
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteNecendodoncia}">
+                    <p:outputLabel value="Necesita Endodoncia"/>    
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteNecendodoncia}">
+                    <p:outputLabel value="Necesita Endodoncia"/>    
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteTtoEndodoncia}">
+                    <p:outputLabel value="Con Tto. Endodoncia"/>    
+                </p:column>
+                <p:column rendered="#{!aperturaHOdontologicaController.seleccionDienteTtoEndodoncia}">
+                    <p:outputLabel value="Con Tto. Endodoncia"/>    
+                </p:column>
+                <p:column style="background: #339cdf" rendered="#{aperturaHOdontologicaController.seleccionDienteBolsaPer}">
+                    <p:outputLabel value="Bolsa Periodental"/>    
+                </p:column>
+                <p:column  rendered="#{!aperturaHOdontologicaController.seleccionDienteBolsaPer}">
+                    <p:outputLabel value="Bolsa Periodental"/>    
+                </p:column>
+            </p:row>
+        </p:panelGrid>  
+        <br/>
+        <br/>
+        <center>
+            <p:panelGrid id="panelOdontogramaSuperior" 
+                         style="text-align: center; font-weight: bold;" styleClass="panelgrid">
+                <p:row>
+                    <p:column>
+                        <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente18.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente17.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente16.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente15.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente14.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente13.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente12.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente11.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente21.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente22.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente23.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente24.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente25.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente26.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente27.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente28.png" />
+                    </p:column>                            
+
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="18"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="17"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="16"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="15"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="14"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="13"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="12"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="11"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="21"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="22"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="23"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="24"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="25"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="26"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="27"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="28"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="16">
+                        <p:dataGrid var="diente" id="odontogramaGrid" rowIndexVar="i" style="border: none !important"
+                                    value="#{aperturaHOdontologicaController.odontogramaPacienteAdultoSuperior}"
+                                    paginator="false" columns="16">
+                            <p:column>
+                                <p:panel styleClass="panelgrid">
+                                    <span>
+                                        <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaF('arriba',i,'AdultoSuperior')}" >
+                                            <p:graphicImage id="dienteAS" library="img/imgodonto" 
+                                                            style="position: absolute;"
+                                                            name="#{diente.arriba}"                                                   
+                                                            />
+                                            <f:ajax render="@this dienteIS dienteCS dienteDS dienteAbS dienteFNEnS dienteFCEnS dienteFBPS"
+                                                    execute="@this"/>
+                                        </p:commandLink>
+                                        <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaF('izq',i,'AdultoSuperior')}">
+                                            <p:graphicImage id="dienteIS"  library="img/imgodonto" 
+                                                            name="#{diente.izquierda}"                                                   
+                                                            />
+                                            <f:ajax render="@this dienteIS dienteCS dienteDS dienteAbS dienteFNEnS dienteFCEnS dienteFBPS"
+                                                    execute="@this"/>
+                                        </p:commandLink>
+                                        <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaF('centro',i,'AdultoSuperior')}">
+                                            <p:graphicImage id="dienteCS"  library="img/imgodonto" 
+                                                            name="#{diente.centro}"
+                                                            style="position: relative; top:-11px;"
+                                                            />
+                                            <f:ajax render="@this dienteIS dienteCS dienteDS dienteAbS dienteFNEnS dienteFCEnS dienteFBPS"
+                                                    execute="@this"/>
+                                        </p:commandLink>
+                                        <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaF('der',i,'AdultoSuperior')}">
+                                            <p:graphicImage id="dienteDS"  library="img/imgodonto" 
+                                                            name="#{diente.derecha}"                                                   
+                                                            />
+                                            <f:ajax render="@this dienteIS dienteCS dienteDS dienteAbS dienteFNEnS dienteFCEnS dienteFBPS"
+                                                    execute="@this"/>
+                                        </p:commandLink>
+                                        <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaF('abajo',i,'AdultoSuperior')}">
+                                            <p:graphicImage id="dienteAbS"  library="img/imgodonto" 
+                                                            name="#{diente.abajo}"                                                   
+                                                            style="position:relative; top:-13px;"
+                                                            />
+                                            <f:ajax render="@this dienteIS dienteCS dienteDS dienteAbS dienteFNEnS dienteFCEnS dienteFBPS"
+                                                    execute="@this"/>
+                                        </p:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEnS"  library="img/imgodonto" 
+                                                        name="#{diente.afueraNecEnd}"                                                   
+                                                        />
+                                        <p:graphicImage id="dienteFCEnS"  library="img/imgodonto" 
+                                                        name="#{diente.afueraEnd}"                                                   
+                                                        />
+                                        <p:graphicImage id="dienteFBPS"  library="img/imgodonto" 
+                                                        name="#{diente.afueraBolsaPer}"                                                   
+                                                        />
+                                    </span>
+                                </p:panel>
+                            </p:column>
+                        </p:dataGrid>
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
+            <center><p:panelGrid id="panelOdontogramaInfantilSuperior"
+                                 style="text-align: center; font-weight: bold;" styleClass="panelgrid">
+                    <p:row rendered="#{!aperturaHOdontologicaController.esAdulto}">
+
+                        <p:column>
+                            <p:outputLabel value="55"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="54"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="53"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="52"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="51"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="61"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="62"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="63"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="64"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="65"/>
+                        </p:column>
+
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="10" style="width: 500px !important">
+
+                            <p:dataGrid var="diente" id="odontogramaGridInfantilSuperior" rowIndexVar="i"
+                                        value="#{aperturaHOdontologicaController.odontogramaPacienteInfantilSuperior}"
+                                        paginator="false" columns="10" >
+                                <p:column>
+                                    <p:panel styleClass="panelgrid">
+                                        <span >
+                                            <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaInfantil('arriba',i,'AdultoSuperior')}" >
+                                                <p:graphicImage id="dienteAI" library="img/imgodonto" 
+                                                                style="position: absolute;"
+                                                                name="#{diente.arriba}"                                                   
+                                                                />
+                                                <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                        execute="@this"/>
+                                            </p:commandLink>
+                                            <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaInfantil('izq',i,'AdultoSuperior')}">
+                                                <p:graphicImage id="dienteII"  library="img/imgodonto" 
+                                                                name="#{diente.izquierda}"                                                   
+                                                                />
+                                                <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                        execute="@this"/>
+                                            </p:commandLink>
+                                            <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaInfantil('centro',i,'AdultoSuperior')}">
+                                                <p:graphicImage id="dienteCI"  library="img/imgodonto" 
+                                                                name="#{diente.centro}"
+                                                                style="position: relative; top:-11px;"
+                                                                />
+                                                <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                        execute="@this"/>
+                                            </p:commandLink>
+                                            <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaInfantil('der',i,'AdultoSuperior')}">
+                                                <p:graphicImage id="dienteDI"  library="img/imgodonto" 
+                                                                name="#{diente.derecha}"                                                   
+                                                                />
+                                                <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                        execute="@this"/>
+                                            </p:commandLink>
+                                            <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaInfantil('abajo',i,'AdultoSuperior')}">
+                                                <p:graphicImage id="dienteAbI"  library="img/imgodonto" 
+                                                                name="#{diente.abajo}"                                                   
+                                                                style="position:relative; top:-13px;"
+                                                                />
+                                                <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                        execute="@this"/>
+                                            </p:commandLink>
+                                        </span>
+                                        <span>
+                                            <p:graphicImage id="dienteFNEnI"  library="img/imgodonto" 
+                                                            name="#{diente.afueraNecEnd}"                                                   
+                                                            />
+                                            <p:graphicImage id="dienteFCEnI"  library="img/imgodonto" 
+                                                            name="#{diente.afueraEnd}"                                                   
+                                                            />
+                                            <p:graphicImage id="dienteFBPI"  library="img/imgodonto" 
+                                                            name="#{diente.afueraBolsaPer}"                                                   
+                                                            />
+                                        </span>
+                                    </p:panel>
+                                </p:column>
+                            </p:dataGrid>
+                        </p:column>
+                    </p:row>
+
+                </p:panelGrid>
+            </center>
+
+
+            <p:separator/>
+
+            <center><p:panelGrid id="panelOdontogramaInfantilInferior" style="text-align: center; font-weight: bold;" styleClass="panelgrid">
+                    <p:row>
+                        <p:column colspan="10" style="width: 500px !important">
+
+                            <p:dataGrid var="diente" id="odontogramaGridInfantilInferior" rowIndexVar="i"
+                                        value="#{aperturaHOdontologicaController.odontogramaPacienteInfantilInferior}"
+                                        paginator="false" columns="10" >
+                                <p:column>
+                                    <p:panel styleClass="panelgrid">
+                                        <span >
+                                            <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaInfantil('arriba',i,'AdultoInferior')}" >
+                                                <p:graphicImage id="dienteAI" library="img/imgodonto" 
+                                                                style="position: absolute;"
+                                                                name="#{diente.arriba}"                                                   
+                                                                />
+                                                <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                        execute="@this"/>
+                                            </p:commandLink>
+                                            <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaInfantil('izq',i,'AdultoInferior')}">
+                                                <p:graphicImage id="dienteII"  library="img/imgodonto" 
+                                                                name="#{diente.izquierda}"                                                   
+                                                                />
+                                                <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                        execute="@this"/>
+                                            </p:commandLink>
+                                            <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaInfantil('centro',i,'AdultoInferior')}">
+                                                <p:graphicImage id="dienteCI"  library="img/imgodonto" 
+                                                                name="#{diente.centro}"
+                                                                style="position: relative; top:-11px;"
+                                                                />
+                                                <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                        execute="@this"/>
+                                            </p:commandLink>
+                                            <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaInfantil('der',i,'AdultoInferior')}">
+                                                <p:graphicImage id="dienteDI"  library="img/imgodonto" 
+                                                                name="#{diente.derecha}"                                                   
+                                                                />
+                                                <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                        execute="@this"/>
+                                            </p:commandLink>
+                                            <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaInfantil('abajo',i,'AdultoInferior')}">
+                                                <p:graphicImage id="dienteAbI"  library="img/imgodonto" 
+                                                                name="#{diente.abajo}"                                                   
+                                                                style="position:relative; top:-13px;"
+                                                                />
+                                                <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                        execute="@this"/>
+                                            </p:commandLink>
+                                        </span>
+                                        <span>
+                                            <p:graphicImage id="dienteFNEnI"  library="img/imgodonto" 
+                                                            name="#{diente.afueraNecEnd}"                                                   
+                                                            />
+                                            <p:graphicImage id="dienteFCEnI"  library="img/imgodonto" 
+                                                            name="#{diente.afueraEnd}"                                                   
+                                                            />
+                                            <p:graphicImage id="dienteFBPI"  library="img/imgodonto" 
+                                                            name="#{diente.afueraBolsaPer}"                                                   
+                                                            />
+                                        </span>
+                                    </p:panel>
+                                </p:column>
+                            </p:dataGrid>
+                        </p:column>
+                    </p:row>
+                    <p:row rendered="#{!aperturaHOdontologicaController.esAdulto}">
+
+                        <p:column>
+                            <p:outputLabel value="85"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="84"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="83"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="82"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="81"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="71"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="72"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="73"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="74"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="75"/>
+                        </p:column>
+
+                    </p:row>
+                </p:panelGrid>
+            </center>
+            <p:separator rendered="#{!aperturaHOdontologicaController.esAdulto}"/>
+            <p:panelGrid id="panelOdontogramaInferior" 
+                         style="text-align: center; font-weight: bold;" styleClass="panelgrid">
+
+                <p:row>
+                    <p:column colspan="16" >
+                        <p:dataGrid var="diente" id="odontogramaGridInferior" rowIndexVar="i"
+                                    value="#{aperturaHOdontologicaController.odontogramaPacienteAdultoInferior}"
+                                    paginator="false" columns="16" >
+                            <p:column>
+                                <p:panel styleClass="panelgrid">
+                                    <span >
+                                        <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaF('arriba',i,'AdultoInferior')}" >
+                                            <p:graphicImage id="dienteAI" library="img/imgodonto" 
+                                                            style="position: absolute;"
+                                                            name="#{diente.arriba}"                                                   
+                                                            />
+                                            <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                    execute="@this"/>
+                                        </p:commandLink>
+                                        <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaF('izq',i,'AdultoInferior')}">
+                                            <p:graphicImage id="dienteII"  library="img/imgodonto" 
+                                                            name="#{diente.izquierda}"                                                   
+                                                            />
+                                            <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                    execute="@this"/>
+                                        </p:commandLink>
+                                        <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaF('centro',i,'AdultoInferior')}">
+                                            <p:graphicImage id="dienteCI"  library="img/imgodonto" 
+                                                            name="#{diente.centro}"
+                                                            style="position: relative; top:-11px;"
+                                                            />
+                                            <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                    execute="@this"/>
+                                        </p:commandLink>
+                                        <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaF('der',i,'AdultoInferior')}">
+                                            <p:graphicImage id="dienteDI"  library="img/imgodonto" 
+                                                            name="#{diente.derecha}"                                                   
+                                                            />
+                                            <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                    execute="@this"/>
+                                        </p:commandLink>
+                                        <p:commandLink action="#{aperturaHOdontologicaController.cambiarImgOdontogramaF('abajo',i,'AdultoInferior')}">
+                                            <p:graphicImage id="dienteAbI"  library="img/imgodonto" 
+                                                            name="#{diente.abajo}"                                                   
+                                                            style="position:relative; top:-13px;"
+                                                            />
+                                            <f:ajax render="@this dienteII dienteCI dienteDI dienteAbI dienteFNEnI dienteFCEnI dienteFBPI"
+                                                    execute="@this"/>
+                                        </p:commandLink>
+                                    </span>
+                                    <span>
+                                        <p:graphicImage id="dienteFNEnI"  library="img/imgodonto" 
+                                                        name="#{diente.afueraNecEnd}"                                                   
+                                                        />
+                                        <p:graphicImage id="dienteFCEnI"  library="img/imgodonto" 
+                                                        name="#{diente.afueraEnd}"                                                   
+                                                        />
+                                        <p:graphicImage id="dienteFBPI"  library="img/imgodonto" 
+                                                        name="#{diente.afueraBolsaPer}"                                                   
+                                                        />
+                                    </span>
+                                </p:panel>
+                            </p:column>
+                        </p:dataGrid>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="48"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="47"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="46"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="45"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="44"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="43"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="42"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="41"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="31"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="32"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="33"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="34"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="35"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="36"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="37"/>
+                    </p:column>
+                    <p:column>
+                        <p:outputLabel value="38"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente48.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente47.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente46.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente45.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente44.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente43.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente42.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente41.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente31.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente32.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente33.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente34.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="23px" height="50px" library="img/dientes-odontograma" name="diente35.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente36.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente37.png" />
+                    </p:column>                            
+                    <p:column>
+                        <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente38.png" />
+                    </p:column>                            
+                </p:row>
+
+            </p:panelGrid>
+        </center>     
+        <p:separator/>
+        <p:panelGrid id="pnlOclusion" styleClass="panelgrid">
+            <p:row>
+                <p:column>
+                    <p:outputLabel value="Oclusión" />
+                </p:column>
+                <p:column colspan="3">
+                    <p:selectOneRadio  id="idOclusion" value="#{aperturaHOdontologicaController.obsOdontograma.oclusion}">
+                        <f:selectItem itemLabel="Normal" itemValue="Normal" />
+                        <f:selectItem itemLabel="Anormal" itemValue="Anormal" />    
+                    </p:selectOneRadio>
+                </p:column>
+                <p:column>
+                    <p:outputLabel value="Observación" />
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column style="background: #C8CDD6;">
+                    <p:outputLabel value="Indice COP" />
+                </p:column>
+                <p:column style="background: #C8CDD6;">
+                    <p:outputLabel value="Cariados"/>
+                </p:column >
+                <p:column style="background: #C8CDD6;">
+                    <p:outputLabel value="Obturados"/>
+                </p:column>
+                <p:column style="background: #C8CDD6;">
+                    <p:outputLabel value="Perdidos"/>
+                </p:column>
+                <p:column rowspan="2" >
+                    <p:inputTextarea placeholder="Observaciones del odontograma" 
+                                     rows="3" 
+                                     cols="80" 
+                                     id="ObservacionOdontograma" 
+                                     value="#{aperturaHOdontologicaController.obsOdontograma.obs}" 
+                                     title="Observación" />                            
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column style="background: #C8CDD6;">
+                    <p:outputLabel value="Cantidad" />
+                </p:column>
+                <p:column style="background: #C8CDD6;">
+                    <p:inputText value="#{aperturaHOdontologicaController.obsOdontograma.caries}" 
+                                 style="width: 50px"/>
+                </p:column>
+                <p:column style="background: #C8CDD6;">
+                    <p:inputText value="#{aperturaHOdontologicaController.obsOdontograma.obturados}" style="width: 50px"/>
+                </p:column>
+                <p:column style="background: #C8CDD6;">
+                    <p:inputText value="#{aperturaHOdontologicaController.obsOdontograma.perdidos}" style="width: 50px"/>
+                </p:column>
+            </p:row>
+        </p:panelGrid>
+        <p:separator/>
+        <p:panelGrid id="pnlCuadro">
+            <p:row>
+                <p:column colspan="15" style="text-align: center; font-size: 18px; font-weight:bold; color: white; background: #339cdf" >
+                    <p:outputLabel value="Cuadro sintesis" />
+                </p:column>                            
+            </p:row>
+            <p:row>
+                <p:column rowspan="2" style="font-weight: bold;">
+                </p:column>  
+                <p:column  rowspan="2" style="background: #C8CDD6;">
+                    <p:outputLabel value="Dientes presentes" />
+                </p:column>                            
+                <p:column rowspan="2" style="background: #C8CDD6;">
+                    <p:outputLabel value="Dientes faltantes" />
+                </p:column>                            
+                <p:column rowspan="2" style="background: #C8CDD6;">
+                    <p:outputLabel value="Dientes cariados" />
+                </p:column>                            
+                <p:column rowspan="2" style="background: #C8CDD6;">
+                    <p:outputLabel value="Dientes obturados" />
+                </p:column>                            
+                <p:column rowspan="2" style="background: #C8CDD6;">
+                    <p:outputLabel value="Extracc. indc." />
+                </p:column>                            
+                <p:column colspan="3" style="background: #C8CDD6;">
+                    <p:outputLabel value="Protesis existentes" />
+                </p:column>                            
+                <p:column rowspan="2" style="background: #C8CDD6;">
+                    <p:outputLabel value="Tto. conductos" />
+                </p:column>
+                <p:column colspan="3" style="background: #C8CDD6;">
+                    <p:outputLabel value="Anomalias de" />
+                </p:column> 
+                <p:column rowspan="2" style="background: #C8CDD6;">
+                    <p:outputLabel value="Enfermedad periodontal" />
+                </p:column>
+                <p:column rowspan="2" style="background: #C8CDD6;">
+                    <p:outputLabel value="Nucleos" />
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column style="background: #C8CDD6;">
+                    <p:outputLabel value="Fija" />
+                </p:column>                            
+                <p:column style="background: #C8CDD6;">
+                    <p:outputLabel value="Remo" />
+                </p:column>                   
+                <p:column style="background: #C8CDD6;">
+                    <p:outputLabel value="Total" />
+                </p:column>                   
+                <p:column style="background: #C8CDD6;">
+                    <p:outputLabel value="No." />
+                </p:column>                            
+                <p:column style="background: #C8CDD6;">
+                    <p:outputLabel value="Forma" />
+                </p:column>                   
+                <p:column style="background: #C8CDD6;">
+                    <p:outputLabel value="Posición" />
+                </p:column> 
+            </p:row>
+            <p:row>
+                <p:column style="background: #C8CDD6;">
+                    <p:outputLabel value="Maxilar superior" />
+                </p:column>   
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.presentesSup}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.faltantesSup}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.cariadosSup}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.obturacionSup}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.extraIndSup}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.protesisFijaSup}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.protesisRemSup}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.protesisTotSup}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.tratamientoCondSup}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.anomaliasNSup}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.anomaliasForSup}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.anomaliasPosSup}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.enfermedadPeriodentalSup}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.nucleosSup}" style="width: 50px"/>
+                </p:column>                            
+            </p:row>
+            <p:row>
+                <p:column style="background: #C8CDD6; width: 30px">
+                    <p:outputLabel value="Maxilar inferior" />
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.presentesInf}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.faltantesInf}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.cariadosInf}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.obturacionInf}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.extraIndInf}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.protesisFijaInf}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.protesisRemInf}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.protesisTotInf}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.tratamientoCondInf}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.anomaliasNInf}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.anomaliasForInf}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.anomaliasPosInf}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.enfermedadPeriodentalInf}" style="width: 50px"/>
+                </p:column>
+                <p:column>
+                    <p:inputText value="#{aperturaHOdontologicaController.cuadroSintesis.nucleosInf}" style="width: 50px"/>
+                </p:column>
+            </p:row>
+        </p:panelGrid>
+    </h:body>
+</html>

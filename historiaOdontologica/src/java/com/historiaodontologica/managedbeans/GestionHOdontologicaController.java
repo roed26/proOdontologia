@@ -47,6 +47,9 @@ import com.historiaodontologica.sessionbeans.OdontogramaFacade;
 import com.historiaodontologica.sessionbeans.UsuariosSistemaFacade;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -848,6 +851,33 @@ public class GestionHOdontologicaController implements Serializable {
         this.actualizacionOdo = new ActualizacionOdo();
 
         //ActualizacionOdo=this.ejbActualizacionOdo.buscarPorFecha(fechaApertura);
+    }
+
+    public boolean getEsAdulto() {
+        boolean adulto = true;
+        if (pacienteSeleccionado) {
+            Date fechaDeNacimiento = paciente.getFechaNacimiento();
+            Date fechaActual = fechaActual();
+
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate fechaNac = LocalDate.parse(formatoFecha.format(fechaDeNacimiento), fmt);
+            LocalDate ahora = LocalDate.now();
+
+            Period periodo = Period.between(fechaNac, ahora);
+
+            if (periodo.getYears() < 10) {
+                adulto = false;
+            }
+
+        }
+
+        return adulto;
+
+    }
+
+    private Date fechaActual() {
+        GregorianCalendar c = new GregorianCalendar();
+        return c.getTime();
     }
 
     public List<Odontograma> listaOdontograma(ActualizacionOdo actualizacionOdo) {

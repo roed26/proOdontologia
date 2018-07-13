@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -8,61 +9,76 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>        
         <h:outputStylesheet name="./css/style.css"/>
-        <h:outputStylesheet name="./css/styleerror.css"/>
-        <h:outputStylesheet name="./css/ses.css"/>
+        <h:outputStylesheet name="./css/bootstrap.min.css"/>
+        <h:outputStylesheet name="./css/font-awesome.min.css"/>
+        <h:outputStylesheet name="./css/icon-font.min.css"/>
+        <h:outputStylesheet name="./css/animate.css"/>
+        <h:outputStylesheet name="./css/hamburgers.min.css"/>
+        <h:outputStylesheet name="./css/select2.min.css"/>
+        <h:outputStylesheet name="./css/util.css"/>
+        <h:outputStylesheet name="./css/main.css"/>  
+        <h:outputStylesheet name="./css/ises.css"/>
 
-        <title>Alvaro - odontologo</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
+
+        <title>Odontologo</title>
+
     </h:head>
 
-    <h:body>
-      
-        <div id="centrar">
-            
-            <h:form >
-                <center>
-                <header>Iniciar sesión</header>
-                <p:panelGrid style="text-align: left" styleClass="panelgrid" class="transparentBackground" >
-                    <p:row >
-                        <p:column>
-                            <p:inputText class="userNameClass" id="nombreUsuario" placeholder="Usuario"
-                                         value="#{usuarioSessionController.nombreDeUsuario}"  
-                                         label="NombreUsuario" required="true"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column>
-                            <p:password class="passwordClass" id="contrasena" placeholder="Contraseña"
+    <h:body>       
+
+        <div class="limiter">
+            <div class="container-login100" style="background-image: url(resources/img/back.jpg);">
+                <div class="wrap-login100 p-t-190 p-b-30">
+                    <h:form class="login100-form validate-form" id="formLogin">
+                        <span class="login100-form-title p-t-20 p-b-45">
+                            Inicio de sesión
+                        </span>
+
+                        <div class="wrap-input100 validate-input m-b-10" data-validate = "Username is required">
+                            <p:inputText id="nombreUsuario"  placeholder="Usuario" class="input100" 
+                                         label="NombreUsuario" required="true"  value="#{usuarioSessionController.nombreDeUsuario}"  
+                                         requiredMessage="Ingrese nombre de usuario"/>
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-user"></i>
+                            </span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input m-b-10" data-validate = "Password is required">
+                            <p:password id="contrasena" placeholder="Contraseña" class="input100" 
                                         value="#{usuarioSessionController.contrasenia}"
-                                        label="contraseña"  >
-                            </p:password>                          
-                        </p:column>
+                                        label="contraseña" required="true" 
+                                        requiredMessage="Ingrese una contraseña">
+                            </p:password>  
 
-                    </p:row>
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                                <p:commandLink value="¿Has olvidado tu contraseña?"/>
+                            </div>
+                        <div class="container-login100-form-btn p-t-10">
 
-                    <p:row>
-                        <p:column  style="text-align: center; ">
-                            <br/>
-                            <p:link  style="color: blue; font-size: 14px" value="¿Has olvidado tu contraseña?">                                
-                            </p:link>                      
-                        </p:column>                        
-                    </p:row>
-                    <p:row>
-                        <p:column  style="text-align: center; ">
-                            <p:commandButton style="background: gainsboro; width: 150px; color:#000000; font-weight: bold; "
-                                             value="Iniciar sesión" action="#{usuarioSessionController.login()}"
-                                             ajax="false"
+                            <p:commandButton action="#{usuarioSessionController.login()}"
+                                             value="Iniciar sesión" update="formLogin"
+                                             class="login100-form-btn"
                                              />
-                        </p:column>
-                    </p:row>
-                </p:panelGrid>
-                </center>
-            </h:form>
-                
+
+
+                        </div>
+
+
+                    </h:form>
+                </div>
+            </div>
         </div>
+
 
         <p:dialog visible="#{usuarioSessionController.errorSesion}" 
                   resizable="false" width="250"
@@ -70,25 +86,23 @@
                   modal="true" 
                   style="background: #C8CDD6"
                   >
-                <p:panelGrid styleClass="panelgrid" style="text-align:center" >
-                    <p:row >
-                        <p:column  style="background: #C8CDD6">
-                            <p:outputLabel value="El usuario o la contraseña no son correctos" />            
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column  style="background: #C8CDD6">
-                            <p:commandButton value="Aceptar" 
-                                             onclick="PF('errorInicioSesion').hide()"
-                                             />
-                        </p:column>
-                    </p:row>
-                </p:panelGrid>
+            <p:panelGrid styleClass="panelgrid" style="text-align:center" >
+                <p:row >
+                    <p:column  style="background: #C8CDD6">
+                        <p:outputLabel value="El usuario o la contraseña no son correctos" />            
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column  style="background: #C8CDD6">
+                        <p:commandButton value="Aceptar" 
+                                         onclick="PF('errorInicioSesion').hide()"
+                                         />
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
 
         </p:dialog>
 
     </h:body>
-
-
 
 </html>

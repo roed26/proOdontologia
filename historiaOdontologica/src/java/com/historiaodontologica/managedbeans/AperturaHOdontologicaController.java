@@ -7,6 +7,7 @@ package com.historiaodontologica.managedbeans;
 
 import com.historiaodontologica.clases.DetalleServicioPresupuesto;
 import com.historiaodontologica.clases.DiagnosticoTipo;
+import com.historiaodontologica.clases.OdontogramaTemp;
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 import com.historiaodontologica.clases.RespuestasAntecedentesFamiliares;
 import com.historiaodontologica.clases.RespuestasAntecedentesPersonales;
@@ -61,6 +62,9 @@ import com.historiaodontologica.sessionbeans.PresupuestoFacade;
 import com.historiaodontologica.sessionbeans.UsuariosSistemaFacade;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -349,6 +353,11 @@ public class AperturaHOdontologicaController implements Serializable {
     private DetalleServicioPresupuesto detallePresupuestoDes;
     private DetalleServicioPresupuesto detalleServicioPresupuestoEliminar;
     double totalPagar = 0;
+    private List<OdontogramaTemp> odontogramaPaciente;
+    private List<OdontogramaTemp> odontogramaPacienteAdultoSuperior;
+    private List<OdontogramaTemp> odontogramaPacienteAdultoInferior;
+    private List<OdontogramaTemp> odontogramaPacienteInfantilSuperior;
+    private List<OdontogramaTemp> odontogramaPacienteInfantilInferior;
 
     //String
     private String respuestaAntOdo = "No";
@@ -445,7 +454,7 @@ public class AperturaHOdontologicaController implements Serializable {
         respuestasExamenOral = new RespuestasExamenOral();
         tipoIdentificacion = new TipoIdentificacion();
         pacienteApertura = new Paciente();
-
+        odontogramaPaciente = new ArrayList<>();
     }
 
     @PostConstruct
@@ -587,6 +596,14 @@ public class AperturaHOdontologicaController implements Serializable {
         this.listaDiagnosticosTipo = listaDiagnosticosTipo;
     }
 
+    public List<OdontogramaTemp> getOdontogramaPaciente() {
+        return odontogramaPaciente;
+    }
+
+    public void setOdontogramaPaciente(List<OdontogramaTemp> odontogramaPaciente) {
+        this.odontogramaPaciente = odontogramaPaciente;
+    }
+
     public Paciente getPacienteApertura() {
         return pacienteApertura;
     }
@@ -633,6 +650,22 @@ public class AperturaHOdontologicaController implements Serializable {
 
     public void setTotalPagar(double totalPagar) {
         this.totalPagar = totalPagar;
+    }
+
+    public List<OdontogramaTemp> getOdontogramaPacienteAdultoSuperior() {
+        return odontogramaPacienteAdultoSuperior;
+    }
+
+    public void setOdontogramaPacienteAdultoSuperior(List<OdontogramaTemp> odontogramaPacienteAdultoSuperior) {
+        this.odontogramaPacienteAdultoSuperior = odontogramaPacienteAdultoSuperior;
+    }
+
+    public List<OdontogramaTemp> getOdontogramaPacienteAdultoInferior() {
+        return odontogramaPacienteAdultoInferior;
+    }
+
+    public void setOdontogramaPacienteAdultoInferior(List<OdontogramaTemp> odontogramaPacienteAdultoInferior) {
+        this.odontogramaPacienteAdultoInferior = odontogramaPacienteAdultoInferior;
     }
 
     public String getDiagnosticoDX1() {
@@ -789,6 +822,22 @@ public class AperturaHOdontologicaController implements Serializable {
 
     public void setSeleccionDienteProtesis(boolean seleccionDienteProtesis) {
         this.seleccionDienteProtesis = seleccionDienteProtesis;
+    }
+
+    public List<OdontogramaTemp> getOdontogramaPacienteInfantilSuperior() {
+        return odontogramaPacienteInfantilSuperior;
+    }
+
+    public void setOdontogramaPacienteInfantilSuperior(List<OdontogramaTemp> odontogramaPacienteInfantilSuperior) {
+        this.odontogramaPacienteInfantilSuperior = odontogramaPacienteInfantilSuperior;
+    }
+
+    public List<OdontogramaTemp> getOdontogramaPacienteInfantilInferior() {
+        return odontogramaPacienteInfantilInferior;
+    }
+
+    public void setOdontogramaPacienteInfantilInferior(List<OdontogramaTemp> odontogramaPacienteInfantilInferior) {
+        this.odontogramaPacienteInfantilInferior = odontogramaPacienteInfantilInferior;
     }
 
     public boolean isSeleccionDienteProtesisTotal() {
@@ -1047,7 +1096,7 @@ public class AperturaHOdontologicaController implements Serializable {
         requestContext.execute("PF('dlgMensajeAdventencia').show()");
 
     }
-    
+
     public void abrirMensajeAdvertenciaServicio(DetalleServicioPresupuesto detallePresupuesto) {
         this.detalleServicioPresupuestoEliminar = detallePresupuesto;
         RequestContext requestContext = RequestContext.getCurrentInstance();
@@ -1246,7 +1295,7 @@ public class AperturaHOdontologicaController implements Serializable {
         registrarExamenEstomatologico();//Registro examen estomatologico
         registrarExamenOral();//registro examen oral
         registrarHigieneOral();//registro de higiene oral
-        registrarOdontograma();//registro odontograma
+        registrarOdontogramaCopia();//registro odontograma
         registrarDiagnostico();//registro diagnostico
         registrarEvolucion();//registro evolucion
         registrarObservacionOdontograma();
@@ -1545,7 +1594,12 @@ public class AperturaHOdontologicaController implements Serializable {
         switch (posicion) {
             case "arriba":
                 if (diagnosticoDiente.equalsIgnoreCase("caries")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_caries.png");
+                    OdontogramaTemp odontogramaTemp = new OdontogramaTemp();
+                    odontogramaTemp = odontogramaPaciente.get(posDienteList);
+                    odontogramaTemp.setArriba("arriba_caries.png");
+                    odontogramaPaciente.set(posDienteList, odontogramaTemp);
+                    odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+                    //listaOdontogramaArriba.set(posDienteList, "arriba_caries.png");
                     contarCaries(posDienteList);
                 } else if (diagnosticoDiente.equalsIgnoreCase("normal")) {
                     listaOdontogramaArriba.set(posDienteList, "arriba_normal.png");
@@ -1562,12 +1616,18 @@ public class AperturaHOdontologicaController implements Serializable {
                 } else if (diagnosticoDiente.equalsIgnoreCase("sinsellante")) {
                     listaOdontogramaArriba.set(posDienteList, "arriba_sinsellante.png");
                 } else if (diagnosticoDiente.equalsIgnoreCase("faltante")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_faltante.png");
+                    /*listaOdontogramaArriba.set(posDienteList, "arriba_faltante.png");
                     listaOdontogramaAbajo.set(posDienteList, "abajo_faltante.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_faltante.png");
+                    listaOdontogramaCentro.set(posDienteList, "centro_faltante.png");*/
+                    OdontogramaTemp odontogramaTemp = new OdontogramaTemp();
+                    odontogramaTemp = odontogramaPaciente.get(posDienteList);
+                    odontogramaTemp.setArriba("arriba_faltante.png");
+                    odontogramaTemp.setAbajo("abajo_faltante.png");
+                    odontogramaTemp.setCentro("centro_faltante.png");
+                    odontogramaPaciente.set(posDienteList, odontogramaTemp);
                     contarDientesPerdidos(posDienteList);
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
+                    /*RequestContext requestContext = RequestContext.getCurrentInstance();
+                    requestContext.update("aperturaHistoriaOdontologica");*/
                 } else if (diagnosticoDiente.equalsIgnoreCase("faltante_ext")) {
                     listaOdontogramaArriba.set(posDienteList, "arriba_faltante_ext.png");
                     listaOdontogramaAbajo.set(posDienteList, "abajo_faltante_ext.png");
@@ -1948,7 +2008,991 @@ public class AperturaHOdontologicaController implements Serializable {
 
     }
 
+    public void cambiarImgOdontogramaF(String posicion, int posDienteList, String lista) {
+        OdontogramaTemp odontogramaTemp = new OdontogramaTemp();
+        String nombreImagen = posicion;
+
+        if (diagnosticoDiente.equalsIgnoreCase("caries")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_caries.png");
+                }
+
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_caries.png");
+                }
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+
+            contarCariesCopia(posDienteList, lista);
+        } else if (diagnosticoDiente.equalsIgnoreCase("normal")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_normal.png");
+                }
+
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_normal.png");
+                }
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+        } else if (diagnosticoDiente.equalsIgnoreCase("amalgama")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_amalgama.png");
+                }
+
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_amalgama.png");
+                }
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+
+            contarObturados(posDienteList);
+        } else if (diagnosticoDiente.equalsIgnoreCase("obst_plastica")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_obst_plastica.png");
+                }
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_obst_plastica.png");
+                }
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+            contarObturados(posDienteList);
+        } else if (diagnosticoDiente.equalsIgnoreCase("obst_temporal")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_obst_temporal.png");
+                }
+
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_obst_temporal.png");
+                }
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+
+        } else if (diagnosticoDiente.equalsIgnoreCase("sellante")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_sellante.png");
+                }
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_sellante.png");
+                }
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+
+        } else if (diagnosticoDiente.equalsIgnoreCase("sinsellante")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_sinsellante.png");
+                }
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_sinsellante.png");
+                }
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+
+        } else if (diagnosticoDiente.equalsIgnoreCase("faltante")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_faltante.png");
+                odontogramaTemp.setAbajo("abajo_faltante.png");
+                odontogramaTemp.setCentro("centro_faltante.png");
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_faltante.png");
+                odontogramaTemp.setAbajo("abajo_faltante.png");
+                odontogramaTemp.setCentro("centro_faltante.png");
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+            contarDientesPerdidos(posDienteList);
+        } else if (diagnosticoDiente.equalsIgnoreCase("faltante_ext")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_faltante_ext.png");
+                odontogramaTemp.setAbajo("abajo_faltante_ext.png");
+                odontogramaTemp.setCentro("centro_faltante_ext.png");
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_faltante_ext.png");
+                odontogramaTemp.setAbajo("abajo_faltante_ext.png");
+                odontogramaTemp.setCentro("centro_faltante_ext.png");
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+
+            contarDientesPerdidos(posDienteList);
+
+        } else if (diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_exodoncia.png");
+                odontogramaTemp.setAbajo("abajo_exodoncia.png");
+                odontogramaTemp.setCentro("centro_exodoncia.png");
+                odontogramaTemp.setIzquierda("izq_exodoncia.png");
+                odontogramaTemp.setDerecha("der_exodoncia.png");
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_exodoncia.png");
+                odontogramaTemp.setAbajo("abajo_exodoncia.png");
+                odontogramaTemp.setCentro("centro_exodoncia.png");
+                odontogramaTemp.setIzquierda("izq_exodoncia.png");
+                odontogramaTemp.setDerecha("der_exodoncia.png");
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+
+        } else if (diagnosticoDiente.equalsIgnoreCase("protesis")) {
+
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_protesis.png");
+                odontogramaTemp.setAbajo("abajo_protesis.png");
+                odontogramaTemp.setCentro("centro_protesis.png");
+                odontogramaTemp.setIzquierda("izq_protesis.png");
+                odontogramaTemp.setDerecha("der_protesis.png");
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_protesis.png");
+                odontogramaTemp.setAbajo("abajo_protesis.png");
+                odontogramaTemp.setCentro("centro_protesis.png");
+                odontogramaTemp.setIzquierda("izq_protesis.png");
+                odontogramaTemp.setDerecha("der_protesis.png");
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+
+        } else if (diagnosticoDiente.equalsIgnoreCase("protesistotal")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_protesistotal.png");
+                odontogramaTemp.setAbajo("abajo_protesistotal.png");
+                odontogramaTemp.setCentro("centro_protesistotal.png");
+                odontogramaTemp.setIzquierda("izq_protesistotal.png");
+                odontogramaTemp.setDerecha("der_protesistotal.png");
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_protesistotal.png");
+                odontogramaTemp.setAbajo("abajo_protesistotal.png");
+                odontogramaTemp.setCentro("centro_protesistotal.png");
+                odontogramaTemp.setIzquierda("izq_protesistotal.png");
+                odontogramaTemp.setDerecha("der_protesistotal.png");
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+        } else if (diagnosticoDiente.equalsIgnoreCase("necendodoncia")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                odontogramaTemp.setAfueraNecEnd("necendodoncia_A.png");
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                odontogramaTemp.setAfueraNecEnd("necendodoncia_A.png");
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+        } else if (diagnosticoDiente.equalsIgnoreCase("ttoendodoncia")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                odontogramaTemp.setAfueraEnd("ttoendodoncia_A.png");
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                odontogramaTemp.setAfueraEnd("ttoendodoncia_A.png");
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+
+        } else if (diagnosticoDiente.equalsIgnoreCase("bolsa_per")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
+                odontogramaTemp.setAfueraBolsaPer("bolsa_per_A.png");
+                odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteAdultoInferior.get(posDienteList);
+                odontogramaTemp.setAfueraBolsaPer("bolsa_per_A.png");
+                odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
+            }
+        }
+    }
+
+    public void cambiarImgOdontogramaInfantil(String posicion, int posDienteList, String lista) {
+        OdontogramaTemp odontogramaTemp = new OdontogramaTemp();
+        String nombreImagen = posicion;
+
+        if (diagnosticoDiente.equalsIgnoreCase("caries")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_caries.png");
+                }
+
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_caries.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_caries.png");
+                }
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+
+            contarCariesCopia(posDienteList, lista);
+        } else if (diagnosticoDiente.equalsIgnoreCase("normal")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_normal.png");
+                }
+
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_normal.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_normal.png");
+                }
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+        } else if (diagnosticoDiente.equalsIgnoreCase("amalgama")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_amalgama.png");
+                }
+
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_amalgama.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_amalgama.png");
+                }
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+
+            contarObturados(posDienteList);
+        } else if (diagnosticoDiente.equalsIgnoreCase("obst_plastica")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_obst_plastica.png");
+                }
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_obst_plastica.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_obst_plastica.png");
+                }
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+            contarObturados(posDienteList);
+        } else if (diagnosticoDiente.equalsIgnoreCase("obst_temporal")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_obst_temporal.png");
+                }
+
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_obst_temporal.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_obst_temporal.png");
+                }
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+
+        } else if (diagnosticoDiente.equalsIgnoreCase("sellante")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_sellante.png");
+                }
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_sellante.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_sellante.png");
+                }
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+
+        } else if (diagnosticoDiente.equalsIgnoreCase("sinsellante")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_sinsellante.png");
+                }
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                if (nombreImagen.compareTo("arriba") == 0) {
+                    odontogramaTemp.setArriba(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("abajo") == 0) {
+                    odontogramaTemp.setAbajo(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("centro") == 0) {
+                    odontogramaTemp.setCentro(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("der") == 0) {
+                    odontogramaTemp.setDerecha(nombreImagen + "_sinsellante.png");
+                } else if (nombreImagen.compareTo("izq") == 0) {
+                    odontogramaTemp.setIzquierda(nombreImagen + "_sinsellante.png");
+                }
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+
+        } else if (diagnosticoDiente.equalsIgnoreCase("faltante")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_faltante.png");
+                odontogramaTemp.setAbajo("abajo_faltante.png");
+                odontogramaTemp.setCentro("centro_faltante.png");
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_faltante.png");
+                odontogramaTemp.setAbajo("abajo_faltante.png");
+                odontogramaTemp.setCentro("centro_faltante.png");
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+            contarDientesPerdidos(posDienteList);
+        } else if (diagnosticoDiente.equalsIgnoreCase("faltante_ext")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_faltante_ext.png");
+                odontogramaTemp.setAbajo("abajo_faltante_ext.png");
+                odontogramaTemp.setCentro("centro_faltante_ext.png");
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_faltante_ext.png");
+                odontogramaTemp.setAbajo("abajo_faltante_ext.png");
+                odontogramaTemp.setCentro("centro_faltante_ext.png");
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+
+            contarDientesPerdidos(posDienteList);
+
+        } else if (diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_exodoncia.png");
+                odontogramaTemp.setAbajo("abajo_exodoncia.png");
+                odontogramaTemp.setCentro("centro_exodoncia.png");
+                odontogramaTemp.setIzquierda("izq_exodoncia.png");
+                odontogramaTemp.setDerecha("der_exodoncia.png");
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_exodoncia.png");
+                odontogramaTemp.setAbajo("abajo_exodoncia.png");
+                odontogramaTemp.setCentro("centro_exodoncia.png");
+                odontogramaTemp.setIzquierda("izq_exodoncia.png");
+                odontogramaTemp.setDerecha("der_exodoncia.png");
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+
+        } else if (diagnosticoDiente.equalsIgnoreCase("protesis")) {
+
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_protesis.png");
+                odontogramaTemp.setAbajo("abajo_protesis.png");
+                odontogramaTemp.setCentro("centro_protesis.png");
+                odontogramaTemp.setIzquierda("izq_protesis.png");
+                odontogramaTemp.setDerecha("der_protesis.png");
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_protesis.png");
+                odontogramaTemp.setAbajo("abajo_protesis.png");
+                odontogramaTemp.setCentro("centro_protesis.png");
+                odontogramaTemp.setIzquierda("izq_protesis.png");
+                odontogramaTemp.setDerecha("der_protesis.png");
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+
+        } else if (diagnosticoDiente.equalsIgnoreCase("protesistotal")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_protesistotal.png");
+                odontogramaTemp.setAbajo("abajo_protesistotal.png");
+                odontogramaTemp.setCentro("centro_protesistotal.png");
+                odontogramaTemp.setIzquierda("izq_protesistotal.png");
+                odontogramaTemp.setDerecha("der_protesistotal.png");
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                odontogramaTemp.setArriba("arriba_protesistotal.png");
+                odontogramaTemp.setAbajo("abajo_protesistotal.png");
+                odontogramaTemp.setCentro("centro_protesistotal.png");
+                odontogramaTemp.setIzquierda("izq_protesistotal.png");
+                odontogramaTemp.setDerecha("der_protesistotal.png");
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+        } else if (diagnosticoDiente.equalsIgnoreCase("necendodoncia")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                odontogramaTemp.setAfueraNecEnd("necendodoncia_A.png");
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                odontogramaTemp.setAfueraNecEnd("necendodoncia_A.png");
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+        } else if (diagnosticoDiente.equalsIgnoreCase("ttoendodoncia")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                odontogramaTemp.setAfueraEnd("ttoendodoncia_A.png");
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                odontogramaTemp.setAfueraEnd("ttoendodoncia_A.png");
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+
+        } else if (diagnosticoDiente.equalsIgnoreCase("bolsa_per")) {
+            if (lista.compareTo("AdultoSuperior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
+                odontogramaTemp.setAfueraBolsaPer("bolsa_per_A.png");
+                odontogramaPacienteInfantilSuperior.set(posDienteList, odontogramaTemp);
+            } else if (lista.compareTo("AdultoInferior") == 0) {
+                odontogramaTemp = odontogramaPacienteInfantilInferior.get(posDienteList);
+                odontogramaTemp.setAfueraBolsaPer("bolsa_per_A.png");
+                odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
+            }
+        }
+    }
+
     private void contarCaries(int posDiente) {
+        if (posDiente == 0 && !contCariesD18) {
+            contCariesD18 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 1 && !contCariesD17) {
+            contCariesD17 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 2 && !contCariesD16) {
+            contCariesD16 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 3 && !contCariesD15) {
+            contCariesD15 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 4 && !contCariesD14) {
+            contCariesD14 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 5 && !contCariesD13) {
+            contCariesD13 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 6 && !contCariesD12) {
+            contCariesD12 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 7 && !contCariesD11) {
+            contCariesD11 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 8 && !contCariesD21) {
+            contCariesD21 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 9 && !contCariesD22) {
+            contCariesD22 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 10 && !contCariesD23) {
+            contCariesD23 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 11 && !contCariesD24) {
+            contCariesD24 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 12 && !contCariesD25) {
+            contCariesD25 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 13 && !contCariesD26) {
+            contCariesD26 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 14 && !contCariesD27) {
+            contCariesD27 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 15 && !contCariesD28) {
+            contCariesD28 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+        } else if (posDiente == 16 && !contCariesD48) {
+            contCariesD48 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 17 && !contCariesD47) {
+            contCariesD47 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 18 && !contCariesD46) {
+            contCariesD46 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 19 && !contCariesD45) {
+            contCariesD45 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 20 && !contCariesD44) {
+            contCariesD44 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 21 && !contCariesD43) {
+            contCariesD43 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 22 && !contCariesD42) {
+            contCariesD42 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 23 && !contCariesD41) {
+            contCariesD41 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 24 && !contCariesD31) {
+            contCariesD31 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 25 && !contCariesD32) {
+            contCariesD32 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 26 && !contCariesD33) {
+            contCariesD33 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 27 && !contCariesD34) {
+            contCariesD34 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 28 && !contCariesD35) {
+            contCariesD35 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 29 && !contCariesD36) {
+            contCariesD36 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 30 && !contCariesD37) {
+            contCariesD37 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 31 && !contCariesD38) {
+            contCariesD38 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+        } else if (posDiente == 32 && !contCariesD55) {
+            contCariesD55 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 33 && !contCariesD54) {
+            contCariesD54 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 34 && !contCariesD53) {
+            contCariesD53 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 35 && !contCariesD52) {
+            contCariesD52 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 36 && !contCariesD51) {
+            contCariesD51 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 37 && !contCariesD61) {
+            contCariesD61 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 38 && !contCariesD62) {
+            contCariesD62 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 39 && !contCariesD63) {
+            contCariesD63 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 40 && !contCariesD64) {
+            contCariesD64 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 41 && !contCariesD65) {
+            contCariesD65 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 42 && !contCariesD85) {
+            contCariesD85 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 43 && !contCariesD84) {
+            contCariesD84 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 44 && !contCariesD83) {
+            contCariesD83 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 45 && !contCariesD82) {
+            contCariesD82 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 46 && !contCariesD81) {
+            contCariesD81 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 47 && !contCariesD71) {
+            contCariesD71 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 48 && !contCariesD72) {
+            contCariesD72 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 49 && !contCariesD73) {
+            contCariesD73 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 50 && !contCariesD74) {
+            contCariesD74 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        } else if (posDiente == 51 && !contCariesD75) {
+            contCariesD75 = true;
+            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
+            obsOdontograma.setCaries("" + contadorCaries);
+        }
+
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.update("aperturaHistoriaOdontologica");
+
+    }
+
+    private void contarCariesCopia(int posDiente, String posicion) {
+        if (posicion.compareTo("AdultoSuperior") == 0) {
+
+        } else if (posicion.compareTo("AdultoInferior") == 0) {
+            posDiente = posDiente + 16;
+        }
+
         if (posDiente == 0 && !contCariesD18) {
             contCariesD18 = true;
             int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
@@ -2504,7 +3548,8 @@ public class AperturaHOdontologicaController implements Serializable {
         }
 
         RequestContext requestContext = RequestContext.getCurrentInstance();
-        requestContext.update("aperturaHistoriaOdontologica");
+        requestContext.update("aperturaHistoriaOdontologica:pnlCuadro");
+        requestContext.update("aperturaHistoriaOdontologica:pnlOclusion");
 
     }
 
@@ -2824,6 +3869,10 @@ public class AperturaHOdontologicaController implements Serializable {
         this.listaOdontogramaFueraBolsaPer = new ArrayList<>();
         this.listaOdontogramaFueraEndodoncia = new ArrayList<>();
         this.listaOdontogramaFueraNecEndodoncia = new ArrayList<>();
+        this.odontogramaPacienteAdultoSuperior = new ArrayList<>();
+        this.odontogramaPacienteAdultoInferior = new ArrayList<>();
+        this.odontogramaPacienteInfantilSuperior = new ArrayList<>();
+        this.odontogramaPacienteInfantilInferior = new ArrayList<>();
 
         for (int i = 0; i < 52; i++) {
             this.listaOdontogramaArriba.add("arriba_normal.png");
@@ -2834,6 +3883,29 @@ public class AperturaHOdontologicaController implements Serializable {
             this.listaOdontogramaFueraBolsaPer.add("fuera.png");
             this.listaOdontogramaFueraEndodoncia.add("fuera.png");
             this.listaOdontogramaFueraNecEndodoncia.add("fuera.png");
+            OdontogramaTemp odontogramaTemp = new OdontogramaTemp();
+            odontogramaTemp.setArriba("arriba_normal.png");
+            odontogramaTemp.setAbajo("abajo_normal.png");
+            odontogramaTemp.setIzquierda("izq_normal.png");
+            odontogramaTemp.setDerecha("der_normal.png");
+            odontogramaTemp.setCentro("centro_normal.png");
+            odontogramaTemp.setAfueraEnd("fuera.png");
+            odontogramaTemp.setAfueraNecEnd("fuera.png");
+            odontogramaTemp.setAfueraBolsaPer("fuera.png");
+            odontogramaPaciente.add(odontogramaTemp);
+            if (i >= 0 && i < 16) {
+                odontogramaPacienteAdultoSuperior.add(odontogramaTemp);
+            }
+            if (i >= 16 && i < 32) {
+                odontogramaPacienteAdultoInferior.add(odontogramaTemp);
+            }
+
+            if (i >= 32 && i < 42) {
+                odontogramaPacienteInfantilSuperior.add(odontogramaTemp);
+            }
+            if (i >= 42 && i < 52) {
+                odontogramaPacienteInfantilInferior.add(odontogramaTemp);
+            }
 
         }
     }
@@ -3040,6 +4112,7 @@ public class AperturaHOdontologicaController implements Serializable {
         this.ejbHigiene.create(higiene);
     }
 
+    /*
     private void registrarOdontograma() {
         int contDientesArribaIzq = 18, contDientesArribaDer = 21, contDientesAbajoIzq = 48, contDientesAbajoDer = 31;
         int contDientesCentroAIzq = 55, contDientesCentroADer = 61, contDientesCentroAbIzq = 85, contDientesCentroAbDer = 71;
@@ -3083,6 +4156,96 @@ public class AperturaHOdontologicaController implements Serializable {
             ejbOdontograma.create(odontograma);
         }
     }
+     */
+    private void registrarOdontogramaCopia() {
+        int contDientesArribaIzq = 18, contDientesArribaDer = 21, contDientesAbajoIzq = 48, contDientesAbajoDer = 31;
+        int contDientesCentroAIzq = 55, contDientesCentroADer = 61, contDientesCentroAbIzq = 85, contDientesCentroAbDer = 71;
+        for (int i = 0; i < 16; i++) {
+            Odontograma odontograma = new Odontograma();
+            if (i >= 0 && i < 8) {
+                odontograma.setDiente("" + contDientesArribaIzq);
+                contDientesArribaIzq--;
+            } else if (i >= 8 && i < 16) {
+                odontograma.setDiente("" + contDientesArribaDer);
+                contDientesArribaDer++;
+            }
+            odontograma.setIdActualizacion(actualizacionOdo);
+            odontograma.setImgAbajo(odontogramaPacienteAdultoSuperior.get(i).getAbajo());
+            odontograma.setImgArriba(odontogramaPacienteAdultoSuperior.get(i).getArriba());
+            odontograma.setImgCentro(odontogramaPacienteAdultoSuperior.get(i).getCentro());
+            odontograma.setImgIzq(odontogramaPacienteAdultoSuperior.get(i).getIzquierda());
+            odontograma.setImgDer(odontogramaPacienteAdultoSuperior.get(i).getDerecha());
+            odontograma.setImgFueraBolPeri(odontogramaPacienteAdultoSuperior.get(i).getAfueraBolsaPer());
+            odontograma.setImgFueraEnd(odontogramaPacienteAdultoSuperior.get(i).getAfueraEnd());
+            odontograma.setImgFueraNEnd(odontogramaPacienteAdultoSuperior.get(i).getAfueraNecEnd());
+            ejbOdontograma.create(odontograma);
+        }
+        for (int i = 0; i < 16; i++) {
+            Odontograma odontograma = new Odontograma();
+            if (i >= 0 && i < 8) {
+                odontograma.setDiente("" + contDientesAbajoIzq);
+                contDientesAbajoIzq--;
+            } else if (i >= 8 && i < 16) {
+                odontograma.setDiente("" + contDientesAbajoDer);
+                contDientesAbajoDer++;
+            }
+
+            odontograma.setIdActualizacion(actualizacionOdo);
+            odontograma.setImgAbajo(odontogramaPacienteAdultoInferior.get(i).getAbajo());
+            odontograma.setImgArriba(odontogramaPacienteAdultoInferior.get(i).getArriba());
+            odontograma.setImgCentro(odontogramaPacienteAdultoInferior.get(i).getCentro());
+            odontograma.setImgIzq(odontogramaPacienteAdultoInferior.get(i).getIzquierda());
+            odontograma.setImgDer(odontogramaPacienteAdultoInferior.get(i).getDerecha());
+            odontograma.setImgFueraBolPeri(odontogramaPacienteAdultoInferior.get(i).getAfueraBolsaPer());
+            odontograma.setImgFueraEnd(odontogramaPacienteAdultoInferior.get(i).getAfueraEnd());
+            odontograma.setImgFueraNEnd(odontogramaPacienteAdultoInferior.get(i).getAfueraNecEnd());
+            ejbOdontograma.create(odontograma);
+        }
+        if (!getEsAdulto()) {
+            for (int i = 0; i < 10; i++) {
+                Odontograma odontograma = new Odontograma();
+                if (i >= 0 && i < 5) {
+                    odontograma.setDiente("" + contDientesCentroAIzq);
+                    contDientesCentroAIzq--;
+                } else if (i >= 5 && i < 10) {
+                    odontograma.setDiente("" + contDientesCentroADer);
+                    contDientesCentroADer++;
+                }
+
+                odontograma.setIdActualizacion(actualizacionOdo);
+                odontograma.setImgAbajo(odontogramaPacienteInfantilSuperior.get(i).getAbajo());
+                odontograma.setImgArriba(odontogramaPacienteInfantilSuperior.get(i).getArriba());
+                odontograma.setImgCentro(odontogramaPacienteInfantilSuperior.get(i).getCentro());
+                odontograma.setImgIzq(odontogramaPacienteInfantilSuperior.get(i).getIzquierda());
+                odontograma.setImgDer(odontogramaPacienteInfantilSuperior.get(i).getDerecha());
+                odontograma.setImgFueraBolPeri(odontogramaPacienteInfantilSuperior.get(i).getAfueraBolsaPer());
+                odontograma.setImgFueraEnd(odontogramaPacienteInfantilSuperior.get(i).getAfueraEnd());
+                odontograma.setImgFueraNEnd(odontogramaPacienteInfantilSuperior.get(i).getAfueraNecEnd());
+                ejbOdontograma.create(odontograma);
+            }
+            for (int i = 0; i < 10; i++) {
+                Odontograma odontograma = new Odontograma();
+                if (i >= 0 && i < 5) {
+                    odontograma.setDiente("" + contDientesCentroAbIzq);
+                    contDientesCentroAbIzq--;
+                } else if (i >= 5 && i < 10) {
+                    odontograma.setDiente("" + contDientesCentroAbDer);
+                    contDientesCentroAbDer++;
+                }
+
+                odontograma.setIdActualizacion(actualizacionOdo);
+                odontograma.setImgAbajo(odontogramaPacienteInfantilInferior.get(i).getAbajo());
+                odontograma.setImgArriba(odontogramaPacienteInfantilInferior.get(i).getArriba());
+                odontograma.setImgCentro(odontogramaPacienteInfantilInferior.get(i).getCentro());
+                odontograma.setImgIzq(odontogramaPacienteInfantilInferior.get(i).getIzquierda());
+                odontograma.setImgDer(odontogramaPacienteInfantilInferior.get(i).getDerecha());
+                odontograma.setImgFueraBolPeri(odontogramaPacienteInfantilInferior.get(i).getAfueraBolsaPer());
+                odontograma.setImgFueraEnd(odontogramaPacienteInfantilInferior.get(i).getAfueraEnd());
+                odontograma.setImgFueraNEnd(odontogramaPacienteInfantilInferior.get(i).getAfueraNecEnd());
+                ejbOdontograma.create(odontograma);
+            }
+        }
+    }
 
     public void seleccionarDiagnostico(Diagnosticocie10Odo diagnostico) {
         RequestContext requestcontext = RequestContext.getCurrentInstance();
@@ -3124,6 +4287,7 @@ public class AperturaHOdontologicaController implements Serializable {
         requestcontext.execute("PF('dlgMensajeAdventencia').hide()");
 
     }
+
     public void eliminarServicioDeLista() {
         RequestContext requestcontext = RequestContext.getCurrentInstance();
 
@@ -3269,6 +4433,28 @@ public class AperturaHOdontologicaController implements Serializable {
 
             ejbDetalleServicio.create(detalleServicio);
         }
+    }
+
+    public boolean getEsAdulto() {
+        boolean adulto = true;
+        if (pacienteSeleccionado) {
+            Date fechaDeNacimiento = paciente.getFechaNacimiento();
+            Date fechaActual = asignarFechaApertura();
+
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate fechaNac = LocalDate.parse(formatoFecha.format(fechaDeNacimiento), fmt);
+            LocalDate ahora = LocalDate.now();
+
+            Period periodo = Period.between(fechaNac, ahora);
+
+            if (periodo.getYears() < 10) {
+                adulto = false;
+            }
+
+        }
+
+        return adulto;
+
     }
 
     public void sumaCantidad(DetalleServicioPresupuesto detalleServicioP) {

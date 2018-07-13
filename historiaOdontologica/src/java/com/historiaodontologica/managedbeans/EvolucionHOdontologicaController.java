@@ -50,6 +50,9 @@ import com.historiaodontologica.sessionbeans.OdontogramaFacade;
 import com.historiaodontologica.sessionbeans.UsuariosSistemaFacade;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -2766,16 +2769,30 @@ public class EvolucionHOdontologicaController implements Serializable {
         this.listaOdontogramaFueraNecEndodoncia = new ArrayList<>();
         List<Odontograma> odontogramaActual = new ArrayList<>();
         odontogramaActual = ejbOdontograma.buscarPorActualizacion(actualizacionOdo);
-        for (int i = 0; i < 52; i++) {
-            this.listaOdontogramaArriba.add(odontogramaActual.get(i).getImgArriba());
-            this.listaOdontogramaAbajo.add(odontogramaActual.get(i).getImgAbajo());
-            this.listaOdontogramaIzquierda.add(odontogramaActual.get(i).getImgIzq());
-            this.listaOdontogramaDerecha.add(odontogramaActual.get(i).getImgDer());
-            this.listaOdontogramaCentro.add(odontogramaActual.get(i).getImgCentro());
-            this.listaOdontogramaFueraBolsaPer.add(odontogramaActual.get(i).getImgFueraBolPeri());
-            this.listaOdontogramaFueraEndodoncia.add(odontogramaActual.get(i).getImgFueraEnd());
-            this.listaOdontogramaFueraNecEndodoncia.add(odontogramaActual.get(i).getImgFueraNEnd());
+        if (odontogramaActual.size() == 32) {
+            for (int i = 0; i < 32; i++) {
+                this.listaOdontogramaArriba.add(odontogramaActual.get(i).getImgArriba());
+                this.listaOdontogramaAbajo.add(odontogramaActual.get(i).getImgAbajo());
+                this.listaOdontogramaIzquierda.add(odontogramaActual.get(i).getImgIzq());
+                this.listaOdontogramaDerecha.add(odontogramaActual.get(i).getImgDer());
+                this.listaOdontogramaCentro.add(odontogramaActual.get(i).getImgCentro());
+                this.listaOdontogramaFueraBolsaPer.add(odontogramaActual.get(i).getImgFueraBolPeri());
+                this.listaOdontogramaFueraEndodoncia.add(odontogramaActual.get(i).getImgFueraEnd());
+                this.listaOdontogramaFueraNecEndodoncia.add(odontogramaActual.get(i).getImgFueraNEnd());
 
+            }
+        } else {
+            for (int i = 0; i < 52; i++) {
+                this.listaOdontogramaArriba.add(odontogramaActual.get(i).getImgArriba());
+                this.listaOdontogramaAbajo.add(odontogramaActual.get(i).getImgAbajo());
+                this.listaOdontogramaIzquierda.add(odontogramaActual.get(i).getImgIzq());
+                this.listaOdontogramaDerecha.add(odontogramaActual.get(i).getImgDer());
+                this.listaOdontogramaCentro.add(odontogramaActual.get(i).getImgCentro());
+                this.listaOdontogramaFueraBolsaPer.add(odontogramaActual.get(i).getImgFueraBolPeri());
+                this.listaOdontogramaFueraEndodoncia.add(odontogramaActual.get(i).getImgFueraEnd());
+                this.listaOdontogramaFueraNecEndodoncia.add(odontogramaActual.get(i).getImgFueraNEnd());
+
+            }
         }
 
     }
@@ -2827,6 +2844,33 @@ public class EvolucionHOdontologicaController implements Serializable {
         }
 
         this.ejbActualizacionOdo.create(actualizacionOdo);
+    }
+
+    public boolean getEsAdulto() {
+        boolean adulto = true;
+        if (pacienteSeleccionado) {
+            Date fechaDeNacimiento = paciente.getFechaNacimiento();
+            Date fechaActual = fechaActual();
+
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate fechaNac = LocalDate.parse(formatoFecha.format(fechaDeNacimiento), fmt);
+            LocalDate ahora = LocalDate.now();
+
+            Period periodo = Period.between(fechaNac, ahora);
+
+            if (periodo.getYears() < 10) {
+                adulto = false;
+            }
+
+        }
+
+        return adulto;
+
+    }
+
+    private Date fechaActual() {
+        GregorianCalendar c = new GregorianCalendar();
+        return c.getTime();
     }
 
     public void seleccionarDiagnostico(Diagnosticocie10Odo diagnostico) {
