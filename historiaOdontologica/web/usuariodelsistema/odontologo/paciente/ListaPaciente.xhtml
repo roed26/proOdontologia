@@ -54,11 +54,12 @@
                             <h:outputText value="Acciones"/>
                         </f:facet>
                         <p:commandButton id="editButton"   icon="ui-icon-pencil"  actionListener="#{pacienteController.seleccionarPacienteEdicion(item)}" />
-                        <p:commandButton id="verButton" icon="ui-icon-eye" actionListener="#{pacienteController.seleccionarVer(item)}" />
+                        <p:commandButton id="verButton" icon="ui-icon-search" actionListener="#{pacienteController.seleccionarVer(item)}" />
                     </p:column>
 
                     <f:facet name="footer">
-                        <br><p:commandButton id="createButton" icon="ui-icon-plus"   
+                        <br><p:commandButton id="createButton" icon="ui-icon-plus" 
+                                             action="#{pacienteController.prepareCreate()}"
                                              value="Registrar paciente"                                         
                                              update=":PacienteCreateForm" 
                                              oncomplete="PF('PacienteOdoCreateDialog').show()"/></br>
@@ -76,9 +77,8 @@
                 <h:panelGrid columns="2" >
                     <p:graphicImage width="50px" height="50px" library="img" name="exitoso.png" />
                     <p:outputLabel value="La información del paciente se registro con exito" />
-                    <p:commandButton value="Aceptar" onclick="PF('RegistroExitoso').hide()" />
+                    <p:commandButton value="Aceptar" onclick="PF('RegistroExitoso').hide(); PF('PacienteOdoCreateDialog').hide()" />
                 </h:panelGrid>
-
             </h:form>
         </p:dialog>
 
@@ -87,7 +87,7 @@
                 <h:panelGrid columns="2" >
                     <p:graphicImage width="50px" height="50px" library="img" name="exitoso.png" />
                     <p:outputLabel value="La información del paciente se edito con exito" />
-                    <p:commandButton value="Aceptar" action="#{pacienteController.limpiarcamposformulario()}" />
+                    <p:commandButton value="Aceptar" action="#{pacienteController.limpiarcamposformulario()}"/>
                 </h:panelGrid>
 
             </h:form>
