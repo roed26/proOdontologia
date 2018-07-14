@@ -875,6 +875,12 @@ public class GestionHOdontologicaController implements Serializable {
 
     }
 
+    public void abrirSeleccionarPaciente() {
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.update("PacienteListForm:datalist");
+        requestContext.execute("PF('seleccionPacienteDialog').show()");
+    }
+
     private Date fechaActual() {
         GregorianCalendar c = new GregorianCalendar();
         return c.getTime();

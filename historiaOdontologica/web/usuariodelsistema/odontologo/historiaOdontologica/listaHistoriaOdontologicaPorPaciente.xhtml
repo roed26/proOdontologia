@@ -19,7 +19,7 @@ and open the template in the editor.
                         <p:outputLabel value="Información de paciente"/>
                     </p:column>
                     <p:column rowspan="2">
-                        <p:commandButton onclick="PF('seleccionPacienteDialog').show()" value="Seleccionar paciente" />
+                        <p:commandButton action="#{gestionHOdontologicaController.abrirSeleccionarPaciente()}" value="Seleccionar paciente" />
                     </p:column>   
                 </p:row>
                 <p:row>
@@ -65,8 +65,7 @@ and open the template in the editor.
                     <p:column style="font-weight: bold;">
                         <div id="floater">
                             <p:commandButton id="botonImprimirHistoria" value="imprimir historia"  
-                                             action="#{gestionHOdontologicaController.seleccionarPaciente(item)}" 
-                                             oncomplete="#{gestionHOdontologicaController.cambiarEstadoBool()}">
+                                             >
                                 <p:printer target="historial" />
                             </p:commandButton>
                         </div>
@@ -502,25 +501,25 @@ and open the template in the editor.
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[0].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[0].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[0].valor} " />      
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[1].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[1].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[1].valor} " />      
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[2].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[2].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[2].valor} " />      
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[3].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[3].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[3].valor} " />      
                                     </p:column>
                                 </p:row>
                                 <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
@@ -543,31 +542,31 @@ and open the template in the editor.
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[4].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[4].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[4].valor} " />      
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[5].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[5].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[5].valor} " />      
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[6].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[6].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[6].valor} " />      
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[7].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[7].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[7].valor} " />      
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[8].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[8].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[8].valor} " />      
                                     </p:column>
                                 </p:row>
                                 <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
@@ -589,31 +588,31 @@ and open the template in the editor.
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[9].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[9].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[9].valor} " />      
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[10].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[10].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[10].valor} " />      
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[11].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[11].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[11].valor} " />      
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[12].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[12].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[12].valor} " />      
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[13].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[13].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[13].valor} " />      
                                     </p:column>
                                 </p:row>
                                 <p:row rendered="#{actualizacion.tipo.equalsIgnoreCase('Apertura')}">
@@ -621,13 +620,13 @@ and open the template in the editor.
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[14].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[14].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[14].valor} " />      
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="#{actualizacion.exaOralCollection.toArray()[15].campo}: " style="font-weight: bold"/>      
                                     </p:column>
                                     <p:column>
-                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[15].valor}: " />      
+                                        <h:outputText value="#{actualizacion.exaOralCollection.toArray()[15].valor} " />      
                                     </p:column>
 
                                 </p:row>
