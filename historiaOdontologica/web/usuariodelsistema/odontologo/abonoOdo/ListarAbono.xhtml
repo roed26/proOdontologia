@@ -14,7 +14,9 @@
         <CENTER><h1> Abonos al Presupuesto  </h1></CENTER><br/>
         <h:form>
             <p:commandButton style="font-weight: bold; color: black" id="seleccionarServicioButton" icon="ui-icon-plus"   
-                             value="Seleccionar Paciente" actionListener="#{abonoOdoController.iniciarAbono()}" onclick="PF('seleccionPacienteDialog').show()"/>
+                             value="Seleccionar Paciente" actionListener="#{abonoOdoController.iniciarAbono()}"
+                             onclick="PF('seleccionPacienteDialog').show()"
+                             onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
         </h:form>
         <h:form id="informacionPaciente">
             <p:panelGrid id="panel" styleClass="panelgrid">
@@ -183,17 +185,28 @@
                     </f:facet>
                     <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Editar Abono"
                                      actionListener="#{abonoOdoController.seleccionar_CargarAbono(item)}"
-
+                                     onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"
                                      />
                 </p:column>
                 <f:facet name="footer">
                     <c:if test="#{abonoOdoController.saldoFinal==0}">
-                        <p:commandButton id="createButton" disabled="true" icon="ui-icon-plus"   value="Registrar Abono" onclick="PF('AbonoOdoCreateDialog').show()"/>
-                        <p:commandButton id="generarFacturaButton" disabled="true" icon="ui-icon-plus"   value="Generar Factura" onclick="PF('AbonoOdoGenerarFacturaDialog').show()" ajax="true"/>
+                        <p:commandButton id="createButton" disabled="true" icon="ui-icon-plus" 
+                                         value="Registrar Abono" onclick="PF('AbonoOdoCreateDialog').show()"
+                                         onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
+                        <p:commandButton id="generarFacturaButton" disabled="true" icon="ui-icon-plus" 
+                                         value="Generar Recibo" onclick="PF('AbonoOdoGenerarFacturaDialog').show()"
+                                         onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"
+                                         ajax="true"/>
                     </c:if>
                     <c:if test="#{abonoOdoController.saldoFinal!=0}">
-                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="Registrar Abono" onclick="PF('AbonoOdoCreateDialog').show()"/>
-                        <p:commandButton id="generarFacturaButton" icon="ui-icon-plus"   value="Generar Factura" onclick="PF('AbonoOdoGenerarFacturaDialog').show()" ajax="true"/>
+                        <p:commandButton id="createButton" icon="ui-icon-plus"  
+                                         value="Registrar Abono" onclick="PF('AbonoOdoCreateDialog').show()"
+                                         onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"
+                                         />
+                        <p:commandButton id="generarFacturaButton" icon="ui-icon-plus" 
+                                         value="Generar Recibo" onclick="PF('AbonoOdoGenerarFacturaDialog').show()" 
+                                         onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"
+                                         ajax="true"/>
                     </c:if>
                 </f:facet>
             </p:dataTable>
@@ -241,6 +254,7 @@
                                              icon="ui-icon-plus"  
                                              update=":AbonoOdoListForm" 
                                              action="#{abonoOdoController.seleccionarPaciente(item)}" 
+                                             onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"
                                              />
                         </p:column>
 
@@ -428,7 +442,9 @@
                             </p:column>
                         </p:row>                    
                     </p:panelGrid><br/><br/>
-                    <p:commandButton action="#{pacienteController.registrarPaciente()}" value="Guardar paciente" ajax="true" update="panel"/>
+                    <p:commandButton action="#{pacienteController.registrarPaciente()}"
+                                     value="Guardar paciente" ajax="true" update="panel" 
+                                     onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
                 </h:form>
             </p:dialog>
         </h:form>
@@ -443,11 +459,11 @@
                                 <p style=" font-size: 12px; font-weight:bold; color: black;right: 10px"> Odontlogo U. del Cauca</p></center>
                         </p:column>
                         <p:column>
-                            <p:panel id="numFactura" header="Nº Factura"  style="width: 110px">
+                            <p:panel id="numFactura" header="Nº Recibo"  style="width: 110px">
                                 <h:outputText value="00001" />
                             </p:panel>
                             <p:panel id="fechaFactura" header="Fecha"  style="width: 110px">
-                                <h:outputText value="24/11/2017" />
+                                <h:outputText value="27/07/2018" />
                             </p:panel>
                         </p:column>
                     </p:row>
@@ -544,7 +560,7 @@
                     </p:row>
                 </p:panelGrid>
                 <br/><center>
-                    <p:commandButton value="IMPRIMIR FACTURA" style="">
+                    <p:commandButton value="IMPRIMIR RECIBO" onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()" >
                         <p:printer target="generarFacturaDlg"/>     
                     </p:commandButton>
                 </center>

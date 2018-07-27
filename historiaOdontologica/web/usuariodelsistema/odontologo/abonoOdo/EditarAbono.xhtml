@@ -60,8 +60,10 @@
                                          value="Guardar cambios" 
                                          update="display,:AbonoOdoListForm:datalist,panelValidarEditar"
                                          onclick="AbonoOdoEditDialog.hide()"
+                                         onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"
                                          /></br>
-                    <p:commandButton value="Cancelar" onclick="AbonoOdoEditDialog.hide()"/>
+                    <p:commandButton value="Cancelar" onclick="AbonoOdoEditDialog.hide()"
+                                     onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
