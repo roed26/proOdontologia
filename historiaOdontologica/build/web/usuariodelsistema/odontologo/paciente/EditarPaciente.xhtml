@@ -235,7 +235,8 @@
                         <br><p:commandButton style="left: 10px; size: 19px; font-weight:bold; color: black; background-color: #97AED7"  
                                              action="#{pacienteController.editarPaciente()}" 
                                              value="Guardar cambios" 
-                                             update="display,:PacienteListForm:datalist,panelValidarEditar"/></br>
+                                             update="display,:PacienteListForm:datalist,panelValidarEditar"
+                                             onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/></br>
 
                     </h:panelGroup>
                 </h:form>    

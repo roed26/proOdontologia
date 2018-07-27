@@ -193,7 +193,9 @@
                             </p:column>
                         </p:row>                    
                     </p:panelGrid><br/><br/>
-                    <p:commandButton action="#{pacienteController.registrarPaciente()}" value="Guardar paciente" ajax="true" update="panel"/>
+                    <p:commandButton action="#{pacienteController.registrarPaciente()}" 
+                                     value="Guardar paciente" ajax="true" update="panel"
+                                     onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
                 </h:form>
                 <!--<p:dialog header="Mensaje registro" modal="true" position="center" widgetVar="RegistroExitoso">
                     <h:form id="mensajeForm">

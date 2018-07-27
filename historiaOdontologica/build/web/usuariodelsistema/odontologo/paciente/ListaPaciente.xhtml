@@ -53,8 +53,8 @@
                         <f:facet name="header">
                             <h:outputText value="Acciones"/>
                         </f:facet>
-                        <p:commandButton id="editButton"   icon="ui-icon-pencil"  actionListener="#{pacienteController.seleccionarPacienteEdicion(item)}" />
-                        <p:commandButton id="verButton" icon="ui-icon-search" actionListener="#{pacienteController.seleccionarVer(item)}" />
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil"  actionListener="#{pacienteController.seleccionarPacienteEdicion(item)}" onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
+                        <p:commandButton id="verButton" icon="ui-icon-search" actionListener="#{pacienteController.seleccionarVer(item)}" onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
                     </p:column>
 
                     <f:facet name="footer">
