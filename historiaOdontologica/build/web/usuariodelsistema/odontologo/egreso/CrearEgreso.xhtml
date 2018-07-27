@@ -57,8 +57,10 @@
                     </p:panelGrid>
                     <p:commandButton actionListener="#{egresoController.registrarEgresos()}" value="Guardar" 
                                      update="display,:EgresoListForm:datalist" 
+                                     onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"
                                      />
-                    <p:commandButton value="Cancelar" onclick="EgresoCreateDialog.hide()"/>
+                    <p:commandButton value="Cancelar" onclick="EgresoCreateDialog.hide()"
+                                     onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

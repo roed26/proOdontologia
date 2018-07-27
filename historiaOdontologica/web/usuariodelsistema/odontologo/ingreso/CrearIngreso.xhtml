@@ -58,8 +58,10 @@
                     </p:panelGrid>
                     <p:commandButton actionListener="#{ingresoController.registrarIngresos()}" 
                                      value="Guardar" update="display,:IngresoListForm:datalist" 
+                                     onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"
                                      />
-                    <p:commandButton value="Cancelar" onclick="IngresoCreateDialog.hide()"/>
+                    <p:commandButton value="Cancelar" onclick="IngresoCreateDialog.hide()"
+                                     onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
