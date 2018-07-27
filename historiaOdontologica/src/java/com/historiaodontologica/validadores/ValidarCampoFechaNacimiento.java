@@ -27,22 +27,22 @@ public class ValidarCampoFechaNacimiento implements Validator {
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         Date fecha = (Date) value;
         int edadMinima = 18;
-        if (!validarFechaNacimiento(fecha)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Campo fecha de nacimiento no puede ser mayor a la fecha actual.", "Campo fecha de nacimiento no puede ser mayor a la fecha actual.");
-            throw new ValidatorException(msg);
-        }
+//        if (!validarFechaNacimiento(fecha)) {
+//            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Campo fecha de nacimiento no puede ser mayor a la fecha actual.", "Campo fecha de nacimiento no puede ser mayor a la fecha actual.");
+//            throw new ValidatorException(msg);
+//        }
         if (validarEdad(fecha) < edadMinima) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "¡Verificar fecha! El paciente es muy joven aún.", "¡Verificar fecha! El paciente es muy joven aún.");
             throw new ValidatorException(msg);
         }
     }
 
-    public boolean validarFechaNacimiento(Date fecha) {
-
-        Date fechaActual = new Date();
-        return fecha.compareTo(fechaActual) <= 0;
-
-    }
+//    public boolean validarFechaNacimiento(Date fecha) {
+//
+//        Date fechaActual = new Date();
+//        return fecha.compareTo(fechaActual) <= 0;
+//
+//    }
 
     //Calcula la diferencia en meses para validar que no se registren niños menores a año y medio
     public int validarEdad(Date fechaNacimiento) {
