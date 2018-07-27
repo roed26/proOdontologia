@@ -58,8 +58,10 @@
 
                     <p:commandButton action="#{serviciosOdoController.registrarServicio_Odo}" 
                                      value="Guardar" update="display,:ServiciosOdoListForm:datalist" 
-                                     oncomplete="PF('ServiciosOdoCreateDialog').hide()"/>
-                    <p:commandButton value="Cancelar" onclick="ServiciosOdoCreateDialog.hide()"/>
+                                     oncomplete="PF('ServiciosOdoCreateDialog').hide()"
+                                     onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
+                    <p:commandButton value="Cancelar" onclick="ServiciosOdoCreateDialog.hide()"
+                                     onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
                     
                 </h:panelGroup>
             </h:form>

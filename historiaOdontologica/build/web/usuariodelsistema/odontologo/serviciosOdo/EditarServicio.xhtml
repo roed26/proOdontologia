@@ -59,10 +59,12 @@
                     <p:commandButton actionListener="#{serviciosOdoController.update}" 
                                      value="Guardar" 
                                      update="display,:ServiciosOdoListForm:datalist" 
-                                     oncomplete="PF('ServiciosOdoEditDialog').hide()"/>
+                                     oncomplete="PF('ServiciosOdoEditDialog').hide()"
+                                     onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
                     <p:commandButton value="Cancelar" 
                                      actionListener="#{serviciosOdoController.reiniciarServicio_Odo()}" 
-                                     onclick="ServiciosOdoEditDialog.hide()"/>
+                                     onclick="ServiciosOdoEditDialog.hide()"
+                                     onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
