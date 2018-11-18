@@ -14,14 +14,19 @@ and open the template in the editor.
         <h:form id="InformacionPaciente" >
             <p:panelGrid styleClass="panelgrid">
                 <p:row>
-                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: black; background: #339cdf">
+                    <p:column colspan="10" style="text-align: center; font-size: 18px; font-weight:bold; color: black; background: #339cdf"
+                              rendered="#{evolucionHOdontologicaController.pacienteSeleccionado}">
                         <p:outputLabel value="Información de paciente"/>
                     </p:column>
                     <p:column rowspan="2">
                         <p:commandButton onclick="PF('seleccionPacienteDialog').show()" value="Seleccionar paciente" />
+                    </p:column>  
+                    <p:column rowspan="2">
+                        <center><p:commandButton value="Cancelar apertura" 
+                                                 action="#{evolucionHOdontologicaController.inicializarVariablesCancelar(cargarVistaController)}" ajax="false"/></center>
                     </p:column>   
                 </p:row>
-                <p:row>
+                <p:row rendered="#{evolucionHOdontologicaController.pacienteSeleccionado}">
                     <p:column>
                         <p:outputLabel style="font-weight: bold; color: black;" value="Fecha de registro" />
                     </p:column>
@@ -59,9 +64,9 @@ and open the template in the editor.
         <p:separator style="height:3px; color: #000000"/>
 
         <h:form id="evolucionHistoriaOdontologica" >
-
-
-            <p:wizard widgetVar="evolucionHistoriaWizard" showNavBar="true" nextLabel="Siguiente" backLabel="Anterior">
+            <p:wizard widgetVar="evolucionHistoriaWizard" showNavBar="true" 
+                      nextLabel="Siguiente" backLabel="Anterior"
+                      rendered="#{evolucionHOdontologicaController.pacienteSeleccionado}">
                 <p:tab title="Datos de acompañante">
                     <p:panel header="Datos de acompañante">
 
@@ -274,7 +279,7 @@ and open the template in the editor.
                     </p:inputText>                          
                 </h:panelGrid>
 
-                <p:dataTable id="datalist" value="#{pacienteController.listaPacientesActivos}" var="item"
+                <p:dataTable id="datalist" value="#{pacienteController.listaPacientesActivosEvolucion}" var="item"
                              paginator="true"
                              rowKey="#{item.id}"
                              rows="10"

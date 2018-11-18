@@ -47,7 +47,7 @@ public class PacienteController implements Serializable {
     @PostConstruct
     public void init() {
         limpiarCampos();
-        items=ejbFacade.findAll();
+        items = ejbFacade.findAll();
     }
 
     public Paciente getSelected() {
@@ -77,7 +77,7 @@ public class PacienteController implements Serializable {
         selected = new Paciente();
         selected.setSexo('F');
         selected.setEstado("1");
-       
+
     }
 
     private PacienteFacade getFacade() {
@@ -118,9 +118,9 @@ public class PacienteController implements Serializable {
     }
 
     public List<Paciente> getItems() {
-        
-            items = getFacade().findAll();
-        
+
+        items = getFacade().findAll();
+
         return items;
     }
 
@@ -132,16 +132,32 @@ public class PacienteController implements Serializable {
     public List<Paciente> getListaPacientesActivos() {
         return items;
     }
+    
+    public List<Paciente> getListaPacientesActivosEvolucion() {
+        List<Paciente> lista = new ArrayList<>();
+
+        items = ejbFacade.findAll();
+
+        for (int i = 0; i < items.size(); i++) {
+            boolean existeHistoria = ejbActualizacionOdo.buscarPorPacienteBoolActivo(items.get(i).getId());
+            if (existeHistoria == true) {
+                lista.add(items.get(i));
+            }
+        }
+        return lista;
+    }
+    
 
     public List<Paciente> getListaPacientesActivosAtencion() {
         List<Paciente> lista = new ArrayList<>();
+
+        items = ejbFacade.findAll();
 
         for (int i = 0; i < items.size(); i++) {
             boolean existeHistoria = ejbActualizacionOdo.buscarPorPacienteBool(items.get(i).getId());
             if (items.get(i).getEstado().equalsIgnoreCase("1") && existeHistoria != true) {
                 lista.add(items.get(i));
             }
-
         }
         return lista;
     }
@@ -161,7 +177,7 @@ public class PacienteController implements Serializable {
 
         selected = new Paciente();
         selected.setEstado("1");
-        
+
     }
 
     //Nuevos cambios 
@@ -178,7 +194,7 @@ public class PacienteController implements Serializable {
         ejbFacade.edit(selected);
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.execute("PF('ActualizacionExitosa').show()");
-        
+
         selected = new Paciente();
         selected.setEstado("1");
     }
@@ -204,7 +220,7 @@ public class PacienteController implements Serializable {
         RequestContext requestContext = RequestContext.getCurrentInstance();
         requestContext.update("PacienteViewForm");
         requestContext.execute("PF('seleccionPacienteDialogView').show()");
-        
+
     }
 
     public void limpiarcamposformulario() {

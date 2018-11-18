@@ -44,6 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ActualizacionOdo.findByHora", query = "SELECT a FROM ActualizacionOdo a WHERE a.hora = :hora"),
     @NamedQuery(name = "ActualizacionOdo.findByTipo", query = "SELECT a FROM ActualizacionOdo a WHERE a.tipo = :tipo"),
     @NamedQuery(name = "ActualizacionOdo.findByPaciente", query = "SELECT a FROM ActualizacionOdo a WHERE a.idPaciente.id = :idPaciente"),
+    @NamedQuery(name = "ActualizacionOdo.findByPacienteActivo", query = "SELECT a FROM ActualizacionOdo a WHERE a.idPaciente.id = :idPaciente AND a.idPaciente.estado =:estado"),
     @NamedQuery(name = "ActualizacionOdo.findByConsultaFechaCOP", query = "SELECT a FROM ActualizacionOdo a WHERE (a.fecha BETWEEN :desde AND :hasta)")
 })
 public class ActualizacionOdo implements Serializable {

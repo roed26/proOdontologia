@@ -63,7 +63,10 @@ and open the template in the editor.
         </h:form>
         <p:separator style="height:3px; color: #000000"/>
         <h:form id="aperturaHistoriaOdontologica" >
-            <p:wizard widgetVar="aperturaHistoriaWizard" showNavBar="true" nextLabel="Siguiente" backLabel="Anterior" rendered="#{aperturaHOdontologicaController.pacienteSeleccionado}">
+            <p:wizard widgetVar="aperturaHistoriaWizard" showNavBar="true" nextLabel="Siguiente" 
+                      flowListener="#{aperturaHOdontologicaController.onFlowProcess}" 
+                      backLabel="Anterior" rendered="#{aperturaHOdontologicaController.pacienteSeleccionado}">
+                <p:ajaxStatus onstart="PF('cargando').show()" onsuccess="PF('cargando').hide()" />
                 <p:tab title="Datos de acompañante">
                     <p:panel header="Datos de acompañante">
 

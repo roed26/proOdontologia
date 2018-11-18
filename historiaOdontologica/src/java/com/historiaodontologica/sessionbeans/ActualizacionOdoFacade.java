@@ -84,6 +84,20 @@ public class ActualizacionOdoFacade extends AbstractFacade<ActualizacionOdo> {
 
     }
     
+    public boolean buscarPorPacienteBoolActivo(int idPaciente) {
+        Query query = getEntityManager().createNamedQuery("ActualizacionOdo.findByPacienteActivo");
+        query.setParameter("idPaciente", idPaciente);
+        query.setParameter("estado", "1");
+        List<ActualizacionOdo> resultList = query.getResultList();
+
+        if (resultList.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    
      public List<ActualizacionOdo> listadoCOPFecha(Date fechaInicio, Date fechaFin) {
         Query query = getEntityManager().createNamedQuery("ActualizacionOdo.findByConsultaFechaCOP");
         query.setParameter("desde", fechaInicio);

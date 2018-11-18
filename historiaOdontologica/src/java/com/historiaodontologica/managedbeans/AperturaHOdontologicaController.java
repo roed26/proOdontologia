@@ -81,6 +81,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FlowEvent;
 
 /**
  *
@@ -158,173 +159,9 @@ public class AperturaHOdontologicaController implements Serializable {
     private boolean seleccionDienteTtoEndodoncia;
     private boolean seleccionDienteBolsaPer;
 
-    private boolean contCariesD18;
-    private boolean contCariesD17;
-    private boolean contCariesD16;
-    private boolean contCariesD15;
-    private boolean contCariesD14;
-    private boolean contCariesD13;
-    private boolean contCariesD12;
-    private boolean contCariesD11;
-    private boolean contCariesD21;
-    private boolean contCariesD22;
-    private boolean contCariesD23;
-    private boolean contCariesD24;
-    private boolean contCariesD25;
-    private boolean contCariesD26;
-    private boolean contCariesD27;
-    private boolean contCariesD28;
-    private boolean contCariesD48;
-    private boolean contCariesD47;
-
-    private boolean contCariesD46;
-    private boolean contCariesD45;
-    private boolean contCariesD44;
-    private boolean contCariesD43;
-    private boolean contCariesD42;
-    private boolean contCariesD41;
-    private boolean contCariesD31;
-    private boolean contCariesD32;
-    private boolean contCariesD33;
-    private boolean contCariesD34;
-    private boolean contCariesD35;
-    private boolean contCariesD36;
-    private boolean contCariesD37;
-    private boolean contCariesD38;
-
-    private boolean contCariesD55;
-    private boolean contCariesD54;
-    private boolean contCariesD53;
-    private boolean contCariesD52;
-    private boolean contCariesD51;
-    private boolean contCariesD61;
-    private boolean contCariesD62;
-    private boolean contCariesD63;
-    private boolean contCariesD64;
-    private boolean contCariesD65;
-
-    private boolean contCariesD85;
-    private boolean contCariesD84;
-    private boolean contCariesD83;
-    private boolean contCariesD82;
-    private boolean contCariesD81;
-    private boolean contCariesD71;
-    private boolean contCariesD72;
-    private boolean contCariesD73;
-    private boolean contCariesD74;
-    private boolean contCariesD75;
-
-    private boolean contPerdidosD18;
-    private boolean contPerdidosD17;
-    private boolean contPerdidosD16;
-    private boolean contPerdidosD15;
-    private boolean contPerdidosD14;
-    private boolean contPerdidosD13;
-    private boolean contPerdidosD12;
-    private boolean contPerdidosD11;
-    private boolean contPerdidosD21;
-    private boolean contPerdidosD22;
-    private boolean contPerdidosD23;
-    private boolean contPerdidosD24;
-    private boolean contPerdidosD25;
-    private boolean contPerdidosD26;
-    private boolean contPerdidosD27;
-    private boolean contPerdidosD28;
-    private boolean contPerdidosD48;
-    private boolean contPerdidosD47;
-
-    private boolean contPerdidosD46;
-    private boolean contPerdidosD45;
-    private boolean contPerdidosD44;
-    private boolean contPerdidosD43;
-    private boolean contPerdidosD42;
-    private boolean contPerdidosD41;
-    private boolean contPerdidosD31;
-    private boolean contPerdidosD32;
-    private boolean contPerdidosD33;
-    private boolean contPerdidosD34;
-    private boolean contPerdidosD35;
-    private boolean contPerdidosD36;
-    private boolean contPerdidosD37;
-    private boolean contPerdidosD38;
-
-    private boolean contPerdidosD55;
-    private boolean contPerdidosD54;
-    private boolean contPerdidosD53;
-    private boolean contPerdidosD52;
-    private boolean contPerdidosD51;
-    private boolean contPerdidosD61;
-    private boolean contPerdidosD62;
-    private boolean contPerdidosD63;
-    private boolean contPerdidosD64;
-    private boolean contPerdidosD65;
-
-    private boolean contPerdidosD85;
-    private boolean contPerdidosD84;
-    private boolean contPerdidosD83;
-    private boolean contPerdidosD82;
-    private boolean contPerdidosD81;
-    private boolean contPerdidosD71;
-    private boolean contPerdidosD72;
-    private boolean contPerdidosD73;
-    private boolean contPerdidosD74;
-    private boolean contPerdidosD75;
-
-    private boolean contObturadosD18;
-    private boolean contObturadosD17;
-    private boolean contObturadosD16;
-    private boolean contObturadosD15;
-    private boolean contObturadosD14;
-    private boolean contObturadosD13;
-    private boolean contObturadosD12;
-    private boolean contObturadosD11;
-    private boolean contObturadosD21;
-    private boolean contObturadosD22;
-    private boolean contObturadosD23;
-    private boolean contObturadosD24;
-    private boolean contObturadosD25;
-    private boolean contObturadosD26;
-    private boolean contObturadosD27;
-    private boolean contObturadosD28;
-    private boolean contObturadosD48;
-    private boolean contObturadosD47;
-
-    private boolean contObturadosD46;
-    private boolean contObturadosD45;
-    private boolean contObturadosD44;
-    private boolean contObturadosD43;
-    private boolean contObturadosD42;
-    private boolean contObturadosD41;
-    private boolean contObturadosD31;
-    private boolean contObturadosD32;
-    private boolean contObturadosD33;
-    private boolean contObturadosD34;
-    private boolean contObturadosD35;
-    private boolean contObturadosD36;
-    private boolean contObturadosD37;
-    private boolean contObturadosD38;
-
-    private boolean contObturadosD55;
-    private boolean contObturadosD54;
-    private boolean contObturadosD53;
-    private boolean contObturadosD52;
-    private boolean contObturadosD51;
-    private boolean contObturadosD61;
-    private boolean contObturadosD62;
-    private boolean contObturadosD63;
-    private boolean contObturadosD64;
-    private boolean contObturadosD65;
-
-    private boolean contObturadosD85;
-    private boolean contObturadosD84;
-    private boolean contObturadosD83;
-    private boolean contObturadosD82;
-    private boolean contObturadosD81;
-    private boolean contObturadosD71;
-    private boolean contObturadosD72;
-    private boolean contObturadosD73;
-    private boolean contObturadosD74;
-    private boolean contObturadosD75;
+    private List<Boolean> contadoresCariesDiente;
+    private List<Boolean> contadoresPerdidosDiente;
+    private List<Boolean> contadoresObturadosDiente;
 
     //listas
     private List<ListadoAntOdon> listadoAntecedentesFamiliares;
@@ -426,8 +263,7 @@ public class AperturaHOdontologicaController implements Serializable {
         this.seleccionDienteNecendodoncia = false;
         this.seleccionDienteTtoEndodoncia = false;
         this.seleccionDienteBolsaPer = false;
-        this.contCariesD17 = false;
-        this.contCariesD18 = false;
+
         //inicilizacion string
         this.diagnosticoDX1 = "";
         this.diagnosticoDX2 = "";
@@ -455,10 +291,12 @@ public class AperturaHOdontologicaController implements Serializable {
         tipoIdentificacion = new TipoIdentificacion();
         pacienteApertura = new Paciente();
         odontogramaPaciente = new ArrayList<>();
+        contadoresCariesDiente = new ArrayList<>();
     }
 
     @PostConstruct
     private void init() {
+        inicializarVariables();
         this.actualizacionOdo = new ActualizacionOdo();
         this.higiene = new Higiene();
         this.obsOdontograma = new ObsOdontograma();
@@ -1511,503 +1349,6 @@ public class AperturaHOdontologicaController implements Serializable {
          */
     }
 
-    public void cambiarImgOdontogramaArriba(int posDienteList) {
-        if (diagnosticoDiente.compareTo("caries") == 0) {
-            listaOdontogramaArriba.set(posDienteList, "arriba_caries.png");
-            contarCaries(posDienteList);
-        } else if (diagnosticoDiente.compareTo("normal") == 0) {
-            listaOdontogramaArriba.set(posDienteList, "arriba_normal.png");
-        } else if (diagnosticoDiente.compareTo("amalgama") == 0) {
-            listaOdontogramaArriba.set(posDienteList, "arriba_amalgama.png");
-            contarObturados(posDienteList);
-        } else if (diagnosticoDiente.compareTo("obst_plastica") == 0) {
-            listaOdontogramaArriba.set(posDienteList, "arriba_obst_plastica.png");
-            contarObturados(posDienteList);
-        } else if (diagnosticoDiente.compareTo("obst_temporal") == 0) {
-            listaOdontogramaArriba.set(posDienteList, "arriba_obst_temporal.png");
-        } else if (diagnosticoDiente.compareTo("sellante") == 0) {
-            listaOdontogramaArriba.set(posDienteList, "arriba_sellante.png");
-        } else if (diagnosticoDiente.compareTo("sinsellante") == 0) {
-            listaOdontogramaArriba.set(posDienteList, "arriba_sinsellante.png");
-        } else if (diagnosticoDiente.compareTo("faltante") == 0) {
-            listaOdontogramaArriba.set(posDienteList, "arriba_faltante.png");
-            listaOdontogramaAbajo.set(posDienteList, "abajo_faltante.png");
-            listaOdontogramaCentro.set(posDienteList, "centro_faltante.png");
-            contarDientesPerdidos(posDienteList);
-            RequestContext requestContext = RequestContext.getCurrentInstance();
-            requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("faltante_ext") == 0) {
-            listaOdontogramaArriba.set(posDienteList, "arriba_faltante_ext.png");
-            listaOdontogramaAbajo.set(posDienteList, "abajo_faltante_ext.png");
-            listaOdontogramaCentro.set(posDienteList, "centro_faltante_ext.png");
-            contarDientesPerdidos(posDienteList);
-            RequestContext requestContext = RequestContext.getCurrentInstance();
-            requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("exodoncia") == 0) {
-            listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
-            listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
-            listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
-            listaOdontogramaIzquierda.set(posDienteList, "izq_exodoncia.png");
-            listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
-            RequestContext requestContext = RequestContext.getCurrentInstance();
-            requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("exodoncia") == 0) {
-            listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
-            listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
-            listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
-            listaOdontogramaIzquierda.set(posDienteList, "izq_exodoncia.png");
-            listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
-            RequestContext requestContext = RequestContext.getCurrentInstance();
-            requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("protesis") == 0) {
-            listaOdontogramaArriba.set(posDienteList, "arriba_protesis.png");
-            listaOdontogramaAbajo.set(posDienteList, "abajo_protesis.png");
-            listaOdontogramaCentro.set(posDienteList, "centro_protesis.png");
-            listaOdontogramaIzquierda.set(posDienteList, "izq_protesis.png");
-            listaOdontogramaDerecha.set(posDienteList, "der_protesis.png");
-            RequestContext requestContext = RequestContext.getCurrentInstance();
-            requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("protesistotal") == 0) {
-            listaOdontogramaArriba.set(posDienteList, "arriba_protesistotal.png");
-            listaOdontogramaAbajo.set(posDienteList, "abajo_protesistotal.png");
-            listaOdontogramaCentro.set(posDienteList, "centro_protesistotal.png");
-            listaOdontogramaIzquierda.set(posDienteList, "izq_protesistotal.png");
-            listaOdontogramaDerecha.set(posDienteList, "der_protesistotal.png");
-            RequestContext requestContext = RequestContext.getCurrentInstance();
-            requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("necendodoncia") == 0) {
-            listaOdontogramaFueraNecEndodoncia.set(posDienteList, "necendodoncia_A.png");
-            RequestContext requestContext = RequestContext.getCurrentInstance();
-            requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("ttoendodoncia") == 0) {
-            listaOdontogramaFueraEndodoncia.set(posDienteList, "ttoendodoncia_A.png");
-            RequestContext requestContext = RequestContext.getCurrentInstance();
-            requestContext.update("aperturaHistoriaOdontologica");
-        } else if (diagnosticoDiente.compareTo("bolsa_per") == 0) {
-            listaOdontogramaFueraBolsaPer.set(posDienteList, "bolsa_per_A.png");
-            RequestContext requestContext = RequestContext.getCurrentInstance();
-            requestContext.update("aperturaHistoriaOdontologica");
-        }
-    }
-
-    public void cambiarImgOdontograma(String posicion, int posDienteList) {
-        switch (posicion) {
-            case "arriba":
-                if (diagnosticoDiente.equalsIgnoreCase("caries")) {
-                    OdontogramaTemp odontogramaTemp = new OdontogramaTemp();
-                    odontogramaTemp = odontogramaPaciente.get(posDienteList);
-                    odontogramaTemp.setArriba("arriba_caries.png");
-                    odontogramaPaciente.set(posDienteList, odontogramaTemp);
-                    odontogramaPacienteAdultoSuperior.set(posDienteList, odontogramaTemp);
-                    //listaOdontogramaArriba.set(posDienteList, "arriba_caries.png");
-                    contarCaries(posDienteList);
-                } else if (diagnosticoDiente.equalsIgnoreCase("normal")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_normal.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("amalgama")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_amalgama.png");
-                    contarObturados(posDienteList);
-                } else if (diagnosticoDiente.equalsIgnoreCase("obst_plastica")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_obst_plastica.png");
-                    contarObturados(posDienteList);
-                } else if (diagnosticoDiente.equalsIgnoreCase("obst_temporal")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_obst_temporal.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("sellante")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_sellante.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("sinsellante")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_sinsellante.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("faltante")) {
-                    /*listaOdontogramaArriba.set(posDienteList, "arriba_faltante.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_faltante.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_faltante.png");*/
-                    OdontogramaTemp odontogramaTemp = new OdontogramaTemp();
-                    odontogramaTemp = odontogramaPaciente.get(posDienteList);
-                    odontogramaTemp.setArriba("arriba_faltante.png");
-                    odontogramaTemp.setAbajo("abajo_faltante.png");
-                    odontogramaTemp.setCentro("centro_faltante.png");
-                    odontogramaPaciente.set(posDienteList, odontogramaTemp);
-                    contarDientesPerdidos(posDienteList);
-                    /*RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");*/
-                } else if (diagnosticoDiente.equalsIgnoreCase("faltante_ext")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_faltante_ext.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_faltante_ext.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_faltante_ext.png");
-                    contarDientesPerdidos(posDienteList);
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_exodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_exodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("protesis")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_protesis.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_protesis.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_protesis.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_protesis.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_protesis.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("protesistotal")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_protesistotal.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_protesistotal.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_protesistotal.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_protesistotal.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_protesistotal.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("necendodoncia")) {
-                    listaOdontogramaFueraNecEndodoncia.set(posDienteList, "necendodoncia_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("ttoendodoncia")) {
-                    listaOdontogramaFueraEndodoncia.set(posDienteList, "ttoendodoncia_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("bolsa_per")) {
-                    listaOdontogramaFueraBolsaPer.set(posDienteList, "bolsa_per_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                }
-
-                break;
-            case "abajo":
-                if (diagnosticoDiente.equalsIgnoreCase("caries")) {
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_caries.png");
-                    contarCaries(posDienteList);
-                } else if (diagnosticoDiente.equalsIgnoreCase("normal")) {
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_normal.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("amalgama")) {
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_amalgama.png");
-                    contarObturados(posDienteList);
-                } else if (diagnosticoDiente.equalsIgnoreCase("obst_plastica")) {
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_obst_plastica.png");
-                    contarObturados(posDienteList);
-                } else if (diagnosticoDiente.equalsIgnoreCase("obst_temporal")) {
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_obst_temporal.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("sellante")) {
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_sellante.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("sinsellante")) {
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_sinsellante.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("faltante")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_faltante.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_faltante.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_faltante.png");
-                    contarDientesPerdidos(posDienteList);
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("faltante_ext")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_faltante_ext.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_faltante_ext.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_faltante_ext.png");
-                    contarDientesPerdidos(posDienteList);
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_exodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_exodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("protesis")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_protesis.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_protesis.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_protesis.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_protesis.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_protesis.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("protesistotal")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_protesistotal.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_protesistotal.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_protesistotal.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_protesistotal.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_protesistotal.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("necendodoncia")) {
-                    listaOdontogramaFueraNecEndodoncia.set(posDienteList, "necendodoncia_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("ttoendodoncia")) {
-                    listaOdontogramaFueraEndodoncia.set(posDienteList, "ttoendodoncia_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("bolsa_per")) {
-                    listaOdontogramaFueraBolsaPer.set(posDienteList, "bolsa_per_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                }
-
-                break;
-            case "izquierda":
-
-                if (diagnosticoDiente.compareTo("caries") == 0) {
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_caries.png");
-                    contarCaries(posDienteList);
-                } else if (diagnosticoDiente.compareTo("normal") == 0) {
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_normal.png");
-                } else if (diagnosticoDiente.compareTo("amalgama") == 0) {
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_amalgama.png");
-                    contarObturados(posDienteList);
-                } else if (diagnosticoDiente.compareTo("obst_plastica") == 0) {
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_obst_plastica.png");
-                    contarObturados(posDienteList);
-                } else if (diagnosticoDiente.compareTo("obst_plastica") == 0) {
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_obst_plastica.png");
-                } else if (diagnosticoDiente.compareTo("obst_temporal") == 0) {
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_obst_temporal.png");
-                } else if (diagnosticoDiente.compareTo("sellante") == 0) {
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_sellante.png");
-                } else if (diagnosticoDiente.compareTo("sinsellante") == 0) {
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_sinsellante.png");
-                } else if (diagnosticoDiente.compareTo("faltante") == 0) {
-                    contarDientesPerdidos(posDienteList);
-                    listaOdontogramaArriba.set(posDienteList, "arriba_faltante.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_faltante.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_faltante.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.compareTo("faltante_ext") == 0) {
-                    contarDientesPerdidos(posDienteList);
-                    listaOdontogramaArriba.set(posDienteList, "arriba_faltante_ext.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_faltante_ext.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_faltante_ext.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.compareTo("exodoncia") == 0) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_exodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.compareTo("exodoncia") == 0) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_exodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.compareTo("protesis") == 0) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_protesis.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_protesis.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_protesis.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_protesis.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_protesis.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.compareTo("protesistotal") == 0) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_protesistotal.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_protesistotal.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_protesistotal.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_protesistotal.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_protesistotal.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.compareTo("necendodoncia") == 0) {
-                    listaOdontogramaFueraNecEndodoncia.set(posDienteList, "necendodoncia_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.compareTo("ttoendodoncia") == 0) {
-                    listaOdontogramaFueraEndodoncia.set(posDienteList, "ttoendodoncia_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.compareTo("bolsa_per") == 0) {
-                    listaOdontogramaFueraBolsaPer.set(posDienteList, "bolsa_per_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                }
-
-                break;
-            case "derecha":
-
-                if (diagnosticoDiente.equalsIgnoreCase("caries")) {
-                    listaOdontogramaDerecha.set(posDienteList, "der_caries.png");
-                    contarCaries(posDienteList);
-                } else if (diagnosticoDiente.equalsIgnoreCase("normal")) {
-                    listaOdontogramaDerecha.set(posDienteList, "der_normal.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("amalgama")) {
-                    contarObturados(posDienteList);
-                    listaOdontogramaDerecha.set(posDienteList, "der_amalgama.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("obst_plastica")) {
-                    contarObturados(posDienteList);
-                    listaOdontogramaDerecha.set(posDienteList, "der_obst_plastica.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("obst_temporal")) {
-                    listaOdontogramaDerecha.set(posDienteList, "der_obst_temporal.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("sellante")) {
-                    listaOdontogramaDerecha.set(posDienteList, "der_sellante.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("sinsellante")) {
-                    listaOdontogramaDerecha.set(posDienteList, "der_sinsellante.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("faltante")) {
-                    contarDientesPerdidos(posDienteList);
-                    listaOdontogramaArriba.set(posDienteList, "arriba_faltante.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_faltante.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_faltante.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("faltante_ext")) {
-                    contarDientesPerdidos(posDienteList);
-                    listaOdontogramaArriba.set(posDienteList, "arriba_faltante_ext.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_faltante_ext.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_faltante_ext.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_exodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_exodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("protesis")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_protesis.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_protesis.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_protesis.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_protesis.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_protesis.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("protesistotal")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_protesistotal.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_protesistotal.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_protesistotal.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_protesistotal.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_protesistotal.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("necendodoncia")) {
-                    listaOdontogramaFueraNecEndodoncia.set(posDienteList, "necendodoncia_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("ttoendodoncia")) {
-                    listaOdontogramaFueraEndodoncia.set(posDienteList, "ttoendodoncia_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("bolsa_per")) {
-                    listaOdontogramaFueraBolsaPer.set(posDienteList, "bolsa_per_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                }
-
-                break;
-            case "centro":
-
-                if (diagnosticoDiente.equalsIgnoreCase("caries")) {
-                    listaOdontogramaCentro.set(posDienteList, "centro_caries.png");
-                    contarCaries(posDienteList);
-                } else if (diagnosticoDiente.equalsIgnoreCase("normal")) {
-                    listaOdontogramaCentro.set(posDienteList, "centro_normal.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("amalgama")) {
-                    contarObturados(posDienteList);
-                    listaOdontogramaCentro.set(posDienteList, "centro_amalgama.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("obst_plastica")) {
-                    contarObturados(posDienteList);
-                    listaOdontogramaCentro.set(posDienteList, "centro_obst_plastica.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("obst_temporal")) {
-                    listaOdontogramaCentro.set(posDienteList, "centro_obst_temporal.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("sellante")) {
-                    listaOdontogramaCentro.set(posDienteList, "centro_sellante.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("sinsellante")) {
-                    listaOdontogramaCentro.set(posDienteList, "centro_sinsellante.png");
-                } else if (diagnosticoDiente.equalsIgnoreCase("faltante")) {
-                    contarDientesPerdidos(posDienteList);
-                    listaOdontogramaArriba.set(posDienteList, "arriba_faltante.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_faltante.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_faltante.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("faltante_ext")) {
-                    contarDientesPerdidos(posDienteList);
-                    listaOdontogramaArriba.set(posDienteList, "arriba_faltante_ext.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_faltante_ext.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_faltante_ext.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_exodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_exodoncia.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_exodoncia.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_exodoncia.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_exodoncia.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_exodoncia.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("protesis")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_protesis.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_protesis.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_protesis.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_protesis.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_protesis.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("protesistotal")) {
-                    listaOdontogramaArriba.set(posDienteList, "arriba_protesistotal.png");
-                    listaOdontogramaAbajo.set(posDienteList, "abajo_protesistotal.png");
-                    listaOdontogramaCentro.set(posDienteList, "centro_protesistotal.png");
-                    listaOdontogramaIzquierda.set(posDienteList, "izq_protesistotal.png");
-                    listaOdontogramaDerecha.set(posDienteList, "der_protesistotal.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("necendodoncia")) {
-                    listaOdontogramaFueraNecEndodoncia.set(posDienteList, "necendodoncia_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("ttoendodoncia")) {
-                    listaOdontogramaFueraEndodoncia.set(posDienteList, "ttoendodoncia_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                } else if (diagnosticoDiente.equalsIgnoreCase("bolsa_per")) {
-                    listaOdontogramaFueraBolsaPer.set(posDienteList, "bolsa_per_A.png");
-                    RequestContext requestContext = RequestContext.getCurrentInstance();
-                    requestContext.update("aperturaHistoriaOdontologica");
-                }
-
-                break;
-
-        }
-
-    }
-
     public void cambiarImgOdontogramaF(String posicion, int posDienteList, String lista) {
         OdontogramaTemp odontogramaTemp = new OdontogramaTemp();
         String nombreImagen = posicion;
@@ -2076,6 +1417,8 @@ public class AperturaHOdontologicaController implements Serializable {
                 }
                 odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
             }
+            verificarConteoCOP(posDienteList, lista);
+
         } else if (diagnosticoDiente.equalsIgnoreCase("amalgama")) {
             if (lista.compareTo("AdultoSuperior") == 0) {
                 odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
@@ -2108,7 +1451,7 @@ public class AperturaHOdontologicaController implements Serializable {
                 odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
             }
 
-            contarObturados(posDienteList);
+            contarObturados(posDienteList, lista);
         } else if (diagnosticoDiente.equalsIgnoreCase("obst_plastica")) {
             if (lista.compareTo("AdultoSuperior") == 0) {
                 odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
@@ -2139,7 +1482,7 @@ public class AperturaHOdontologicaController implements Serializable {
                 }
                 odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
             }
-            contarObturados(posDienteList);
+            contarObturados(posDienteList, lista);
         } else if (diagnosticoDiente.equalsIgnoreCase("obst_temporal")) {
             if (lista.compareTo("AdultoSuperior") == 0) {
                 odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
@@ -2248,7 +1591,7 @@ public class AperturaHOdontologicaController implements Serializable {
                 odontogramaTemp.setCentro("centro_faltante.png");
                 odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
             }
-            contarDientesPerdidos(posDienteList);
+            contarDientesPerdidos(posDienteList, lista);
         } else if (diagnosticoDiente.equalsIgnoreCase("faltante_ext")) {
             if (lista.compareTo("AdultoSuperior") == 0) {
                 odontogramaTemp = odontogramaPacienteAdultoSuperior.get(posDienteList);
@@ -2264,7 +1607,7 @@ public class AperturaHOdontologicaController implements Serializable {
                 odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
             }
 
-            contarDientesPerdidos(posDienteList);
+            contarDientesPerdidos(posDienteList, lista);
 
         } else if (diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
             if (lista.compareTo("AdultoSuperior") == 0) {
@@ -2355,6 +1698,10 @@ public class AperturaHOdontologicaController implements Serializable {
                 odontogramaPacienteAdultoInferior.set(posDienteList, odontogramaTemp);
             }
         }
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        requestContext.update("aperturaHistoriaOdontologica:odontogramaGrid");
+        requestContext.update("aperturaHistoriaOdontologica:pnlCuadro");
+        requestContext.update("aperturaHistoriaOdontologica:pnlOclusion");
     }
 
     public void cambiarImgOdontogramaInfantil(String posicion, int posDienteList, String lista) {
@@ -2457,7 +1804,7 @@ public class AperturaHOdontologicaController implements Serializable {
                 odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
             }
 
-            contarObturados(posDienteList);
+            contarObturados(posDienteList, lista);
         } else if (diagnosticoDiente.equalsIgnoreCase("obst_plastica")) {
             if (lista.compareTo("AdultoSuperior") == 0) {
                 odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
@@ -2488,7 +1835,7 @@ public class AperturaHOdontologicaController implements Serializable {
                 }
                 odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
             }
-            contarObturados(posDienteList);
+            contarObturados(posDienteList, lista);
         } else if (diagnosticoDiente.equalsIgnoreCase("obst_temporal")) {
             if (lista.compareTo("AdultoSuperior") == 0) {
                 odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
@@ -2597,7 +1944,7 @@ public class AperturaHOdontologicaController implements Serializable {
                 odontogramaTemp.setCentro("centro_faltante.png");
                 odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
             }
-            contarDientesPerdidos(posDienteList);
+            contarDientesPerdidos(posDienteList, lista);
         } else if (diagnosticoDiente.equalsIgnoreCase("faltante_ext")) {
             if (lista.compareTo("AdultoSuperior") == 0) {
                 odontogramaTemp = odontogramaPacienteInfantilSuperior.get(posDienteList);
@@ -2613,7 +1960,7 @@ public class AperturaHOdontologicaController implements Serializable {
                 odontogramaPacienteInfantilInferior.set(posDienteList, odontogramaTemp);
             }
 
-            contarDientesPerdidos(posDienteList);
+            contarDientesPerdidos(posDienteList, lista);
 
         } else if (diagnosticoDiente.equalsIgnoreCase("exodoncia")) {
             if (lista.compareTo("AdultoSuperior") == 0) {
@@ -2706,1130 +2053,162 @@ public class AperturaHOdontologicaController implements Serializable {
         }
     }
 
-    private void contarCaries(int posDiente) {
-        if (posDiente == 0 && !contCariesD18) {
-            contCariesD18 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 1 && !contCariesD17) {
-            contCariesD17 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 2 && !contCariesD16) {
-            contCariesD16 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 3 && !contCariesD15) {
-            contCariesD15 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 4 && !contCariesD14) {
-            contCariesD14 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 5 && !contCariesD13) {
-            contCariesD13 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 6 && !contCariesD12) {
-            contCariesD12 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 7 && !contCariesD11) {
-            contCariesD11 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 8 && !contCariesD21) {
-            contCariesD21 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 9 && !contCariesD22) {
-            contCariesD22 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 10 && !contCariesD23) {
-            contCariesD23 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 11 && !contCariesD24) {
-            contCariesD24 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 12 && !contCariesD25) {
-            contCariesD25 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 13 && !contCariesD26) {
-            contCariesD26 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 14 && !contCariesD27) {
-            contCariesD27 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 15 && !contCariesD28) {
-            contCariesD28 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 16 && !contCariesD48) {
-            contCariesD48 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 17 && !contCariesD47) {
-            contCariesD47 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 18 && !contCariesD46) {
-            contCariesD46 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 19 && !contCariesD45) {
-            contCariesD45 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 20 && !contCariesD44) {
-            contCariesD44 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 21 && !contCariesD43) {
-            contCariesD43 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 22 && !contCariesD42) {
-            contCariesD42 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 23 && !contCariesD41) {
-            contCariesD41 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 24 && !contCariesD31) {
-            contCariesD31 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 25 && !contCariesD32) {
-            contCariesD32 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 26 && !contCariesD33) {
-            contCariesD33 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 27 && !contCariesD34) {
-            contCariesD34 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 28 && !contCariesD35) {
-            contCariesD35 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 29 && !contCariesD36) {
-            contCariesD36 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 30 && !contCariesD37) {
-            contCariesD37 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 31 && !contCariesD38) {
-            contCariesD38 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 32 && !contCariesD55) {
-            contCariesD55 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 33 && !contCariesD54) {
-            contCariesD54 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 34 && !contCariesD53) {
-            contCariesD53 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 35 && !contCariesD52) {
-            contCariesD52 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 36 && !contCariesD51) {
-            contCariesD51 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 37 && !contCariesD61) {
-            contCariesD61 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 38 && !contCariesD62) {
-            contCariesD62 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 39 && !contCariesD63) {
-            contCariesD63 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 40 && !contCariesD64) {
-            contCariesD64 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 41 && !contCariesD65) {
-            contCariesD65 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 42 && !contCariesD85) {
-            contCariesD85 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 43 && !contCariesD84) {
-            contCariesD84 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 44 && !contCariesD83) {
-            contCariesD83 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 45 && !contCariesD82) {
-            contCariesD82 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 46 && !contCariesD81) {
-            contCariesD81 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 47 && !contCariesD71) {
-            contCariesD71 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 48 && !contCariesD72) {
-            contCariesD72 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 49 && !contCariesD73) {
-            contCariesD73 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 50 && !contCariesD74) {
-            contCariesD74 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 51 && !contCariesD75) {
-            contCariesD75 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
+    private void verificarConteoCOP(int posDiente, String posicion) {
+        if (posicion.compareTo("AdultoInferior") == 0) {
+            posDiente = posDiente + 16;
+        }
+        boolean validacionDienteNormalSuperior = false;
+        boolean validacionDienteConCariesSuperior = false;
+        boolean validacionDienteConObturacionSuperior = false;
+        boolean validacionDienteNormalInferior = false;
+        boolean validacionDienteConCariesInferior = false;
+        boolean validacionDienteConObturacionInferior = false;
+        if (posDiente >= 0 && posDiente <= 15) {
+            validacionDienteNormalSuperior = odontogramaPacienteAdultoSuperior.get(posDiente).getAbajo().compareTo("abajo_normal.png") == 0
+                    && odontogramaPacienteAdultoSuperior.get(posDiente).getArriba().compareTo("arriba_normal.png") == 0
+                    && odontogramaPacienteAdultoSuperior.get(posDiente).getIzquierda().compareTo("izq_normal.png") == 0
+                    && odontogramaPacienteAdultoSuperior.get(posDiente).getDerecha().compareTo("der_normal.png") == 0
+                    && odontogramaPacienteAdultoSuperior.get(posDiente).getCentro().compareTo("centro_normal.png") == 0;
+            validacionDienteConCariesSuperior = odontogramaPacienteAdultoSuperior.get(posDiente).getAbajo().compareTo("abajo_caries.png") == 0
+                    || odontogramaPacienteAdultoSuperior.get(posDiente).getArriba().compareTo("arriba_caries.png") == 0
+                    || odontogramaPacienteAdultoSuperior.get(posDiente).getIzquierda().compareTo("izq_caries.png") == 0
+                    || odontogramaPacienteAdultoSuperior.get(posDiente).getDerecha().compareTo("der_caries.png") == 0
+                    || odontogramaPacienteAdultoSuperior.get(posDiente).getCentro().compareTo("centro_caries.png") == 0;
+            validacionDienteConObturacionSuperior = odontogramaPacienteAdultoSuperior.get(posDiente).getAbajo().compareTo("abajo_amalgama.png") == 0
+                    || odontogramaPacienteAdultoSuperior.get(posDiente).getArriba().compareTo("arriba_amalgama.png") == 0
+                    || odontogramaPacienteAdultoSuperior.get(posDiente).getIzquierda().compareTo("izq_amalgama.png") == 0
+                    || odontogramaPacienteAdultoSuperior.get(posDiente).getDerecha().compareTo("der_amalgama.png") == 0
+                    || odontogramaPacienteAdultoSuperior.get(posDiente).getCentro().compareTo("centro_amalgama.png") == 0;
+        } else if (posDiente > 15 && posDiente <= 31) {
+            validacionDienteNormalInferior = odontogramaPacienteAdultoInferior.get(posDiente).getAbajo().compareTo("abajo_normal.png") == 0
+                    && odontogramaPacienteAdultoInferior.get(posDiente).getArriba().compareTo("arriba_normal.png") == 0
+                    && odontogramaPacienteAdultoInferior.get(posDiente).getIzquierda().compareTo("izq_normal.png") == 0
+                    && odontogramaPacienteAdultoInferior.get(posDiente).getDerecha().compareTo("der_normal.png") == 0
+                    && odontogramaPacienteAdultoInferior.get(posDiente).getCentro().compareTo("centro_normal.png") == 0;
+            validacionDienteConCariesInferior = odontogramaPacienteAdultoInferior.get(posDiente).getAbajo().compareTo("abajo_caries.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getArriba().compareTo("arriba_caries.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getIzquierda().compareTo("izq_caries.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getDerecha().compareTo("der_caries.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getCentro().compareTo("centro_caries.png") == 0;
+            validacionDienteConObturacionInferior = odontogramaPacienteAdultoInferior.get(posDiente).getAbajo().compareTo("abajo_amalgama.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getArriba().compareTo("arriba_amalgama.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getIzquierda().compareTo("izq_amalgama.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getDerecha().compareTo("der_amalgama.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getCentro().compareTo("centro_amalgama.png") == 0;
         }
 
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        requestContext.update("aperturaHistoriaOdontologica");
+        if (posDiente >= 0 && posDiente <= 15 && validacionDienteNormalSuperior || posDiente >= 0 && posDiente <= 15 && validacionDienteConObturacionSuperior && !validacionDienteConCariesSuperior) {
+            if (contadoresCariesDiente.get(posDiente)) {
+                this.contadoresCariesDiente.set(posDiente, false);
+                int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) - 1;
+                int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) - 1;
+                this.obsOdontograma.setCaries("" + contadorCaries);
+                this.cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
+            } else if (contadoresObturadosDiente.get(posDiente)) {
+                contadoresObturadosDiente.set(posDiente, false);
+                int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) - 1;
+                int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) - 1;
+                obsOdontograma.setObturados("" + contadorObturados);
+                cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
+            } else if (contadoresPerdidosDiente.get(posDiente)) {
+                contadoresPerdidosDiente.set(posDiente, false);
+                int contadorPerdidos = Integer.parseInt(obsOdontograma.getObturados()) - 1;
+                int contadorPerdidosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) - 1;
+                obsOdontograma.setPerdidos("" + contadorPerdidos);
+                cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperios);
+            }
+
+        } else if (posDiente > 15 && posDiente <= 31 && validacionDienteNormalInferior || posDiente > 15 && posDiente <= 31 && validacionDienteConCariesInferior && !validacionDienteConObturacionInferior) {
+            if (contadoresCariesDiente.get(posDiente)) {
+                contadoresCariesDiente.set(posDiente, false);
+                int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) - 1;
+                int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) - 1;
+                obsOdontograma.setCaries("" + contadorCaries);
+                cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
+            } else if (contadoresObturadosDiente.get(posDiente)) {
+                contadoresObturadosDiente.set(posDiente, false);
+                int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) - 1;
+                int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) - 1;
+                obsOdontograma.setObturados("" + contadorObturados);
+                cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
+            } else if (contadoresPerdidosDiente.get(posDiente)) {
+                contadoresPerdidosDiente.set(posDiente, false);
+                int contadorPerdidos = Integer.parseInt(obsOdontograma.getObturados()) - 1;
+                int contadorPerdidosInf = Integer.parseInt(cuadroSintesis.getObturacionInf()) - 1;
+                obsOdontograma.setPerdidos("" + contadorPerdidos);
+                cuadroSintesis.setFaltantesInf("" + contadorPerdidosInf);
+            }
+        }
 
     }
 
     private void contarCariesCopia(int posDiente, String posicion) {
-        if (posicion.compareTo("AdultoSuperior") == 0) {
-
-        } else if (posicion.compareTo("AdultoInferior") == 0) {
+        if (posicion.compareTo("AdultoInferior") == 0) {
             posDiente = posDiente + 16;
         }
-
-        if (posDiente == 0 && !contCariesD18) {
-            contCariesD18 = true;
+        if (posDiente >= 0 && posDiente <= 15 && !contadoresCariesDiente.get(posDiente)) {
+            contadoresCariesDiente.set(posDiente, true);
             int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
             int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
             obsOdontograma.setCaries("" + contadorCaries);
             cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 1 && !contCariesD17) {
-            contCariesD17 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 2 && !contCariesD16) {
-            contCariesD16 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 3 && !contCariesD15) {
-            contCariesD15 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 4 && !contCariesD14) {
-            contCariesD14 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 5 && !contCariesD13) {
-            contCariesD13 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 6 && !contCariesD12) {
-            contCariesD12 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 7 && !contCariesD11) {
-            contCariesD11 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 8 && !contCariesD21) {
-            contCariesD21 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 9 && !contCariesD22) {
-            contCariesD22 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 10 && !contCariesD23) {
-            contCariesD23 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 11 && !contCariesD24) {
-            contCariesD24 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 12 && !contCariesD25) {
-            contCariesD25 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 13 && !contCariesD26) {
-            contCariesD26 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 14 && !contCariesD27) {
-            contCariesD27 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 15 && !contCariesD28) {
-            contCariesD28 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesSuperior = Integer.parseInt(cuadroSintesis.getCariadosSup()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosSup("" + contadorCariesSuperior);
-        } else if (posDiente == 16 && !contCariesD48) {
-            contCariesD48 = true;
+        } else if (posDiente > 15 && posDiente <= 31 && !contadoresCariesDiente.get(posDiente)) {
+            contadoresCariesDiente.set(posDiente, true);
             int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
             int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
             obsOdontograma.setCaries("" + contadorCaries);
             cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 17 && !contCariesD47) {
-            contCariesD47 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 18 && !contCariesD46) {
-            contCariesD46 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 19 && !contCariesD45) {
-            contCariesD45 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 20 && !contCariesD44) {
-            contCariesD44 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 21 && !contCariesD43) {
-            contCariesD43 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 22 && !contCariesD42) {
-            contCariesD42 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 23 && !contCariesD41) {
-            contCariesD41 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 24 && !contCariesD31) {
-            contCariesD31 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 25 && !contCariesD32) {
-            contCariesD32 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 26 && !contCariesD33) {
-            contCariesD33 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 27 && !contCariesD34) {
-            contCariesD34 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 28 && !contCariesD35) {
-            contCariesD35 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 29 && !contCariesD36) {
-            contCariesD36 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 30 && !contCariesD37) {
-            contCariesD37 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 31 && !contCariesD38) {
-            contCariesD38 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            int contadorCariesInferior = Integer.parseInt(cuadroSintesis.getCariadosInf()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-            cuadroSintesis.setCariadosInf("" + contadorCariesInferior);
-        } else if (posDiente == 32 && !contCariesD55) {
-            contCariesD55 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 33 && !contCariesD54) {
-            contCariesD54 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 34 && !contCariesD53) {
-            contCariesD53 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 35 && !contCariesD52) {
-            contCariesD52 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 36 && !contCariesD51) {
-            contCariesD51 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 37 && !contCariesD61) {
-            contCariesD61 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 38 && !contCariesD62) {
-            contCariesD62 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 39 && !contCariesD63) {
-            contCariesD63 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 40 && !contCariesD64) {
-            contCariesD64 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 41 && !contCariesD65) {
-            contCariesD65 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 42 && !contCariesD85) {
-            contCariesD85 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 43 && !contCariesD84) {
-            contCariesD84 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 44 && !contCariesD83) {
-            contCariesD83 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 45 && !contCariesD82) {
-            contCariesD82 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 46 && !contCariesD81) {
-            contCariesD81 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 47 && !contCariesD71) {
-            contCariesD71 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 48 && !contCariesD72) {
-            contCariesD72 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 49 && !contCariesD73) {
-            contCariesD73 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 50 && !contCariesD74) {
-            contCariesD74 = true;
-            int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
-            obsOdontograma.setCaries("" + contadorCaries);
-        } else if (posDiente == 51 && !contCariesD75) {
-            contCariesD75 = true;
+        } else if (posDiente > 31 && posDiente <= 51 && !contadoresCariesDiente.get(posDiente)) {
+            contadoresCariesDiente.set(posDiente, true);
             int contadorCaries = Integer.parseInt(obsOdontograma.getCaries()) + 1;
             obsOdontograma.setCaries("" + contadorCaries);
         }
-
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        requestContext.update("aperturaHistoriaOdontologica");
-
     }
 
-    private void contarObturados(int posDiente) {
-        if (posDiente == 0 && !contObturadosD18) {
-            contObturadosD18 = true;
+    private void contarObturados(int posDiente, String posicion) {
+        if (posicion.compareTo("AdultoInferior") == 0) {
+            posDiente = posDiente + 16;
+        }
+        if (posDiente >= 0 && posDiente <= 15 && !contadoresObturadosDiente.get(posDiente)) {
+            contadoresObturadosDiente.set(posDiente, true);
             int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
             int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
             obsOdontograma.setObturados("" + contadorObturados);
             cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 1 && !contObturadosD17) {
-            contObturadosD17 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 2 && !contObturadosD16) {
-            contObturadosD16 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 3 && !contObturadosD15) {
-            contObturadosD15 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 4 && !contObturadosD14) {
-            contObturadosD14 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 5 && !contObturadosD13) {
-            contObturadosD13 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 6 && !contObturadosD12) {
-            contObturadosD12 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 7 && !contObturadosD11) {
-            contObturadosD11 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 8 && !contObturadosD21) {
-            contObturadosD21 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 9 && !contObturadosD22) {
-            contObturadosD22 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 10 && !contObturadosD23) {
-            contObturadosD23 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 11 && !contObturadosD24) {
-            contObturadosD24 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 12 && !contObturadosD25) {
-            contObturadosD25 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 13 && !contObturadosD26) {
-            contObturadosD26 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 14 && !contObturadosD27) {
-            contObturadosD27 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 15 && !contObturadosD28) {
-            contObturadosD28 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionSup("" + contadorObturadosSuperios);
-        } else if (posDiente == 16 && !contObturadosD48) {
-            contObturadosD48 = true;
+        } else if (posDiente > 15 && posDiente <= 31 && !contadoresObturadosDiente.get(posDiente)) {
+            contadoresObturadosDiente.set(posDiente, true);
             int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
             int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
             obsOdontograma.setObturados("" + contadorObturados);
             cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 17 && !contObturadosD47) {
-            contObturadosD47 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 18 && !contObturadosD46) {
-            contObturadosD46 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 19 && !contObturadosD45) {
-            contObturadosD45 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 20 && !contObturadosD44) {
-            contObturadosD44 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 21 && !contObturadosD43) {
-            contObturadosD43 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 22 && !contObturadosD42) {
-            contObturadosD42 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 23 && !contObturadosD41) {
-            contObturadosD41 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 24 && !contObturadosD31) {
-            contObturadosD31 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 25 && !contObturadosD32) {
-            contObturadosD32 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 26 && !contObturadosD33) {
-            contObturadosD33 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 27 && !contObturadosD34) {
-            contObturadosD34 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 28 && !contObturadosD35) {
-            contObturadosD35 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 29 && !contObturadosD36) {
-            contObturadosD36 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 30 && !contObturadosD37) {
-            contObturadosD37 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 31 && !contObturadosD38) {
-            contObturadosD38 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            int contadorObturadosInferior = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-            cuadroSintesis.setObturacionInf("" + contadorObturadosInferior);
-        } else if (posDiente == 32 && !contObturadosD55) {
-            contObturadosD55 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 33 && !contObturadosD54) {
-            contObturadosD54 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 34 && !contObturadosD53) {
-            contObturadosD53 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 35 && !contObturadosD52) {
-            contObturadosD52 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 36 && !contObturadosD51) {
-            contObturadosD51 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 37 && !contObturadosD61) {
-            contObturadosD61 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 38 && !contObturadosD62) {
-            contObturadosD62 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 39 && !contObturadosD63) {
-            contObturadosD63 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 40 && !contObturadosD64) {
-            contObturadosD64 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 41 && !contObturadosD65) {
-            contObturadosD65 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 42 && !contObturadosD85) {
-            contObturadosD85 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 43 && !contObturadosD84) {
-            contObturadosD84 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 44 && !contObturadosD83) {
-            contObturadosD83 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 45 && !contObturadosD82) {
-            contObturadosD82 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 46 && !contObturadosD81) {
-            contObturadosD81 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 47 && !contObturadosD71) {
-            contObturadosD71 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 48 && !contObturadosD72) {
-            contObturadosD72 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 49 && !contObturadosD73) {
-            contObturadosD73 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 50 && !contObturadosD74) {
-            contObturadosD74 = true;
-            int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
-            obsOdontograma.setObturados("" + contadorObturados);
-        } else if (posDiente == 51 && !contObturadosD75) {
-            contObturadosD75 = true;
+        } else if (posDiente > 31 && posDiente <= 51 && !contadoresObturadosDiente.get(posDiente)) {
+            contadoresObturadosDiente.set(posDiente, true);
             int contadorObturados = Integer.parseInt(obsOdontograma.getObturados()) + 1;
             obsOdontograma.setObturados("" + contadorObturados);
         }
-
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        requestContext.update("aperturaHistoriaOdontologica:pnlCuadro");
-        requestContext.update("aperturaHistoriaOdontologica:pnlOclusion");
-
     }
 
-    public void contarDientesPerdidos(int posDiente) {
-        if (posDiente == 0 && !contPerdidosD18) {
-            contPerdidosD18 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
+    public void contarDientesPerdidos(int posDiente, String posicion) {
+        if (posicion.compareTo("AdultoInferior") == 0) {
+            posDiente = posDiente + 16;
+        }
+        if (posDiente >= 0 && posDiente <= 15 && !contadoresPerdidosDiente.get(posDiente)) {
+            contadoresPerdidosDiente.set(posDiente, true);
+            int contadorPerdidos = Integer.parseInt(obsOdontograma.getObturados()) + 1;
+            int contadorPerdidosSuperios = Integer.parseInt(cuadroSintesis.getObturacionSup()) + 1;
             obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 1 && !contPerdidosD17) {
-            contPerdidosD17 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
+            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperios);
+        } else if (posDiente > 15 && posDiente <= 31 && !contadoresPerdidosDiente.get(posDiente)) {
+            contadoresPerdidosDiente.set(posDiente, true);
+            int contadorPerdidos = Integer.parseInt(obsOdontograma.getObturados()) + 1;
+            int contadorPerdidosInf = Integer.parseInt(cuadroSintesis.getObturacionInf()) + 1;
             obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 2 && !contPerdidosD16) {
-            contPerdidosD16 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 3 && !contPerdidosD15) {
-            contPerdidosD15 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 4 && !contPerdidosD14) {
-            contPerdidosD14 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 5 && !contPerdidosD13) {
-            contPerdidosD13 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 6 && !contPerdidosD12) {
-            contPerdidosD12 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 7 && !contPerdidosD11) {
-            contPerdidosD11 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 8 && !contPerdidosD21) {
-            contPerdidosD21 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 9 && !contPerdidosD22) {
-            contPerdidosD22 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 10 && !contPerdidosD23) {
-            contPerdidosD23 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 11 && !contPerdidosD24) {
-            contPerdidosD24 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 12 && !contPerdidosD25) {
-            contPerdidosD25 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 13 && !contPerdidosD26) {
-            contPerdidosD26 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 14 && !contPerdidosD27) {
-            contPerdidosD27 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 15 && !contPerdidosD28) {
-            contPerdidosD28 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosSuperior = Integer.parseInt(cuadroSintesis.getFaltantesSup()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesSup("" + contadorPerdidosSuperior);
-        } else if (posDiente == 16 && !contPerdidosD48) {
-            contPerdidosD48 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 17 && !contPerdidosD47) {
-            contPerdidosD47 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 18 && !contPerdidosD46) {
-            contPerdidosD46 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 19 && !contPerdidosD45) {
-            contPerdidosD45 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 20 && !contPerdidosD44) {
-            contPerdidosD44 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 21 && !contPerdidosD43) {
-            contPerdidosD43 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 22 && !contPerdidosD42) {
-            contPerdidosD42 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 23 && !contPerdidosD41) {
-            contPerdidosD41 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 24 && !contPerdidosD31) {
-            contPerdidosD31 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 25 && !contPerdidosD32) {
-            contPerdidosD32 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 26 && !contPerdidosD33) {
-            contPerdidosD33 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 27 && !contPerdidosD34) {
-            contPerdidosD34 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 28 && !contPerdidosD35) {
-            contPerdidosD35 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 29 && !contPerdidosD36) {
-            contPerdidosD36 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 30 && !contPerdidosD37) {
-            contPerdidosD37 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 31 && !contPerdidosD38) {
-            contPerdidosD38 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            int contadorPerdidosInferior = Integer.parseInt(cuadroSintesis.getFaltantesInf()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInferior);
-        } else if (posDiente == 32 && !contPerdidosD55) {
-            contPerdidosD55 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 33 && !contPerdidosD54) {
-            contPerdidosD54 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 34 && !contPerdidosD53) {
-            contPerdidosD53 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 35 && !contPerdidosD52) {
-            contPerdidosD52 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 36 && !contPerdidosD51) {
-            contPerdidosD51 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 37 && !contPerdidosD61) {
-            contPerdidosD61 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 38 && !contPerdidosD62) {
-            contPerdidosD62 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 39 && !contPerdidosD63) {
-            contPerdidosD63 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 40 && !contPerdidosD64) {
-            contPerdidosD64 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 41 && !contPerdidosD65) {
-            contPerdidosD65 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 42 && !contPerdidosD85) {
-            contPerdidosD85 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 43 && !contPerdidosD84) {
-            contPerdidosD84 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 44 && !contPerdidosD83) {
-            contPerdidosD83 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 45 && !contPerdidosD82) {
-            contPerdidosD82 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 46 && !contPerdidosD81) {
-            contPerdidosD81 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 47 && !contPerdidosD71) {
-            contPerdidosD71 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 48 && !contPerdidosD72) {
-            contPerdidosD72 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 49 && !contPerdidosD73) {
-            contPerdidosD73 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 50 && !contPerdidosD74) {
-            contPerdidosD74 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
-            obsOdontograma.setPerdidos("" + contadorPerdidos);
-        } else if (posDiente == 51 && !contPerdidosD75) {
-            contPerdidosD75 = true;
-            int contadorPerdidos = Integer.parseInt(obsOdontograma.getPerdidos()) + 1;
+            cuadroSintesis.setFaltantesInf("" + contadorPerdidosInf);
+        } else if (posDiente > 31 && posDiente <= 51 && !contadoresPerdidosDiente.get(posDiente)) {
+            contadoresPerdidosDiente.set(posDiente, true);
+            int contadorPerdidos = Integer.parseInt(obsOdontograma.getObturados()) + 1;
             obsOdontograma.setPerdidos("" + contadorPerdidos);
         }
-
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        requestContext.update("aperturaHistoriaOdontologica");
     }
 
     private UsuariosSistema usuarioDeLaSesion() {
@@ -3911,6 +2290,9 @@ public class AperturaHOdontologicaController implements Serializable {
     }
 
     public void inicializarVariables() {
+        this.contadoresCariesDiente = new ArrayList<>(52);
+        this.contadoresObturadosDiente = new ArrayList<>(52);
+        this.contadoresPerdidosDiente = new ArrayList<>(52);
         this.actualizacionOdo = new ActualizacionOdo();
         this.higiene = new Higiene();
         this.obsOdontograma = new ObsOdontograma();
@@ -3919,8 +2301,13 @@ public class AperturaHOdontologicaController implements Serializable {
         this.obsOdontograma.setObturados("0");
         this.obsOdontograma.setPerdidos("0");
         this.cuadroSintesis = new CuadroSintesis();
-
         this.diagnosticoDiente = "normal";
+        for (int i = 0; i < 52; i++) {
+            contadoresCariesDiente.add(false);
+            contadoresObturadosDiente.add(false);
+            contadoresPerdidosDiente.add(false);
+        }
+
         cargarAntecedentesFamiliares();
         cargarAntecedentesPersonales();
         cargarEstomatologicos();
@@ -4110,6 +2497,12 @@ public class AperturaHOdontologicaController implements Serializable {
     private void registrarHigieneOral() {
         this.higiene.setIdActualizacion(actualizacionOdo);
         this.ejbHigiene.create(higiene);
+    }
+
+    public String onFlowProcess(FlowEvent event) {
+
+        return event.getNewStep();
+
     }
 
     /*
