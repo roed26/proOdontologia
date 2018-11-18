@@ -9,105 +9,105 @@
     <h:body>
         <CENTER><h1> Gestión de pagos </h1></CENTER><br/>
 
-            <br/><p:commandButton id="listaServiciosButton" icon="ui-icon-plus"   value="Agregar tratamiento" onclick="PF('listaServicios').show()"/>
+        <br/><p:commandButton id="listaServiciosButton" icon="ui-icon-plus"   value="Agregar tratamiento" onclick="PF('listaServicios').show()"/>
 
 
 
-            <p:dataTable id="datalistTratamiento" value="#{presupuestoController.listaServicios}" var="presupuesto"
-                         >
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Tratamiento"/>
-                    </f:facet>
-                    <h:outputText value="#{presupuesto.servicioOdo.nombre}"/>
+        <p:dataTable id="datalistTratamiento" value="#{presupuestoController.listaServicios}" var="presupuesto"
+                     >
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Tratamiento"/>
+                </f:facet>
+                <h:outputText value="#{presupuesto.servicioOdo.nombre}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Valor"/>
+                </f:facet>
+                <h:outputText value="$ #{presupuesto.servicioOdo.precio}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Cantidad"/>
+                </f:facet>
+                <p:commandButton disabled="#{presupuesto.cantidad==1}" id="menosButton" icon="ui-icon-minus" action="#{presupuestoController.menosCantidad(presupuesto)}"  ajax="r"/>
+                <h:inputText style="width: 50px" value="#{presupuesto.cantidad}"/>
+                <p:commandButton id="masButton" icon="ui-icon-plus"  action="#{presupuestoController.sumaCantidad(presupuesto)}"  ajax="r"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Total"/>
+                </f:facet>
+                <h:outputText value="$ #{presupuesto.precio}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Acción"/>
+                </f:facet>
+                <p:commandButton id="createButton" icon="ui-icon-trash"   value="Eliminar"/>
+            </p:column>
+
+        </p:dataTable>
+
+
+
+        <p:panelGrid>
+            <p:row>
+                <p:column style="font-weight:bold; width: 846px; text-align: right">
+                    <p:outputLabel value="Pagar"/>
+                </p:column>
+                <p:column style="width: 268px; text-align: right">
+                    <p:outputLabel id="pagar" value="$ #{presupuestoController.totalPagar}"
+                                   title="Valor a pagar" >
+                    </p:outputLabel>
                 </p:column>
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Valor"/>
-                    </f:facet>
-                    <h:outputText value="$ #{presupuesto.servicioOdo.precio}"/>
-                </p:column>
-
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Cantidad"/>
-                    </f:facet>
-                    <p:commandButton disabled="#{presupuesto.cantidad==1}" id="menosButton" icon="ui-icon-minus" action="#{presupuestoController.menosCantidad(presupuesto)}"  ajax="r"/>
-                    <h:inputText style="width: 50px" value="#{presupuesto.cantidad}"/>
-                    <p:commandButton id="masButton" icon="ui-icon-plus"  action="#{presupuestoController.sumaCantidad(presupuesto)}"  ajax="r"/>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Total"/>
-                    </f:facet>
-                    <h:outputText value="$ #{presupuesto.precio}"/>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Acción"/>
-                    </f:facet>
-                    <p:commandButton id="createButton" icon="ui-icon-trash"   value="Eliminar"/>
-                </p:column>
-
-            </p:dataTable>
-
-       
-        
-            <p:panelGrid>
-                <p:row>
-                    <p:column style="font-weight:bold; width: 846px; text-align: right">
-                        <p:outputLabel value="Pagar"/>
-                    </p:column>
-                    <p:column style="width: 268px; text-align: right">
-                        <p:outputLabel id="pagar" value="$ #{presupuestoController.totalPagar}"
-                                       title="Valor a pagar" >
-                        </p:outputLabel>
-                    </p:column>
-                    <p:column>
-                      <f:facet name="header">
                         <h:outputText value="Acción"/>
                     </f:facet>
                     <p:commandButton id="createButton" icon="ui-icon-minus"   value="Descuento"/>  
-                    </p:column>
-                </p:row>
-            </p:panelGrid>
+                </p:column>
+            </p:row>
+        </p:panelGrid>
 
-        
+
 
         <p:dialog widgetVar="listaServicios" width="450" header="Listado de tratamientos">
             <h:form id="ServiciosOdoListForm">
-                    <p:dataTable id="datalist" value="#{serviciosOdoController.itemsAvailableSelectOne}" var="item"
-                                 paginator="true"
-                                 rowKey="#{item.id}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+                <p:dataTable id="datalist" value="#{serviciosOdoController.itemsAvailableSelectOne}" var="item"
+                             paginator="true"
+                             rowKey="#{item.id}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundleServicios.ListServiciosOdoTitle_nombre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombre}"/>
-                        </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundleServicios.ListServiciosOdoTitle_nombre}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre}"/>
+                    </p:column>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundleServicios.ListServiciosOdoTitle_valor}"/>
-                            </f:facet>
-                            <h:outputText value="$ #{item.precio}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Acción"/>
-                            </f:facet>
-                            <p:commandButton id="createButton" icon="ui-icon-plus" value="Seleccionar" action="#{presupuestoController.seleccionarTrataminto(item)}"/>
-                        </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundleServicios.ListServiciosOdoTitle_valor}"/>
+                        </f:facet>
+                        <h:outputText value="$ #{item.precio}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Acción"/>
+                        </f:facet>
+                        <p:commandButton id="createButton" icon="ui-icon-plus" value="Seleccionar" action="#{presupuestoController.seleccionarTrataminto(item)}"/>
+                    </p:column>
 
-                    </p:dataTable>
+                </p:dataTable>
             </h:form>
         </p:dialog>
         <ui:include src="CrearPresupuesto.xhtml"/>
-       
+
     </h:body>
 
 </html>

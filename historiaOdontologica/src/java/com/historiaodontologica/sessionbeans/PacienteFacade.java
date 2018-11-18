@@ -37,4 +37,14 @@ public class PacienteFacade extends AbstractFacade<Paciente> {
         List<Paciente> resultList = query.getResultList();
         return resultList;
     }
+    public boolean buscarPacienteIdentificacionEjb(String identificacion) {
+        Query query = getEntityManager().createNamedQuery("Paciente.findByIdentificacion");
+        query.setParameter("identificacion",  identificacion );
+        List<Paciente> resultList = query.getResultList();
+        if(resultList.size()>0){
+        return true;
+        }else{
+            return false;
+        }
+    }
 }

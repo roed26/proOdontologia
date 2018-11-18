@@ -94,6 +94,8 @@ public class PacienteController implements Serializable {
 
     public Paciente prepareCreate() {
         selected = new Paciente();
+        selected.setEstado("1");
+        selected.setTipoIdentificacion(tipoIdentificacion);
         initializeEmbeddableKey();
         return selected;
     }

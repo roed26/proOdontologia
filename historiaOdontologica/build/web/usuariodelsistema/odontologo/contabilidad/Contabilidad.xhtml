@@ -17,6 +17,7 @@ and open the template in the editor.
             <p:panelGrid columns="2" styleClass="panelgrid" >
                 <p:commandButton value="Generar resultados"  
                                  action="#{contabilidadController.calcurarGanancias()}" 
+                                 onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"
                                  ajax="r"
                                  />
             </p:panelGrid>
@@ -31,7 +32,7 @@ and open the template in the editor.
                 </p:row>
                 <p:row>
                     <p:column>                       
-                        <p:outputLabel value="#{contabilidadController.ganancia}"/>
+                        <p:outputLabel value="#{contabilidadController.ganancias}"/>
                     </p:column>
                     <p:column>                       
                         <p:outputLabel value="#{contabilidadController.perdida}"/>

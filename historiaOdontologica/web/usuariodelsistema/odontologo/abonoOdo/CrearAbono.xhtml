@@ -62,8 +62,10 @@
                 </p:panelGrid>
                 <p:commandButton action="#{abonoOdoController.registrarAbono}" 
                                  value="Guardar" update="display,:AbonoOdoListForm:datalist,:informacionPaciente:panel" 
-                                 oncomplete="PF('AbonoOdoCreateDialog').hide()"/>
-                <p:commandButton value="Cancelar" onclick="AbonoOdoCreateDialog.hide()"/>
+                                 oncomplete="PF('AbonoOdoCreateDialog').hide()"
+                                 onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
+                <p:commandButton value="Cancelar" onclick="AbonoOdoCreateDialog.hide()"
+                                 onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>
             </h:panelGroup>
         </h:form>
     </p:dialog>

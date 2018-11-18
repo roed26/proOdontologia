@@ -59,7 +59,7 @@ public class UsuariosSistemaFacade extends AbstractFacade<UsuariosSistema> {
 
     public List<UsuariosSistema> buscarPorNumeroIdentificacion(String identificacion) {
         Query query = getEntityManager().createNamedQuery("UsuariosSistema.findByIdentificacion");
-        query.setParameter("identificacion", identificacion);
+        query.setParameter("identificacion","%"+identificacion+"%");
         List<UsuariosSistema> resultList = query.getResultList();
         return resultList;
     }

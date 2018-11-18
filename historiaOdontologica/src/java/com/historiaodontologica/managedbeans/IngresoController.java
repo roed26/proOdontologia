@@ -47,7 +47,7 @@ public class IngresoController implements Serializable {
     public void setReportesMedicos(ReportesMedicos reportesMedicos) {
         this.reportesMedicos = reportesMedicos;
     }
-    
+
     public Date getFechadesde() {
         return reportesMedicos.getFechadesde();
     }
@@ -105,7 +105,7 @@ public class IngresoController implements Serializable {
 
         selected = new Ingreso();
     }
-    
+
     public List<Ingreso> getItems() {
         if (items == null || getFechadesde() == null || getFechahasta() == null) {
             items = getFacade().findAll();
@@ -117,11 +117,15 @@ public class IngresoController implements Serializable {
 
     public void filtrar() {
 //        prueba();
+        if (getFechadesde().after(getFechahasta())) {
+            FacesContext.getCurrentInstance().addMessage("IngresoListForm:fechadesde", new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Rango de fechas no permitido, la fecha DESDE no debe ser mayor a la fecha HASTA"));
+        }
     }
 
     public void prueba() {
         items = getFacade().listadoIngresoFecha(reportesMedicos.getFechadesde(), reportesMedicos.getFechahasta());
     }
+
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleEgresoIngreso").getString("IngresoUpdated"));
     }
@@ -133,7 +137,7 @@ public class IngresoController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
+
     public int contarCaracteres() {
         int cont = 0;
         if (selected.getDescripcionIngreso() != null) {

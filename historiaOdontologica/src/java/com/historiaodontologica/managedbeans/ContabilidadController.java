@@ -36,15 +36,26 @@ public class ContabilidadController implements Serializable {
     private Ingreso selectedIngreso;
     private Egreso selectedEgreso;
     private String ganancia;
+    private float ganancias;
     private String perdida;
 
     public ContabilidadController() {
         this.ganancia = "";
+        this.ganancias = 0;
         this.perdida = "";
         itemsIngreso = new ArrayList<>();
         itemsEgreso = new ArrayList<>();
     }
 
+    public float getGanancias() {
+        return ganancias;
+    }
+
+    public void setGanancias(float ganancias) {
+        this.ganancias = ganancias;
+    }
+
+    
     public String getGanancia() {
         return ganancia;
     }
@@ -93,9 +104,12 @@ public class ContabilidadController implements Serializable {
         if (totalIngresos > totalEgresos) {
             gan = totalIngresos - totalEgresos;
             ganancia = String.valueOf(gan);
+            ganancias = (float) gan;
+            System.out.println("KKKKKKKKK"+ ganancias);
         } else if (totalIngresos < totalEgresos) {
             per = (totalIngresos - totalEgresos) * -1;
             perdida = String.valueOf(per);
+            System.out.println("KKKKKKKKK"+ perdida);
         } else {
             ganancia = "0";
             perdida = "0";

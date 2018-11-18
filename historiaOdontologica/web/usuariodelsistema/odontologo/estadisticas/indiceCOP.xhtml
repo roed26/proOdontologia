@@ -39,10 +39,11 @@ and open the template in the editor.
                 </p:row>
                 <p:commandButton value="GENERAR ÍNDICE COP"  
                                  action="#{estadisticasController.generarIndiceCOP()}" 
+                                 onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"
                                  ajax="r"
                                  />
                 <p:commandButton  rendered="#{estadisticasController.listaCOP.size()>0}" 
-                                  value="IMPRIMIR RESULTADOS" >
+                                  value="IMPRIMIR RESULTADOS" onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()">
                     <p:printer target="estadisticasF"/>     
                 </p:commandButton>
             </p:panelGrid>
