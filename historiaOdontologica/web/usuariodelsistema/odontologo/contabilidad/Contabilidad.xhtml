@@ -32,11 +32,11 @@ and open the template in the editor.
                 </p:row>
                 <p:row>
                     <p:column>                       
-                        <p:outputLabel value="#{contabilidadController.ganancias}"/>
+                        <p:outputLabel value="#{contabilidadController.nf.format(contabilidadController.ganancias)}"/>
                     </p:column>
                     <p:column>                       
-                        <p:outputLabel value="#{contabilidadController.perdida}"/>
-                    </p:column>
+                        <p:outputLabel value="#{contabilidadController.nf.format(contabilidadController.perdida)}"/>
+                    </p:column> 
                 </p:row>
             </p:panelGrid>
 
@@ -63,7 +63,7 @@ and open the template in the editor.
                                 <f:facet name="header">
                                     <p:outputLabel value="Valor Ingreso"/>
                                 </f:facet>
-                                <p:outputLabel value="#{ingresos.valorIngreso}"/>
+                                <p:outputLabel value="#{contabilidadController.nf.format(ingresos.valorIngreso)}"/>
                             </p:column>
                         </p:dataTable>
                     </p:column>
@@ -89,7 +89,7 @@ and open the template in the editor.
                                 <f:facet name="header">
                                     <p:outputLabel value="Valor"/>
                                 </f:facet>
-                                <p:outputLabel value="#{egresos.valorEgreso}"/>
+                                <p:outputLabel value="#{contabilidadController.nf.format(egresos.valorEgreso)}"/>
                             </p:column>
                         </p:dataTable>
                     </p:column>

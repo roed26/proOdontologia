@@ -15,6 +15,8 @@ import com.historiaodontologica.sessionbeans.PresupuestoFacade;
 import com.historiaodontologica.sessionbeans.UsuariosSistemaFacade;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -58,6 +60,7 @@ public class AbonoOdoController implements Serializable {
     private float TotalPresupuesto;
     private float TotalAbonado;
     private float SaldoFinal;
+    private Date today;
 
     public AbonoOdoController() {
         this.pacienteSeleccionado = false;
@@ -69,6 +72,15 @@ public class AbonoOdoController implements Serializable {
 
     public boolean isPacienteSeleccionado() {
         return pacienteSeleccionado;
+    }
+
+    public Date getToday() {
+        Calendar c = Calendar.getInstance();
+        return c.getTime();
+    }
+
+    public void setToday(Date today) {
+        this.today = today;
     }
 
     public void setPacienteSeleccionado(boolean pacienteSeleccionado) {
@@ -180,6 +192,7 @@ public class AbonoOdoController implements Serializable {
         SaldoFinal = 0;
         selectedPaciente = new Paciente();
     }
+
     public AbonoOdo prepareCreate() {
         selected = new AbonoOdo();
         initializeEmbeddableKey();
@@ -215,13 +228,14 @@ public class AbonoOdoController implements Serializable {
         items = ejbFacade.buscarPorPresupustoAbono(selectedPresupuesto);
         estadoPagos();
         requestContext.update("AbonoOdoListForm");
-        
+
         selected = new AbonoOdo();
     }
-    public void estadoPagos(){
-        TotalPresupuesto=0;
-        TotalAbonado=0;
-        SaldoFinal=0;
+
+    public void estadoPagos() {
+        TotalPresupuesto = 0;
+        TotalAbonado = 0;
+        SaldoFinal = 0;
         for (int i = 0; i < itemsDetalle.size(); i++) {
             TotalPresupuesto = TotalPresupuesto + itemsDetalle.get(i).getPrecio();
         }
@@ -236,6 +250,7 @@ public class AbonoOdoController implements Serializable {
             SaldoFinal = TotalPresupuesto - TotalAbonado;
         }
     }
+
     public void editarAbono() {
         ejbFacade.edit(selected);
         RequestContext requestContext = RequestContext.getCurrentInstance();

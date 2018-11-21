@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundleEgresoIngreso.EditIngresoLabel_idIngreso}" for="idIngreso" />
                         <p:inputText id="idIngreso" value="#{ingresoController.selected.idIngreso}" title="#{bundleEgresoIngreso.EditIngresoTitle_idIngreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditIngresoRequiredMessage_idIngreso}"/>
                         <p:outputLabel value="#{bundleEgresoIngreso.EditIngresoLabel_fechaIngreso}" for="fechaIngreso" />
-                        <p:calendar id="fechaIngreso" pattern="MM/dd/yyyy" value="#{ingresoController.selected.fechaIngreso}" title="#{bundleEgresoIngreso.EditIngresoTitle_fechaIngreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditIngresoRequiredMessage_fechaIngreso}" showOn="button"/>
+                        <p:calendar id="fechaIngreso" pattern="MM/dd/yyyy" maxdate="#{ingresoController.today}" value="#{ingresoController.selected.fechaIngreso}" title="#{bundleEgresoIngreso.EditIngresoTitle_fechaIngreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditIngresoRequiredMessage_fechaIngreso}" showOn="button"/>
                         <p:outputLabel value="#{bundleEgresoIngreso.EditIngresoLabel_descripcionIngreso}" for="descripcionIngreso" />
                         <p:inputText id="descripcionIngreso" value="#{ingresoController.selected.descripcionIngreso}" title="#{bundleEgresoIngreso.EditIngresoTitle_descripcionIngreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditIngresoRequiredMessage_descripcionIngreso}"/>
                         <p:outputLabel value="#{bundleEgresoIngreso.EditIngresoLabel_valorIngreso}" for="valorIngreso" />
