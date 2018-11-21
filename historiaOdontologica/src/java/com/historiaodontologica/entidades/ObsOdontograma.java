@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ObsOdontograma.findByCaries", query = "SELECT o FROM ObsOdontograma o WHERE o.caries = :caries"),
     @NamedQuery(name = "ObsOdontograma.findByPerdidos", query = "SELECT o FROM ObsOdontograma o WHERE o.perdidos = :perdidos"),
     @NamedQuery(name = "ObsOdontograma.findByObturados", query = "SELECT o FROM ObsOdontograma o WHERE o.obturados = :obturados"),
-    @NamedQuery(name = "ObsOdontograma.findByActualizacion", query = "SELECT o FROM ObsOdontograma o WHERE o.idActualizacion = :actualizacion"),
+    @NamedQuery(name = "ObsOdontograma.findByActualizacion", query = "SELECT o FROM ObsOdontograma o WHERE o.idActualizacion = :actualizacion")
 })
 public class ObsOdontograma implements Serializable {
 

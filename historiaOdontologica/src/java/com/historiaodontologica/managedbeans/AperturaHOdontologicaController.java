@@ -8,7 +8,6 @@ package com.historiaodontologica.managedbeans;
 import com.historiaodontologica.clases.DetalleServicioPresupuesto;
 import com.historiaodontologica.clases.DiagnosticoTipo;
 import com.historiaodontologica.clases.OdontogramaTemp;
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import com.historiaodontologica.clases.RespuestasAntecedentesFamiliares;
 import com.historiaodontologica.clases.RespuestasAntecedentesPersonales;
 import com.historiaodontologica.clases.RespuestasExamenEstomatologico;
@@ -175,15 +174,7 @@ public class AperturaHOdontologicaController implements Serializable {
     private List<String> listadoRespuestasExmEst;
     private List<String> listadoObservacionesExmEst;
     private List<String> listadoRespuestasExamenOral;
-    private List<String> listaOdontogramaArriba;
-    private List<String> listaOdontogramaAbajo;
-    private List<String> listaOdontogramaIzquierda;
-    private List<String> listaOdontogramaDerecha;
-    private List<String> listaOdontogramaCentro;
     private List<DiagnosticoTipo> listaDiagnosticosTipo;
-    private List<String> listaOdontogramaFueraBolsaPer;
-    private List<String> listaOdontogramaFueraEndodoncia;
-    private List<String> listaOdontogramaFueraNecEndodoncia;
     private ArrayList<DetalleServicioPresupuesto> listaServicios;
     private ArrayList<DetalleServicioPresupuesto> listaServiciosTemporal;
     private DescuentoOdo descuento;
@@ -207,16 +198,8 @@ public class AperturaHOdontologicaController implements Serializable {
     private String observacionAntecendetesPer;
     private String observacionGenExmEst;
     private String diagnosticoDiente;
-    private String diagnosticoPrincipal;
     private String diagnosticoDX1;
-    private String diagnosticoDX2;
-    private String diagnosticoDX3;
-    private String arriba = "arriba_normal.png";
-    private String abajo = "abajo_normal.png";
-    private String izquierda = "izq_normal.png";
-    private String derecha = "der_normal.png";
-    private String centro = "centro_normal.png";
-
+       
     //fechas
     private Date fechaApertura;
     private SimpleDateFormat formatoFecha;
@@ -265,10 +248,7 @@ public class AperturaHOdontologicaController implements Serializable {
         this.seleccionDienteBolsaPer = false;
 
         //inicilizacion string
-        this.diagnosticoDX1 = "";
-        this.diagnosticoDX2 = "";
-        this.diagnosticoDX3 = "";
-
+        
         this.higiene = new Higiene();
         listadoAntecedentesFamiliares = new ArrayList<>();
         listadoAntecedentesPersonales = new ArrayList<>();
@@ -394,38 +374,6 @@ public class AperturaHOdontologicaController implements Serializable {
         return listadoExamenOralPeriodontal;
     }
 
-    public List<String> getListaOdontogramaFueraEndodoncia() {
-        return listaOdontogramaFueraEndodoncia;
-    }
-
-    public void setListaOdontogramaFueraEndodoncia(List<String> listaOdontogramaFueraEndodoncia) {
-        this.listaOdontogramaFueraEndodoncia = listaOdontogramaFueraEndodoncia;
-    }
-
-    public List<String> getListaOdontogramaArriba() {
-        return listaOdontogramaArriba;
-    }
-
-    public void setListaOdontogramaArriba(List<String> listaOdontogramaArriba) {
-        this.listaOdontogramaArriba = listaOdontogramaArriba;
-    }
-
-    public List<String> getListaOdontogramaAbajo() {
-        return listaOdontogramaAbajo;
-    }
-
-    public void setListaOdontogramaAbajo(List<String> listaOdontogramaAbajo) {
-        this.listaOdontogramaAbajo = listaOdontogramaAbajo;
-    }
-
-    public List<String> getListaOdontogramaIzquierda() {
-        return listaOdontogramaIzquierda;
-    }
-
-    public void setListaOdontogramaIzquierda(List<String> listaOdontogramaIzquierda) {
-        this.listaOdontogramaIzquierda = listaOdontogramaIzquierda;
-    }
-
     public List<DiagnosticoTipo> getListaDiagnosticosTipo() {
         return listaDiagnosticosTipo;
     }
@@ -450,6 +398,15 @@ public class AperturaHOdontologicaController implements Serializable {
         this.pacienteApertura = pacienteApertura;
     }
 
+    public String getDiagnosticoDX1() {
+        return diagnosticoDX1;
+    }
+
+    public void setDiagnosticoDX1(String diagnosticoDX1) {
+        this.diagnosticoDX1 = diagnosticoDX1;
+    }
+    
+
     public ArrayList<DetalleServicioPresupuesto> getListaServicios() {
         return listaServicios;
     }
@@ -458,13 +415,6 @@ public class AperturaHOdontologicaController implements Serializable {
         this.listaServicios = listaServicios;
     }
 
-    public String getDiagnosticoPrincipal() {
-        return diagnosticoPrincipal;
-    }
-
-    public void setDiagnosticoPrincipal(String diagnosticoPrincipal) {
-        this.diagnosticoPrincipal = diagnosticoPrincipal;
-    }
 
     public DescuentoOdo getDescuento() {
         return descuento;
@@ -506,30 +456,6 @@ public class AperturaHOdontologicaController implements Serializable {
         this.odontogramaPacienteAdultoInferior = odontogramaPacienteAdultoInferior;
     }
 
-    public String getDiagnosticoDX1() {
-        return diagnosticoDX1;
-    }
-
-    public void setDiagnosticoDX1(String diagnosticoDX1) {
-        this.diagnosticoDX1 = diagnosticoDX1;
-    }
-
-    public String getDiagnosticoDX2() {
-        return diagnosticoDX2;
-    }
-
-    public void setDiagnosticoDX2(String diagnosticoDX2) {
-        this.diagnosticoDX2 = diagnosticoDX2;
-    }
-
-    public String getDiagnosticoDX3() {
-        return diagnosticoDX3;
-    }
-
-    public void setDiagnosticoDX3(String diagnosticoDX3) {
-        this.diagnosticoDX3 = diagnosticoDX3;
-    }
-
     public String getDescripcionEvolucion() {
         return descripcionEvolucion;
     }
@@ -544,22 +470,6 @@ public class AperturaHOdontologicaController implements Serializable {
 
     public void setDiente(int diente) {
         this.diente = diente;
-    }
-
-    public List<String> getListaOdontogramaDerecha() {
-        return listaOdontogramaDerecha;
-    }
-
-    public void setListaOdontogramaDerecha(List<String> listaOdontogramaDerecha) {
-        this.listaOdontogramaDerecha = listaOdontogramaDerecha;
-    }
-
-    public List<String> getListaOdontogramaCentro() {
-        return listaOdontogramaCentro;
-    }
-
-    public void setListaOdontogramaCentro(List<String> listaOdontogramaCentro) {
-        this.listaOdontogramaCentro = listaOdontogramaCentro;
     }
 
     public void setListadoExamenOralPeriodontal(List<ListadoExamenOral> listadoExamenOralPeriodontal) {
@@ -838,22 +748,6 @@ public class AperturaHOdontologicaController implements Serializable {
         this.respuestasAntecedentesPersonales = respuestasAntecedentesPersonales;
     }
 
-    public List<String> getListaOdontogramaFueraBolsaPer() {
-        return listaOdontogramaFueraBolsaPer;
-    }
-
-    public void setListaOdontogramaFueraBolsaPer(List<String> listaOdontogramaFueraBolsaPer) {
-        this.listaOdontogramaFueraBolsaPer = listaOdontogramaFueraBolsaPer;
-    }
-
-    public List<String> getListaOdontogramaFueraNecEndodoncia() {
-        return listaOdontogramaFueraNecEndodoncia;
-    }
-
-    public void setListaOdontogramaFueraNecEndodoncia(List<String> listaOdontogramaFueraNecEndodoncia) {
-        this.listaOdontogramaFueraNecEndodoncia = listaOdontogramaFueraNecEndodoncia;
-    }
-
     public Higiene getHigiene() {
         return higiene;
     }
@@ -884,47 +778,6 @@ public class AperturaHOdontologicaController implements Serializable {
 
     public void setFechaRegistro(String fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
-    }
-
-    //url diente
-    public String getArriba() {
-        return arriba;
-    }
-
-    public void setArriba(String arriba) {
-        this.arriba = arriba;
-    }
-
-    public String getAbajo() {
-        return abajo;
-    }
-
-    public void setAbajo(String abajo) {
-        this.abajo = abajo;
-    }
-
-    public String getIzquierda() {
-        return izquierda;
-    }
-
-    public void setIzquierda(String izquierda) {
-        this.izquierda = izquierda;
-    }
-
-    public String getDerecha() {
-        return derecha;
-    }
-
-    public void setDerecha(String derecha) {
-        this.derecha = derecha;
-    }
-
-    public String getCentro() {
-        return centro;
-    }
-
-    public void setCentro(String centro) {
-        this.centro = centro;
     }
 
     public void abrirMensajeAdvertencia(DiagnosticoTipo diagnosticoTipo) {
@@ -977,6 +830,7 @@ public class AperturaHOdontologicaController implements Serializable {
         UIViewRoot viewRoot = viewHandler.createView(context, context.getViewRoot().getViewId());
         context.setViewRoot(viewRoot);
         context.renderResponse();
+        pacienteApertura  = new Paciente();
         requestContext.update("InformacionPaciente");
         requestContext.update("aperturaHistoriaOdontologica");
         requestContext.execute("PF('seleccionPacienteDialog').hide()");
@@ -2094,7 +1948,18 @@ public class AperturaHOdontologicaController implements Serializable {
                     || odontogramaPacienteAdultoInferior.get(posDiente).getArriba().compareTo("arriba_amalgama.png") == 0
                     || odontogramaPacienteAdultoInferior.get(posDiente).getIzquierda().compareTo("izq_amalgama.png") == 0
                     || odontogramaPacienteAdultoInferior.get(posDiente).getDerecha().compareTo("der_amalgama.png") == 0
-                    || odontogramaPacienteAdultoInferior.get(posDiente).getCentro().compareTo("centro_amalgama.png") == 0;
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getCentro().compareTo("centro_amalgama.png") == 0
+                    ||odontogramaPacienteAdultoInferior.get(posDiente).getAbajo().compareTo("abajo_obst_plastica.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getArriba().compareTo("arriba_obst_plastica.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getIzquierda().compareTo("izq_obst_plastica.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getDerecha().compareTo("der_obst_plastica.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getCentro().compareTo("centro_obst_plastica.png") == 0
+                    ||odontogramaPacienteAdultoInferior.get(posDiente).getAbajo().compareTo("abajo_obst_temporal.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getArriba().compareTo("arriba_obst_temporal.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getIzquierda().compareTo("izq_obst_temporal.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getDerecha().compareTo("der_obst_temporal.png") == 0
+                    || odontogramaPacienteAdultoInferior.get(posDiente).getCentro().compareTo("centro_obst_temporal.png") == 0
+                    ;
         }
 
         if (posDiente >= 0 && posDiente <= 15 && validacionDienteNormalSuperior || posDiente >= 0 && posDiente <= 15 && validacionDienteConObturacionSuperior && !validacionDienteConCariesSuperior) {
@@ -2221,47 +2086,13 @@ public class AperturaHOdontologicaController implements Serializable {
         return usuario;
     }
 
-    public String retornarNombreImagen(int posicion, String lista) {
-        String nombreImagen = "";
-
-        if (lista.compareTo("Izquierda") == 0) {
-            nombreImagen = listaOdontogramaIzquierda.get(posicion);
-        } else if (lista.compareTo("Derecha") == 0) {
-            nombreImagen = listaOdontogramaDerecha.get(posicion);
-        } else if (lista.compareTo("Arriba") == 0) {
-            nombreImagen = listaOdontogramaArriba.get(posicion);
-        } else if (lista.compareTo("Abajo") == 0) {
-            nombreImagen = listaOdontogramaAbajo.get(posicion);
-        } else if (lista.compareTo("Centro") == 0) {
-            nombreImagen = listaOdontogramaCentro.get(posicion);
-        }
-
-        return nombreImagen;
-    }
-
     private void inicializarOdontograma() {
-        this.listaOdontogramaArriba = new ArrayList<>();
-        this.listaOdontogramaAbajo = new ArrayList<>();
-        this.listaOdontogramaIzquierda = new ArrayList<>();
-        this.listaOdontogramaDerecha = new ArrayList<>();
-        this.listaOdontogramaCentro = new ArrayList<>();
-        this.listaOdontogramaFueraBolsaPer = new ArrayList<>();
-        this.listaOdontogramaFueraEndodoncia = new ArrayList<>();
-        this.listaOdontogramaFueraNecEndodoncia = new ArrayList<>();
         this.odontogramaPacienteAdultoSuperior = new ArrayList<>();
         this.odontogramaPacienteAdultoInferior = new ArrayList<>();
         this.odontogramaPacienteInfantilSuperior = new ArrayList<>();
         this.odontogramaPacienteInfantilInferior = new ArrayList<>();
 
         for (int i = 0; i < 52; i++) {
-            this.listaOdontogramaArriba.add("arriba_normal.png");
-            this.listaOdontogramaAbajo.add("abajo_normal.png");
-            this.listaOdontogramaIzquierda.add("izq_normal.png");
-            this.listaOdontogramaDerecha.add("der_normal.png");
-            this.listaOdontogramaCentro.add("centro_normal.png");
-            this.listaOdontogramaFueraBolsaPer.add("fuera.png");
-            this.listaOdontogramaFueraEndodoncia.add("fuera.png");
-            this.listaOdontogramaFueraNecEndodoncia.add("fuera.png");
             OdontogramaTemp odontogramaTemp = new OdontogramaTemp();
             odontogramaTemp.setArriba("arriba_normal.png");
             odontogramaTemp.setAbajo("abajo_normal.png");
@@ -2723,9 +2554,6 @@ public class AperturaHOdontologicaController implements Serializable {
         this.conExamenPulpar = false;
         this.conExamenTejidosDent = false;
         this.conAlteraciones = false;
-        this.diagnosticoDX1 = "";
-        this.diagnosticoDX2 = "";
-        this.diagnosticoDX3 = "";
         this.motivoConsulta = "";
         this.descripcionEvolucion = "";
         this.higiene = new Higiene();

@@ -45,9 +45,7 @@ public class UsuariosSistemaController implements Serializable {
     private TipoUsuario tipoUsuario;
 
     private boolean mostrarContrasena;
-    private boolean mostrarTelefono;
-    private boolean mostrarExtension;
-    private boolean mostrarCelular;
+    
     private String contrasena;
     private String confirmarContrasena;
     private String telefono;
@@ -56,6 +54,7 @@ public class UsuariosSistemaController implements Serializable {
     private String datoBusqueda;
 
     public UsuariosSistemaController() {
+        mostrarContrasena = true;
     }
 
     @PostConstruct
@@ -70,6 +69,7 @@ public class UsuariosSistemaController implements Serializable {
 
     public void setUsuarioSistema(UsuariosSistema usuarioSistema) {
         this.usuarioSistema = usuarioSistema;
+        this.tipoUsuario =this.ejbGrupoUsuarioTipo.buscarPorNombreUsuario(usuarioSistema.getNombreusuario()).get(0).getTipoUsuario();
     }
 
     public void seleccionarUsuario(UsuariosSistema usuarioSistema) {
@@ -104,6 +104,30 @@ public class UsuariosSistemaController implements Serializable {
         this.datoBusqueda = datoBusqueda;
     }
 
+    public boolean isMostrarContrasena() {
+        return mostrarContrasena;
+    }
+
+    public void setMostrarContrasena(boolean mostrarContrasena) {
+        this.mostrarContrasena = mostrarContrasena;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public String getConfirmarContrasena() {
+        return confirmarContrasena;
+    }
+
+    public void setConfirmarContrasena(String confirmarContrasena) {
+        this.confirmarContrasena = confirmarContrasena;
+    }
+
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuariosSistemaCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -127,7 +151,7 @@ public class UsuariosSistemaController implements Serializable {
         ejbGrupoUsuarioTipo.create(gut);
 
         items = usuarioEJB.findAll();
-        usuarioSistema = new UsuariosSistema();
+        inicirObjetoUsuraio();
         requestContext.execute("PF('RegistroExitoso').show()");
 
     }
@@ -158,7 +182,7 @@ public class UsuariosSistemaController implements Serializable {
     public void mostrarModificarContrasena() {
         RequestContext requestContext = RequestContext.getCurrentInstance();
         this.mostrarContrasena = false;
-        requestContext.update("formularioPerfilDatosPersonales");
+        requestContext.update("UsuariosSistemaEditForm");
     }
 
     public void cancelarActualizarContrasena() {
@@ -166,7 +190,7 @@ public class UsuariosSistemaController implements Serializable {
         this.mostrarContrasena = true;
         this.contrasena = "";
         this.confirmarContrasena = "";
-        requestContext.update("formularioPerfilDatosPersonales");
+        requestContext.update("UsuariosSistemaEditForm");
     }
 
     public void cambiarContrasena() {
@@ -182,44 +206,9 @@ public class UsuariosSistemaController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info. Se cambio la contraseña correctamente.", ""));
 
         }
-        requestContext.update("formularioPerfilDatosPersonales");
+        requestContext.update("UsuariosSistemaEditForm");
 
     }
-
-    public void mostrarModificarTelefono() {
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        this.mostrarTelefono = false;
-        if (this.usuarioSistema.getTelefono() != null) {
-            this.telefono = this.usuarioSistema.getTelefono() + "";
-        }
-        requestContext.update("formularioPerfilDatosPersonales");
-    }
-
-    public void cancelarActualizarTelefono() {
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        this.mostrarTelefono = true;
-        this.telefono = "";
-        requestContext.update("formularioPerfilDatosPersonales");
-    }
-
-    public void actualizarTelefono() {
-        ValidarEdicionUsuarios validarEdicionUsuario = new ValidarEdicionUsuarios();
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        if (validarEdicionUsuario.validarTelefono(this.telefono)) {
-            this.mostrarTelefono = true;
-            if (!this.telefono.isEmpty()) {
-
-                this.usuarioSistema.setTelefono(this.telefono);
-            } else {
-                this.usuarioSistema.setTelefono(null);
-            }
-            this.usuarioEJB.edit(this.usuarioSistema);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info. Campo teléfono actualizado.", ""));
-        }
-        requestContext.update("formularioPerfilDatosPersonales");
-    }
-
-    
 
     public void editarUsuarioSistema() {
 
@@ -246,46 +235,10 @@ public class UsuariosSistemaController implements Serializable {
         items = usuarioEJB.findAll();
     }
 
-    
-
-    public void mostrarModificarCelular() {
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        this.mostrarCelular = false;
-        if (this.usuarioSistema.getTelefono() != null) {
-            this.celular = this.usuarioSistema.getTelefono() + "";
-        }
-        requestContext.update("formularioPerfilDatosPersonales");
-    }
-
-    public void cancelarActualizarCelular() {
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        this.mostrarCelular = true;
-        this.celular = "";
-        requestContext.update("formularioPerfilDatosPersonales");
-    }
-
-    public void actualizarCelular() {
-        ValidarEdicionUsuarios validarEdicionUsuario = new ValidarEdicionUsuarios();
-        RequestContext requestContext = RequestContext.getCurrentInstance();
-        if (validarEdicionUsuario.validarTelefono(this.celular)) {
-            this.mostrarCelular = true;
-            if (!this.celular.isEmpty()) {
-
-                this.usuarioSistema.setTelefono(this.celular);
-            } else {
-                this.usuarioSistema.setTelefono(null);
-            }
-            this.usuarioEJB.edit(this.usuarioSistema);
-
-        }
-        requestContext.update("formularioPerfilDatosPersonales");
-    }
 
     private void iniciarVariables() {
         this.mostrarContrasena = true;
-        this.mostrarTelefono = true;
-        this.mostrarExtension = true;
-        this.mostrarCelular = true;
+
     }
 public void inicializar(){
  this.usuarioSistema= new UsuariosSistema();

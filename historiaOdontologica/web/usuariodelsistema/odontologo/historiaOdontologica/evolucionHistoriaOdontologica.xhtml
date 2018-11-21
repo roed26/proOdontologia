@@ -22,7 +22,7 @@ and open the template in the editor.
                         <p:commandButton onclick="PF('seleccionPacienteDialog').show()" value="Seleccionar paciente" />
                     </p:column>  
                     <p:column rowspan="2">
-                        <center><p:commandButton value="Cancelar apertura" 
+                        <center><p:commandButton value="Cancelar evolución" 
                                                  action="#{evolucionHOdontologicaController.inicializarVariablesCancelar(cargarVistaController)}" ajax="false"/></center>
                     </p:column>   
                 </p:row>
@@ -172,7 +172,7 @@ and open the template in the editor.
                                         </f:facet>
                                         <h:outputText value="#{item.diagnostico.nombre}"/>
                                     </p:column>
-                                    <p:column style="width: 80px;">
+                                    <p:column style="width: 180px;">
                                         <f:facet name="header">
                                             <h:outputText value="Acción"/>
                                         </f:facet>
@@ -272,32 +272,25 @@ and open the template in the editor.
 
         <p:dialog visible="#{!evolucionHOdontologicaController.pacienteSeleccionado}" id="PacienteSeleccion" widgetVar="seleccionPacienteDialog" modal="true" width="850" position="center"   header="Seleccionar paciente">
             <h:form id="PacienteListForm">
-                <h:panelGrid columns="2" >
-                    <p:outputLabel value="Buscar paciente:" />
-                    <p:inputText  placeholder="Digite los nombres, apellidos o identificación" style="width: 300px;"  value="#{pacienteController.busquedaPaciente}" >
-                        <p:ajax event="keyup" update="datalist" listener="#{pacienteController.buscarPaciente()}" />                                
-                    </p:inputText>                          
-                </h:panelGrid>
-
                 <p:dataTable id="datalist" value="#{pacienteController.listaPacientesActivosEvolucion}" var="item"
                              paginator="true"
                              rowKey="#{item.id}"
                              rows="10"
                              >
-                    <p:column>
+                    <p:column filterBy="#{item.identificacion}">
                         <f:facet name="header">
                             <h:outputText value="#{bundlePaciente.ListPacienteTitle_identificacion}"/>
                         </f:facet>
                         <h:outputText value="#{item.identificacion}"/>
                     </p:column>
-                    <p:column>
+                    <p:column filterBy="#{item.nombres}">
                         <f:facet name="header">
                             <h:outputText value="Nombres"/>
                         </f:facet>
                         <h:outputText value="#{item.nombres}"/>
                     </p:column>
 
-                    <p:column>
+                    <p:column filterBy="#{item.apellidos}">
                         <f:facet name="header">
                             <h:outputText value="Apellidos"/>
                         </f:facet>
@@ -333,7 +326,7 @@ and open the template in the editor.
             </h:form>
         </p:dialog>
 
-        <p:dialog widgetVar="agregarDiagnosticoDialog" width="650" modal="true" header="Listado de diagnosticos">
+        <p:dialog widgetVar="agregarDiagnosticoDialog" width="750" modal="true" header="Listado de diagnosticos">
             <h:form id="DiagnosticosCieOdoListForm">
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Buscar por:" />
@@ -360,7 +353,7 @@ and open the template in the editor.
                         </f:facet>
                         <h:outputText value="#{item.nombre}"/>
                     </p:column>
-                    <p:column style="width: 80px;">
+                    <p:column style="width: 180px;">
                         <f:facet name="header">
                             <h:outputText value="Acción"/>
                         </f:facet>
@@ -371,7 +364,7 @@ and open the template in the editor.
                 </p:dataTable>
             </h:form>
         </p:dialog>
-        <p:dialog widgetVar="seleccionarTipoDiagnostico" width="300" modal="true">
+        <p:dialog widgetVar="seleccionarTipoDiagnostico" width="400" modal="true">
             <h:form id="tipoDiagnostico">
                 <p:dataTable id="datalist" value="#{tipodiagnosticoController.items}" var="item"
                              paginator="true"
@@ -386,7 +379,7 @@ and open the template in the editor.
                         </f:facet>
                         <h:outputText value="#{item.nombre}"/>
                     </p:column>
-                    <p:column style="width: 80px;">
+                    <p:column style="width: 180px;">
                         <f:facet name="header">
                             <h:outputText value="Acción"/>
                         </f:facet>

@@ -42,6 +42,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "UsuariosSistema.findByTelefono", query = "SELECT u FROM UsuariosSistema u WHERE u.telefono = :telefono")})
 public class UsuariosSistema implements Serializable {
 
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "EMAIL")
+    private String email;
+
     @OneToMany(mappedBy = "idUsuario")
     private List<ActualizacionOdo> actualizacionOdoList;
 
@@ -205,6 +212,14 @@ public class UsuariosSistema implements Serializable {
 
     public void setActualizacionOdoList(List<ActualizacionOdo> actualizacionOdoList) {
         this.actualizacionOdoList = actualizacionOdoList;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     
 }

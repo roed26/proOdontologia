@@ -343,9 +343,8 @@ and open the template in the editor.
                     <p:column>
                         <p:graphicImage width="35px" height="50px" library="img/dientes-odontograma" name="diente28.png" />
                     </p:column>                            
-
                 </p:row>
-                <p:row>
+                <p:row rendered="#{aperturaHOdontologicaController.esAdulto}">
                     <p:column>
                         <p:outputLabel value="18"/>
                     </p:column>
@@ -395,11 +394,11 @@ and open the template in the editor.
                         <p:outputLabel value="28"/>
                     </p:column>
                 </p:row>
-                <p:row>
-                    <p:column colspan="16">
+                <p:row rendered="#{aperturaHOdontologicaController.esAdulto}">
+                    <p:column colspan="16" >
                         <p:dataGrid var="diente" id="odontogramaGrid" rowIndexVar="i" style="border: none !important"
                                     value="#{aperturaHOdontologicaController.odontogramaPacienteAdultoSuperior}"
-                                    paginator="false" columns="16">
+                                    paginator="false" columns="16" >
                             <p:column>
                                 <p:panel styleClass="panelgrid">
                                     <span>
@@ -459,9 +458,8 @@ and open the template in the editor.
                         </p:dataGrid>
                     </p:column>
                 </p:row>
-
             </p:panelGrid>
-            <center><p:panelGrid id="panelOdontogramaInfantilSuperior"
+            <center><p:panelGrid id="panelOdontogramaInfantilSuperior" rendered="#{!aperturaHOdontologicaController.esAdulto}"
                                  style="text-align: center; font-weight: bold;" styleClass="panelgrid">
                     <p:row rendered="#{!aperturaHOdontologicaController.esAdulto}">
 
@@ -502,7 +500,7 @@ and open the template in the editor.
 
                             <p:dataGrid var="diente" id="odontogramaGridInfantilSuperior" rowIndexVar="i"
                                         value="#{aperturaHOdontologicaController.odontogramaPacienteInfantilSuperior}"
-                                        paginator="false" columns="10" >
+                                        paginator="false" columns="10"  rendered="#{!aperturaHOdontologicaController.esAdulto}">
                                 <p:column>
                                     <p:panel styleClass="panelgrid">
                                         <span >
@@ -568,11 +566,14 @@ and open the template in the editor.
 
             <p:separator/>
 
-            <center><p:panelGrid id="panelOdontogramaInfantilInferior" style="text-align: center; font-weight: bold;" styleClass="panelgrid">
+            <center><p:panelGrid id="panelOdontogramaInfantilInferior" 
+                                 rendered="#{!aperturaHOdontologicaController.esAdulto}"
+                                 style="text-align: center; font-weight: bold;" styleClass="panelgrid">
                     <p:row>
                         <p:column colspan="10" style="width: 500px !important">
 
                             <p:dataGrid var="diente" id="odontogramaGridInfantilInferior" rowIndexVar="i"
+                                        rendered="#{!aperturaHOdontologicaController.esAdulto}"
                                         value="#{aperturaHOdontologicaController.odontogramaPacienteInfantilInferior}"
                                         paginator="false" columns="10" >
                                 <p:column>
@@ -634,7 +635,6 @@ and open the template in the editor.
                         </p:column>
                     </p:row>
                     <p:row rendered="#{!aperturaHOdontologicaController.esAdulto}">
-
                         <p:column>
                             <p:outputLabel value="85"/>
                         </p:column>
@@ -674,7 +674,7 @@ and open the template in the editor.
                          style="text-align: center; font-weight: bold;" styleClass="panelgrid">
 
                 <p:row>
-                    <p:column colspan="16" >
+                    <p:column colspan="16" rendered="#{aperturaHOdontologicaController.esAdulto}" >
                         <p:dataGrid var="diente" id="odontogramaGridInferior" rowIndexVar="i"
                                     value="#{aperturaHOdontologicaController.odontogramaPacienteAdultoInferior}"
                                     paginator="false" columns="16" >
@@ -736,7 +736,7 @@ and open the template in the editor.
                         </p:dataGrid>
                     </p:column>
                 </p:row>
-                <p:row>
+                <p:row rendered="#{aperturaHOdontologicaController.esAdulto}">
                     <p:column>
                         <p:outputLabel value="48"/>
                     </p:column>

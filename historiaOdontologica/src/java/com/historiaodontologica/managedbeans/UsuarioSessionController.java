@@ -104,8 +104,8 @@ public class UsuarioSessionController implements Serializable {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("/historiaOdontologica/faces/usuario/principal.xhtml");
                     identificacion = this.ejbUsuarioTipo.buscarPorNombreUsuario(req.getUserPrincipal().getName()).get(0).getUsuariosSistema().getIdentificacion();
                 } else if (this.ejbUsuarioTipo.buscarPorNombreUsuario(req.getUserPrincipal().getName()).get(0).getGrupoUsuarioTipoPK().getIdTipo()== 2) {
-                    //FacesContext.getCurrentInstance().getExternalContext().redirect("/mcd-ami-saa/faces/plantillaOperario/operarioMain.xhtml");
-                    //identificacion = this.ejbUsuarioTipo.buscarPorNombreUsuario(req.getUserPrincipal().getName()).get(0).getUsuariosSistema().getIdentificacion();
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("/historiaOdontologica/faces/secretaria/principal.xhtml");
+                    identificacion = this.ejbUsuarioTipo.buscarPorNombreUsuario(req.getUserPrincipal().getName()).get(0).getUsuariosSistema().getIdentificacion();
                 }
             } catch (ServletException e) {
 

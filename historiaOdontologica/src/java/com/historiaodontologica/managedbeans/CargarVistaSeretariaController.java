@@ -10,24 +10,37 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import org.primefaces.context.RequestContext;
 
-
 @Named(value = "cargarVistaSecretariaController")
 @SessionScoped
 public class CargarVistaSeretariaController implements Serializable {
-   
-   private String ruta;
-   public String getRuta() {
-      return ruta;
-   }
-   
-   public CargarVistaSeretariaController() {
-      
-   }
-   
-   public void cargarGestionarUsuarios(){
+
+    private String ruta;
+
+    public String getRuta() {
+        return ruta;
+    }
+
+    public CargarVistaSeretariaController() {
+
+    }
+
+    public void cargarGestionarUsuarios() {
         this.ruta = "/usuariodelsistema/secretaria/usuariosSistema/List.xhtml";
-   }
-   public void cargarPerfilUsuario() {
+    }
+
+    public void cargarPerfilUsuario() {
         this.ruta = "/usuariodelsistema/perfilUsuario.xhtml";
+    }
+
+    public void cargarGestionPaciente() {
+        this.ruta = "/usuariodelsistema/odontologo/paciente/ListaPaciente.xhtml";
+    }
+
+    public void cargarRegistrarAbonos() {
+        this.ruta = "/usuariodelsistema/odontologo/abonoOdo/ListarAbono.xhtml";
+    }
+
+    public void cargarGestionServicios() {
+        this.ruta = "/usuariodelsistema/odontologo/serviciosOdo/ListaServicio.xhtml";
     }
 }

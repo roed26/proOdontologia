@@ -11,12 +11,7 @@
     </h:form>
     <p:separator/>
     <h:form id="UsuariosSistemaListForm">
-        <h:panelGrid columns="2" >
-            <p:outputLabel value="Buscar usuario:" />
-            <p:inputText  placeholder="Digite nombres, apellidos o identificación" style="width: 300px;"  value="#{usuariosSistemaController.datoBusqueda}" >
-                <p:ajax event="keyup" update="datalist" listener="#{usuariosSistemaController.buscarUsuario()}" />                                
-            </p:inputText>                          
-        </h:panelGrid>
+        
 
         <p:dataTable id="datalist" value="#{usuariosSistemaController.items}" var="item"
                      paginator="true"
@@ -26,19 +21,19 @@
                      emptyMessage="¡No se encontraron coincidencias!"
                      >
 
-            <p:column>
+            <p:column filterBy="#{item.identificacion}">
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListUsuariosSistemaTitle_identificacion}"/>
                 </f:facet>
                 <h:outputText value="#{item.identificacion}"/>
             </p:column>
-            <p:column>
+            <p:column filterBy="#{item.nombres}">
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListUsuariosSistemaTitle_nombres}"/>
                 </f:facet>
                 <h:outputText value="#{item.nombres}"/>
             </p:column>
-            <p:column>
+            <p:column filterBy="#{item.apellidos}">
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListUsuariosSistemaTitle_apellidos}"/>
                 </f:facet>
@@ -46,58 +41,36 @@
             </p:column>
             <p:column>
                 <f:facet name="header">
+                    <h:outputText value="Nombre de usuario"/>
+                </f:facet>
+                <h:outputText value="#{item.nombreusuario}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="E-mail"/>
+                </f:facet>
+                <h:outputText value="#{item.email}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">
                     <h:outputText value="#{bundle.ListUsuariosSistemaTitle_activo}"/>
                 </f:facet>
-                <h:outputText rendered="#{item.activo==1}" value="Activo"/>
-                <h:outputText rendered="#{item.activo!=1}" value="Inactivo"/>
+                <h:outputText rendered="#{item.estado==1}" value="Activo"/>
+                <h:outputText rendered="#{item.estado!=1}" value="Inactivo"/>
             </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListUsuariosSistemaTitle_cargo}"/>
-                </f:facet>
-                <h:outputText value="#{item.cargo}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListUsuariosSistemaTitle_celular}"/>
-                </f:facet>
-                <h:outputText value="#{item.celular}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListUsuariosSistemaTitle_telefono}"/>
-                </f:facet>
-                <h:outputText value="#{item.telefono}"/>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListUsuariosSistemaTitle_extension}"/>
-                </f:facet>
-                <h:outputText value="#{item.extension}"/>
-            </p:column>
-            <p:column style="background: #C8CDD6; width: 70px">
+
+
+            <p:column style="background: #C8CDD6; width: 90px">
                 <f:facet name="header"> 
                     <h:outputText value="Acciones"/>
                 </f:facet>
-                <p:commandButton id="viewButton"   icon="ui-icon-search"  action="#{usuariosSistemaController.setUsuarioSistema(item)}" update=":UsuariosSistemaViewForm" oncomplete="PF('UsuariosSistemaViewDialog').show()"  />
-                <p:commandButton id="editButton"   icon="ui-icon-pencil"  action="#{usuariosSistemaController.setUsuarioSistema(item)}" update=":UsuariosSistemaEditForm" oncomplete="PF('UsuariosSistemaEditDialog').show()" />
+                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Editar"
+                                 action="#{usuariosSistemaController.setUsuarioSistema(item)}"
+                                 update=":UsuariosSistemaEditForm" oncomplete="PF('UsuariosSistemaEditDialog').show()" />
             </p:column>
         </p:dataTable>
     </h:form>
 
-    <ui:include src="Create.xhtml"/>
-    <ui:include src="Edit.xhtml"/>
-    <ui:include src="View.xhtml"/>
-
-    <p:dialog widgetVar="confirmarEliminacion">
-
-        <form>
-
-        </form>
-
-
-    </p:dialog>
-
-
-
+    <ui:include src="CrearUsuario.xhtml"/>
+    <ui:include src="EditarInformacion.xhtml"/>
 </html>

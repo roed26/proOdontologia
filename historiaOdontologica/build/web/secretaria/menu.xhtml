@@ -11,10 +11,35 @@
         <div id="contenidoMenu">
             <h:form id="formMenu">
                 <p:menubar>
+                    <p:menuitem value="Gestión Paciente" action="#{cargarVistaSecretariaController.cargarGestionPaciente()}" ajax="false"/>
                     <p:submenu label="usuario">
                             <p:menuitem value="Gestion de usuarios" action="#{cargarVistaSecretariaController.cargarGestionarUsuarios()}" ajax="false"/>
                     </p:submenu>
-                    
+                    <p:submenu label="Abonos">
+                        <p:menuitem value="Ingresar abonos" action="#{cargarVistaSecretariaController.cargarRegistrarAbonos()}" ajax="false" />
+                    </p:submenu>
+                    <p:submenu label="Gestión de servicios">
+                        <p:menuitem value="Lista de servcios" action="#{cargarVistaSecretariaController.cargarGestionServicios()}" ajax="false" />
+                    </p:submenu>
+                    <f:facet name="options">
+
+                        <h:link id="opcionesusuario" style="text-decoration: none;color:#000000; ">
+
+                            <p:graphicImage value="#{usuarioSessionController.imagenPorDefecto}" 
+                                            style="border-radius:20px;" width="35"  height="35" >
+                                <f:param name="id" value="#{usuarioSessionController.identificacion}" />
+                            </p:graphicImage> 
+                            <p:outputLabel value="#{usuarioSessionController.nombreUsuario()}" 
+                                           style="vertical-align: middle !important; position: relative; "/>
+                        </h:link>
+                        <p:menu  overlay="true"  trigger="opcionesusuario" my="right top" at="right bottom" >
+                            <p:menuitem value="Mi Perfil" action="#{cargarVistaController.cargarPerfilUsuario()}"
+                                        ajax="false"
+                                        />
+                            <p:separator/>
+                            <p:menuitem value="Cerrar Sesión" action="#{usuarioSessionController.logout()}"/>
+                        </p:menu>
+                    </f:facet>
                 </p:menubar>
             </h:form>
         </div>
