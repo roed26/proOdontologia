@@ -18,7 +18,7 @@
                                 <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
                             </p:column>
                             <p:column>
-                                <p:calendar id="fechaIngreso" placeholder="yyyy-mm-dd" pattern="yyyy-mm-dd" value="#{ingresoController.selected.fechaIngreso}" title="#{bundleEgresoIngreso.EditIngresoTitle_fechaIngreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditIngresoRequiredMessage_fechaIngreso}" showOn="button"/>
+                                <p:calendar id="fechaIngreso" placeholder="yyyy-mm-dd" maxdate="#{ingresoController.today}" pattern="yyyy-mm-dd" value="#{ingresoController.selected.fechaIngreso}" title="#{bundleEgresoIngreso.EditIngresoTitle_fechaIngreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditIngresoRequiredMessage_fechaIngreso}" showOn="button"/>
                             </p:column>  
                         </p:row>
                         <p:row>

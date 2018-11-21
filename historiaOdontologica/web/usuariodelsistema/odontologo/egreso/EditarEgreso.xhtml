@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundleEgresoIngreso.EditEgresoLabel_idEgreso}" for="idEgreso" />
                         <p:inputText id="idEgreso" value="#{egresoController.selected.idEgreso}" title="#{bundleEgresoIngreso.EditEgresoTitle_idEgreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditEgresoRequiredMessage_idEgreso}"/>
                         <p:outputLabel value="#{bundleEgresoIngreso.EditEgresoLabel_fechaEgreso}" for="fechaEgreso" />
-                        <p:calendar id="fechaEgreso" pattern="MM/dd/yyyy" value="#{egresoController.selected.fechaEgreso}" title="#{bundleEgresoIngreso.EditEgresoTitle_fechaEgreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditEgresoRequiredMessage_fechaEgreso}" showOn="button"/>
+                        <p:calendar id="fechaEgreso" maxdate="#{egresoController.today}" pattern="MM/dd/yyyy" value="#{egresoController.selected.fechaEgreso}" title="#{bundleEgresoIngreso.EditEgresoTitle_fechaEgreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditEgresoRequiredMessage_fechaEgreso}" showOn="button"/>
                         <p:outputLabel value="#{bundleEgresoIngreso.EditEgresoLabel_descripcionEgreso}" for="descripcionEgreso" />
                         <p:inputText id="descripcionEgreso" value="#{egresoController.selected.descripcionEgreso}" title="#{bundleEgresoIngreso.EditEgresoTitle_descripcionEgreso}" required="true" requiredMessage="#{bundleEgresoIngreso.EditEgresoRequiredMessage_descripcionEgreso}"/>
                         <p:outputLabel value="#{bundleEgresoIngreso.EditEgresoLabel_valorEgreso}" for="valorEgreso" />

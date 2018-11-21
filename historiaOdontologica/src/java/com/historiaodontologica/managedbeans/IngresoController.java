@@ -10,6 +10,7 @@ import com.historiaodontologica.sessionbeans.IngresoFacade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -35,9 +36,20 @@ public class IngresoController implements Serializable {
     private List<Ingreso> items = null;
     private Ingreso selected;
     private ReportesMedicos reportesMedicos;
+    
+    private Date today;
 
     public IngresoController() {
         reportesMedicos = new ReportesMedicos();
+    }
+    
+    public Date getToday() {
+        Calendar c = Calendar.getInstance();
+        return c.getTime();
+    }
+
+    public void setToday(Date today) {
+        this.today = today;
     }
 
     public ReportesMedicos getReportesMedicos() {

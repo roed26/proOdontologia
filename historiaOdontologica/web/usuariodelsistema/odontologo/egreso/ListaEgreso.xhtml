@@ -28,7 +28,7 @@
                         <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
                     </p:column>
                     <p:column>
-                        <p:calendar id="fechahasta" value="#{egresoController.fechahasta}" placeholder="dd-mm-aaaa" pattern="yyyy-MM-dd" showOn="button"/>
+                        <p:calendar id="fechahasta" maxdate="#{egresoController.today}" value="#{egresoController.fechahasta}" placeholder="dd-mm-aaaa" pattern="yyyy-MM-dd" showOn="button"/>
                     </p:column>
                     <p:column>
                         <p:commandButton value="Buscar" actionListener="#{egresoController.filtrar()}" onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()" ajax="r"/>
@@ -66,7 +66,7 @@
                     <f:facet name="header">
                         <h:outputText value="Valor del Egreso"/>
                     </f:facet>
-                    <h:outputText value="$ #{item.valorEgreso}"/>
+                    <h:outputText value="#{contabilidadController.nf.format(item.valorEgreso)}"/>
                 </p:column>
                 <f:facet name="footer">
                     <br/><p:commandButton id="createButton" icon="ui-icon-plus"   value="Agregar egresos" actionListener="#{egresoController.prepareCreate}" update=":EgresoCreateForm" oncomplete="PF('EgresoCreateDialog').show()" onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>

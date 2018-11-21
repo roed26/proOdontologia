@@ -88,21 +88,21 @@
                                     <p:outputLabel value="Valor Presupuesto"/>
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="#{abonoOdoController.totalPresupuesto}"/>
+                                    <p:outputLabel value="#{contabilidadController.nf.format(abonoOdoController.totalPresupuesto)}"/>
                                 </p:column>
 
                                 <p:column style="font-size: 18px; font-weight:bold; color: black">
                                     <p:outputLabel value="Total Abonado "/>
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="#{abonoOdoController.totalAbonado}"/>
+                                    <p:outputLabel value="#{contabilidadController.nf.format(abonoOdoController.totalAbonado)}"/>
                                 </p:column>
 
                                 <p:column style="font-size: 18px; font-weight:bold; color: black">
                                     <p:outputLabel value="Saldo "/>
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel value="#{abonoOdoController.saldoFinal}"/>
+                                    <p:outputLabel value="#{contabilidadController.nf.format(abonoOdoController.saldoFinal)}"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -128,7 +128,7 @@
                     <f:facet name="header">
                         <h:outputText value="Valor"/>
                     </f:facet>
-                    <h:outputText value="$ #{detalle.idServiciosOdo.precio}"/>
+                    <h:outputText value="#{contabilidadController.nf.format(detalle.idServiciosOdo.precio)}"/>
                 </p:column>
 
                 <p:column>
@@ -141,7 +141,7 @@
                     <f:facet name="header">
                         <h:outputText value="Total"/>
                     </f:facet>
-                    <h:outputText value="$ #{detalle.precio}"/>
+                    <h:outputText value="#{contabilidadController.nf.format(detalle.precio)}"/>
                 </p:column>
             </p:dataTable>
         </h:form>
@@ -171,7 +171,7 @@
                     <f:facet name="header">
                         <h:outputText value="#{bundleAbonos.ListAbonoOdoTitle_valor}"/>
                     </f:facet>
-                    <h:outputText value="#{item.valor}"/>
+                    <h:outputText value="#{contabilidadController.nf.format(item.valor)}"/>
                 </p:column>
                 <p:column>
                     <f:facet name="header">
@@ -515,7 +515,7 @@
                         <f:facet name="header">
                             <h:outputText value="Valor"/>
                         </f:facet>
-                        <h:outputText value="$ #{presupuesto.idServiciosOdo.precio}" style="font-size: 12px"/>
+                        <h:outputText value="#{contabilidadController.nf.format(presupuesto.idServiciosOdo.precio)}" style="font-size: 12px"/>
                     </p:column>
                 </p:dataTable>
 
@@ -525,7 +525,7 @@
                             <h:outputText value="Total" style="font-size: 15px"/>
                         </p:column>
                         <p:column>
-                            <h:outputText value="$ #{abonoOdoController.totalPresupuesto}" style="font-size: 12px"/>
+                            <h:outputText value="#{abonoOdoController.totalPresupuesto}" style="font-size: 12px"/>
                         </p:column>
                     </p:row>
                 </p:panelGrid>
@@ -535,7 +535,7 @@
                             <p:outputLabel value="Abono" style="font-size: 15px"/>
                         </p:column>
                         <p:column style="width: 268px; text-align: right">
-                            <p:outputLabel id="abono" value="$ #{abonoOdoController.totalAbonado}"
+                            <p:outputLabel id="abono" value="#{abonoOdoController.totalAbonado}"
                                            title="Abonoo" >
                             </p:outputLabel>
                         </p:column>

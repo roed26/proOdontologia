@@ -9,8 +9,10 @@ import com.historiaodontologica.sessionbeans.DetalleServicioFacade;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +40,8 @@ public class ContabilidadController implements Serializable {
     private String ganancia;
     private float ganancias;
     private String perdida;
+    //private DecimalFormat df;
+    private NumberFormat nf;
 
     public ContabilidadController() {
         this.ganancia = "";
@@ -45,6 +49,25 @@ public class ContabilidadController implements Serializable {
         this.perdida = "";
         itemsIngreso = new ArrayList<>();
         itemsEgreso = new ArrayList<>();
+        Locale locale = new Locale("es", "CO");
+        //df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+        nf = NumberFormat.getCurrencyInstance(locale);
+        //df.setMaximumFractionDigits(340);
+    }
+
+    //    public DecimalFormat getDf() {
+//        return df;
+//    }
+//
+//    public void setDf(DecimalFormat df) {
+//        this.df = df;
+//    }
+    public NumberFormat getNf() {
+        return nf;
+    }
+
+    public void setNf(NumberFormat nf) {
+        this.nf = nf;
     }
 
     public float getGanancias() {
@@ -55,7 +78,6 @@ public class ContabilidadController implements Serializable {
         this.ganancias = ganancias;
     }
 
-    
     public String getGanancia() {
         return ganancia;
     }
@@ -89,7 +111,7 @@ public class ContabilidadController implements Serializable {
     }
 
     public void calcurarGanancias() {
-        double totalEgresos = 0, totalIngresos = 0, per=0, gan=0;
+        double totalEgresos = 0, totalIngresos = 0, per = 0, gan = 0;
         ganancia = "";
         perdida = "";
         itemsEgreso = ejbEgreso.findAll();
@@ -105,11 +127,11 @@ public class ContabilidadController implements Serializable {
             gan = totalIngresos - totalEgresos;
             ganancia = String.valueOf(gan);
             ganancias = (float) gan;
-            System.out.println("KKKKKKKKK"+ ganancias);
+            System.out.println("KKKKKKKKK" + ganancias);
         } else if (totalIngresos < totalEgresos) {
             per = (totalIngresos - totalEgresos) * -1;
             perdida = String.valueOf(per);
-            System.out.println("KKKKKKKKK"+ perdida);
+            System.out.println("KKKKKKKKK" + perdida);
         } else {
             ganancia = "0";
             perdida = "0";

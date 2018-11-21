@@ -21,7 +21,7 @@
                     <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
                 </p:column>
                 <p:column>
-                    <p:calendar id="fechadesde" value="#{ingresoController.fechadesde}" placeholder="dd-mm-aaaa" pattern="yyyy-MM-dd" showOn="button"/>
+                    <p:calendar id="fechadesde" value="#{ingresoController.fechadesde}" maxdate="#{ingresoController.today}" placeholder="dd-mm-aaaa" pattern="yyyy-MM-dd" showOn="button"/>
                 </p:column>
                 <p:column style="font-size: 18px; font-weight:bold; color: black">
                     <p:outputLabel value="Hasta" />
@@ -70,7 +70,7 @@
                     <f:facet name="header">
                         <h:outputText value="Valor del Ingreso"/>
                     </f:facet>
-                    <h:outputText value="$ #{item.valorIngreso}"/>
+                    <h:outputText value="#{contabilidadController.nf.format(item.valorIngreso)}"/>
                 </p:column>
                 <f:facet name="footer">
                     <p:commandButton id="createButton" icon="ui-icon-plus"   value="Agregar ingresos" actionListener="#{ingresoController.prepareCreate}" update=":IngresoCreateForm" oncomplete="PF('IngresoCreateDialog').show()" onstart="PF('cargando').show()"  onsuccess="PF('cargando').hide()"/>

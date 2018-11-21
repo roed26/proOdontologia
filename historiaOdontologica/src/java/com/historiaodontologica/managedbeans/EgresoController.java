@@ -7,6 +7,7 @@ import com.historiaodontologica.managedbeans.util.JsfUtil.PersistAction;
 import com.historiaodontologica.sessionbeans.EgresoFacade;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -27,6 +28,8 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class EgresoController implements Serializable {
 
+    private Date today;
+    
     @EJB
     private com.historiaodontologica.sessionbeans.EgresoFacade ejbFacade;
     private List<Egreso> items = null;
@@ -37,6 +40,15 @@ public class EgresoController implements Serializable {
         return reportesMedicos;
     }
 
+    public Date getToday() {
+        Calendar c = Calendar.getInstance();
+        return c.getTime();
+    }
+
+    public void setToday(Date today) {
+        this.today = today;
+    }
+    
     public void setReportesMedicos(ReportesMedicos reportesMedicos) {
         this.reportesMedicos = reportesMedicos;
     }
